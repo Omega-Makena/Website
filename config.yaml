@@ -1,0 +1,52 @@
+# Site Configuration
+# Edit this file to update your personal information without touching the code
+
+site:
+  title: Omega Makena
+  tagline: AI Researcher & Full-Stack Developer
+  description: Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.
+  url: https://omegamakena.co.ke
+  author: Omega Makena
+
+# Personal Information
+personal:
+  name: Omega Makena
+  email: omega@omegamakena.co.ke
+  location: Kenya
+  bio: |
+    <p>I'm a quantitative engineer and machine learning specialist passionate about leveraging artificial intelligence to create meaningful impact. My work focuses on developing intelligent systems that address real-world challenges, particularly in education and social equity.</p>
+    <p>With expertise in machine learning, data science, and algorithmic trading, I build solutions that combine technical rigor with practical applicability. I'm particularly interested in AI fairness, educational technology, and the intersection of quantitative methods with social impact.</p>
+    <p>When I'm not coding or researching, you'll find me writing about AI trends, exploring poetry, or diving deep into psychology and self-improvement literature.</p>
+  
+  # Profile image (place in static/img/)
+  profile_image: profile.jpg
+
+# Social Links
+social:
+  github: https://github.com/Omega-Makena
+  linkedin: https://linkedin.com/in/omega-makena
+  twitter: 
+  email: omega@omegamakena.co.ke
+
+# Blog Categories
+blog_categories:
+  - Poetry
+  - AI
+  - Trends
+  - Psychology
+  - Self-Improvement
+  - Paper Review
+  - My Papers
+
+# SEO & Social Sharing
+seo:
+  keywords: AI, Machine Learning, Research, Education, Technology, Ethics
+  og_image: /static/img/social-card.jpg
+  twitter_handle: 
+
+# Features
+features:
+  dark_mode: true
+  blog: true
+  portfolio: true
+

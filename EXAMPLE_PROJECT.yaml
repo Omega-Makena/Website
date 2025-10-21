@@ -1,0 +1,27 @@
+# Example Project Configuration File
+# Copy this file to projects/ directory and customize it for your project
+
+title: Example Project Title
+description: A brief, compelling description of what your project does and why it matters (1-2 sentences recommended).
+tech:
+  - Python
+  - Flask
+  - React
+  - PostgreSQL
+  - Docker
+live_url: https://your-project-demo.com
+github_url: https://github.com/yourusername/your-project
+image: project-image.jpg
+order: 1
+featured: true
+
+# Field Guide:
+# - title: Required. The name of your project
+# - description: Required. Brief description (keep it concise!)
+# - tech: Required. List of technologies (4-6 items recommended)
+# - live_url: Optional. Link to live demo or project page
+# - github_url: Optional. Link to GitHub repository
+# - image: Optional. Image filename (place image in static/img/)
+# - order: Optional. Display order (lower numbers appear first)
+# - featured: Optional. Set to true to highlight as a featured project
+

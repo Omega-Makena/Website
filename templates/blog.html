@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Blog - Omega Makena{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in">
+    
+    <!-- Header -->
+    <div class="text-center mb-16">
+        <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-light-text dark:text-dark-text">
+            Blog
+        </h1>
+        <p class="text-xl text-light-muted dark:text-dark-muted max-w-3xl mx-auto">
+            Thoughts on AI, poetry, psychology, and the intersection of technology with human experience.
+        </p>
+    </div>
+    
+    <!-- Categories and Posts -->
+    <div class="space-y-12">
+        {% for category in categories %}
+        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 md:p-8">
+            <h2 class="text-3xl font-display font-bold mb-6 text-light-accent dark:text-dark-accent">
+                {{ category }}
+            </h2>
+            
+            {% if posts_by_category[category] %}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% for post in posts_by_category[category] %}
+                <a href="/blog/{{ post.path }}" 
+                   class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                    <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                        {{ post.meta.title }}
+                    </h3>
+                    <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                        {{ post.meta.date|format_date }}
+                    </p>
+                    <p class="text-light-muted dark:text-dark-muted">
+                        {{ post.meta.description }}
+                    </p>
+                    <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center">
+                        Read more
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-light-muted dark:text-dark-muted italic">
+                No posts yet in this category. Check back soon!
+            </p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    
+</div>
+{% endblock %}
+
+
+
