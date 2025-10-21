@@ -7,17 +7,24 @@
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
+    <!-- SEO -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://omegamakena.co.ke/blog/ai-transformer-revolution">
+    
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://omegamakena.co.ke/blog/ai-transformer-revolution">
     <meta property="og:title" content="Omega Makena - AI Researcher &amp; Full-Stack Developer">
     <meta property="og:description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
+    <meta property="og:site_name" content="Omega Makena">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Omega Makena">
     <meta name="twitter:description" content="AI Researcher &amp; Full-Stack Developer">
+    <meta name="twitter:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     
     <title>The Transformer Revolution: How Attention Changed Everything - Omega Makena</title>
     

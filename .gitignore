@@ -40,7 +40,7 @@ instance/
 .webassets-cache
 
 # Build output
-docs/
+# docs/ - REMOVED: GitHub Pages needs the docs folder!
 build/
 
 # Temporary Files

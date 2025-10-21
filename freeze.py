@@ -2,9 +2,10 @@
 Generate static files for GitHub Pages deployment
 """
 from flask_frozen import Freezer
-from app import app, flatpages
+from app import app, flatpages, SITE_CONFIG
 import os
 import shutil
+from datetime import datetime
 
 freezer = Freezer(app)
 
@@ -18,6 +19,75 @@ def blog_post():
     """Generate URLs for all blog posts"""
     for post in flatpages:
         yield {'path': post.path}
+
+def generate_sitemap():
+    """Generate sitemap.xml for search engines"""
+    site_url = SITE_CONFIG.get('site', {}).get('url', 'https://omegamakena.co.ke')
+    if site_url.endswith('/'):
+        site_url = site_url[:-1]
+    
+    # Start sitemap
+    sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
+    sitemap.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+    
+    # Homepage
+    sitemap.append('  <url>')
+    sitemap.append(f'    <loc>{site_url}/</loc>')
+    sitemap.append(f'    <lastmod>{datetime.now().strftime("%Y-%m-%d")}</lastmod>')
+    sitemap.append('    <changefreq>weekly</changefreq>')
+    sitemap.append('    <priority>1.0</priority>')
+    sitemap.append('  </url>')
+    
+    # Portfolio
+    sitemap.append('  <url>')
+    sitemap.append(f'    <loc>{site_url}/portfolio/</loc>')
+    sitemap.append(f'    <lastmod>{datetime.now().strftime("%Y-%m-%d")}</lastmod>')
+    sitemap.append('    <changefreq>monthly</changefreq>')
+    sitemap.append('    <priority>0.8</priority>')
+    sitemap.append('  </url>')
+    
+    # Blog listing
+    sitemap.append('  <url>')
+    sitemap.append(f'    <loc>{site_url}/blog/</loc>')
+    sitemap.append(f'    <lastmod>{datetime.now().strftime("%Y-%m-%d")}</lastmod>')
+    sitemap.append('    <changefreq>weekly</changefreq>')
+    sitemap.append('    <priority>0.9</priority>')
+    sitemap.append('  </url>')
+    
+    # Blog posts
+    for post in flatpages:
+        sitemap.append('  <url>')
+        sitemap.append(f'    <loc>{site_url}/blog/{post.path}</loc>')
+        post_date = post.meta.get('date')
+        if isinstance(post_date, str):
+            sitemap.append(f'    <lastmod>{post_date}</lastmod>')
+        else:
+            sitemap.append(f'    <lastmod>{post_date.strftime("%Y-%m-%d")}</lastmod>')
+        sitemap.append('    <changefreq>monthly</changefreq>')
+        sitemap.append('    <priority>0.7</priority>')
+        sitemap.append('  </url>')
+    
+    sitemap.append('</urlset>')
+    
+    # Write sitemap
+    with open('docs/sitemap.xml', 'w', encoding='utf-8') as f:
+        f.write('\n'.join(sitemap))
+
+def generate_robots_txt():
+    """Generate robots.txt for search engines"""
+    site_url = SITE_CONFIG.get('site', {}).get('url', 'https://omegamakena.co.ke')
+    if site_url.endswith('/'):
+        site_url = site_url[:-1]
+    
+    robots = [
+        'User-agent: *',
+        'Allow: /',
+        '',
+        f'Sitemap: {site_url}/sitemap.xml'
+    ]
+    
+    with open('docs/robots.txt', 'w', encoding='utf-8') as f:
+        f.write('\n'.join(robots))
 
 if __name__ == '__main__':
     # Clean old build thoroughly
@@ -44,7 +114,15 @@ if __name__ == '__main__':
     if os.path.exists('CNAME'):
         shutil.copy('CNAME', 'docs/CNAME')
     
+    # Generate sitemap.xml for SEO
+    generate_sitemap()
+    
+    # Generate robots.txt for SEO
+    generate_robots_txt()
+    
     print("✅ Static site generated in 'docs' folder!")
+    print("🗺️  Sitemap created for search engines")
+    print("🤖 robots.txt created")
     print("📁 Ready to deploy to GitHub Pages")
 
 

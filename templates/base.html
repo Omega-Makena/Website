@@ -7,17 +7,24 @@
     <meta name="keywords" content="{% block meta_keywords %}{{ config.seo.keywords }}{% endblock %}">
     <meta name="author" content="{{ config.personal.name }}">
     
+    <!-- SEO -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="{{ config.site.url }}{{ request.path }}">
+    
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ config.site.url }}{{ request.path }}">
     <meta property="og:title" content="{% block og_title %}{{ config.site.title }} - {{ config.site.tagline }}{% endblock %}">
     <meta property="og:description" content="{% block og_description %}{{ config.site.description }}{% endblock %}">
     <meta property="og:image" content="{{ config.site.url }}{{ config.seo.og_image }}">
+    <meta property="og:site_name" content="{{ config.site.title }}">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{% block twitter_title %}{{ config.site.title }}{% endblock %}">
     <meta name="twitter:description" content="{% block twitter_description %}{{ config.site.tagline }}{% endblock %}">
+    <meta name="twitter:image" content="{{ config.site.url }}{{ config.seo.og_image }}">
     
     <title>{% block title %}{{ config.site.title }} - Portfolio{% endblock %}</title>
     
