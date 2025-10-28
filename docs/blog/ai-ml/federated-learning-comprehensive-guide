@@ -641,6 +641,70 @@ For these cases, <strong>Online Federated Learning</strong> or <strong>Event-Bas
 <p>Fine-tune local models for domain-specific improvements.</p>
 </li>
 </ol>
+<h2>Use Cases Across Industries</h2>
+<p>Federated Learning is being adopted across diverse sectors where data privacy, collaboration, and distributed intelligence are critical. Here are the key applications and benefits by industry:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Sector</strong></th>
+<th><strong>Key Applications</strong></th>
+<th><strong>Core Benefits</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Healthcare</strong></td>
+<td>Disease prediction, diagnosis, imaging</td>
+<td>Privacy, collaboration</td>
+</tr>
+<tr>
+<td><strong>Finance</strong></td>
+<td>Fraud detection, credit scoring</td>
+<td>Compliance, secure sharing</td>
+</tr>
+<tr>
+<td><strong>Mobile &amp; Edge</strong></td>
+<td>Predictive typing, speech models</td>
+<td>Personalization, efficiency</td>
+</tr>
+<tr>
+<td><strong>IoT &amp; Smart Cities</strong></td>
+<td>Energy, traffic, environment</td>
+<td>Scalability, real-time learning</td>
+</tr>
+<tr>
+<td><strong>Education</strong></td>
+<td>Personalized learning, performance models</td>
+<td>Equity, adaptability</td>
+</tr>
+<tr>
+<td><strong>Agriculture &amp; Supply Chain</strong></td>
+<td>Yield prediction, logistics</td>
+<td>Cross-firm intelligence</td>
+</tr>
+<tr>
+<td><strong>Autonomous Systems</strong></td>
+<td>Self-driving, drone coordination</td>
+<td>Safety, adaptability</td>
+</tr>
+<tr>
+<td><strong>Cybersecurity</strong></td>
+<td>Intrusion detection, threat sharing</td>
+<td>Robust, privacy-preserving defense</td>
+</tr>
+<tr>
+<td><strong>Telecommunications</strong></td>
+<td>Network optimization, churn</td>
+<td>Efficiency, customer experience</td>
+</tr>
+<tr>
+<td><strong>Public Sector</strong></td>
+<td>Policy modeling, forecasting</td>
+<td>Secure data-driven governance</td>
+</tr>
+</tbody>
+</table>
+<p>Each sector leverages Federated Learning's core strengths: preserving data locality while enabling collaborative intelligence. For instance, hospitals can contribute to global disease detection models without exposing patient records, while financial institutions can improve fraud detection by learning from diverse transaction patterns across banks.</p>
 <h2>Summary</h2>
 <p>Federated Learning offers a way to train intelligent systems without violating data privacy.
 It shifts learning from centralized data collection to distributed, collaborative optimization.</p>
