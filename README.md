@@ -2,62 +2,56 @@
 
 A professional personal website built with **Flask + Jinja2** and **TailwindCSS**, featuring a portfolio, multi-category blog, and dark mode toggle. Designed for deployment to **GitHub Pages**.
 
-## ✨ **NEW: Fully Dynamic Content Management - NO CODE REQUIRED!**
-
-**Zero code editing needed!** Everything is managed with simple files:
-- 📝 **Add Blog Posts** → Drop `.md` files in `posts/` folder
-- 🚀 **Add Projects** → Drop `.yaml` files in `projects/` folder
-- 🎨 **Update Personal Info** → Edit `config.yaml` file
-- 🖼️ **Add Images** → Drop files in `static/img/` folder
-
-**That's it!** Run `python freeze.py` and `git push` to deploy.
-
-> 📖 **Quick Start Guides:**
-> - [HOW_TO_ADD_BLOG_POSTS.md](HOW_TO_ADD_BLOG_POSTS.md) - Write blog posts (Markdown files)
-> - [HOW_TO_ADD_PROJECTS.md](HOW_TO_ADD_PROJECTS.md) - Add portfolio projects (YAML files)
-> - [HOW_TO_UPDATE_SITE.md](HOW_TO_UPDATE_SITE.md) - Complete site management guide
-> - [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) - Deployment instructions
-
-![Website Preview](https://img.shields.io/badge/Status-Production-brightgreen)
-
-## 🌟 Features
+## Features
 
 - **Modern Design**: Clean, academic-modern aesthetic with custom color palette
-- **Dark Mode**: Seamless light/dark theme toggle with localStorage persistence
+- **Dark Mode**: Seamless light/dark theme toggle with localStorage persistence (defaults to dark mode)
 - **Responsive**: Mobile-first design that works on all devices
-- **Blog System**: Markdown-based blog with 7 categories
-- **Portfolio**: Showcase projects with live demos and GitHub links
+- **Dynamic Content Management**: Add blog posts and portfolio projects without editing code
+- **Blog System**: Markdown-based blog with category organization
+- **Portfolio**: Showcase projects with folder-based structure
 - **SEO Optimized**: Meta tags, Open Graph, and social card support
 - **Static Site Generation**: Converts Flask app to static HTML for GitHub Pages
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 .
-├── app.py                  # Flask application
-├── freeze.py              # Static site generator
-├── requirements.txt       # Python dependencies
-├── CNAME                  # Custom domain configuration
-├── templates/             # Jinja2 templates
-│   ├── base.html         # Base template with navbar/footer
-│   ├── index.html        # Home/About page
-│   ├── portfolio.html    # Portfolio page
-│   ├── blog.html         # Blog categories page
-│   └── post.html         # Individual blog post
-├── posts/                 # Markdown blog posts
-│   ├── poetry-digital-age.md
-│   ├── ai-transformer-revolution.md
-│   ├── ai-trends-2025.md
-│   ├── psychology-flow-state.md
-│   ├── self-improvement-learning.md
-│   ├── paper-review-alphafold.md
-│   └── my-paper-ai-equity.md
-├── static/               # Static assets
-│   └── img/             # Images (profile, favicon, etc.)
-└── docs/                # Generated static site (created by freeze.py)
+├── app.py                      # Flask application
+├── freeze.py                   # Static site generator
+├── requirements.txt            # Python dependencies
+├── config.yaml                 # Site configuration (personal info, social links)
+├── CNAME                       # Custom domain configuration
+├── templates/                  # Jinja2 templates
+│   ├── base.html              # Base template with navbar/footer
+│   ├── index.html             # Home/About page
+│   ├── portfolio.html         # Portfolio projects listing
+│   ├── project.html           # Individual project detail page
+│   ├── blog.html              # Blog categories page
+│   ├── blog_category.html     # Individual category page
+│   └── post.html              # Individual blog post page
+├── portfolio/                  # Portfolio projects
+│   └── projects/              # Individual project folders
+│       ├── online-learning/   # Each project has its own folder
+│       │   ├── index.md       # Project metadata and content
+│       │   └── assets/        # Project-specific images/files
+│       ├── scarcity/
+│       ├── sarima/
+│       ├── anomaly-detection/
+│       └── quant-model/
+├── blog/                       # Blog posts organized by category
+│   ├── ai-ml/                 # AI & Machine Learning
+│   ├── finance-economics/     # Finance & Economics
+│   ├── poetry/                # Poetry
+│   ├── self-improvement/      # Self-Improvement
+│   ├── tech-concepts/         # Tech Concepts
+│   └── random/                # Random Thoughts
+├── static/                     # Static assets
+│   └── img/                   # Images (profile, favicon, etc.)
+└── docs/                      # Generated static site (for GitHub Pages)
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -89,24 +83,7 @@ pip install -r requirements.txt
 
 ### 3. Customize Your Site
 
-Edit `config.yaml` to update your personal information:
-
-```yaml
-site:
-  title: Your Name
-  tagline: Your Professional Title
-
-personal:
-  name: Your Name
-  email: your@email.com
-  bio: |
-    <p>Your bio here...</p>
-
-social:
-  github: https://github.com/yourusername
-  linkedin: https://linkedin.com/in/yourusername
-  email: your@email.com
-```
+Edit `config.yaml` to update your personal information, social links, and site settings.
 
 ### 4. Run Development Server
 
@@ -116,7 +93,7 @@ python app.py
 
 Visit `http://localhost:5000` in your browser.
 
-## 🎨 Customization (No Code Required!)
+## Content Management
 
 ### Update Personal Information
 
@@ -125,8 +102,9 @@ Edit `config.yaml`:
 ```yaml
 site:
   title: Your Name
-  tagline: Your Title
+  tagline: Your Professional Title
   description: Your site description
+  url: https://yourwebsite.com
 
 personal:
   name: Your Name
@@ -144,11 +122,12 @@ social:
 
 ### Add Portfolio Projects
 
-Create a new YAML file in `projects/`:
+Create a folder in `portfolio/projects/` with your project name, then create an `index.md` file:
 
-**File:** `projects/my-project.yaml`
+**File:** `portfolio/projects/my-project/index.md`
 
-```yaml
+```markdown
+---
 title: My Amazing Project
 description: What your project does and why it's awesome
 tech:
@@ -160,55 +139,48 @@ github_url: https://github.com/yourusername/project
 image: project-screenshot.jpg
 order: 1
 featured: true
-```
+---
 
-That's it! No code editing required. See [HOW_TO_ADD_PROJECTS.md](HOW_TO_ADD_PROJECTS.md) for details.
+# Project Details
+
+Write your project description, features, and details here in Markdown.
+
+Add images by placing them in the same folder and referencing them:
+
+![Project Screenshot](project-screenshot.jpg)
+```
 
 ### Add Blog Posts
 
-Create markdown files in the `posts/` directory with this frontmatter:
+Create markdown files in the appropriate category folder under `blog/`:
+
+**File:** `blog/ai-ml/my-post.md`
 
 ```markdown
+---
 title: Your Post Title
-date: 2025-01-15
-category: AI
+date: 2025-11-29
+category: ai-ml
 author: Omega Makena
 description: A brief description of your post
-
 ---
 
-## Your Content Here
+# Your Content Here
 
 Write your blog post content in Markdown...
+
+## Section Header
+
+Content here with proper Markdown formatting.
 ```
 
-**Available Categories**:
-- Poetry
-- AI
-- Trends
-- Psychology
-- Self-Improvement
-- Paper Review
-- My Papers
-
-### Customize Colors
-
-The color palette is defined in `templates/base.html` (TailwindCSS config):
-
-```javascript
-colors: {
-    light: {
-        bg: '#F9FAFB',
-        card: '#FFFFFF',
-        text: '#1C1C1C',
-        // ... etc
-    },
-    dark: {
-        bg: '#0F172A',
-        // ... etc
-    }
-}
-```
+**Available Blog Categories:**
+- `ai-ml` - AI & Machine Learning
+- `finance-economics` - Finance & Economics
+- `poetry` - Poetry
+- `self-improvement` - Self-Improvement
+- `tech-concepts` - Tech Concepts
+- `random` - Random Thoughts
 
 ### Add Images
 
@@ -218,7 +190,7 @@ Place images in `static/img/`:
 - `apple-touch-icon.png` - iOS home screen icon
 - `social-card.jpg` - Open Graph preview image (1200x630px)
 
-## 📦 Deployment to GitHub Pages
+## Deployment to GitHub Pages
 
 ### Step 1: Generate Static Site
 
@@ -226,7 +198,7 @@ Place images in `static/img/`:
 python freeze.py
 ```
 
-This creates a `docs/` folder with static HTML files.
+This creates a `docs/` folder with static HTML files and copies the `CNAME` file for custom domain support.
 
 ### Step 2: Configure GitHub Repository
 
@@ -239,7 +211,7 @@ This creates a `docs/` folder with static HTML files.
 
 ### Step 3: Configure Custom Domain (Optional)
 
-The `CNAME` file is already configured with `omegamakena.co.ke`.
+The `CNAME` file is configured with `omegamakena.co.ke`.
 
 **DNS Configuration** (at your domain registrar):
 
@@ -266,24 +238,24 @@ python freeze.py
 
 # Add and commit
 git add .
-git commit -m "Deploy website"
+git commit -m "Update website"
 git push origin main
 ```
 
 ### Step 5: Enable HTTPS
 
-In GitHub Pages settings, check **Enforce HTTPS** (available after DNS propagates).
+In GitHub Pages settings, check **Enforce HTTPS** (available after DNS propagates, typically 24-48 hours).
 
-## 🔧 Development Workflow
+## Development Workflow
 
 ### Local Development
 
 ```bash
-# Run Flask dev server
+# Run Flask dev server with auto-reload
 python app.py
 
-# Make changes to templates/posts
-# Refresh browser to see changes
+# Make changes to templates, portfolio projects, or blog posts
+# Refresh browser to see changes (auto-reload enabled)
 ```
 
 ### Build and Deploy
@@ -303,67 +275,7 @@ git commit -m "Update website"
 git push origin main
 ```
 
-## 📝 Blog Writing Tips
-
-### Markdown Support
-
-The blog supports standard Markdown plus:
-
-- **Code blocks** with syntax highlighting
-- **Tables**
-- **Blockquotes**
-- **Lists** (ordered and unordered)
-- **Links** and **images**
-- **Headings** (H2, H3 recommended)
-
-### SEO Best Practices
-
-- Use descriptive titles
-- Write compelling descriptions (shows in blog listing)
-- Include relevant keywords naturally
-- Use proper heading hierarchy (H2 → H3 → H4)
-- Add alt text to images
-
-## 🎯 SEO Configuration
-
-### Meta Tags
-
-Update in `templates/base.html`:
-- `og:image` - Social share preview image URL
-- `og:description` - Default site description
-- Twitter card metadata
-
-### Sitemap (Optional)
-
-Add to `freeze.py` to generate `sitemap.xml` for search engines.
-
-## 🐛 Troubleshooting
-
-### Frozen-Flask doesn't find blog posts
-
-Ensure:
-- Posts are in `posts/` directory
-- Frontmatter format is correct
-- File extension is `.md`
-
-### Dark mode doesn't persist
-
-Check browser localStorage is enabled.
-
-### Custom domain not working
-
-1. Verify CNAME file exists in `docs/` after running `freeze.py`
-2. Check DNS settings at your registrar
-3. Wait for DNS propagation (up to 48 hours)
-4. Verify GitHub Pages settings show "DNS check successful"
-
-### Images not loading
-
-- Ensure images are in `static/img/`
-- Use `/static/img/filename.jpg` in templates
-- Check image paths are correct after freezing
-
-## 📚 Technologies Used
+## Technologies Used
 
 - **Flask** - Web framework
 - **Flask-FlatPages** - Markdown blog posts
@@ -371,31 +283,100 @@ Check browser localStorage is enabled.
 - **TailwindCSS** - Styling (CDN version)
 - **Jinja2** - Templating
 - **Markdown** - Blog content format
+- **PyYAML** - Configuration and frontmatter parsing
+- **Python-Frontmatter** - Frontmatter extraction
 
-## 🔐 Security
+## Current Implementation
+
+### Portfolio Projects
+
+The website currently showcases 5 portfolio projects:
+1. **Online Learning System** - An adaptive e-learning platform
+2. **SCARCITY** - Economic resource scarcity simulation
+3. **SARIMA Model** - Time series forecasting for economic data
+4. **Anomaly Detection** - ML-based system for detecting unusual patterns
+5. **Quantitative Model** - Financial risk and return modeling
+
+Each project has its own dedicated page with detailed descriptions, tech stack, and related assets.
+
+### Blog System
+
+The blog features a category-based organization with collapsible sections. Current categories include:
+- **AI & Machine Learning** - Articles on meta-learning, federated learning, AI architectures, and research
+- **Finance & Economics** - Analysis of economic models and financial systems
+- **Poetry** - Creative writing and reflections
+- **Self-Improvement** - Personal development and growth
+- **Tech Concepts** - Educational content on technology
+- **Random Thoughts** - Miscellaneous articles
+
+Recent additions include comprehensive guides on:
+- Meta-Learning and Learning to Learn
+- Federated Learning with industry applications
+- Various AI research topics and implementations
+
+## SEO Configuration
+
+### Meta Tags
+
+Automatically generated from `config.yaml` and individual page metadata. Open Graph tags are included for social media sharing.
+
+### Sitemap
+
+The `freeze.py` script generates `docs/sitemap.xml` automatically for search engine indexing.
+
+## Troubleshooting
+
+### Frozen-Flask doesn't find blog posts or projects
+
+Ensure:
+- Blog posts are in `blog/category/` directories with proper frontmatter
+- Portfolio projects have `index.md` files in their folders
+- File extensions are `.md`
+- Frontmatter format is correct (YAML between `---` markers)
+
+### Dark mode doesn't persist
+
+Check that browser localStorage is enabled. The site defaults to dark mode on first visit.
+
+### Custom domain not working
+
+1. Verify `CNAME` file exists in `docs/` after running `freeze.py`
+2. Check DNS settings at your registrar
+3. Wait for DNS propagation (up to 48 hours)
+4. Verify GitHub Pages settings show "DNS check successful"
+5. Ensure "Enforce HTTPS" is enabled in GitHub Pages settings
+
+### Images not loading
+
+- Ensure images are in `static/img/` or project-specific folders
+- Use correct paths in templates and markdown
+- Check image paths are preserved after freezing
+
+## Security
 
 - No server-side code runs on GitHub Pages (static files only)
-- No database or user authentication
+- No database or user authentication required
 - All assets served over HTTPS
 - Content Security Policy compatible
 
-## 📄 License
+## License
 
 Feel free to use this template for your own personal website! Attribution appreciated but not required.
 
-## 🤝 Contributing
+## Contributing
 
-This is a personal website, but if you find bugs or have suggestions, feel free to open an issue!
+This is a personal website, but if you find bugs or have suggestions, feel free to open an issue or submit a pull request.
 
-## 📧 Contact
+## Contact
 
 - **Website**: [omegamakena.co.ke](https://omegamakena.co.ke)
 - **GitHub**: [@Omega-Makena](https://github.com/Omega-Makena)
-- **LinkedIn**: [omega-makena](https://linkedin.com/in/omega-makena)
-- **Email**: omega@omegamakena.co.ke
+- **LinkedIn**: [omega-makena](https://www.linkedin.com/in/omega-makena)
+- **Email**: mwebiamakenaa@gmail.com
+- **Alternative Email**: omegamakena@techtwirls.co.ke
 
 ---
 
-**Built with ❤️ by Omega Makena**
+**Built by Omega Makena**
 
-*Last updated: January 2025*
+*Last updated: November 2025*
