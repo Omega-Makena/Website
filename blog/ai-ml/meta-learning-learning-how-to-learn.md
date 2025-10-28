@@ -1,6 +1,6 @@
 ---
 title: Meta-Learning - Learning How to Learn
-date: 2024-01-15
+date: 2025-11-29
 category: ai-ml
 author: Omega Makena
 description: Exploring meta-learning as an approach to teaching models how to learn, with practical insights from building KShield and continuous adaptation systems.
