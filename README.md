@@ -349,7 +349,7 @@ For issues or questions:
 
 ## License
 
-Free to use for personal websites. Attribution appreciated but not required.
+Free to use for personal websites only. Commercial use is not permitted. Attribution appreciated but not required.
 
 ---
 
