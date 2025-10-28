@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://omegamakena.co.ke/sitemap.xml
+Sitemap: https://omega-makena.github.io/Website/sitemap.xml
