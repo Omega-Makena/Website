@@ -3,7 +3,7 @@
 
 site:
   title: Omega Makena
-  tagline: AI Researcher & Full-Stack Developer
+  tagline: Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents
   description: Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.
   url: https://omegamakena.co.ke
   author: Omega Makena
@@ -11,12 +11,15 @@ site:
 # Personal Information
 personal:
   name: Omega Makena
-  email: omega@omegamakena.co.ke
+  email: mwebiamakenaa@gmail.com
   location: Kenya
   bio: |
-    <p>I'm a quantitative engineer and machine learning specialist passionate about leveraging artificial intelligence to create meaningful impact. My work focuses on developing intelligent systems that address real-world challenges, particularly in education and social equity.</p>
-    <p>With expertise in machine learning, data science, and algorithmic trading, I build solutions that combine technical rigor with practical applicability. I'm particularly interested in AI fairness, educational technology, and the intersection of quantitative methods with social impact.</p>
-    <p>When I'm not coding or researching, you'll find me writing about AI trends, exploring poetry, or diving deep into psychology and self-improvement literature.</p>
+    <p class="intro">I'm a quantitative researcher with a strong machine learning background. I like building things that think and do things for me. If a task takes one second to do, I'd still rather spend centuries coding something that can do it for me, because why not?</p>
+    <p>I'm super passionate about artificial intelligence, probably a little crazy about it. I could talk about AI for a millennium if you let me. It's not just an interest anymore; it's an ongoing obsession that somehow keeps getting worse (or better, depending on who you ask).</p>
+    <p>Outside of work, I mentor young girls in Kenya through <strong>Tech-12</strong>, an organization focused on bridging the gender gap in tech and helping STEM actually make sense to young women who have been told it's not for them.</p>
+    <p>For someone who claims to obsess over artificial intelligence, I surprisingly have other interests. I'm fascinated by human beings: psychology, physiology, sociology, anthropology, basically the whole "why do we act the way we act" question. That's another obsession of mine.</p>
+    <p>Outside of that, I'm a very typical nerd. I'm obsessed with anime: Chinese (<em>manhua</em>), Japanese (<em>manga</em>), and South Korean (<em>manhwa</em>). Sometimes I mix them up, but it's fine.</p>
+    <p class="outro">So yeah, that's me. Enjoy my portfolio.</p>
   
   # Profile image (place in static/img/)
   profile_image: profile.jpg
@@ -24,9 +27,10 @@ personal:
 # Social Links
 social:
   github: https://github.com/Omega-Makena
-  linkedin: https://linkedin.com/in/omega-makena
+  linkedin: https://www.linkedin.com/in/omega-makena
   twitter: 
-  email: omega@omegamakena.co.ke
+  email: mwebiamakenaa@gmail.com
+  email_alt: omegamakena@techtwirls.co.ke
 
 # Blog Categories
 blog_categories:

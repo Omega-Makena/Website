@@ -19,7 +19,8 @@
     <!-- Projects Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {% for project in projects %}
-        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-102 flex flex-col">
+        <a href="/portfolio/{{ project.slug }}/" class="block">
+        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-102 flex flex-col cursor-pointer">
             <!-- Project Image Placeholder -->
             <div class="h-48 bg-gradient-to-br from-light-accent to-light-link dark:from-dark-accent dark:to-dark-link flex items-center justify-center">
                 <svg class="w-20 h-20 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,6 +72,7 @@
                 </div>
             </div>
         </div>
+        </a>
         {% endfor %}
     </div>
     
@@ -83,7 +85,7 @@
             <p class="text-lg text-light-muted dark:text-dark-muted mb-6">
                 I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
             </p>
-            <a href="mailto:omega@omegamakena.co.ke" 
+            <a href="mailto:mwebiamakenaa@gmail.com" 
                class="inline-block bg-light-accent dark:bg-dark-accent text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-all duration-300 hover:scale-105 shadow-md">
                 Get In Touch
             </a>
