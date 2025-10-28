@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Research on developing frameworks for identifying and reducing algorithmic bias in AI systems.">
+    <meta name="description" content="An analysis of ABIDES-Economist, a framework for agent-based economic simulation using machine learning agents.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
     <!-- SEO -->
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="https://omegamakena.co.ke/blog/my-paper-ai-equity">
+    <link rel="canonical" href="https://omegamakena.co.ke/blog/finance-economics/abides-economist-review">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://omegamakena.co.ke/blog/my-paper-ai-equity">
-    <meta property="og:title" content="Omega Makena - AI Researcher &amp; Full-Stack Developer">
+    <meta property="og:url" content="https://omegamakena.co.ke/blog/finance-economics/abides-economist-review">
+    <meta property="og:title" content="Omega Makena - Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
     <meta property="og:description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
@@ -23,10 +23,10 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Omega Makena">
-    <meta name="twitter:description" content="AI Researcher &amp; Full-Stack Developer">
+    <meta name="twitter:description" content="Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
     <meta name="twitter:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     
-    <title>Measuring and Mitigating Bias in Machine Learning Systems - Omega Makena</title>
+    <title>Review of &#34;ABIDES-Economist - Agent-Based Simulation of Economic Systems with Learning Agents&#34; - Omega Makena</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
@@ -200,13 +200,13 @@
         <!-- Category Badge -->
         <div class="mb-4">
             <span class="inline-block px-4 py-1 bg-light-accent dark:bg-dark-accent text-white text-sm font-semibold rounded-full">
-                My Papers
+                Finance
             </span>
         </div>
         
         <!-- Title -->
         <h1 class="text-4xl md:text-5xl font-display font-bold mb-4 text-light-text dark:text-dark-text">
-            Measuring and Mitigating Bias in Machine Learning Systems
+            Review of &#34;ABIDES-Economist - Agent-Based Simulation of Economic Systems with Learning Agents&#34;
         </h1>
         
         <!-- Meta Info -->
@@ -214,7 +214,7 @@
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
             </svg>
-            August 25, 2024
+            November 20, 2024
             
             <span class="mx-3">•</span>
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -302,108 +302,120 @@
                     margin-bottom: 0.5rem;
                 }
             </style>
-            <h2>Motivation</h2>
-<p>As machine learning systems increasingly influence critical decisions—from loan approvals to criminal justice to hiring—ensuring these systems are fair and equitable becomes paramount. My research focuses on developing practical frameworks for measuring and mitigating bias in ML systems.</p>
-<h3>The Challenge of Fairness</h3>
-<p>Fairness in ML isn't a solved problem for several reasons:</p>
-<ol>
-<li><strong>Multiple definitions</strong>: Different mathematical definitions of fairness can be mutually exclusive</li>
-<li><strong>Data reflects historical bias</strong>: Training on historical data can perpetuate or amplify existing societal biases</li>
-<li><strong>Intersectionality</strong>: Bias can manifest differently across intersecting protected attributes</li>
-<li><strong>Deployment challenges</strong>: Even "fair" models can produce unfair outcomes in practice</li>
-</ol>
-<h3>Research Questions</h3>
-<p>This work addresses three primary questions:</p>
-<p><strong>Q1</strong>: How can we comprehensively measure bias across different fairness definitions?</p>
-<p><strong>Q2</strong>: What interventions most effectively reduce bias while maintaining model utility?</p>
-<p><strong>Q3</strong>: How do fairness guarantees hold up under distribution shift and in real-world deployment?</p>
-<h2>Methodology</h2>
-<h3>1. Comprehensive Fairness Metrics</h3>
-<p>I developed a unified framework evaluating models across multiple fairness criteria:</p>
-<p><strong>Group Fairness Metrics</strong>:
-- Demographic parity: (P(\hat{Y}=1|A=0) = P(\hat{Y}=1|A=1))
-- Equalized odds: (P(\hat{Y}=1|Y=y, A=a)) equal across groups
-- Equal opportunity: Equalized true positive rates</p>
-<p><strong>Individual Fairness Metrics</strong>:
-- Similar individuals receive similar predictions
-- Counterfactual fairness: Predictions don't change if sensitive attributes change</p>
-<p><strong>Calibration</strong>:
-- Predictions are calibrated across groups
-- (P(Y=1|\hat{Y}=p, A=a) = p) for all groups</p>
-<h3>2. Bias Mitigation Techniques</h3>
-<p>I compared three categories of interventions:</p>
-<p><strong>Pre-processing</strong>: Modifying training data
-- Reweighting samples
-- Learning fair representations
-- Synthetic data augmentation</p>
-<p><strong>In-processing</strong>: Modifying learning algorithm
-- Adversarial debiasing
-- Fairness constraints in optimization
-- Multi-objective learning balancing accuracy and fairness</p>
-<p><strong>Post-processing</strong>: Modifying model outputs
-- Threshold optimization per group
-- Calibration adjustments
-- Reject option classification</p>
-<h3>3. Robustness Analysis</h3>
-<p>Critical contribution: analyzing how fairness degrades under:
-- Distribution shift between training and deployment
-- Data drift over time
-- Adversarial manipulation
-- Subgroup variations</p>
-<h2>Key Findings</h2>
-<h3>Finding 1: No Free Lunch</h3>
-<p>Trade-offs between different fairness metrics are real and unavoidable. Satisfying demographic parity often conflicts with equalized odds. The choice depends on the specific application and stakeholder values.</p>
-<p><strong>Implication</strong>: Fairness interventions must be context-specific, not one-size-fits-all.</p>
-<h3>Finding 2: In-Processing Works Best</h3>
-<p>In-processing methods (incorporating fairness during training) generally outperformed pre- and post-processing approaches, achieving better accuracy-fairness trade-offs.</p>
-<p><strong>Explanation</strong>: Optimizing for both objectives jointly allows the model to learn representations that naturally balance accuracy and fairness.</p>
-<h3>Finding 3: Intersectionality Matters</h3>
-<p>Standard fairness metrics often miss bias affecting intersectional subgroups (e.g., Black women vs. general gender or race categories).</p>
-<p><strong>Solution</strong>: Developed metrics specifically targeting intersectional fairness, though this increases complexity and data requirements.</p>
-<h3>Finding 4: Fairness Degrades Under Shift</h3>
-<p>Perhaps most concerning: models fair on training data can become significantly biased under distribution shift.</p>
-<p><strong>Mitigation</strong>: Regularization techniques and robust optimization can improve fairness stability, but ongoing monitoring is essential.</p>
-<h2>Practical Framework</h2>
-<p>Based on this research, I propose a deployment framework:</p>
-<p><strong>Phase 1: Audit</strong>
-1. Identify protected attributes and potential harms
-2. Measure bias across multiple metrics
-3. Analyze intersectional fairness
-4. Document findings and trade-offs</p>
-<p><strong>Phase 2: Intervention</strong>
-1. Select appropriate mitigation technique based on constraints
-2. Implement with explicit fairness objectives
-3. Validate on held-out data
-4. Test robustness under distribution shift</p>
-<p><strong>Phase 3: Monitor</strong>
-1. Deploy with continuous monitoring
-2. Track fairness metrics in production
-3. Alert on metric degradation
-4. Regularly retrain and audit</p>
-<h2>Limitations and Future Work</h2>
-<p>This research has important limitations:</p>
-<ol>
-<li><strong>Protected attributes</strong>: Often unavailable or imperfectly measured</li>
-<li><strong>Proxy discrimination</strong>: Models can use proxies for protected attributes</li>
-<li><strong>Causality</strong>: Observational fairness metrics don't capture causal mechanisms</li>
-<li><strong>Stakeholder values</strong>: Technical solutions don't address whose fairness definition should prevail</li>
-</ol>
-<p>Future directions:</p>
+            <h2>Introduction</h2>
+<p>ABIDES-Economist represents an exciting intersection between artificial intelligence and economic modeling. This white paper, published on arXiv, presents a framework for building agent-based models where individual agents use machine learning to make decisions.</p>
+<p>As someone working on economic simulation and federated learning, this paper directly addresses challenges I've encountered. Here's my analysis of its contributions, limitations, and implications.</p>
+<h2>What is ABIDES-Economist?</h2>
+<p>ABIDES (Agent-Based Interactive Discrete Event Simulation) is a simulation framework. The "Economist" variant extends it specifically for economic modeling, introducing learning agents that can adapt and make decisions based on their environment.</p>
+<h3>Core Innovation</h3>
+<p>Traditional economic models assume agents follow predetermined rules. ABIDES-Economist lets agents learn these rules through experience, making them more realistic and adaptive.</p>
+<h2>Key Technical Components</h2>
+<h3>Agent Learning Mechanisms</h3>
+<p>The framework supports multiple learning approaches:</p>
 <ul>
-<li>Causal frameworks for fairness</li>
-<li>Fairness under missing or noisy sensitive attributes</li>
-<li>Multi-stakeholder fairness negotiation mechanisms</li>
-<li>Long-term societal impacts beyond immediate decisions</li>
+<li>Reinforcement Learning agents that optimize reward functions</li>
+<li>Imitation Learning from historical data</li>
+<li>Hybrid approaches combining learned and rule-based behavior</li>
+</ul>
+<p>This flexibility allows researchers to experiment with different agent capabilities and learning paradigms.</p>
+<h3>Market Mechanisms</h3>
+<p>Built-in support for various economic mechanisms:</p>
+<ul>
+<li>Order books and matching engines</li>
+<li>Price discovery processes</li>
+<li>Trading protocols</li>
+<li>Market microstructure simulation</li>
+</ul>
+<p>This provides a realistic environment for agents to operate within.</p>
+<h3>Scaling Capabilities</h3>
+<p>The framework addresses computational challenges:</p>
+<ul>
+<li>Distributed simulation across multiple machines</li>
+<li>Efficient event scheduling</li>
+<li>Parallel agent processing</li>
+<li>Memory management for large-scale simulations</li>
+</ul>
+<h2>Strengths of the Approach</h2>
+<h3>Realism Through Learning</h3>
+<p>By allowing agents to learn, the simulations can capture:</p>
+<ul>
+<li>Adaptation to market conditions</li>
+<li>Emergent behaviors not programmed explicitly</li>
+<li>Heterogeneous agent strategies</li>
+<li>Dynamics that evolve over time</li>
+</ul>
+<h3>Practical Applicability</h3>
+<p>The framework is designed for real-world questions:</p>
+<ul>
+<li>Policy impact assessment</li>
+<li>Market regulation testing</li>
+<li>Understanding systemic risks</li>
+<li>Exploring "what-if" scenarios</li>
+</ul>
+<h3>Research Platform</h3>
+<p>Provides infrastructure for AI-driven economics research:</p>
+<ul>
+<li>Standardized interfaces</li>
+<li>Reproducible experiments</li>
+<li>Easy extension points</li>
+<li>Integration with existing toolkits</li>
+</ul>
+<h2>Challenges and Limitations</h2>
+<h3>Computational Demands</h3>
+<p>Training agents and running simulations is resource-intensive:</p>
+<ul>
+<li>Multiple training runs for agent policies</li>
+<li>Long simulation periods for meaningful results</li>
+<li>Iterative refinement cycles</li>
+<li>Validation against historical data</li>
+</ul>
+<p>This limits accessibility to institutions with substantial computing resources.</p>
+<h3>Validation Complexity</h3>
+<p>How do you know if learned agents are realistic?</p>
+<ul>
+<li>Comparison against historical data</li>
+<li>Expert judgment on behaviors</li>
+<li>Statistical validation of outcomes</li>
+<li>Causal inference challenges</li>
+</ul>
+<p>Validation remains an open research question.</p>
+<h3>Interpretability</h3>
+<p>Machine learning agents are often black boxes:</p>
+<ul>
+<li>Difficult to understand why agents make decisions</li>
+<li>Hard to explain emergent phenomena</li>
+<li>Limited causal explanations</li>
+<li>Challenge for policy communication</li>
+</ul>
+<h2>Personal Implications</h2>
+<p>This research aligns closely with my work on:</p>
+<p><strong>Federated Learning for Economic Simulation</strong></p>
+<p>ABIDES-Economist assumes a central simulation. My interest is in distributed simulation where institutions train local agents without sharing data—essentially federated ABIDES.</p>
+<p><strong>Micro-Macro Connections</strong></p>
+<p>How do individual agent behaviors aggregate to system-level outcomes? This framework provides tools to explore these connections.</p>
+<p><strong>Practical Applications</strong></p>
+<p>Can we use such simulations for policy design in developing economies? The computational requirements raise equity concerns.</p>
+<h2>The Bigger Picture</h2>
+<p>ABIDES-Economist represents a paradigm shift: from assuming rational actors to modeling adaptive learning agents. This is exciting but also raises questions about:</p>
+<ul>
+<li><strong>Equity</strong>: Who has access to these modeling capabilities?</li>
+<li><strong>Democracy</strong>: How are policy decisions influenced by simulation results?</li>
+<li><strong>Understanding</strong>: Do we understand these systems better or are we just simulating our ignorance?</li>
+</ul>
+<h2>Future Directions</h2>
+<p>Areas for improvement:</p>
+<ul>
+<li>Reduced computational requirements</li>
+<li>Better validation methods</li>
+<li>Enhanced interpretability</li>
+<li>Integration with real-time data</li>
+<li>Privacy-preserving agent training</li>
+<li>Democratization of access</li>
 </ul>
 <h2>Conclusion</h2>
-<p>Algorithmic fairness is fundamentally a sociotechnical challenge requiring technical rigor <strong>and</strong> engagement with affected communities, policymakers, and domain experts.</p>
-<p>The tools and frameworks developed in this research provide practitioners with concrete methods for measuring and improving fairness, but they're not a substitute for careful ethical reasoning about how AI systems should be deployed in high-stakes contexts.</p>
-<h3>Code and Data</h3>
-<p>Implementation and experiments available at: <a href="https://github.com/Omega-Makena/AI-equity">github.com/Omega-Makena/AI-equity</a></p>
-<h3>Acknowledgments</h3>
-<p>This research benefited from discussions with ethicists, policymakers, and community advocates. Technical solutions must be informed by lived experience and normative values.</p>
-<hr />
-<p><em>This post summarizes ongoing research. Formal publication details forthcoming.</em></p>
+<p>ABIDES-Economist is valuable work that pushes economic modeling toward realism and practical application. However, its computational demands and complexity raise concerns about accessibility.</p>
+<p>For someone building economic simulation from scratch, this paper validates the approach while highlighting the challenges ahead. The fusion of AI and economics is happening, and frameworks like ABIDES-Economist are leading the way.</p>
+<p>The question isn't whether agent-based learning systems will transform economic modeling—it's how we ensure that transformation serves everyone, not just those with the most computational resources.</p>
         </div>
     </article>
     
@@ -434,13 +446,13 @@
                     </a>
                     
                     
-                    <a href="https://linkedin.com/in/omega-makena" target="_blank" rel="noopener noreferrer" 
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" rel="noopener noreferrer" 
                        class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
                         LinkedIn
                     </a>
                     
                     
-                    <a href="mailto:omega@omegamakena.co.ke" 
+                    <a href="mailto:mwebiamakenaa@gmail.com" 
                        class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
                         Email
                     </a>
@@ -458,8 +470,8 @@
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
+        // Check for saved theme preference or default to dark mode
+        const currentTheme = localStorage.getItem('theme') || 'dark';
         
         if (currentTheme === 'dark') {
             document.documentElement.classList.add('dark');

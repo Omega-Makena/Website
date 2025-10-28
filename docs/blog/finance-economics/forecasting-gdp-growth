@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Key developments shaping the future of artificial intelligence in 2025 and beyond.">
+    <meta name="description" content="Applying time series forecasting and ML techniques to predict economic growth indicators.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
     <!-- SEO -->
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="https://omegamakena.co.ke/blog/ai-trends-2025">
+    <link rel="canonical" href="https://omegamakena.co.ke/blog/finance-economics/forecasting-gdp-growth">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://omegamakena.co.ke/blog/ai-trends-2025">
-    <meta property="og:title" content="Omega Makena - AI Researcher &amp; Full-Stack Developer">
+    <meta property="og:url" content="https://omegamakena.co.ke/blog/finance-economics/forecasting-gdp-growth">
+    <meta property="og:title" content="Omega Makena - Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
     <meta property="og:description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
@@ -23,10 +23,10 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Omega Makena">
-    <meta name="twitter:description" content="AI Researcher &amp; Full-Stack Developer">
+    <meta name="twitter:description" content="Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
     <meta name="twitter:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     
-    <title>AI Trends to Watch in 2025 - Omega Makena</title>
+    <title>Forecasting GDP Growth with Machine Learning - Omega Makena</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
@@ -200,13 +200,13 @@
         <!-- Category Badge -->
         <div class="mb-4">
             <span class="inline-block px-4 py-1 bg-light-accent dark:bg-dark-accent text-white text-sm font-semibold rounded-full">
-                Trends
+                Finance
             </span>
         </div>
         
         <!-- Title -->
         <h1 class="text-4xl md:text-5xl font-display font-bold mb-4 text-light-text dark:text-dark-text">
-            AI Trends to Watch in 2025
+            Forecasting GDP Growth with Machine Learning
         </h1>
         
         <!-- Meta Info -->
@@ -214,7 +214,7 @@
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
             </svg>
-            January 05, 2025
+            March 01, 2025
             
             <span class="mx-3">•</span>
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -302,68 +302,135 @@
                     margin-bottom: 0.5rem;
                 }
             </style>
-            <h2>The Evolving Landscape of AI</h2>
-<p>As we navigate through 2025, several transformative trends are reshaping how we develop, deploy, and interact with artificial intelligence systems. Here are the developments I'm watching most closely.</p>
-<h3>1. Multimodal AI Becomes Standard</h3>
-<p>The walls between different types of AI are crumbling. Modern systems seamlessly integrate:</p>
+            <h2>The Challenge of Economic Forecasting</h2>
+<p>Predicting GDP growth is one of the most important yet difficult tasks in economics. Traditional econometric models often struggle with non-linear relationships, regime changes, and the sheer complexity of modern economies.</p>
+<p>Machine learning offers new tools to tackle these challenges, but economic data has unique properties that require careful handling.</p>
+<h2>Data Characteristics</h2>
+<p>Economic data presents specific challenges:</p>
+<h3>Non-Stationarity</h3>
 <ul>
-<li>Text understanding and generation</li>
-<li>Image recognition and creation</li>
-<li>Audio processing</li>
-<li>Video analysis</li>
-<li>Structured data reasoning</li>
+<li>Trends and structural breaks</li>
+<li>Changing volatility over time</li>
+<li>Seasonality and cyclical patterns</li>
+<li>Regime-dependent relationships</li>
 </ul>
-<p>This convergence enables more natural, human-like interactions and opens entirely new application domains.</p>
-<h3>2. AI Agents and Autonomy</h3>
-<p>We're moving from chatbots to actual agents—systems that can:</p>
+<h3>Multivariate Dependencies</h3>
 <ul>
-<li>Plan multi-step tasks</li>
-<li>Use tools and APIs</li>
-<li>Maintain context over extended interactions</li>
-<li>Make decisions with minimal human intervention</li>
+<li>GDP depends on many interconnected variables</li>
+<li>Feedback loops between indicators</li>
+<li>Lagged effects and dynamic relationships</li>
+<li>External shocks and policy changes</li>
 </ul>
-<p>This shift from passive assistants to active agents represents a fundamental change in how we'll interact with AI.</p>
-<h3>3. Smaller, More Efficient Models</h3>
-<p>The "bigger is better" paradigm is being challenged. Key developments include:</p>
+<h3>Limited Historical Data</h3>
 <ul>
-<li><strong>Distillation techniques</strong>: Compressing large models into smaller ones</li>
-<li><strong>Mixture of Experts</strong>: Activating only relevant parts of large models</li>
-<li><strong>Quantization</strong>: Running powerful models on consumer hardware</li>
-<li><strong>Edge AI</strong>: Deploying sophisticated models on mobile devices</li>
+<li>Relatively short time series (decades, not centuries)</li>
+<li>Infrequent observations (quarterly or monthly)</li>
+<li>Sparse data on some indicators</li>
+<li>Non-uniform reporting periods</li>
 </ul>
-<p>This democratizes AI, making powerful capabilities accessible to more developers and users.</p>
-<h3>4. AI Safety and Alignment</h3>
-<p>As AI systems become more capable, safety and alignment are receiving serious attention:</p>
+<h2>ML Approaches for Economic Forecasting</h2>
+<h3>Time Series Methods</h3>
+<p><strong>ARIMA and Variants</strong></p>
+<p>Classical statistical models remain competitive:</p>
 <ul>
-<li>Robust evaluation frameworks</li>
-<li>Constitutional AI and value alignment</li>
-<li>Interpretability research</li>
-<li>Red-teaming and adversarial testing</li>
-<li>Regulatory frameworks emerging globally</li>
+<li>SARIMA for seasonal patterns</li>
+<li>VAR models for multivariate relationships</li>
+<li>Structural break detection</li>
+<li>Cointegration analysis</li>
 </ul>
-<p>This isn't just academic—it's becoming central to how companies develop and deploy AI.</p>
-<h3>5. Domain-Specific AI</h3>
-<p>General-purpose models are being augmented with specialized variants optimized for:</p>
+<p><strong>Modern Time Series ML</strong></p>
 <ul>
-<li>Healthcare and drug discovery</li>
-<li>Legal research and compliance</li>
-<li>Scientific research and experimentation</li>
-<li>Financial analysis and trading</li>
-<li>Education and personalized learning</li>
+<li>LSTM/GRU for capturing long-term dependencies</li>
+<li>Transformer architectures for sequence modeling</li>
+<li>Attention mechanisms for feature selection</li>
+<li>Wavelet decompositions for multi-scale analysis</li>
 </ul>
-<p>These domain-specific applications often outperform general models while being more efficient and trustworthy.</p>
-<h3>6. Open Source AI Ecosystem</h3>
-<p>The open-source AI community is thriving:</p>
+<h3>Feature Engineering</h3>
+<p>Economic features require domain knowledge:</p>
 <ul>
-<li>Competitive open-weight models (Llama, Mistral, etc.)</li>
-<li>Diverse fine-tuning and deployment tools</li>
-<li>Community-driven safety research</li>
-<li>Reduced barriers to AI development</li>
+<li>Leading indicators (consumer confidence, PMI)</li>
+<li>Lagged variables and moving averages</li>
+<li>Policy indicators (interest rates, fiscal measures)</li>
+<li>External factors (commodity prices, global indices)</li>
 </ul>
-<p>This trend is crucial for democratizing AI and preventing monopolistic control.</p>
-<h3>The Human Element</h3>
-<p>Amidst all this technical progress, I'm most interested in how AI augments rather than replaces human capabilities. The most successful AI applications in 2025 will be those that enhance human creativity, decision-making, and productivity while respecting human values and autonomy.</p>
-<p>The future of AI isn't about creating artificial humans—it's about creating tools that make humans more capable, creative, and connected.</p>
+<h3>Ensemble Methods</h3>
+<p>Combining multiple approaches:</p>
+<ul>
+<li>Stacking different model types</li>
+<li>Using expert judgment to guide ML</li>
+<li>Bayesian model averaging</li>
+<li>Dynamic model selection</li>
+</ul>
+<h2>Practical Implementation Challenges</h2>
+<h3>Overfitting</h3>
+<ul>
+<li>Limited historical data relative to model complexity</li>
+<li>Need for strong regularization</li>
+<li>Validation strategies for time series</li>
+<li>Out-of-sample testing protocols</li>
+</ul>
+<h3>Interpretability</h3>
+<ul>
+<li>Stakeholders need to understand predictions</li>
+<li>Policy implications require transparency</li>
+<li>Black-box models face resistance</li>
+<li>Need for explainability techniques</li>
+</ul>
+<h3>Regime Changes</h3>
+<ul>
+<li>COVID-19 as a structural break</li>
+<li>Financial crises as regime shifts</li>
+<li>Policy regime changes</li>
+<li>Detecting and adapting to new regimes</li>
+</ul>
+<h2>Case Study: Kenyan GDP Forecasting</h2>
+<p>Building a GDP forecasting model for Kenya involved:</p>
+<ol>
+<li><strong>Data Collection</strong>: Quarterly GDP, macroeconomic indicators</li>
+<li><strong>Feature Selection</strong>: Identifying leading indicators</li>
+<li><strong>Model Selection</strong>: Comparing ARIMA, VAR, and LSTM</li>
+<li><strong>Evaluation</strong>: Out-of-sample testing with rolling windows</li>
+<li><strong>Deployment</strong>: Real-time forecasting dashboard</li>
+</ol>
+<p>Key findings:</p>
+<ul>
+<li>Hybrid models outperformed pure ML or statistical approaches</li>
+<li>External factors (commodity prices, global growth) were crucial</li>
+<li>Model performance varied by economic cycle phase</li>
+<li>Ensemble methods reduced forecast errors by 15-20%</li>
+</ul>
+<h2>Ethical Considerations</h2>
+<p>Economic forecasts influence policy and behavior:</p>
+<ul>
+<li>Transparency about model limitations</li>
+<li>Avoiding self-reinforcing predictions</li>
+<li>Communicating uncertainty properly</li>
+<li>Protecting proprietary information</li>
+</ul>
+<h2>Future Directions</h2>
+<h3>Real-Time Data Integration</h3>
+<ul>
+<li>Incorporating high-frequency indicators</li>
+<li>Nowcasting with Google Trends, satellite data</li>
+<li>Social media sentiment analysis</li>
+<li>Alternative data sources</li>
+</ul>
+<h3>Causal Modeling</h3>
+<ul>
+<li>Moving beyond correlation to causation</li>
+<li>Understanding policy impacts</li>
+<li>Structural models combined with ML</li>
+<li>Counterfactual analysis</li>
+</ul>
+<h2>Conclusion</h2>
+<p>ML can enhance economic forecasting, but it's not a panacea. Success requires:</p>
+<ul>
+<li>Deep understanding of economic theory</li>
+<li>Careful handling of time series properties</li>
+<li>Combining statistical rigor with ML flexibility</li>
+<li>Transparency and humility about limitations</li>
+</ul>
+<p>The future of economic forecasting lies in intelligent hybrids: models that combine the interpretability of econometrics with the flexibility of machine learning.</p>
         </div>
     </article>
     
@@ -394,13 +461,13 @@
                     </a>
                     
                     
-                    <a href="https://linkedin.com/in/omega-makena" target="_blank" rel="noopener noreferrer" 
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" rel="noopener noreferrer" 
                        class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
                         LinkedIn
                     </a>
                     
                     
-                    <a href="mailto:omega@omegamakena.co.ke" 
+                    <a href="mailto:mwebiamakenaa@gmail.com" 
                        class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
                         Email
                     </a>
@@ -418,8 +485,8 @@
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
+        // Check for saved theme preference or default to dark mode
+        const currentTheme = localStorage.getItem('theme') || 'dark';
         
         if (currentTheme === 'dark') {
             document.documentElement.classList.add('dark');

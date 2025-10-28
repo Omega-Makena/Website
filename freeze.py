@@ -20,6 +20,13 @@ def blog_post():
     for post in flatpages:
         yield {'path': post.path}
 
+@freezer.register_generator
+def project_detail():
+    """Generate URLs for all project detail pages"""
+    from app import PROJECTS
+    for project in PROJECTS:
+        yield {'project_slug': project.get('slug')}
+
 def generate_sitemap():
     """Generate sitemap.xml for search engines"""
     site_url = SITE_CONFIG.get('site', {}).get('url', 'https://omegamakena.co.ke')
@@ -120,9 +127,9 @@ if __name__ == '__main__':
     # Generate robots.txt for SEO
     generate_robots_txt()
     
-    print("✅ Static site generated in 'docs' folder!")
-    print("🗺️  Sitemap created for search engines")
-    print("🤖 robots.txt created")
-    print("📁 Ready to deploy to GitHub Pages")
+    print("Static site generated in 'docs' folder!")
+    print("Sitemap created for search engines")
+    print("robots.txt created")
+    print("Ready to deploy to GitHub Pages")
 
 

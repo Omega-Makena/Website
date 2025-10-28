@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
+    <meta name="description" content="Exploring how mixture of experts architectures enable more efficient and scalable machine learning systems.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
     <!-- SEO -->
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="https://omegamakena.co.ke/">
+    <link rel="canonical" href="https://omegamakena.co.ke/blog/ai-ml/mixture-of-experts">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://omegamakena.co.ke/">
+    <meta property="og:url" content="https://omegamakena.co.ke/blog/ai-ml/mixture-of-experts">
     <meta property="og:title" content="Omega Makena - Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
     <meta property="og:description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
@@ -26,7 +26,7 @@
     <meta name="twitter:description" content="Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
     <meta name="twitter:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     
-    <title>Omega Makena - Quant Engineer & ML Specialist</title>
+    <title>Mixture of Experts - Scaling AI by Specialization - Omega Makena</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
@@ -182,120 +182,217 @@
     <!-- Main Content -->
     <main class="flex-grow">
         
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in">
     
-    <!-- Hero Section -->
-    <div class="text-center mb-20">
-        <!-- Profile Photo -->
-        <div class="mb-8">
-            <img src="/static/img/profile.jpg" 
-                 alt="Omega Makena" 
-                 class="w-48 h-48 rounded-full mx-auto object-cover shadow-lg border-4 border-light-accent dark:border-dark-accent"
-                 onerror="this.src='https://ui-avatars.com/api/?name=Omega+Makena&size=192&background=1E3A8A&color=fff&bold=true'">
+    <!-- Back Button -->
+    <div class="mb-8">
+        <a href="/blog" 
+           class="inline-flex items-center text-light-link dark:text-dark-link hover:underline">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Back to Blog
+        </a>
+    </div>
+    
+    <!-- Article Header -->
+    <article class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-8 md:p-12">
+        <!-- Category Badge -->
+        <div class="mb-4">
+            <span class="inline-block px-4 py-1 bg-light-accent dark:bg-dark-accent text-white text-sm font-semibold rounded-full">
+                AI
+            </span>
         </div>
         
-        <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-light-text dark:text-dark-text">
-            Hi, I'm <span class="text-light-accent dark:text-dark-accent">Omega Makena</span>
+        <!-- Title -->
+        <h1 class="text-4xl md:text-5xl font-display font-bold mb-4 text-light-text dark:text-dark-text">
+            Mixture of Experts - Scaling AI by Specialization
         </h1>
         
-        <p class="text-2xl md:text-3xl text-light-muted dark:text-dark-muted mb-4">
-            Quantitative Researcher | AI Specialist
-        </p>
+        <!-- Meta Info -->
+        <div class="flex items-center text-light-muted dark:text-dark-muted text-sm mb-8 pb-8 border-b border-gray-200 dark:border-gray-700">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            January 20, 2025
+            
+            <span class="mx-3">•</span>
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+            Omega Makena
+            
+        </div>
         
-        <p class="text-xl text-light-muted dark:text-dark-muted">
-            Building AI Systems for Economic Simulation
-        </p>
-    </div>
-    
-    <!-- About Section -->
-    <div class="max-w-3xl mx-auto mb-16">
-        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-8 md:p-12">
-            <h2 class="text-3xl font-display font-bold mb-6 text-light-text dark:text-dark-text">
-                About Me
-            </h2>
-            <div class="space-y-4 text-lg text-light-muted dark:text-dark-muted leading-relaxed">
-                <p class="intro">
-                    I'm a quantitative researcher with a strong machine learning background. I like building things that think and do things for me. If a task takes one second to do, I'd still rather spend centuries coding something that can do it for me, because why not?
-                </p>
-                <p>
-                    I'm super passionate about artificial intelligence, probably a little crazy about it. I could talk about AI for a millennium if you let me. It's not just an interest anymore; it's an ongoing obsession that somehow keeps getting worse (or better, depending on who you ask).
-                </p>
-                <p>
-                    Outside of work, I mentor young girls in Kenya through <strong>Tech-12</strong>, an organization focused on bridging the gender gap in tech and helping STEM actually make sense to young women who have been told it's not for them.
-                </p>
-                <p>
-                    For someone who claims to obsess over artificial intelligence, I surprisingly have other interests. I'm fascinated by human beings: psychology, physiology, sociology, anthropology, basically the whole "why do we act the way we act" question. That's another obsession of mine.
-                </p>
-                <p>
-                    Outside of that, I'm a very typical nerd. I'm obsessed with anime: Chinese (<em>manhua</em>), Japanese (<em>manga</em>), and South Korean (<em>manhwa</em>). Sometimes I mix them up, but it's fine.
-                </p>
-                <p class="outro">
-                    So yeah, that's me. Enjoy my portfolio.
-                </p>
-            </div>
+        <!-- Content -->
+        <div class="prose prose-lg dark:prose-invert max-w-none">
+            <style>
+                .prose {
+                    color: #1C1C1C;
+                }
+                .dark .prose {
+                    color: #E5E7EB;
+                }
+                .prose h2 {
+                    font-family: 'Playfair Display', serif;
+                    font-size: 2rem;
+                    font-weight: 700;
+                    margin-top: 2rem;
+                    margin-bottom: 1rem;
+                    color: #1E3A8A;
+                }
+                .dark .prose h2 {
+                    color: #93C5FD;
+                }
+                .prose h3 {
+                    font-family: 'Playfair Display', serif;
+                    font-size: 1.5rem;
+                    font-weight: 600;
+                    margin-top: 1.5rem;
+                    margin-bottom: 0.75rem;
+                    color: #1E3A8A;
+                }
+                .dark .prose h3 {
+                    color: #93C5FD;
+                }
+                .prose p {
+                    margin-bottom: 1.25rem;
+                    line-height: 1.8;
+                }
+                .prose a {
+                    color: #2563EB;
+                    text-decoration: underline;
+                }
+                .dark .prose a {
+                    color: #A78BFA;
+                }
+                .prose code {
+                    background-color: #F9FAFB;
+                    padding: 0.2rem 0.4rem;
+                    border-radius: 0.25rem;
+                    font-size: 0.9em;
+                }
+                .dark .prose code {
+                    background-color: #1E293B;
+                }
+                .prose pre {
+                    background-color: #F9FAFB;
+                    padding: 1rem;
+                    border-radius: 0.5rem;
+                    overflow-x: auto;
+                }
+                .dark .prose pre {
+                    background-color: #1E293B;
+                }
+                .prose blockquote {
+                    border-left: 4px solid #1E3A8A;
+                    padding-left: 1rem;
+                    font-style: italic;
+                    color: #6B7280;
+                }
+                .dark .prose blockquote {
+                    border-left-color: #93C5FD;
+                    color: #94A3B8;
+                }
+                .prose ul, .prose ol {
+                    margin-left: 1.5rem;
+                    margin-bottom: 1.25rem;
+                }
+                .prose li {
+                    margin-bottom: 0.5rem;
+                }
+            </style>
+            <h2>The Challenge of Scale</h2>
+<p>As machine learning models grow exponentially in size, we face a fundamental problem: how do we scale intelligence without exponentially scaling computational cost? Training models with trillions of parameters is becoming prohibitively expensive, both in terms of compute and energy consumption.</p>
+<p>This is where Mixture of Experts (MoE) comes in—a paradigm that challenges the traditional approach of monolithic neural networks.</p>
+<h2>What is Mixture of Experts?</h2>
+<p>Mixture of Experts is an architecture where instead of one large model processing every input, you have multiple specialized "expert" models, and a routing mechanism decides which experts to use for each input.</p>
+<p>Think of it like a department store: instead of one employee trying to handle every customer, you have specialists in electronics, clothing, and home goods. A routing system directs customers to the appropriate expert, and they might even consult multiple experts for complex purchases.</p>
+<h2>How It Works</h2>
+<h3>The Architecture</h3>
+<ol>
+<li><strong>Multiple Expert Networks</strong>: Each expert specializes in different aspects of the data</li>
+<li><strong>Router/Gating Network</strong>: Decides which experts to activate for each input</li>
+<li><strong>Combination Layer</strong>: Merges outputs from activated experts</li>
+</ol>
+<h3>Sparse Activation</h3>
+<p>The key innovation is <strong>sparse activation</strong>: for any given input, only a subset of experts are used. This means:</p>
+<ul>
+<li>Total model capacity can be huge (trillions of parameters)</li>
+<li>But only a fraction is activated per inference (billions used)</li>
+<li>Computation scales with active parameters, not total parameters</li>
+</ul>
+<h2>Real-World Applications</h2>
+<h3>Google's Switch Transformers</h3>
+<p>Google's Switch Transformer uses MoE to scale language models efficiently:</p>
+<ul>
+<li>1.6 trillion parameters total</li>
+<li>Only 37 billion active per inference</li>
+<li>Keeps inference cost manageable while maintaining massive capacity</li>
+</ul>
+<h3>Specialization in Vision</h3>
+<p>Vision models can have experts for:</p>
+<ul>
+<li>Different object categories</li>
+<li>Various image styles (photography, artwork, medical imaging)</li>
+<li>Multi-scale features (details vs. global patterns)</li>
+</ul>
+<h2>Benefits</h2>
+<h3>Efficiency</h3>
+<ul>
+<li>Lower computational cost per inference</li>
+<li>Faster training through parallel expert processing</li>
+<li>Better parameter utilization</li>
+</ul>
+<h3>Specialization</h3>
+<ul>
+<li>Experts naturally specialize in different patterns</li>
+<li>Better performance on diverse data</li>
+<li>More interpretable decisions</li>
+</ul>
+<h3>Scalability</h3>
+<ul>
+<li>Easy to add more capacity by adding experts</li>
+<li>Linear scaling with number of experts</li>
+<li>Doesn't require retraining entire model</li>
+</ul>
+<h2>Challenges</h2>
+<h3>Router Training</h3>
+<p>The gating network must learn to route effectively:</p>
+<ul>
+<li>Balance expert utilization</li>
+<li>Avoid collapsing to always using same experts</li>
+<li>Handle distribution shift</li>
+</ul>
+<h3>Load Balancing</h3>
+<p>Ensuring experts are used evenly:</p>
+<ul>
+<li>Some may become over-utilized</li>
+<li>Others might be underutilized</li>
+<li>Requires careful training and monitoring</li>
+</ul>
+<h3>Communication Overhead</h3>
+<p>In distributed systems:</p>
+<ul>
+<li>Need to coordinate expert selection</li>
+<li>Additional latency for routing decisions</li>
+<li>More complex distributed training</li>
+</ul>
+<h2>The Future of Efficient AI</h2>
+<p>MoE represents a shift toward more modular, efficient AI systems. As we push toward general intelligence, these architectures will be crucial for making AI accessible and sustainable.</p>
+<p>The principle—specialization through modularity—applies beyond neural networks. It's about designing systems that can handle complexity through intelligent routing and delegation, not brute force computation.</p>
+<h2>Conclusion</h2>
+<p>Mixture of Experts shows us that bigger isn't always better—smarter is. By using many specialized components efficiently rather than one monolithic system, we can achieve scale without sacrificing efficiency.</p>
+<p>This is the kind of engineering that will make AI truly practical and scalable for real-world applications.</p>
         </div>
-    </div>
+    </article>
     
-    <!-- Social Links -->
-    <div class="max-w-3xl mx-auto">
-        <h2 class="text-2xl font-display font-bold mb-6 text-center text-light-text dark:text-dark-text">
-            Connect With Me
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- GitHub -->
-            
-            <a href="https://github.com/Omega-Makena" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 text-center hover:shadow-lg hover:scale-105 transition-all duration-300">
-                <svg class="w-12 h-12 mx-auto mb-4 text-light-accent dark:text-dark-accent" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                <h3 class="font-display font-semibold text-lg mb-2 text-light-text dark:text-dark-text">GitHub</h3>
-                <p class="text-light-muted dark:text-dark-muted text-sm">Omega-Makena</p>
-            </a>
-            
-            
-            <!-- LinkedIn -->
-            
-            <a href="https://www.linkedin.com/in/omega-makena" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 text-center hover:shadow-lg hover:scale-105 transition-all duration-300">
-                <svg class="w-12 h-12 mx-auto mb-4 text-light-accent dark:text-dark-accent" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                </svg>
-                <h3 class="font-display font-semibold text-lg mb-2 text-light-text dark:text-dark-text">LinkedIn</h3>
-                <p class="text-light-muted dark:text-dark-muted text-sm">omega-makena</p>
-            </a>
-            
-            
-            <!-- Email -->
-            
-            <a href="mailto:mwebiamakenaa@gmail.com" 
-               class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 text-center hover:shadow-lg hover:scale-105 transition-all duration-300">
-                <svg class="w-12 h-12 mx-auto mb-4 text-light-accent dark:text-dark-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                </svg>
-                <h3 class="font-display font-semibold text-lg mb-2 text-light-text dark:text-dark-text">Email</h3>
-                <p class="text-light-muted dark:text-dark-muted text-sm">mwebiamakenaa@gmail.com</p>
-            </a>
-            
-        </div>
-    </div>
-    
-    <!-- CTA Section -->
-    <div class="mt-16 text-center">
-        <div class="space-x-4">
-            <a href="/portfolio" 
-               class="inline-block bg-light-accent dark:bg-dark-accent text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-all duration-300 hover:scale-105 shadow-md">
-                View My Work
-            </a>
-            <a href="/blog" 
-               class="inline-block bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text border-2 border-light-accent dark:border-dark-accent px-8 py-3 rounded-lg font-semibold hover:bg-light-accent dark:hover:bg-dark-accent hover:text-white transition-all duration-300 hover:scale-105 shadow-md">
-                Read My Blog
-            </a>
-        </div>
+    <!-- Navigation -->
+    <div class="mt-8 text-center">
+        <a href="/blog" 
+           class="inline-block bg-light-accent dark:bg-dark-accent text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-all duration-300 hover:scale-105 shadow-md">
+            View All Posts
+        </a>
     </div>
     
 </div>

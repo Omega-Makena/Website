@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Exploring how technology and artificial intelligence are reshaping the ancient art of poetry.">
+    <meta name="description" content="Random musings and fleeting thoughts captured in verse.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
     <!-- SEO -->
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="https://omegamakena.co.ke/blog/poetry-digital-age">
+    <link rel="canonical" href="https://omegamakena.co.ke/blog/poetry/fragments-of-thought">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://omegamakena.co.ke/blog/poetry-digital-age">
-    <meta property="og:title" content="Omega Makena - AI Researcher &amp; Full-Stack Developer">
+    <meta property="og:url" content="https://omegamakena.co.ke/blog/poetry/fragments-of-thought">
+    <meta property="og:title" content="Omega Makena - Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
     <meta property="og:description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
@@ -23,10 +23,10 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Omega Makena">
-    <meta name="twitter:description" content="AI Researcher &amp; Full-Stack Developer">
+    <meta name="twitter:description" content="Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
     <meta name="twitter:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     
-    <title>Poetry in the Digital Age - Omega Makena</title>
+    <title>Fragments of Thought - Omega Makena</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
@@ -206,7 +206,7 @@
         
         <!-- Title -->
         <h1 class="text-4xl md:text-5xl font-display font-bold mb-4 text-light-text dark:text-dark-text">
-            Poetry in the Digital Age
+            Fragments of Thought
         </h1>
         
         <!-- Meta Info -->
@@ -214,7 +214,7 @@
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
             </svg>
-            December 15, 2024
+            April 15, 2025
             
             <span class="mx-3">•</span>
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -302,22 +302,32 @@
                     margin-bottom: 0.5rem;
                 }
             </style>
-            <h2>The Intersection of Verse and Code</h2>
-<p>Poetry has always been humanity's way of processing the ineffable—those experiences and emotions that resist straightforward description. In our digital age, we find ourselves at a fascinating crossroads where the timeless art of verse meets the structured logic of code.</p>
-<h3>The Algorithm's Muse</h3>
-<p>Can an algorithm understand beauty? This question haunts me as I watch AI systems generate increasingly sophisticated verse. While these systems can mimic form and even capture certain emotional tones, there remains something distinctly human in the act of creation—the lived experience, the genuine struggle to find the right word.</p>
-<blockquote>
-<p><em>In silicon dreams and binary streams,</em><br />
-<em>Where do the poets hide?</em><br />
-<em>In every line of code we write,</em><br />
-<em>In every bug we've tried.</em></p>
-</blockquote>
-<h3>Hybrid Creation</h3>
-<p>Perhaps the future isn't about humans versus machines, but rather humans <strong>with</strong> machines. I've experimented with using AI as a collaborative tool—a digital muse that suggests unexpected metaphors, breaks my habitual patterns, and challenges my assumptions about what poetry can be.</p>
-<p>The key is maintaining creative agency while remaining open to unexpected inspiration, whether it comes from a sunset, a conversation, or a generative model.</p>
-<h3>Preserving the Human Touch</h3>
-<p>As we navigate this new landscape, we must remember that poetry's power lies not in perfect meter or clever wordplay, but in its ability to create genuine connection between human experiences. Technology can augment this connection, but it cannot replace the essential human truth at poetry's core.</p>
-<p>The digital age offers poets new tools, new forms, and new audiences. The challenge—and opportunity—is to use these resources while preserving poetry's fundamental purpose: to make us feel less alone in the universe.</p>
+            <h2>Between Code and Silence</h2>
+<p>In the quiet of midnight terminals,<br />
+where variables dance and logic flows,<br />
+I find poetry in error messages,<br />
+and beauty in the patterns that emerge.</p>
+<p>The computer hums its steady song,<br />
+while thoughts unfurl like nested loops<br />
+that reach toward understanding<br />
+in layers upon layers of meaning.</p>
+<h2>The Weight of Data</h2>
+<p>Rows and columns stretch<br />
+into dimensions beyond sight,<br />
+each number a story waiting,<br />
+each null value an unanswered question.</p>
+<p>We build bridges between signals and noise,<br />
+searching for truth in probability,<br />
+finding elegance in uncertainty,<br />
+and comfort in controlled randomness.</p>
+<h2>Code as Confession</h2>
+<p>Every function is a question,<br />
+every class an attempt to understand,<br />
+every bug a hidden assumption revealed.</p>
+<p>We write in languages imperfect,<br />
+seeking precision in ambiguity,<br />
+building worlds from pure abstraction,<br />
+that somehow map to messy reality.</p>
         </div>
     </article>
     
@@ -348,13 +358,13 @@
                     </a>
                     
                     
-                    <a href="https://linkedin.com/in/omega-makena" target="_blank" rel="noopener noreferrer" 
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" rel="noopener noreferrer" 
                        class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
                         LinkedIn
                     </a>
                     
                     
-                    <a href="mailto:omega@omegamakena.co.ke" 
+                    <a href="mailto:mwebiamakenaa@gmail.com" 
                        class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
                         Email
                     </a>
@@ -372,8 +382,8 @@
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
+        // Check for saved theme preference or default to dark mode
+        const currentTheme = localStorage.getItem('theme') || 'dark';
         
         if (currentTheme === 'dark') {
             document.documentElement.classList.add('dark');

@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Analyzing DeepMind&#39;s breakthrough solution to one of biology&#39;s grand challenges using deep learning.">
+    <meta name="description" content="My journey into federated learning while building a macroeconomic simulation model, and how it solved my impossible data problem.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
     <!-- SEO -->
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="https://omegamakena.co.ke/blog/paper-review-alphafold">
+    <link rel="canonical" href="https://omegamakena.co.ke/blog/ai-ml/learning-federated-learning-hard-way">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://omegamakena.co.ke/blog/paper-review-alphafold">
-    <meta property="og:title" content="Omega Makena - AI Researcher &amp; Full-Stack Developer">
+    <meta property="og:url" content="https://omegamakena.co.ke/blog/ai-ml/learning-federated-learning-hard-way">
+    <meta property="og:title" content="Omega Makena - Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
     <meta property="og:description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
@@ -23,10 +23,10 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Omega Makena">
-    <meta name="twitter:description" content="AI Researcher &amp; Full-Stack Developer">
+    <meta name="twitter:description" content="Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
     <meta name="twitter:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     
-    <title>Paper Review: AlphaFold 2 and the Protein Folding Problem - Omega Makena</title>
+    <title>How I Ended Up Learning Federated Learning the Hard Way - Omega Makena</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
@@ -200,13 +200,13 @@
         <!-- Category Badge -->
         <div class="mb-4">
             <span class="inline-block px-4 py-1 bg-light-accent dark:bg-dark-accent text-white text-sm font-semibold rounded-full">
-                Paper Review
+                AI
             </span>
         </div>
         
         <!-- Title -->
         <h1 class="text-4xl md:text-5xl font-display font-bold mb-4 text-light-text dark:text-dark-text">
-            Paper Review: AlphaFold 2 and the Protein Folding Problem
+            How I Ended Up Learning Federated Learning the Hard Way
         </h1>
         
         <!-- Meta Info -->
@@ -214,7 +214,7 @@
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
             </svg>
-            September 10, 2024
+            February 15, 2025
             
             <span class="mx-3">•</span>
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -302,77 +302,76 @@
                     margin-bottom: 0.5rem;
                 }
             </style>
-            <h2>A 50-Year Problem, Solved</h2>
-<p><strong>Paper</strong>: "Highly accurate protein structure prediction with AlphaFold"<br />
-<strong>Authors</strong>: Jumper et al. (DeepMind)<br />
-<strong>Published</strong>: Nature, July 2021<br />
-<strong>Link</strong>: <a href="https://doi.org/10.1038/s41586-021-03819-2">https://doi.org/10.1038/s41586-021-03819-2</a></p>
-<h3>The Problem</h3>
-<p>Proteins are the workhorses of biology—enzymes, antibodies, structural components, signaling molecules. Their function depends entirely on their 3D structure, which is determined by how the amino acid chain folds in space.</p>
-<p>Determining protein structure experimentally (via X-ray crystallography or cryo-EM) is expensive, time-consuming, and sometimes impossible. Meanwhile, DNA sequencing gives us millions of protein sequences whose structures we don't know.</p>
-<p>The protein folding problem: <strong>Can we predict a protein's 3D structure from its amino acid sequence alone?</strong></p>
-<p>Christian Anfinsen demonstrated in the 1960s that structure is determined by sequence, but predicting it computationally proved extraordinarily difficult for 50 years.</p>
-<h3>The Solution: AlphaFold 2</h3>
-<p>AlphaFold 2 achieved median global distance test (GDT) scores above 90—comparable to experimental methods—on CASP14 protein structure prediction challenge.</p>
-<h4>Key Innovations</h4>
-<p><strong>1. Evolutionary and Structural Co-evolution</strong></p>
-<p>The model uses multiple sequence alignments (MSA) to capture evolutionary information. Related proteins with similar sequences often have similar structures. Co-evolution of amino acids (residues that change together across evolution) provides distance constraints.</p>
-<p><strong>2. Attention-Based Architecture</strong></p>
-<p>AlphaFold 2 uses transformer-style attention mechanisms operating on:
-- MSA representation (capturing evolutionary patterns)
-- Pair representation (modeling pairwise relationships between residues)</p>
-<p>These representations are iteratively refined through attention layers that capture both local and long-range interactions.</p>
-<p><strong>3. Equivariant Architecture</strong></p>
-<p>The structure module updates 3D coordinates in an SE(3)-equivariant manner—meaning the network's predictions are consistent regardless of how you rotate or translate the protein in space.</p>
-<p><strong>4. End-to-End Differentiable</strong></p>
-<p>Unlike previous methods that combined multiple separate stages, AlphaFold 2 is trained end-to-end, allowing gradients to flow through the entire system.</p>
-<h3>Architecture Deep Dive</h3>
-<pre><code>Input Sequence → MSA Search → Evoformer (Multiple Blocks) → Structure Module → Final Structure
-                                       ↓
-                              [MSA Representation
-                               Pair Representation]
-                                       ↓
-                              [Attention Mechanisms
-                               Update Operations]
-</code></pre>
-<p>The <strong>Evoformer</strong> is the core innovation:
-- Processes MSA and pair representations jointly
-- Uses row and column attention on MSA
-- Uses triangular attention on pair representation
-- Iteratively refines both representations</p>
-<h3>Impact</h3>
-<p>This isn't just incremental progress—it's transformative:</p>
-<p><strong>Drug Discovery</strong>: Rapid structure prediction accelerates target identification and drug design</p>
-<p><strong>Disease Understanding</strong>: Predicting structures of disease-related proteins helps explain molecular mechanisms</p>
-<p><strong>Synthetic Biology</strong>: Designing new proteins with desired functions</p>
-<p><strong>Basic Research</strong>: AlphaFold has predicted structures for essentially all known proteins (200M+ structures in AlphaFold DB)</p>
-<h3>Limitations and Open Questions</h3>
-<p>Despite its success, important challenges remain:</p>
+            <h2>The Problem That Started Everything</h2>
+<p>Earlier this year, I decided to play researcher. I wanted to build a macroeconomic simulation that could model shocks and policies. The idea was ambitious and exciting, but I immediately ran into two problems.</p>
 <ol>
-<li><strong>Dynamic proteins</strong>: AlphaFold predicts static structures, but proteins are dynamic</li>
-<li><strong>Protein complexes</strong>: Predicting multi-protein assemblies remains challenging</li>
-<li><strong>Intrinsically disordered regions</strong>: Some protein regions don't have fixed structure</li>
-<li><strong>Ligand binding</strong>: How proteins bind small molecules isn't fully addressed</li>
-<li><strong>Mutations</strong>: Predicting how mutations affect structure/function needs refinement</li>
+<li><strong>I am not an economist.</strong></li>
+<li><strong>I had no data.</strong></li>
 </ol>
-<h3>Why This Matters for AI</h3>
-<p>AlphaFold 2 demonstrates several important principles:</p>
+<p>The first problem was easier to deal with. I could approach it from a machine learning angle. The second one was harder. How do you simulate an economy when you cannot access the data that keeps it alive? Every financial institution, government department, and research center has its own private datasets, and none of them are willing to share.</p>
+<p>That was the moment I discovered Federated Learning. I did not come across it in a classroom or research paper. I found it because I was desperate to make my idea work.</p>
+<h2>What Federated Learning Actually Is</h2>
+<p>Federated Learning, or FL, is a way of training machine learning models without centralizing data. The simplest way to describe it is this: instead of moving data to the model, you move the model to the data.</p>
+<p>Imagine you have ten banks. Each has private customer records that cannot leave their servers. They all want to build a fraud detection model. In a traditional setup, they would have to combine their data in one place, which is impossible due to regulations.</p>
+<p>In federated learning, the model is sent to each bank. Every bank trains that model on its own local data. When it is done, it sends only the updated model parameters back to a coordinating server. The server averages all the updates and sends the improved global model back to\n all banks.</p>
+<p>The result is that everyone benefits from shared learning, but nobody ever shares their raw data.</p>
+<h2>How It Works</h2>
+<p>The process is simple but powerful.</p>
+<ol>
+<li>The server starts with a global model.</li>
+<li>The model is sent to multiple clients, which could be devices, institutions, or servers.</li>
+<li>Each client trains the model locally using its own dataset.</li>
+<li>The clients send their updated model weights, not the raw data, to the central server.</li>
+<li>The server combines the updates, usually through an averaging method called Federated Averaging.</li>
+<li>The updated global model is sent back to all clients, and the cycle continues.</li>
+</ol>
+<p>After several rounds, the global model learns from everyone's data, even though that data never left its original location.</p>
+<h2>Why It Solved My Problem</h2>
+<p>My macroeconomic simulation project had a unique challenge. The data I needed lived across different institutions, each representing parts of the economy. For instance, the Central Bank might have monetary data, while the Ministry of Agriculture might hold production figures. None of these datasets could be openly shared, but they were all important to understanding the economy as a whole.</p>
+<p>Federated Learning gave me a way around that problem. Instead of forcing everyone to pool their data, each institution could train a small model representing its sector. The global model, acting as the "economy," could then aggregate these insights.</p>
+<p>That meant I could simulate how sectors interact, how policies ripple through industries, and how shocks spread, all while keeping every dataset private. I did not need to own every dataset. I just needed a way for each of them to contribute safely.</p>
+<h2>The Beauty of Built-In Privacy</h2>
+<p>One of the most appealing parts of Federated Learning is that privacy is not an afterthought. It is part of the foundation.</p>
+<p>To keep data safe, several privacy-preserving techniques are used.</p>
 <ul>
-<li><strong>Domain knowledge matters</strong>: The architecture incorporates biological insights</li>
-<li><strong>Representation learning</strong>: Learning good intermediate representations is crucial</li>
-<li><strong>Scale and data</strong>: Training on all known protein structures (PDB) enabled breakthrough</li>
-<li><strong>Attention mechanisms</strong>: Transformers work beyond NLP</li>
+<li><strong>Differential Privacy</strong> adds a little noise to updates so that no individual data point can be traced.</li>
+<li><strong>Secure Aggregation</strong> ensures that the server only sees the combined model updates, not individual contributions.</li>
+<li><strong>Homomorphic Encryption</strong> allows computations to happen directly on encrypted data.</li>
 </ul>
-<h3>Personal Reflections</h3>
-<p>What strikes me most about AlphaFold isn't just the technical achievement—it's the <strong>collaborative spirit</strong>. DeepMind open-sourced the code and made predictions freely available. This accelerated scientific progress globally.</p>
-<p>It's a reminder that the most impactful AI applications solve real problems and benefit humanity broadly. AlphaFold shows what's possible when cutting-edge ML meets fundamental scientific challenges.</p>
-<p>The protein folding problem isn't completely solved—but AlphaFold 2 represents a quantum leap forward, and it's inspiring to see AI making genuine contributions to scientific understanding.</p>
-<h3>Further Reading</h3>
+<p>These methods make it possible to train global models while still protecting individual information. It is an elegant balance between learning and confidentiality.</p>
+<h2>The Challenges Nobody Talks About</h2>
+<p>Federated Learning is brilliant, but it is not easy. The real world makes it messy.</p>
+<p>Different clients have different devices, internet speeds, and computing power. Some have huge datasets, others have almost nothing. This makes synchronization hard. The data itself is also not evenly distributed. One client might have data on farmers, another on manufacturers, and another on banks. That difference in distribution, called non-IID data, makes training unstable.</p>
+<p>There is also the issue of communication. Sending model updates back and forth takes time and bandwidth. And of course, there is the threat of malicious clients trying to poison the model by sending corrupted updates.</p>
+<p>So even though FL looks simple on paper, building a working system means dealing with these real-world complexities.</p>
+<h2>How It Keeps Evolving</h2>
+<p>Federated Learning keeps growing into new directions. Researchers are constantly mixing it with other branches of AI.</p>
 <ul>
-<li><a href="https://alphafold.ebi.ac.uk/">AlphaFold Protein Structure Database</a></li>
-<li><a href="https://doi.org/10.1038/s41586-021-03819-2">Original Nature paper</a></li>
-<li><a href="https://github.com/deepmind/alphafold">AlphaFold GitHub repository</a></li>
+<li><strong>Federated Meta-Learning</strong> helps global models adapt quickly to local data.</li>
+<li><strong>Federated Reinforcement Learning</strong> lets agents learn policies collaboratively without revealing experiences.</li>
+<li><strong>Federated Graph Neural Networks</strong> make it possible to train on connected data such as supply chains or social networks.</li>
+<li><strong>Gossip Learning</strong> removes the central server completely, allowing devices to communicate directly and learn through peer-to-peer exchange.</li>
+<li><strong>Blockchain with Federated Learning</strong> adds transparency and rewards, helping track contributions and prevent tampering.</li>
 </ul>
+<p>For me, these innovations opened new possibilities. I could imagine building a system where every economic agent, from government to household, trains its own model while contributing to a shared understanding of the economy.</p>
+<h2>Where It's Already Working</h2>
+<p>Federated Learning is not just a theory. It already powers tools and systems people use every day.</p>
+<ul>
+<li><strong>Google Gboard</strong> learns from how people type without sending their messages to the cloud.</li>
+<li><strong>Apple</strong> uses it for Siri and keyboard personalization.</li>
+<li><strong>Hospitals</strong> train diagnostic models together without sharing patient data.</li>
+<li><strong>Banks</strong> collaborate on fraud detection without violating privacy laws.</li>
+<li><strong>Telecommunication companies</strong> use it for network optimization.</li>
+</ul>
+<p>FL has become the quiet backbone of many privacy-sensitive applications.</p>
+<h2>Why It Feels Like the Future</h2>
+<p>Federated Learning represents a shift in how we think about intelligence. It is not about centralizing everything anymore. It is about collaborative learning without compromise.</p>
+<p>As data becomes more private and fragmented, this approach is likely to define how the next generation of AI systems are built. It aligns perfectly with the push for ethical AI, data sovereignty, and trustworthy machine learning.</p>
+<p>For me, it turned what could have been an impossible project into a realistic one. I did not have to break privacy rules or pretend to be an economist. I just had to let each part of the system learn for itself and then come together to form a whole.</p>
+<h2>Final Thoughts</h2>
+<p>Federated Learning is more than an algorithm. It is a philosophy about how knowledge should be shared in a world full of boundaries. It respects ownership while encouraging collaboration.</p>
+<p>In my case, it transformed a personal research experiment into something that felt alive and connected. It showed me that intelligence does not have to come from one central mind. It can emerge from many small ones learning together, quietly, and privately.</p>
+<p>That is the beauty of it. Everyone learns, and nobody loses control of their data.</p>
         </div>
     </article>
     
@@ -403,13 +402,13 @@
                     </a>
                     
                     
-                    <a href="https://linkedin.com/in/omega-makena" target="_blank" rel="noopener noreferrer" 
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" rel="noopener noreferrer" 
                        class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
                         LinkedIn
                     </a>
                     
                     
-                    <a href="mailto:omega@omegamakena.co.ke" 
+                    <a href="mailto:mwebiamakenaa@gmail.com" 
                        class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
                         Email
                     </a>
@@ -427,8 +426,8 @@
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
+        // Check for saved theme preference or default to dark mode
+        const currentTheme = localStorage.getItem('theme') || 'dark';
         
         if (currentTheme === 'dark') {
             document.documentElement.classList.add('dark');

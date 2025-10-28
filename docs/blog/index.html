@@ -15,7 +15,7 @@
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://omegamakena.co.ke/blog/">
-    <meta property="og:title" content="Omega Makena - AI Researcher &amp; Full-Stack Developer">
+    <meta property="og:title" content="Omega Makena - Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
     <meta property="og:description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
@@ -23,7 +23,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Omega Makena">
-    <meta name="twitter:description" content="AI Researcher &amp; Full-Stack Developer">
+    <meta name="twitter:description" content="Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
     <meta name="twitter:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     
     <title>Blog - Omega Makena</title>
@@ -195,226 +195,453 @@
     </div>
     
     <!-- Categories and Posts -->
-    <div class="space-y-12">
+    <div class="space-y-6">
         
-        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 md:p-8">
-            <h2 class="text-3xl font-display font-bold mb-6 text-light-accent dark:text-dark-accent">
-                Poetry
-            </h2>
+        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md overflow-hidden">
+            <!-- Category Header (Always Visible) -->
+            <button onclick="toggleCategory('ai-ml')" class="w-full flex justify-between items-center p-6 md:p-8 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200">
+                <div class="flex items-center gap-4">
+                    <h2 class="text-2xl md:text-3xl font深入isplay font-bold text-light-accent dark:text-dark-accent">
+                        Ai &amp; Machine Learning
+                    </h2>
+                    <span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm rounded-full font-medium">
+                        10 posts
+                    </span>
+                </div>
+                <svg id="icon-ai-ml" class="w-6 h-6 text-light-accent dark:text-dark-accent transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
             
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Category Posts (Collapsible) -->
+            <div id="posts-ai-ml" class="hidden px-6 md:px-8 pb-6 md:pb-8 pt-0">
                 
-                <a href="/blog/poetry-digital-age" 
-                   class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
-                    <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
-                        Poetry in the Digital Age
-                    </h3>
-                    <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
-                        December 15, 2024
-                    </p>
-                    <p class="text-light-muted dark:text-dark-muted">
-                        Exploring how technology and artificial intelligence are reshaping the ancient art of poetry.
-                    </p>
-                    <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center">
-                        Read more
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </div>
-                </a>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <a href="/blog/ai-ml/review-autonomous-machine-learning" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            Review of &#34;A Path Towards Autonomous Machine Learning Intelligence&#34; by Yann LeCun
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            August 18, 2025
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            A comprehensive analysis of Yann LeCun&#39;s vision for autonomous machine learning and the future of AI systems.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                    <a href="/blog/ai-ml/role-playing-mirroring" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            Why Role-Playing is Still Mirroring, Just Narrowed
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            July 21, 2025
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            Exploring the psychological mechanisms of role-playing and how it relates to our innate mirroring behaviors.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                    <a href="/blog/ai-ml/oop-in-machine-learning" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            Object-Oriented Programming in Machine Learning
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            April 01, 2025
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            Exploring how object-oriented programming principles enhance machine learning development and code organization.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                    <a href="/blog/ai-ml/ai-transforming-education" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            How AI is Transforming Education – A Firsthand Look at Innovation
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            March 03, 2025
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            Insights from real-world implementation of AI in education, exploring the practical impact and opportunities.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                    <a href="/blog/ai-ml/learning-federated-learning-hard-way" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            How I Ended Up Learning Federated Learning the Hard Way
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            February 15, 2025
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            My journey into federated learning while building a macroeconomic simulation model, and how it solved my impossible data problem.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                    <a href="/blog/ai-ml/mixture-of-experts" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            Mixture of Experts - Scaling AI by Specialization
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            January 20, 2025
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            Exploring how mixture of experts architectures enable more efficient and scalable machine learning systems.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                    <a href="/blog/ai-ml/meta-learning-and-adaptation" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            Meta-Learning and Adaptation - Learning to Learn Faster
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            January 10, 2025
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            How meta-learning enables AI systems to rapidly adapt to new tasks with minimal data.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                    <a href="/blog/ai-ml/synthetic-data-ai-secrets" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            Why Your Self-Driving Car Needs Fake Rain (and Other AI Secrets)
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            December 15, 2024
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            Exploring synthetic data generation as a solution to overcome data scarcity in AI systems, particularly in autonomous vehicles.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                    <a href="/blog/ai-ml/ai-research-divide" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            AI Research in First vs. Second &amp; Third World Countries - A Growing Divide
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            October 25, 2024
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            Exploring the growing divide in AI research capabilities between developed and developing countries, and its implications.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                    <a href="/blog/ai-ml/building-ai-agent-architecture" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            Building AI Agent Architecture - The House Analogy
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            September 12, 2024
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            Designing AI agent architecture through a house analogy - foundation, pillars, roof, and refurbishing for practical deployment.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                </div>
                 
             </div>
-            
         </div>
         
-        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 md:p-8">
-            <h2 class="text-3xl font-display font-bold mb-6 text-light-accent dark:text-dark-accent">
-                AI
-            </h2>
+        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md overflow-hidden">
+            <!-- Category Header (Always Visible) -->
+            <button onclick="toggleCategory('finance-economics')" class="w-full flex justify-between items-center p-6 md:p-8 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200">
+                <div class="flex items-center gap-4">
+                    <h2 class="text-2xl md:text-3xl font深入isplay font-bold text-light-accent dark:text-dark-accent">
+                        Finance &amp; Economics
+                    </h2>
+                    <span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm rounded-full font-medium">
+                        2 posts
+                    </span>
+                </div>
+                <svg id="icon-finance-economics" class="w-6 h-6 text-light-accent dark:text-dark-accent transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
             
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Category Posts (Collapsible) -->
+            <div id="posts-finance-economics" class="hidden px-6 md:px-8 pb-6 md:pb-8 pt-0">
                 
-                <a href="/blog/ai-transformer-revolution" 
-                   class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
-                    <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
-                        The Transformer Revolution: How Attention Changed Everything
-                    </h3>
-                    <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
-                        January 10, 2025
-                    </p>
-                    <p class="text-light-muted dark:text-dark-muted">
-                        A deep dive into transformer architecture and why attention mechanisms revolutionized artificial intelligence.
-                    </p>
-                    <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center">
-                        Read more
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </div>
-                </a>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <a href="/blog/finance-economics/forecasting-gdp-growth" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            Forecasting GDP Growth with Machine Learning
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            March 01, 2025
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            Applying time series forecasting and ML techniques to predict economic growth indicators.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                    <a href="/blog/finance-economics/abides-economist-review" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            Review of &#34;ABIDES-Economist - Agent-Based Simulation of Economic Systems with Learning Agents&#34;
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            November 20, 2024
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            An analysis of ABIDES-Economist, a framework for agent-based economic simulation using machine learning agents.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                </div>
                 
             </div>
-            
         </div>
         
-        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 md:p-8">
-            <h2 class="text-3xl font-display font-bold mb-6 text-light-accent dark:text-dark-accent">
-                Trends
-            </h2>
+        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md overflow-hidden">
+            <!-- Category Header (Always Visible) -->
+            <button onclick="toggleCategory('poetry')" class="w-full flex justify-between items-center p-6 md:p-8 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200">
+                <div class="flex items-center gap-4">
+                    <h2 class="text-2xl md:text-3xl font深入isplay font-bold text-light-accent dark:text-dark-accent">
+                        Poetry
+                    </h2>
+                    <span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm rounded-full font-medium">
+                        1 posts
+                    </span>
+                </div>
+                <svg id="icon-poetry" class="w-6 h-6 text-light-accent dark:text-dark-accent transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
             
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Category Posts (Collapsible) -->
+            <div id="posts-poetry" class="hidden px-6 md:px-8 pb-6 md:pb-8 pt-0">
                 
-                <a href="/blog/ai-trends-2025" 
-                   class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
-                    <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
-                        AI Trends to Watch in 2025
-                    </h3>
-                    <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
-                        January 05, 2025
-                    </p>
-                    <p class="text-light-muted dark:text-dark-muted">
-                        Key developments shaping the future of artificial intelligence in 2025 and beyond.
-                    </p>
-                    <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center">
-                        Read more
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </div>
-                </a>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <a href="/blog/poetry/fragments-of-thought" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            Fragments of Thought
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            April 15, 2025
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            Random musings and fleeting thoughts captured in verse.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                </div>
                 
             </div>
-            
         </div>
         
-        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 md:p-8">
-            <h2 class="text-3xl font-display font-bold mb-6 text-light-accent dark:text-dark-accent">
-                Psychology
-            </h2>
+        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md overflow-hidden">
+            <!-- Category Header (Always Visible) -->
+            <button onclick="toggleCategory('self-improvement')" class="w-full flex justify-between items-center p-6 md:p-8 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200">
+                <div class="flex items-center gap-4">
+                    <h2 class="text-2xl md:text-3xl font深入isplay font-bold text-light-accent dark:text-dark-accent">
+                        Self-Improvement
+                    </h2>
+                    <span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm rounded-full font-medium">
+                        2 posts
+                    </span>
+                </div>
+                <svg id="icon-self-improvement" class="w-6 h-6 text-light-accent dark:text-dark-accent transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
             
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Category Posts (Collapsible) -->
+            <div id="posts-self-improvement" class="hidden px-6 md:px-8 pb-6 md:pb-8 pt-0">
                 
-                <a href="/blog/psychology-flow-state" 
-                   class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
-                    <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
-                        Understanding Flow State: The Psychology of Peak Performance
-                    </h3>
-                    <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
-                        November 20, 2024
-                    </p>
-                    <p class="text-light-muted dark:text-dark-muted">
-                        Exploring the psychological state where focus, creativity, and productivity converge into flow.
-                    </p>
-                    <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center">
-                        Read more
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </div>
-                </a>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <a href="/blog/self-improvement/self-actualization-growing" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            Self-Actualization - Growing to Be Your Best Self
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            June 23, 2025
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            A practical guide to understanding and pursuing self-actualization in your personal and professional life.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                    <a href="/blog/self-improvement/intellectual-loneliness" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            Intellectual Loneliness
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            May 10, 2025
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            Reflections on feeling intellectually isolated and finding ways to bridge the gap.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                </div>
                 
             </div>
-            
         </div>
         
-        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 md:p-8">
-            <h2 class="text-3xl font-display font-bold mb-6 text-light-accent dark:text-dark-accent">
-                Self-Improvement
-            </h2>
+        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md overflow-hidden">
+            <!-- Category Header (Always Visible) -->
+            <button onclick="toggleCategory('tech-concepts')" class="w-full flex justify-between items-center p-6 md:p-8 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200">
+                <div class="flex items-center gap-4">
+                    <h2 class="text-2xl md:text-3xl font深入isplay font-bold text-light-accent dark:text-dark-accent">
+                        Tech Concepts
+                    </h2>
+                    <span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm rounded-full font-medium">
+                        1 posts
+                    </span>
+                </div>
+                <svg id="icon-tech-concepts" class="w-6 h-6 text-light-accent dark:text-dark-accent transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
             
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Category Posts (Collapsible) -->
+            <div id="posts-tech-concepts" class="hidden px-6 md:px-8 pb-6 md:pb-8 pt-0">
                 
-                <a href="/blog/self-improvement-learning" 
-                   class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
-                    <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
-                        The Meta-Skill: Learning How to Learn
-                    </h3>
-                    <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
-                        October 15, 2024
-                    </p>
-                    <p class="text-light-muted dark:text-dark-muted">
-                        Developing the most important skill in a rapidly changing world—the ability to learn effectively.
-                    </p>
-                    <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center">
-                        Read more
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </div>
-                </a>
-                
-            </div>
-            
-        </div>
-        
-        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 md:p-8">
-            <h2 class="text-3xl font-display font-bold mb-6 text-light-accent dark:text-dark-accent">
-                Paper Review
-            </h2>
-            
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <a href="/blog/paper-review-alphafold" 
-                   class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
-                    <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
-                        Paper Review: AlphaFold 2 and the Protein Folding Problem
-                    </h3>
-                    <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
-                        September 10, 2024
-                    </p>
-                    <p class="text-light-muted dark:text-dark-muted">
-                        Analyzing DeepMind&#39;s breakthrough solution to one of biology&#39;s grand challenges using deep learning.
-                    </p>
-                    <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center">
-                        Read more
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </div>
-                </a>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <a href="/blog/tech-concepts/what-is-big-data" 
+                       class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
+                        <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
+                            What is Big Data?
+                        </h3>
+                        <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
+                            May 26, 2025
+                        </p>
+                        <p class="text-light-muted dark:text-dark-muted text-sm">
+                            An accessible introduction to big data, its characteristics, and its impact on modern technology and business.
+                        </p>
+                        <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center text-sm">
+                            Read more
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                </div>
                 
             </div>
-            
-        </div>
-        
-        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 md:p-8">
-            <h2 class="text-3xl font-display font-bold mb-6 text-light-accent dark:text-dark-accent">
-                My Papers
-            </h2>
-            
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <a href="/blog/my-paper-ai-equity" 
-                   class="block p-5 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-light-link dark:hover:border-dark-link hover:shadow-md transition-all duration-300">
-                    <h3 class="text-xl font-display font-semibold mb-2 text-light-text dark:text-dark-text">
-                        Measuring and Mitigating Bias in Machine Learning Systems
-                    </h3>
-                    <p class="text-light-muted dark:text-dark-muted text-sm mb-3">
-                        August 25, 2024
-                    </p>
-                    <p class="text-light-muted dark:text-dark-muted">
-                        Research on developing frameworks for identifying and reducing algorithmic bias in AI systems.
-                    </p>
-                    <div class="mt-3 text-light-link dark:text-dark-link font-semibold flex items-center">
-                        Read more
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </div>
-                </a>
-                
-            </div>
-            
         </div>
         
     </div>
+    
+    <script>
+        function toggleCategory(category) {
+            const postsDiv = document.getElementById('posts-' + category);
+            const icon = document.getElementById('icon-' + category);
+            
+            postsDiv.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+    </script>
     
 </div>
 
@@ -435,13 +662,13 @@
                     </a>
                     
                     
-                    <a href="https://linkedin.com/in/omega-makena" target="_blank" rel="noopener noreferrer" 
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" rel="noopener noreferrer" 
                        class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
                         LinkedIn
                     </a>
                     
                     
-                    <a href="mailto:omega@omegamakena.co.ke" 
+                    <a href="mailto:mwebiamakenaa@gmail.com" 
                        class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
                         Email
                     </a>
@@ -459,8 +686,8 @@
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
+        // Check for saved theme preference or default to dark mode
+        const currentTheme = localStorage.getItem('theme') || 'dark';
         
         if (currentTheme === 'dark') {
             document.documentElement.classList.add('dark');
