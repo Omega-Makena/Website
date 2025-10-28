@@ -27,6 +27,13 @@ def project_detail():
     for project in PROJECTS:
         yield {'project_slug': project.get('slug')}
 
+@freezer.register_generator
+def blog_category():
+    """Generate URLs for all blog category pages"""
+    categories = ['ai-ml', 'finance-economics', 'poetry', 'self-improvement', 'tech-concepts', 'random']
+    for category in categories:
+        yield {'category': category}
+
 def generate_sitemap():
     """Generate sitemap.xml for search engines"""
     site_url = SITE_CONFIG.get('site', {}).get('url', 'https://omegamakena.co.ke')

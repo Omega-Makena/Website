@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena">
+    
+    <!-- SEO -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://omegamakena.co.ke/blog/tech-concepts/">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://omegamakena.co.ke/blog/tech-concepts/">
+    <meta property="og:title" content="Omega Makena - Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
+    <meta property="og:description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
+    <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
+    <meta property="og:site_name" content="Omega Makena">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Omega Makena">
+    <meta name="twitter:description" content="Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
+    <meta name="twitter:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
+    
+    <title>Tech Concepts - Blog</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        light: {
+                            bg: '#F9FAFB',
+                            card: '#FFFFFF',
+                            text: '#1C1C1C',
+                            muted: '#6B7280',
+                            accent: '#1E3A8A',
+                            link: '#2563EB',
+                            highlight: '#D97706'
+                        },
+                        dark: {
+                            bg: '#0F172A',
+                            card: '#1E293B',
+                            text: '#E5E7EB',
+                            muted: '#94A3B8',
+                            accent: '#93C5FD',
+                            link: '#A78BFA',
+                            highlight: '#FBBF24'
+                        }
+                    },
+                    fontFamily: {
+                        'display': ['"Playfair Display"', 'serif'],
+                        'body': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Smooth transitions */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        /* Dark mode styles */
+        body.dark {
+            background-color: #0F172A;
+            color: #E5E7EB;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        body.dark ::-webkit-scrollbar-track {
+            background: #1E293B;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Fade in animation */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text min-h-screen flex flex-col">
+    
+    <!-- Navigation -->
+    <nav class="bg-light-card dark:bg-dark-card shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Name -->
+                <a href="/" class="font-display text-2xl font-bold text-light-accent dark:text-dark-accent hover:opacity-80">
+                    Omega Makena
+                </a>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
+                        Home
+                    </a>
+                    <a href="/portfolio" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
+                        Portfolio
+                    </a>
+                    <a href="/blog" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
+                        Blog
+                    </a>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pb-4">
+            <div class="flex flex-col space-y-3">
+                <a href="/" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
+                    Home
+                </a>
+                <a href="/portfolio" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
+                    Portfolio
+                </a>
+                <a href="/blog" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
+                    Blog
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="flex-grow">
+        
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in">
+    
+    <!-- Back Button -->
+    <div class="mb-8">
+        <a href="/blog" 
+           class="inline-flex items-center text-light-link dark:text-dark-link hover:underline">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Back to Blog
+        </a>
+    </div>
+    
+    <!-- Header -->
+    <div class="text-center mb-16">
+        <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-light-text dark:text-dark-text">
+            Tech Concepts
+        </h1>
+        <p class="text-xl text-light-muted dark:text-dark-muted">
+            1 post
+        </p>
+    </div>
+    
+    <!-- Posts Grid -->
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <a href="/blog/tech-concepts/what-is-big-data" 
+           class="block bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 md:p-8 hover:shadow-xl transition-all duration-300 hover:scale-102">
+            <h2 class="text-2xl font-display font-semibold mb-3 text-light-text dark:text-dark-text">
+                What is Big Data?
+            </h2>
+            <p class="text-light-muted dark:text-dark-muted text-sm mb-4">
+                May 26, 2025
+            </p>
+            <p class="text-light-muted dark:text-dark-muted">
+                An accessible introduction to big data, its characteristics, and its impact on modern technology and business.
+            </p>
+            <div class="mt-4 text-light-link dark:text-dark-link font-semibold flex items-center">
+                Read more
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </div>
+        </a>
+        
+    </div>
+    
+    
+</div>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-light-card dark:bg-dark-card mt-20 border-t border-gray-200 dark:border-gray-700">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="text-light-muted dark:text-dark-muted text-sm">
+                    © 2025 Omega Makena. All rights reserved.
+                </div>
+                <div class="flex space-x-6">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank" rel="noopener noreferrer" 
+                       class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
+                        GitHub
+                    </a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" rel="noopener noreferrer" 
+                       class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
+                        LinkedIn
+                    </a>
+                    
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com" 
+                       class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
+                        Email
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Dark Mode Toggle Script -->
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        // Check for saved theme preference or default to dark mode
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        
+        if (currentTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.body.classList.add('dark');
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+        
+        themeToggleBtn.addEventListener('click', function() {
+            // Toggle icons
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+            
+            // Toggle dark mode
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                document.body.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                document.body.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // Mobile menu toggle
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+    
+    
+</body>
+</html>
+
+

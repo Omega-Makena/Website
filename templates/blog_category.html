@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category_name }} - Blog{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in">
+    
+    <!-- Back Button -->
+    <div class="mb-8">
+        <a href="/blog" 
+           class="inline-flex items-center text-light-link dark:text-dark-link hover:underline">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Back to Blog
+        </a>
+    </div>
+    
+    <!-- Header -->
+    <div class="text-center mb-16">
+        <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-light-text dark:text-dark-text">
+            {{ category_name }}
+        </h1>
+        <p class="text-xl text-light-muted dark:text-dark-muted">
+            {{ posts|length }} {{ 'post' if posts|length == 1 else 'posts' }}
+        </p>
+    </div>
+    
+    <!-- Posts Grid -->
+    {% if posts %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {% for post in posts %}
+        <a href="/blog/{{ post.path }}" 
+           class="block bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 md:p-8 hover:shadow-xl transition-all duration-300 hover:scale-102">
+            <h2 class="text-2xl font-display font-semibold mb-3 text-light-text dark:text-dark-text">
+                {{ post.meta.title }}
+            </h2>
+            <p class="text-light-muted dark:text-dark-muted text-sm mb-4">
+                {{ post.meta.date|format_date }}
+            </p>
+            <p class="text-light-muted dark:text-dark-muted">
+                {{ post.meta.description }}
+            </p>
+            <div class="mt-4 text-light-link dark:text-dark-link font-semibold flex items-center">
+                Read more
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-16">
+        <p class="text-light-muted dark:text-dark-muted italic">
+            No posts yet in this category.
+        </p>
+    </div>
+    {% endif %}
+    
+</div>
+{% endblock %}
+

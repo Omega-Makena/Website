@@ -115,6 +115,36 @@ def blog():
                          categories=sorted(posts_by_category.keys()),
                          posts_by_category=posts_by_category)
 
+@app.route('/blog/<category>/')
+def blog_category(category):
+    """Blog posts by category"""
+    # Get all posts in this category
+    category_posts = [
+        post for post in flatpages 
+        if post.path.startswith(category + '/')
+    ]
+    
+    # Sort by date (newest first)
+    category_posts.sort(
+        key=lambda x: x.meta.get('date', datetime.min),
+        reverse=True
+    )
+    
+    # Category display name
+    category_names = {
+        'ai-ml': 'AI & Machine Learning',
+        'finance-economics': 'Finance & Economics',
+        'poetry': 'Poetry',
+        'self-improvement': 'Self-Improvement',
+        'tech-concepts': 'Tech Concepts',
+        'random': 'Random Thoughts'
+    }
+    
+    return render_template('blog_category.html', 
+                         category=category,
+                         category_name=category_names.get(category, category.replace('-', ' ').title()),
+                         posts=category_posts)
+
 @app.route('/blog/<path:path>')
 def blog_post(path):
     """Individual blog post"""
