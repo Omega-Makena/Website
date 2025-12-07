@@ -3,8 +3,8 @@
 
 site:
   title: Omega Makena
-  tagline: Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents
-  description: Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.
+  tagline: Machine Learning Engineer & Quantitative Researcher
+  description: Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.
   url: https://omegamakena.co.ke
   author: Omega Makena
 
@@ -14,12 +14,13 @@ personal:
   email: mwebiamakenaa@gmail.com
   location: Kenya
   bio: |
-    <p class="intro">I'm a quantitative researcher with a strong machine learning background. I like building things that think and do things for me. If a task takes one second to do, I'd still rather spend centuries coding something that can do it for me, because why not?</p>
-    <p>I'm super passionate about artificial intelligence, probably a little crazy about it. I could talk about AI for a millennium if you let me. It's not just an interest anymore; it's an ongoing obsession that somehow keeps getting worse (or better, depending on who you ask).</p>
-    <p>Outside of work, I mentor young girls in Kenya through <strong>Tech-12</strong>, an organization focused on bridging the gender gap in tech and helping STEM actually make sense to young women who have been told it's not for them.</p>
-    <p>For someone who claims to obsess over artificial intelligence, I surprisingly have other interests. I'm fascinated by human beings: psychology, physiology, sociology, anthropology, basically the whole "why do we act the way we act" question. That's another obsession of mine.</p>
-    <p>Outside of that, I'm a very typical nerd. I'm obsessed with anime: Chinese (<em>manhua</em>), Japanese (<em>manga</em>), and South Korean (<em>manhwa</em>). Sometimes I mix them up, but it's fine.</p>
-    <p class="outro">So yeah, that's me. Enjoy my portfolio.</p>
+    <p class="intro font-medium text-lg mb-4">I am a Machine Learning Engineer with a background in Quantitative Research. My work sits at the intersection of software engineering and mathematics, where I focus on architectural efficiency.</p>
+    
+    <p class="mb-4">I have a simple philosophy: <strong>Efficiency is everything.</strong> If a process is manual or repetitive, my instinct is to automate it. I enjoy the challenge of taking a messy dataset or a complex mathematical concept and turning it into clean, functioning code.</p>
+    
+    <p class="mb-4">Currently, I apply these skills to financial data, building models that find signals in the noise. When I'm not staring at a terminal, I'm mentoring the next generation of female tech leaders through <strong>Tech-12</strong>.</p>
+    
+    <p class="mb-4">Off the clock? I'm fascinated by human behavior (sociology and psychology) and I'm a massive consumer of East Asian storytelling—Manga, Manhua, Manhwa. If you want to talk about AI architecture or the latest plot twist, I'm game.</p>
   
   # Profile image (place in static/img/)
   profile_image: profile.jpg

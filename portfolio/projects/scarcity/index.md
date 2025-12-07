@@ -1,10 +1,10 @@
 ---
-title: Scarcity Simulation
-description: Agent-based modeling framework for simulating resource scarcity and exploring economic dynamics.
+title: Economic Market Simulation
+description: A computational framework for simulating resource scarcity and complex market dynamics.
 tech:
   - Python
-  - Agent-Based Modeling
-  - Simulation
+  - Stochastic Simulation
+  - Complex Systems
 live_url: https://github.com/Omega-Makena/scarcity
 github_url: https://github.com/Omega-Makena/scarcity
 order: 2
@@ -15,7 +15,7 @@ paper: paper.pdf
 
 ## Overview
 
-This research project develops a computational framework for understanding and simulating scarcity dynamics in complex systems. The framework provides insights into resource allocation, competitive behaviors, and potential interventions.
+This project explores how basic economic rules play out in a closed system. The goal was to write a simulation where different entities interact—buying, selling, and trading—to see if realistic price trends and market behaviors would emerge naturally from the code. It was a deep dive into complex logic and algorithmic design.
 
 ## Research Objectives
 
@@ -29,7 +29,7 @@ This research project develops a computational framework for understanding and s
 The framework consists of multiple interconnected modules:
 
 - **Environment Modeler**: Defines the resource landscape
-- **Agent System**: Simulates individual behaviors
+- **Entity System**: Simulates individual behaviors and interactions
 - **Policy Engine**: Tests different intervention strategies
 - **Analytics Layer**: Provides visualization and insights
 
@@ -40,4 +40,3 @@ Simulations revealed that early intervention strategies have disproportionate po
 ## Repository
 
 For full implementation details, code, and extended documentation, see the GitHub repository linked above.
-
