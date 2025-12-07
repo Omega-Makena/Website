@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +7,10 @@
     <meta name="keywords" content="{% block meta_keywords %}{{ config.seo.keywords }}{% endblock %}">
     <meta name="author" content="{{ config.personal.name }}">
     
-    <!-- SEO -->
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
     <link rel="canonical" href="{{ config.site.url }}{{ request.path }}">
     
-    <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ config.site.url }}{{ request.path }}">
     <meta property="og:title" content="{% block og_title %}{{ config.site.title }} - {{ config.site.tagline }}{% endblock %}">
@@ -20,7 +18,6 @@
     <meta property="og:image" content="{{ config.site.url }}{{ config.seo.og_image }}">
     <meta property="og:site_name" content="{{ config.site.title }}">
     
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{% block twitter_title %}{{ config.site.title }}{% endblock %}">
     <meta name="twitter:description" content="{% block twitter_description %}{{ config.site.tagline }}{% endblock %}">
@@ -28,45 +25,43 @@
     
     <title>{% block title %}{{ config.site.title }} - Portfolio{% endblock %}</title>
     
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon.png">
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        'display': ['"Outfit"', 'sans-serif'],
+                        'body': ['"Plus Jakarta Sans"', 'sans-serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
                     colors: {
                         light: {
-                            bg: '#F9FAFB',
+                            bg: '#F3F4F6',        // Slightly darker gray for better contrast
                             card: '#FFFFFF',
-                            text: '#1C1C1C',
-                            muted: '#6B7280',
-                            accent: '#1E3A8A',
-                            link: '#2563EB',
-                            highlight: '#D97706'
+                            text: '#111827',      // Near black
+                            muted: '#4B5563',
+                            accent: '#2563EB',    // Royal Blue
+                            link: '#3B82F6',
+                            highlight: '#F59E0B'
                         },
                         dark: {
-                            bg: '#0F172A',
+                            bg: '#0B1120',        // Deep navy/black
                             card: '#1E293B',
-                            text: '#E5E7EB',
-                            muted: '#94A3B8',
-                            accent: '#93C5FD',
-                            link: '#A78BFA',
+                            text: '#F9FAFB',
+                            muted: '#9CA3AF',
+                            accent: '#3B82F6',    // Brighter blue for dark mode
+                            link: '#60A5FA',
                             highlight: '#FBBF24'
                         }
-                    },
-                    fontFamily: {
-                        'display': ['"Playfair Display"', 'serif'],
-                        'body': ['Inter', 'system-ui', 'sans-serif']
                     }
                 }
             }
@@ -74,77 +69,40 @@
     </script>
     
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif; }
         
         /* Smooth transitions */
-        * {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-        
-        /* Dark mode styles */
-        body.dark {
-            background-color: #0F172A;
-            color: #E5E7EB;
-        }
+        * { transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
         
         /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        body.dark ::-webkit-scrollbar-track {
-            background: #1E293B;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 5px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        body.dark ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 4px; }
         
         /* Fade in animation */
-        .fade-in {
-            animation: fadeIn 0.6s ease-in;
-        }
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; opacity: 0; transform: translateY(10px); }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text min-h-screen flex flex-col">
+<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text min-h-screen flex flex-col selection:bg-light-accent selection:text-white dark:selection:bg-dark-accent">
     
-    <!-- Navigation -->
-    <nav class="bg-light-card dark:bg-dark-card shadow-sm sticky top-0 z-50">
+    <nav class="fixed w-full top-0 z-50 bg-light-card/80 dark:bg-dark-bg/80 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50 transition-all duration-300">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo/Name -->
-                <a href="/" class="font-display text-2xl font-bold text-light-accent dark:text-dark-accent hover:opacity-80">
-                    {{ config.site.title }}
+            <div class="flex justify-between items-center h-20">
+                <a href="/" class="font-display text-xl font-bold tracking-tight text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">
+                    {{ config.site.title }}<span class="text-light-accent dark:text-dark-accent">.</span>
                 </a>
                 
-                <!-- Navigation Links -->
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="/" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                        Home
-                    </a>
-                    <a href="/portfolio" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                        Portfolio
-                    </a>
-                    <a href="/blog" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                        Blog
-                    </a>
+                    <a href="/" class="text-sm font-medium text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Home</a>
+                    <a href="/portfolio" class="text-sm font-medium text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Portfolio</a>
+                    <a href="/blog" class="text-sm font-medium text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Blog</a>
                     
-                    <!-- Dark Mode Toggle -->
-                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-light-muted dark:text-dark-muted">
                         <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                         </svg>
@@ -154,8 +112,7 @@
                     </button>
                 </div>
                 
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="md:hidden p-2">
+                <button id="mobile-menu-button" class="md:hidden p-2 text-light-text dark:text-dark-text">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -163,50 +120,41 @@
             </div>
         </div>
         
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-4 pb-4">
-            <div class="flex flex-col space-y-3">
-                <a href="/" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                    Home
-                </a>
-                <a href="/portfolio" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                    Portfolio
-                </a>
-                <a href="/blog" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                    Blog
-                </a>
+        <div id="mobile-menu" class="hidden md:hidden px-4 pb-6 bg-light-card/95 dark:bg-dark-card/95 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800">
+            <div class="flex flex-col space-y-4">
+                <a href="/" class="text-light-text dark:text-dark-text font-medium">Home</a>
+                <a href="/portfolio" class="text-light-text dark:text-dark-text font-medium">Portfolio</a>
+                <a href="/blog" class="text-light-text dark:text-dark-text font-medium">Blog</a>
             </div>
         </div>
     </nav>
     
-    <!-- Main Content -->
-    <main class="flex-grow">
+    <main class="flex-grow pt-20">
         {% block content %}{% endblock %}
     </main>
     
-    <!-- Footer -->
-    <footer class="bg-light-card dark:bg-dark-card mt-20 border-t border-gray-200 dark:border-gray-700">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <footer class="bg-light-bg dark:bg-dark-bg mt-20 border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                <div class="text-light-muted dark:text-dark-muted text-sm">
-                    © {{ current_year }} {{ config.personal.name }}. All rights reserved.
+                <div class="text-light-muted dark:text-dark-muted text-sm font-medium">
+                    © {{ current_year }} {{ config.personal.name }}.
                 </div>
-                <div class="flex space-x-6">
+                <div class="flex space-x-8">
                     {% if config.social.github %}
                     <a href="{{ config.social.github }}" target="_blank" rel="noopener noreferrer" 
-                       class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
+                       class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">
                         GitHub
                     </a>
                     {% endif %}
                     {% if config.social.linkedin %}
                     <a href="{{ config.social.linkedin }}" target="_blank" rel="noopener noreferrer" 
-                       class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
+                       class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">
                         LinkedIn
                     </a>
                     {% endif %}
                     {% if config.social.email %}
                     <a href="mailto:{{ config.social.email }}" 
-                       class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
+                       class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">
                         Email
                     </a>
                     {% endif %}
@@ -215,7 +163,6 @@
         </div>
     </footer>
     
-    <!-- Dark Mode Toggle Script -->
     <script>
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
@@ -223,7 +170,6 @@
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         
-        // Check for saved theme preference or default to dark mode
         const currentTheme = localStorage.getItem('theme') || 'dark';
         
         if (currentTheme === 'dark') {
@@ -235,11 +181,9 @@
         }
         
         themeToggleBtn.addEventListener('click', function() {
-            // Toggle icons
             themeToggleDarkIcon.classList.toggle('hidden');
             themeToggleLightIcon.classList.toggle('hidden');
             
-            // Toggle dark mode
             if (document.documentElement.classList.contains('dark')) {
                 document.documentElement.classList.remove('dark');
                 document.body.classList.remove('dark');
@@ -251,15 +195,10 @@
             }
         });
         
-        // Mobile menu toggle
         mobileMenuButton.addEventListener('click', function() {
             mobileMenu.classList.toggle('hidden');
         });
     </script>
-    
     {% block extra_js %}{% endblock %}
 </body>
 </html>
-
-
-
