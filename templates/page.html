@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.meta.title }} - {{ config.site.title }}{% endblock %}
+{% block meta_description %}{{ page.meta.description or config.site.description }}{% endblock %}
+
+{% block content %}
+<section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-light-accent/5 via-transparent to-emerald-200/10 dark:from-dark-accent/10 dark:via-transparent dark:to-emerald-500/10 pointer-events-none"></div>
+    
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-10">
+        <div class="flex flex-col gap-6">
+            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 dark:bg-dark-card/70 border border-light-border dark:border-dark-border shadow-sm w-fit">
+                <span class="text-xs font-semibold uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted">
+                    {{ page.meta.section or "Notes" }}
+                </span>
+                {% if page.meta.date %}
+                <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
+                    {{ page.meta.date|format_date }}
+                </span>
+                {% endif %}
+            </div>
+            
+            <div class="space-y-4">
+                <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text leading-tight">
+                    {{ page.meta.title }}
+                </h1>
+                {% if page.meta.description %}
+                <p class="text-lg text-light-muted dark:text-dark-muted max-w-3xl leading-relaxed">
+                    {{ page.meta.description }}
+                </p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <article class="bg-white dark:bg-dark-card/70 border border-light-border dark:border-dark-border rounded-2xl shadow-lg p-6 md:p-10">
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                {{ page.html|safe }}
+            </div>
+        </article>
+        
+        {% if page.meta.links %}
+        <div class="bg-white dark:bg-dark-card/60 border border-light-border dark:border-dark-border rounded-xl p-6 shadow-sm">
+            <h2 class="text-sm font-semibold uppercase tracking-[0.2em] text-light-muted dark:text-dark-muted mb-3">Related</h2>
+            <div class="grid gap-3 sm:grid-cols-2">
+                {% for link in page.meta.links %}
+                <a href="{{ link.url }}" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
+                    <div>
+                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">{{ link.title }}</div>
+                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">{{ link.description }}</div>
+                    </div>
+                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

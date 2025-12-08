@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Research Log - {{ config.site.title }}{% endblock %}
+{% block meta_description %}Thinking-in-motion notes that track how Scarcity evolves.{% endblock %}
+
+{% block content %}
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+        <div>
+            <p class="text-xs uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted font-semibold mb-2">Research Log</p>
+            <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text">Thinking in Motion</h1>
+            <p class="text-light-muted dark:text-dark-muted mt-3 max-w-2xl">
+                Every entry forces clarity: question, decision, failure, next uncertainty. This is the running ledger for the Scarcity system and adjacent experiments.
+            </p>
+        </div>
+        <a href="/scarcity/overview" class="inline-flex items-center px-4 py-2 rounded-full border border-light-border dark:border-dark-border text-sm font-semibold text-light-text dark:text-dark-text hover:border-light-accent dark:hover:border-dark-accent">
+            View Scarcity System
+            <span class="ml-2 text-light-accent dark:text-dark-accent">↗</span>
+        </a>
+    </div>
+    
+    <div class="grid gap-6">
+        {% for log in logs %}
+        <article class="border border-light-border dark:border-dark-border rounded-2xl bg-white dark:bg-dark-card/60 p-6 md:p-7 hover:border-light-accent dark:hover:border-dark-accent transition-colors">
+            <div class="flex flex-wrap items-center gap-3 mb-4">
+                {% if log.meta.track %}
+                <span class="text-xs font-semibold uppercase tracking-[0.2em] px-3 py-1 rounded-full bg-light-accent/10 dark:bg-dark-accent/10 text-light-accent dark:text-dark-accent border border-light-border dark:border-dark-border">{{ log.meta.track }}</span>
+                {% endif %}
+                {% if log.meta.date %}
+                <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
+                    {{ log.meta.date|format_date }}
+                </span>
+                {% endif %}
+            </div>
+            <a href="/{{ log.path }}" class="block">
+                <h2 class="text-2xl font-display font-semibold text-light-text dark:text-dark-text mb-3">{{ log.meta.title }}</h2>
+                {% if log.meta.question %}
+                <p class="text-sm text-light-muted dark:text-dark-muted mb-2"><strong class="text-light-text dark:text-dark-text font-semibold">Question:</strong> {{ log.meta.question }}</p>
+                {% endif %}
+                {% if log.meta.decision %}
+                <p class="text-sm text-light-muted dark:text-dark-muted"><strong class="text-light-text dark:text-dark-text font-semibold">Decision:</strong> {{ log.meta.decision }}</p>
+                {% endif %}
+            </a>
+        </article>
+        {% else %}
+        <div class="text-light-muted dark:text-dark-muted">No research logs yet.</div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

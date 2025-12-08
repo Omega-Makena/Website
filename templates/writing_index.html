@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Writing - {{ config.site.title }}{% endblock %}
+{% block meta_description %}Essays, poetry, and reflections that keep the work human.{% endblock %}
+
+{% block content %}
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-8">
+    <div class="flex flex-col gap-3">
+        <p class="text-xs uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted font-semibold">Writing</p>
+        <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text">Expression and reflection</h1>
+        <p class="text-light-muted dark:text-dark-muted max-w-3xl">Essays, poetry, and reflections that link back to Scarcity when it makes sense.</p>
+    </div>
+
+    <div class="space-y-10">
+        {% for subsection, pages in grouped.items() %}
+        <div class="space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="h-8 w-8 rounded-full bg-light-accent/10 dark:bg-dark-accent/10 flex items-center justify-center text-sm font-semibold text-light-accent dark:text-dark-accent">{{ loop.index }}</div>
+                <h2 class="text-2xl font-display font-semibold text-light-text dark:text-dark-text">{{ subsection.replace('-', ' ').title() }}</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4">
+                {% for page in pages %}
+                <a href="/{{ page.path }}" class="border border-light-border dark:border-dark-border rounded-xl p-5 bg-white dark:bg-dark-card/60 hover:border-light-accent dark:hover:border-dark-accent transition-colors">
+                    <p class="text-sm uppercase tracking-[0.16em] text-light-muted dark:text-dark-muted font-semibold mb-2">{{ page.meta.section }}</p>
+                    <h3 class="text-xl font-semibold text-light-text dark:text-dark-text mb-1">{{ page.meta.title }}</h3>
+                    {% if page.meta.description %}<p class="text-sm text-light-muted dark:text-dark-muted">{{ page.meta.description }}</p>{% endif %}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <p class="text-light-muted dark:text-dark-muted">No writing entries yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
