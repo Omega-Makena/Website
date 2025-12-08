@@ -2,127 +2,193 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://omegamakena.co.ke/</loc>
-    <lastmod>2025-10-29</lastmod>
+    <lastmod>2025-12-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/portfolio/</loc>
-    <lastmod>2025-10-29</lastmod>
+    <lastmod>2025-12-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/blog/</loc>
-    <lastmod>2025-10-29</lastmod>
+    <lastmod>2025-12-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/ai-ml/ai-research-divide</loc>
+    <loc>https://omegamakena.co.ke/blog/PORTFOLIO_STRUCTURE</loc>
+    <lastmod>2025-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omegamakena.co.ke/blog/README</loc>
+    <lastmod>2025-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omegamakena.co.ke/blog/blog/ai-ml/ai-research-divide</loc>
     <lastmod>2024-10-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/ai-ml/ai-transforming-education</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/ai-ml/ai-transforming-education</loc>
     <lastmod>2025-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/ai-ml/building-ai-agent-architecture</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/ai-ml/building-ai-agent-architecture</loc>
     <lastmod>2024-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/ai-ml/federated-learning-comprehensive-guide</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/ai-ml/federated-learning-comprehensive-guide</loc>
     <lastmod>2025-11-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/ai-ml/learning-federated-learning-hard-way</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/ai-ml/learning-federated-learning-hard-way</loc>
     <lastmod>2025-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/ai-ml/meta-learning-and-adaptation</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/ai-ml/meta-learning-and-adaptation</loc>
     <lastmod>2025-01-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/ai-ml/meta-learning-learning-how-to-learn</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/ai-ml/meta-learning-learning-how-to-learn</loc>
     <lastmod>2025-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/ai-ml/mixture-of-experts</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/ai-ml/mixture-of-experts</loc>
     <lastmod>2025-01-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/ai-ml/oop-in-machine-learning</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/ai-ml/oop-in-machine-learning</loc>
     <lastmod>2025-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/ai-ml/review-autonomous-machine-learning</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/ai-ml/review-autonomous-machine-learning</loc>
     <lastmod>2025-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/ai-ml/role-playing-mirroring</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/ai-ml/role-playing-mirroring</loc>
     <lastmod>2025-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/ai-ml/synthetic-data-ai-secrets</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/ai-ml/synthetic-data-ai-secrets</loc>
     <lastmod>2024-12-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/finance-economics/abides-economist-review</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/finance-economics/abides-economist-review</loc>
     <lastmod>2024-11-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/finance-economics/forecasting-gdp-growth</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/finance-economics/forecasting-gdp-growth</loc>
     <lastmod>2025-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/poetry/fragments-of-thought</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/poetry/fragments-of-thought</loc>
     <lastmod>2025-04-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/self-improvement/intellectual-loneliness</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/self-improvement/intellectual-loneliness</loc>
     <lastmod>2025-05-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/self-improvement/self-actualization-growing</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/self-improvement/self-actualization-growing</loc>
     <lastmod>2025-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://omegamakena.co.ke/blog/tech-concepts/what-is-big-data</loc>
+    <loc>https://omegamakena.co.ke/blog/blog/tech-concepts/what-is-big-data</loc>
     <lastmod>2025-05-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omegamakena.co.ke/blog/portfolio/projects/anomaly-detection/index</loc>
+    <lastmod>2025-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omegamakena.co.ke/blog/portfolio/projects/online-learning/index</loc>
+    <lastmod>2025-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omegamakena.co.ke/blog/portfolio/projects/quant-model/index</loc>
+    <lastmod>2025-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omegamakena.co.ke/blog/portfolio/projects/sarima/index</loc>
+    <lastmod>2025-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omegamakena.co.ke/blog/portfolio/projects/scarcity/index</loc>
+    <lastmod>2025-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omegamakena.co.ke/blog/venv/Lib/site-packages/flask/sansio/README</loc>
+    <lastmod>2025-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omegamakena.co.ke/blog/venv/Lib/site-packages/Markdown-3.5.1.dist-info/LICENSE</loc>
+    <lastmod>2025-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omegamakena.co.ke/blog/venv/Lib/site-packages/pip-25.2.dist-info/licenses/src/pip/_vendor/idna/LICENSE</loc>
+    <lastmod>2025-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://omegamakena.co.ke/blog/venv/Lib/site-packages/werkzeug/debug/shared/ICON_LICENSE</loc>
+    <lastmod>2025-12-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

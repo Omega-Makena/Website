@@ -18,14 +18,19 @@ app.config['FREEZER_IGNORE_MIMETYPE_WARNINGS'] = True
 def blog_post():
     """Generate URLs for all blog posts"""
     for post in flatpages:
-        yield {'path': post.path}
+        # Only generate URLs for blog posts and strip the leading "blog/" prefix
+        if post.path.startswith('blog/'):
+            clean_path = post.path.split('blog/', 1)[1]
+            yield {'path': clean_path}
 
 @freezer.register_generator
 def project_detail():
     """Generate URLs for all project detail pages"""
-    from app import PROJECTS
-    for project in PROJECTS:
-        yield {'project_slug': project.get('slug')}
+    # Derive project slugs from flatpages entries under portfolio/projects
+    for page in flatpages:
+        if page.path.startswith('portfolio/projects/') and page.path.endswith('/index'):
+            slug = page.path.split('/')[-2]
+            yield {'project_slug': slug}
 
 @freezer.register_generator
 def blog_category():
@@ -73,6 +78,8 @@ def generate_sitemap():
         sitemap.append('  <url>')
         sitemap.append(f'    <loc>{site_url}/blog/{post.path}</loc>')
         post_date = post.meta.get('date')
+        if not post_date:
+            post_date = datetime.now()
         if isinstance(post_date, str):
             sitemap.append(f'    <lastmod>{post_date}</lastmod>')
         else:

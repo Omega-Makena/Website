@@ -1,72 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
+    <meta name="description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
-    <!-- SEO -->
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
     <link rel="canonical" href="https://omegamakena.co.ke/">
     
-    <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://omegamakena.co.ke/">
-    <meta property="og:title" content="Omega Makena - Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
-    <meta property="og:description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
+    <meta property="og:title" content="Omega Makena - Machine Learning Engineer &amp; Quantitative Researcher">
+    <meta property="og:description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Omega Makena">
-    <meta name="twitter:description" content="Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
-    <meta name="twitter:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
+    <title>Omega Makena - Machine Learning Engineer & Quantitative Researcher</title>
     
-    <title>Omega Makena - Quant Engineer & ML Specialist</title>
-    
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon.png">
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'], // Unifies everything to one clean font
+                        'display': ['Inter', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
                     colors: {
                         light: {
-                            bg: '#F9FAFB',
+                            bg: '#F8FAFC',        // Cool Grey
                             card: '#FFFFFF',
-                            text: '#1C1C1C',
-                            muted: '#6B7280',
-                            accent: '#1E3A8A',
-                            link: '#2563EB',
-                            highlight: '#D97706'
+                            text: '#0F172A',      // Slate 900
+                            muted: '#475569',     // Slate 600
+                            accent: '#0D9488',    // Teal 600 (Professional Data color)
+                            link: '#0F766E',      // Teal 700
+                            border: '#E2E8F0'
                         },
                         dark: {
-                            bg: '#0F172A',
-                            card: '#1E293B',
-                            text: '#E5E7EB',
-                            muted: '#94A3B8',
-                            accent: '#93C5FD',
-                            link: '#A78BFA',
-                            highlight: '#FBBF24'
+                            bg: '#020617',        // Very dark slate (almost black but richer)
+                            card: '#0F172A',      // Slate 900
+                            text: '#F1F5F9',      // Slate 100
+                            muted: '#94A3B8',     // Slate 400
+                            accent: '#2DD4BF',    // Teal 400 (Bright pop)
+                            link: '#5EEAD4',      // Teal 300
+                            border: '#1E293B'
                         }
-                    },
-                    fontFamily: {
-                        'display': ['"Playfair Display"', 'serif'],
-                        'body': ['Inter', 'system-ui', 'sans-serif']
                     }
                 }
             }
@@ -74,309 +64,186 @@
     </script>
     
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Subtle Grid Pattern for Background */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
         }
         
         /* Smooth transitions */
-        * {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-        
-        /* Dark mode styles */
-        body.dark {
-            background-color: #0F172A;
-            color: #E5E7EB;
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        body.dark ::-webkit-scrollbar-track {
-            background: #1E293B;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 5px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-        
-        /* Fade in animation */
-        .fade-in {
-            animation: fadeIn 0.6s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        * { transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+
+        /* Fade in */
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; opacity: 0; transform: translateY(10px); }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text min-h-screen flex flex-col">
+<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text min-h-screen flex flex-col selection:bg-light-accent selection:text-white dark:selection:bg-dark-accent dark:selection:text-dark-bg">
     
-    <!-- Navigation -->
-    <nav class="bg-light-card dark:bg-dark-card shadow-sm sticky top-0 z-50">
+    <nav class="fixed w-full top-0 z-50 bg-light-card/90 dark:bg-dark-bg/90 backdrop-blur-md border-b border-light-border dark:border-dark-border">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo/Name -->
-                <a href="/" class="font-display text-2xl font-bold text-light-accent dark:text-dark-accent hover:opacity-80">
-                    Omega Makena
+            <div class="flex justify-between items-center h-20">
+                <a href="/" class="text-xl font-bold tracking-tight text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">
+                    Omega Makena<span class="text-light-accent dark:text-dark-accent">.</span>
                 </a>
                 
-                <!-- Navigation Links -->
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="/" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                        Home
-                    </a>
-                    <a href="/portfolio" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                        Portfolio
-                    </a>
-                    <a href="/blog" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                        Blog
-                    </a>
+                    <a href="/" class="text-sm font-medium text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Home</a>
+                    <a href="/portfolio" class="text-sm font-medium text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Work</a>
+                    <a href="/blog" class="text-sm font-medium text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Writing</a>
                     
-                    <!-- Dark Mode Toggle -->
-                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                        </svg>
-                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-light-muted dark:text-dark-muted" aria-label="Toggle theme">
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="p-2 rounded-md text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
                     </button>
                 </div>
-                
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="md:hidden p-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
             </div>
         </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-4 pb-4">
-            <div class="flex flex-col space-y-3">
-                <a href="/" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                    Home
-                </a>
-                <a href="/portfolio" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                    Portfolio
-                </a>
-                <a href="/blog" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                    Blog
-                </a>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Home</a>
+                <a href="/portfolio" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Work</a>
+                <a href="/blog" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Writing</a>
             </div>
         </div>
     </nav>
     
-    <!-- Main Content -->
-    <main class="flex-grow">
+    <main class="flex-grow pt-20">
         
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in">
-    
-    <!-- Hero Section -->
-    <div class="text-center mb-20">
-        <!-- Profile Photo -->
-        <div class="mb-8">
-            <img src="/static/img/profile.jpg" 
-                 alt="Omega Makena" 
-                 class="w-48 h-48 rounded-full mx-auto object-cover shadow-lg border-4 border-light-accent dark:border-dark-accent"
-                 onerror="this.src='https://ui-avatars.com/api/?name=Omega+Makena&size=192&background=1E3A8A&color=fff&bold=true'">
-        </div>
-        
-        <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-light-text dark:text-dark-text">
-            Hi, I'm <span class="text-light-accent dark:text-dark-accent">Omega Makena</span>
-        </h1>
-        
-        <p class="text-2xl md:text-3xl text-light-muted dark:text-dark-muted mb-4">
-            Quantitative Researcher | AI Specialist
-        </p>
-        
-        <p class="text-xl text-light-muted dark:text-dark-muted">
-            Building AI Systems for Economic Simulation
-        </p>
+<div class="relative overflow-hidden">
+    <div class="absolute inset-0 z-0 opacity-[0.03] dark:opacity-[0.07]" 
+         style="background-image: radial-gradient(#6B7280 1px, transparent 1px); background-size: 24px 24px;">
     </div>
     
-    <!-- About Section -->
-    <div class="max-w-3xl mx-auto mb-16">
-        <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-8 md:p-12">
-            <h2 class="text-3xl font-display font-bold mb-6 text-light-text dark:text-dark-text">
-                About Me
-            </h2>
-            <div class="space-y-4 text-lg text-light-muted dark:text-dark-muted leading-relaxed">
-                <p class="intro">
-                    I'm a quantitative researcher with a strong machine learning background. I like building things that think and do things for me. If a task takes one second to do, I'd still rather spend centuries coding something that can do it for me, because why not?
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+        <div class="flex flex-col-reverse md:flex-row items-center gap-12 lg:gap-20">
+            
+            <div class="text-center md:text-left flex-1">
+                <div class="inline-block px-3 py-1 mb-6 text-xs font-mono font-medium tracking-wider uppercase text-light-accent dark:text-dark-accent bg-teal-50 dark:bg-teal-900/20 rounded-full border border-teal-100 dark:border-teal-800">
+                    Machine Learning Engineer
+                </div>
+                <h1 class="text-5xl md:text-7xl font-display font-bold mb-6 text-light-text dark:text-dark-text tracking-tight leading-tight">
+                    Machine Learning <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-emerald-500">and Quantitative</span> Engineering.
+                </h1>
+                <p class="text-xl text-light-muted dark:text-dark-muted mb-8 leading-relaxed max-w-2xl">
+                    I build systems that learn, predict, and automate. Currently applying ML to the complex world of quantitative finance.
                 </p>
-                <p>
-                    I'm super passionate about artificial intelligence, probably a little crazy about it. I could talk about AI for a millennium if you let me. It's not just an interest anymore; it's an ongoing obsession that somehow keeps getting worse (or better, depending on who you ask).
-                </p>
-                <p>
-                    Outside of work, I mentor young girls in Kenya through <strong>Tech-12</strong>, an organization focused on bridging the gender gap in tech and helping STEM actually make sense to young women who have been told it's not for them.
-                </p>
-                <p>
-                    For someone who claims to obsess over artificial intelligence, I surprisingly have other interests. I'm fascinated by human beings: psychology, physiology, sociology, anthropology, basically the whole "why do we act the way we act" question. That's another obsession of mine.
-                </p>
-                <p>
-                    Outside of that, I'm a very typical nerd. I'm obsessed with anime: Chinese (<em>manhua</em>), Japanese (<em>manga</em>), and South Korean (<em>manhwa</em>). Sometimes I mix them up, but it's fine.
-                </p>
-                <p class="outro">
-                    So yeah, that's me. Enjoy my portfolio.
-                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="/portfolio" class="px-8 py-3 bg-light-accent dark:bg-dark-accent text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/20 hover:-translate-y-0.5 transition-all duration-300">
+                        View Projects
+                    </a>
+                    <a href="https://github.com/Omega-Makena" target="_blank" class="px-8 py-3 border border-gray-300 dark:border-gray-700 text-light-text dark:text-dark-text rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-300 flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex-1 relative">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 mx-auto">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-teal-500 to-emerald-400 rounded-full blur-3xl opacity-20 dark:opacity-30 animate-pulse"></div>
+                    <img src="/static/img/profile.jpg" 
+                         alt="Omega Makena" 
+                         class="relative w-full h-full object-cover rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 rotate-3 hover:rotate-0 transition-transform duration-500"
+                         onerror="this.src='https://ui-avatars.com/api/?name=Omega+Makena&size=300&background=0D8ABC&color=fff'">
+                </div>
+            </div>
             </div>
         </div>
     </div>
     
-    <!-- Social Links -->
-    <div class="max-w-3xl mx-auto">
-        <h2 class="text-2xl font-display font-bold mb-6 text-center text-light-text dark:text-dark-text">
-            Connect With Me
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- GitHub -->
-            
-            <a href="https://github.com/Omega-Makena" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 text-center hover:shadow-lg hover:scale-105 transition-all duration-300">
-                <svg class="w-12 h-12 mx-auto mb-4 text-light-accent dark:text-dark-accent" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                <h3 class="font-display font-semibold text-lg mb-2 text-light-text dark:text-dark-text">GitHub</h3>
-                <p class="text-light-muted dark:text-dark-muted text-sm">Omega-Makena</p>
-            </a>
-            
-            
-            <!-- LinkedIn -->
-            
-            <a href="https://www.linkedin.com/in/omega-makena" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 text-center hover:shadow-lg hover:scale-105 transition-all duration-300">
-                <svg class="w-12 h-12 mx-auto mb-4 text-light-accent dark:text-dark-accent" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                </svg>
-                <h3 class="font-display font-semibold text-lg mb-2 text-light-text dark:text-dark-text">LinkedIn</h3>
-                <p class="text-light-muted dark:text-dark-muted text-sm">omega-makena</p>
-            </a>
-            
-            
-            <!-- Email -->
-            
-            <a href="mailto:mwebiamakenaa@gmail.com" 
-               class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 text-center hover:shadow-lg hover:scale-105 transition-all duration-300">
-                <svg class="w-12 h-12 mx-auto mb-4 text-light-accent dark:text-dark-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                </svg>
-                <h3 class="font-display font-semibold text-lg mb-2 text-light-text dark:text-dark-text">Email</h3>
-                <p class="text-light-muted dark:text-dark-muted text-sm">mwebiamakenaa@gmail.com</p>
-            </a>
-            
-        </div>
+<div class="bg-white dark:bg-[#0F1623] border-y border-gray-100 dark:border-gray-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-display font-bold text-light-text dark:text-dark-text">About Me</h2>
+            <div class="w-16 h-1 bg-light-accent dark:bg-dark-accent mx-auto mt-4 rounded-full"></div>
     </div>
     
-    <!-- CTA Section -->
-    <div class="mt-16 text-center">
-        <div class="space-x-4">
-            <a href="/portfolio" 
-               class="inline-block bg-light-accent dark:bg-dark-accent text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-all duration-300 hover:scale-105 shadow-md">
-                View My Work
-            </a>
-            <a href="/blog" 
-               class="inline-block bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text border-2 border-light-accent dark:border-dark-accent px-8 py-3 rounded-lg font-semibold hover:bg-light-accent dark:hover:bg-dark-accent hover:text-white transition-all duration-300 hover:scale-105 shadow-md">
-                Read My Blog
-            </a>
+        <div class="prose prose-lg dark:prose-invert max-w-none text-light-muted dark:text-gray-300 leading-relaxed text-center md:text-left">
+            <p class="intro font-medium text-lg mb-4">I am a Machine Learning Engineer with a background in Quantitative Research. My work sits at the intersection of software engineering and mathematics, where I focus on architectural efficiency.</p>
+
+<p class="mb-4">I have a simple philosophy: <strong>Efficiency is everything.</strong> If a process is manual or repetitive, my instinct is to automate it. I enjoy the challenge of taking a messy dataset or a complex mathematical concept and turning it into clean, functioning code.</p>
+
+<p class="mb-4">Currently, I apply these skills to financial data, building models that find signals in the noise. When I'm not staring at a terminal, I'm mentoring the next generation of female tech leaders through <strong>Tech-12</strong>.</p>
+
+<p class="mb-4">Off the clock? I'm fascinated by human behavior (sociology and psychology) and I'm a massive consumer of East Asian storytelling—Manga, Manhua, Manhwa. If you want to talk about AI architecture or the latest plot twist, I'm game.</p>
+
         </div>
     </div>
-    
 </div>
 
     </main>
     
-    <!-- Footer -->
-    <footer class="bg-light-card dark:bg-dark-card mt-20 border-t border-gray-200 dark:border-gray-700">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <footer class="bg-light-bg dark:bg-dark-bg mt-20 border-t border-light-border dark:border-dark-border">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                <div class="text-light-muted dark:text-dark-muted text-sm">
-                    © 2025 Omega Makena. All rights reserved.
+                <div class="text-light-muted dark:text-dark-muted text-sm font-medium">
+                    © 2025 Omega Makena.
                 </div>
-                <div class="flex space-x-6">
+                <div class="flex space-x-8">
                     
-                    <a href="https://github.com/Omega-Makena" target="_blank" rel="noopener noreferrer" 
-                       class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
-                        GitHub
-                    </a>
+                    <a href="https://github.com/Omega-Makena" target="_blank" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">GitHub</a>
                     
                     
-                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" rel="noopener noreferrer" 
-                       class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
-                        LinkedIn
-                    </a>
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">LinkedIn</a>
                     
-                    
-                    <a href="mailto:mwebiamakenaa@gmail.com" 
-                       class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
-                        Email
-                    </a>
-                    
+                    <a href="mailto:mwebiamakenaa@gmail.com" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">Email</a>
                 </div>
             </div>
         </div>
     </footer>
     
-    <!-- Dark Mode Toggle Script -->
     <script>
+        // Dark Mode Logic
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
         
-        // Check for saved theme preference or default to dark mode
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        
-        if (currentTheme === 'dark') {
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
-            document.body.classList.add('dark');
             themeToggleLightIcon.classList.remove('hidden');
         } else {
+            document.documentElement.classList.remove('dark');
             themeToggleDarkIcon.classList.remove('hidden');
         }
-        
+
         themeToggleBtn.addEventListener('click', function() {
-            // Toggle icons
             themeToggleDarkIcon.classList.toggle('hidden');
             themeToggleLightIcon.classList.toggle('hidden');
-            
-            // Toggle dark mode
             if (document.documentElement.classList.contains('dark')) {
                 document.documentElement.classList.remove('dark');
-                document.body.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
             } else {
                 document.documentElement.classList.add('dark');
-                document.body.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
             }
         });
-        
-        // Mobile menu toggle
+
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
         mobileMenuButton.addEventListener('click', function() {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
             mobileMenu.classList.toggle('hidden');
         });
     </script>
-    
-    
 </body>
 </html>
-
-

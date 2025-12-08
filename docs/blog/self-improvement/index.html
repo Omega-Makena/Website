@@ -1,72 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
+    <meta name="description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
-    <!-- SEO -->
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
     <link rel="canonical" href="https://omegamakena.co.ke/blog/self-improvement/">
     
-    <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://omegamakena.co.ke/blog/self-improvement/">
-    <meta property="og:title" content="Omega Makena - Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
-    <meta property="og:description" content="Personal website and portfolio of Omega Makena, AI researcher and developer passionate about ethical AI and education technology.">
+    <meta property="og:title" content="Omega Makena - Machine Learning Engineer &amp; Quantitative Researcher">
+    <meta property="og:description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Omega Makena">
-    <meta name="twitter:description" content="Quantitative Researcher | AI Systems for Economic Simulation | FinTech Modeling | Self-Learning Autonomous Agents">
-    <meta name="twitter:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
+    <title>Self Improvement - Blog</title>
     
-    <title>Self-Improvement - Blog</title>
-    
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon.png">
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'], // Unifies everything to one clean font
+                        'display': ['Inter', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
                     colors: {
                         light: {
-                            bg: '#F9FAFB',
+                            bg: '#F8FAFC',        // Cool Grey
                             card: '#FFFFFF',
-                            text: '#1C1C1C',
-                            muted: '#6B7280',
-                            accent: '#1E3A8A',
-                            link: '#2563EB',
-                            highlight: '#D97706'
+                            text: '#0F172A',      // Slate 900
+                            muted: '#475569',     // Slate 600
+                            accent: '#0D9488',    // Teal 600 (Professional Data color)
+                            link: '#0F766E',      // Teal 700
+                            border: '#E2E8F0'
                         },
                         dark: {
-                            bg: '#0F172A',
-                            card: '#1E293B',
-                            text: '#E5E7EB',
-                            muted: '#94A3B8',
-                            accent: '#93C5FD',
-                            link: '#A78BFA',
-                            highlight: '#FBBF24'
+                            bg: '#020617',        // Very dark slate (almost black but richer)
+                            card: '#0F172A',      // Slate 900
+                            text: '#F1F5F9',      // Slate 100
+                            muted: '#94A3B8',     // Slate 400
+                            accent: '#2DD4BF',    // Teal 400 (Bright pop)
+                            link: '#5EEAD4',      // Teal 300
+                            border: '#1E293B'
                         }
-                    },
-                    fontFamily: {
-                        'display': ['"Playfair Display"', 'serif'],
-                        'body': ['Inter', 'system-ui', 'sans-serif']
                     }
                 }
             }
@@ -74,113 +64,66 @@
     </script>
     
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Subtle Grid Pattern for Background */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
         }
         
         /* Smooth transitions */
-        * {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-        
-        /* Dark mode styles */
-        body.dark {
-            background-color: #0F172A;
-            color: #E5E7EB;
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        body.dark ::-webkit-scrollbar-track {
-            background: #1E293B;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 5px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-        
-        /* Fade in animation */
-        .fade-in {
-            animation: fadeIn 0.6s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        * { transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+
+        /* Fade in */
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; opacity: 0; transform: translateY(10px); }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text min-h-screen flex flex-col">
+<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text min-h-screen flex flex-col selection:bg-light-accent selection:text-white dark:selection:bg-dark-accent dark:selection:text-dark-bg">
     
-    <!-- Navigation -->
-    <nav class="bg-light-card dark:bg-dark-card shadow-sm sticky top-0 z-50">
+    <nav class="fixed w-full top-0 z-50 bg-light-card/90 dark:bg-dark-bg/90 backdrop-blur-md border-b border-light-border dark:border-dark-border">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo/Name -->
-                <a href="/" class="font-display text-2xl font-bold text-light-accent dark:text-dark-accent hover:opacity-80">
-                    Omega Makena
+            <div class="flex justify-between items-center h-20">
+                <a href="/" class="text-xl font-bold tracking-tight text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">
+                    Omega Makena<span class="text-light-accent dark:text-dark-accent">.</span>
                 </a>
                 
-                <!-- Navigation Links -->
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="/" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                        Home
-                    </a>
-                    <a href="/portfolio" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                        Portfolio
-                    </a>
-                    <a href="/blog" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                        Blog
-                    </a>
+                    <a href="/" class="text-sm font-medium text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Home</a>
+                    <a href="/portfolio" class="text-sm font-medium text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Work</a>
+                    <a href="/blog" class="text-sm font-medium text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Writing</a>
                     
-                    <!-- Dark Mode Toggle -->
-                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                        </svg>
-                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-light-muted dark:text-dark-muted" aria-label="Toggle theme">
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="p-2 rounded-md text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
                     </button>
                 </div>
-                
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="md:hidden p-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
             </div>
         </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-4 pb-4">
-            <div class="flex flex-col space-y-3">
-                <a href="/" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                    Home
-                </a>
-                <a href="/portfolio" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                    Portfolio
-                </a>
-                <a href="/blog" class="text-light-text dark:text-dark-text hover:text-light-link dark:hover:text-dark-link font-medium">
-                    Blog
-                </a>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Home</a>
+                <a href="/portfolio" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Work</a>
+                <a href="/blog" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Writing</a>
             </div>
         </div>
     </nav>
     
-    <!-- Main Content -->
-    <main class="flex-grow">
+    <main class="flex-grow pt-20">
         
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 fade-in">
     
@@ -198,7 +141,7 @@
     <!-- Header -->
     <div class="text-center mb-16">
         <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-light-text dark:text-dark-text">
-            Self-Improvement
+            Self Improvement
         </h1>
         <p class="text-xl text-light-muted dark:text-dark-muted">
             2 posts
@@ -209,13 +152,13 @@
     
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        <a href="/blog/self-improvement/self-actualization-growing" 
+        <a href="/blog/blog/self-improvement/self-actualization-growing" 
            class="block bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 md:p-8 hover:shadow-xl transition-all duration-300 hover:scale-102">
             <h2 class="text-2xl font-display font-semibold mb-3 text-light-text dark:text-dark-text">
                 Self-Actualization - Growing to Be Your Best Self
             </h2>
             <p class="text-light-muted dark:text-dark-muted text-sm mb-4">
-                June 23, 2025
+                2025-06-23
             </p>
             <p class="text-light-muted dark:text-dark-muted">
                 A practical guide to understanding and pursuing self-actualization in your personal and professional life.
@@ -228,13 +171,13 @@
             </div>
         </a>
         
-        <a href="/blog/self-improvement/intellectual-loneliness" 
+        <a href="/blog/blog/self-improvement/intellectual-loneliness" 
            class="block bg-light-card dark:bg-dark-card rounded-lg shadow-md p-6 md:p-8 hover:shadow-xl transition-all duration-300 hover:scale-102">
             <h2 class="text-2xl font-display font-semibold mb-3 text-light-text dark:text-dark-text">
                 Intellectual Loneliness
             </h2>
             <p class="text-light-muted dark:text-dark-muted text-sm mb-4">
-                May 10, 2025
+                2025-05-10
             </p>
             <p class="text-light-muted dark:text-dark-muted">
                 Reflections on feeling intellectually isolated and finding ways to bridge the gap.
@@ -254,81 +197,60 @@
 
     </main>
     
-    <!-- Footer -->
-    <footer class="bg-light-card dark:bg-dark-card mt-20 border-t border-gray-200 dark:border-gray-700">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <footer class="bg-light-bg dark:bg-dark-bg mt-20 border-t border-light-border dark:border-dark-border">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                <div class="text-light-muted dark:text-dark-muted text-sm">
-                    © 2025 Omega Makena. All rights reserved.
+                <div class="text-light-muted dark:text-dark-muted text-sm font-medium">
+                    © 2025 Omega Makena.
                 </div>
-                <div class="flex space-x-6">
+                <div class="flex space-x-8">
                     
-                    <a href="https://github.com/Omega-Makena" target="_blank" rel="noopener noreferrer" 
-                       class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
-                        GitHub
-                    </a>
+                    <a href="https://github.com/Omega-Makena" target="_blank" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">GitHub</a>
                     
                     
-                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" rel="noopener noreferrer" 
-                       class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
-                        LinkedIn
-                    </a>
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">LinkedIn</a>
                     
-                    
-                    <a href="mailto:mwebiamakenaa@gmail.com" 
-                       class="text-light-muted dark:text-dark-muted hover:text-light-link dark:hover:text-dark-link">
-                        Email
-                    </a>
-                    
+                    <a href="mailto:mwebiamakenaa@gmail.com" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">Email</a>
                 </div>
             </div>
         </div>
     </footer>
     
-    <!-- Dark Mode Toggle Script -->
     <script>
+        // Dark Mode Logic
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
         
-        // Check for saved theme preference or default to dark mode
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        
-        if (currentTheme === 'dark') {
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
-            document.body.classList.add('dark');
             themeToggleLightIcon.classList.remove('hidden');
         } else {
+            document.documentElement.classList.remove('dark');
             themeToggleDarkIcon.classList.remove('hidden');
         }
-        
+
         themeToggleBtn.addEventListener('click', function() {
-            // Toggle icons
             themeToggleDarkIcon.classList.toggle('hidden');
             themeToggleLightIcon.classList.toggle('hidden');
-            
-            // Toggle dark mode
             if (document.documentElement.classList.contains('dark')) {
                 document.documentElement.classList.remove('dark');
-                document.body.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
             } else {
                 document.documentElement.classList.add('dark');
-                document.body.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
             }
         });
-        
-        // Mobile menu toggle
+
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
         mobileMenuButton.addEventListener('click', function() {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
             mobileMenu.classList.toggle('hidden');
         });
     </script>
-    
-    
 </body>
 </html>
-
-
