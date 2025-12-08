@@ -20,7 +20,7 @@
             </div>
             <div class="grid md:grid-cols-2 gap-4">
                 {% for page in pages %}
-                <a href="/{{ page.path }}" class="border border-light-border dark:border-dark-border rounded-xl p-5 bg-white dark:bg-dark-card/60 hover:border-light-accent dark:hover:border-dark-accent transition-colors">
+                <a href="/{{ page.path }}/" class="border border-light-border dark:border-dark-border rounded-xl p-5 bg-white dark:bg-dark-card/60 hover:border-light-accent dark:hover:border-dark-accent transition-colors">
                     <p class="text-sm uppercase tracking-[0.16em] text-light-muted dark:text-dark-muted font-semibold mb-2">{{ page.meta.section }}</p>
                     <h3 class="text-xl font-semibold text-light-text dark:text-dark-text mb-1">{{ page.meta.title }}</h3>
                     {% if page.meta.description %}<p class="text-sm text-light-muted dark:text-dark-muted">{{ page.meta.description }}</p>{% endif %}
