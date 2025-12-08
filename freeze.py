@@ -40,6 +40,7 @@ def flatpage_routes():
 def static_routes():
     """Static top-level routes."""
     yield 'index', {}
+    yield 'scarcity_hub', {}
     yield 'scarcity_overview', {}
     yield 'library_index', {}
     yield 'research_log_index', {}

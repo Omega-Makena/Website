@@ -1,36 +1,39 @@
 {% extends "base.html" %}
 
 {% block title %}Writing - {{ config.site.title }}{% endblock %}
-{% block meta_description %}A collection of articles, research logs, and library items.{% endblock %}
+{% block meta_description %}Poetry, essays, and reflections that keep the work human.{% endblock %}
 
 {% block content %}
-<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-12">
-    <div class="text-center">
-        <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text">From the Desk</h1>
-        <p class="mt-4 text-lg text-light-muted dark:text-dark-muted max-w-3xl mx-auto">A unified collection of my writing, including in-depth articles, research logs, and foundational concepts.</p>
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-8">
+    <div class="flex flex-col gap-3">
+        <p class="text-xs uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted font-semibold">Writing</p>
+        <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text">Poetry, essays, reflections</h1>
+        <p class="text-light-muted dark:text-dark-muted max-w-3xl">Non-technical writing that keeps ScarCity grounded in people, not just systems.</p>
     </div>
 
-    <!-- TODO: Add filtering controls here -->
-
-    <div class="space-y-16">
+    <div class="space-y-10">
         {% for category, pages in grouped %}
-        <div class="space-y-6">
-            <h2 class="text-2xl font-display font-semibold text-light-text dark:text-dark-text border-b-2 border-light-border dark:border-dark-border pb-3">{{ category }}</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="h-8 w-8 rounded-full bg-light-accent/10 dark:bg-dark-accent/10 flex items-center justify-center text-sm font-semibold text-light-accent dark:text-dark-accent">{{ loop.index }}</div>
+                <h2 class="text-2xl font-display font-semibold text-light-text dark:text-dark-text">{{ category.replace('-', ' ').title() }}</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {% for page in pages %}
-                <a href="/{{ page.path }}" class="group block border border-light-border dark:border-dark-border rounded-lg overflow-hidden bg-light-card dark:bg-dark-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="p-6">
-                        <p class="text-sm font-semibold text-light-accent dark:text-dark-accent uppercase tracking-wider mb-2">{{ page.meta.section | default(category) }}</p>
-                        <h3 class="text-xl font-display font-semibold text-light-text dark:text-dark-text mb-2">{{ page.meta.title }}</h3>
-                        <p class="text-sm text-light-muted dark:text-dark-muted mb-4">{{ page.meta.description | default('No description available.') }}</p>
-                        <p class="text-xs text-light-muted dark:text-dark-muted">{{ page.meta.date | format_date }}</p>
+                <a href="/{{ page.path }}" class="group block border border-light-border dark:border-dark-border rounded-lg overflow-hidden bg-light-card dark:bg-dark-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6">
+                    <p class="text-sm font-semibold text-light-accent dark:text-dark-accent uppercase tracking-wider mb-2">{{ page.meta.section | default(category.replace('-', ' ').title()) }}</p>
+                    <h3 class="text-xl font-display font-semibold text-light-text dark:text-dark-text mb-2">{{ page.meta.title }}</h3>
+                    <p class="text-sm text-light-muted dark:text-dark-muted mb-4">{{ page.meta.description | default('') }}</p>
+                    <div class="flex justify-between items-center text-xs text-light-muted dark:text-dark-muted">
+                        <span>{{ page.meta.date | format_date }}</span>
+                        <span class="font-semibold text-light-accent dark:text-dark-accent">Read <span class="ml-1 transition-transform group-hover:translate-x-1">→</span></span>
                     </div>
                 </a>
                 {% endfor %}
             </div>
         </div>
         {% else %}
-        <p class="text-center text-light-muted dark:text-dark-muted">No entries yet.</p>
+        <p class="text-light-muted dark:text-dark-muted">No writing entries yet.</p>
         {% endfor %}
     </div>
 </section>

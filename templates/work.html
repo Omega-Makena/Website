@@ -11,14 +11,16 @@
 
     <div class="grid md:grid-cols-2 gap-8">
         {% for project in page.meta.projects %}
-        <a href="{{ project.link }}" class="group block border border-light-border dark:border-dark-border rounded-lg overflow-hidden bg-light-card dark:bg-dark-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+        <div class="group block border border-light-border dark:border-dark-border rounded-lg overflow-hidden bg-light-card dark:bg-dark-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
             <div class="p-6">
                 <p class="text-sm font-semibold text-light-accent dark:text-dark-accent uppercase tracking-wider mb-2">{{ project.category }}</p>
-                <h3 class="text-xl font-display font-semibold text-light-text dark:text-dark-text mb-2">{{ project.title }}</h3>
+                <h3 class="text-xl font-display font-semibold text-light-text dark:text-dark-text mb-2">
+                    <a href="{{ project.link }}" class="hover:text-light-accent dark:hover:text-dark-accent transition-colors">{{ project.title }}</a>
+                </h3>
                 <p class="text-sm text-light-muted dark:text-dark-muted mb-4">{{ project.description }}</p>
-                <span class="font-semibold text-sm text-light-accent dark:text-dark-accent">View Project <span class="ml-1 transition-transform group-hover:translate-x-1">→</span></span>
+                <a href="{{ project.link }}" class="font-semibold text-sm text-light-accent dark:text-dark-accent">View Project <span class="ml-1 transition-transform group-hover:translate-x-1">→</span></a>
             </div>
-        </a>
+        </div>
         {% endfor %}
     </div>
 </section>

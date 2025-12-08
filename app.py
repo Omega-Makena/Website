@@ -33,7 +33,33 @@ SITE_CONFIG = load_config()
 @app.route('/')
 def index():
     """Home / About page"""
-    return render_template('index.html')
+    research_logs = [
+        p for p in flatpages
+        if p.path.startswith('research-log/')
+    ]
+    research_logs.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
+    research_logs = research_logs[:3]
+
+    library_highlights = [
+        p for p in flatpages
+        if p.path.startswith('library/')
+    ]
+    library_highlights.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
+    library_highlights = library_highlights[:3]
+
+    writing_highlights = [
+        p for p in flatpages
+        if p.path.startswith('writing/')
+    ]
+    writing_highlights.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
+    writing_highlights = writing_highlights[:3]
+
+    return render_template(
+        'index.html',
+        research_logs=research_logs,
+        library_highlights=library_highlights,
+        writing_highlights=writing_highlights,
+    )
 
 def render_flatpage(path):
     """Render a FlatPages entry or 404"""
@@ -42,11 +68,13 @@ def render_flatpage(path):
         abort(404)
     return render_template('page.html', page=page)
 
+@app.route('/about')
 @app.route('/about/')
 def about():
     """About page"""
     return render_flatpage('about')
 
+@app.route('/work-with-me')
 @app.route('/work-with-me/')
 def work_with_me():
     """Collaboration page"""
@@ -60,7 +88,30 @@ def work():
         abort(404)
     return render_template('work.html', page=page)
 
+@app.route('/scarcity')
 @app.route('/scarcity/')
+def scarcity_hub():
+    """Scarcity hub page"""
+    sections = [
+        ('Overview', 'scarcity/overview'),
+        ('Architecture', 'scarcity/architecture'),
+        ('Components', 'scarcity/components'),
+        ('Implementations', 'scarcity/implementations/index'),
+        ('Use Cases', 'scarcity/implementations/experiments'),
+        ('Limitations & Roadmap', 'scarcity/limitations'),
+        ('FAQ', 'scarcity/faq'),
+    ]
+    resolved = []
+    for title, path in sections:
+        page = flatpages.get(path)
+        resolved.append({
+            'title': title,
+            'path': path,
+            'description': page.meta.get('description') if page else '',
+        })
+    return render_template('scarcity_hub.html', sections=resolved)
+
+@app.route('/scarcity/overview')
 def scarcity_overview():
     """Default Scarcity overview"""
     return render_flatpage('scarcity/overview')
@@ -70,6 +121,7 @@ def scarcity_page(subpath):
     """Scarcity subpages"""
     return render_flatpage(f'scarcity/{subpath}')
 
+@app.route('/library')
 @app.route('/library/')
 def library_index():
     """Library landing grouped by category"""
@@ -78,13 +130,29 @@ def library_index():
     grouped = {}
     for page in pages:
         parts = page.path.split('/')
-        category = parts[1] if len(parts) > 1 else 'library'
+        category = parts[1] if len(parts) > 1 else 'foundations'
         grouped.setdefault(category, []).append(page)
 
     for items in grouped.values():
         items.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
 
-    ordered_groups = sorted(grouped.items(), key=lambda x: x[0])
+    # Friendly ordering for the library hub
+    category_order = [
+        'foundations',
+        'learning-paradigms',
+        'systems-thinking',
+        'practical-advice',
+        'scarcity',
+    ]
+    ordered_groups = []
+    for cat in category_order:
+        if cat in grouped:
+            ordered_groups.append((cat, grouped[cat]))
+    # Add any remaining categories
+    for cat, items in grouped.items():
+        if cat not in category_order:
+            ordered_groups.append((cat, items))
+
     return render_template('library_index.html', grouped=ordered_groups)
 
 @app.route('/library/<path:subpath>')
@@ -92,6 +160,7 @@ def library_page(subpath):
     """Library detail pages"""
     return render_flatpage(f'library/{subpath}')
 
+@app.route('/research-log')
 @app.route('/research-log/')
 def research_log_index():
     """Research log landing"""
@@ -104,35 +173,30 @@ def research_log_page(subpath):
     """Research log entries"""
     return render_flatpage(f'research-log/{subpath}')
 
+@app.route('/writing')
 @app.route('/writing/')
 def writing_index():
-    """Unified writing section landing"""
-    content_dirs = ['library', 'research-log', 'writing']
-    pages = [p for p in flatpages if p.path.startswith(tuple(f'{d}/' for d in content_dirs))]
+    """Writing landing page for poetry and essays"""
+    pages = [p for p in flatpages if p.path.startswith('writing/')]
     
     grouped = {}
     for p in pages:
-        # Determine category from the top-level directory
-        category = p.path.split('/')[0]
-        
-        # Use a more descriptive title for the category
-        category_title = category.replace('-', ' ').title()
-        
-        # Initialize category if not present
-        if category_title not in grouped:
-            grouped[category_title] = []
-        
-        # Add page to the corresponding category
-        grouped[category_title].append(p)
+        # Determine category from folder under writing/
+        parts = p.path.split('/')
+        category = parts[1] if len(parts) > 1 else 'writing'
+        grouped.setdefault(category, []).append(p)
 
-    # Sort pages within each category by date
     for items in grouped.values():
         items.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
     
-    # Create a sorted list of categories to ensure consistent order
-    # Example order: Research Log, Library, Writing
-    category_order = ['Research Log', 'Library', 'Writing']
-    ordered_groups = [(cat, grouped[cat]) for cat in category_order if cat in grouped]
+    category_order = ['essays', 'poetry', 'reflections']
+    ordered_groups = []
+    for cat in category_order:
+        if cat in grouped:
+            ordered_groups.append((cat, grouped[cat]))
+    for cat, items in grouped.items():
+        if cat not in category_order:
+            ordered_groups.append((cat, items))
 
     return render_template('writing.html', grouped=ordered_groups)
 
