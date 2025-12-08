@@ -15,39 +15,81 @@ app.config['FREEZER_RELATIVE_URLS'] = False
 app.config['FREEZER_IGNORE_MIMETYPE_WARNINGS'] = True
 
 @freezer.register_generator
-def flatpage_routes():
-    """
-    Map FlatPages paths to their Flask routes for freezing.
-    """
-    for page in flatpages:
-        path = page.path
-        if path == 'about':
-            yield 'about', {}
-        elif path == 'work-with-me':
-            yield 'work_with_me', {}
-        elif path == 'work':
-            yield 'work', {}
-        elif path.startswith('scarcity/'):
-            yield 'scarcity_page', {'subpath': path.split('scarcity/', 1)[1]}
-        elif path.startswith('library/'):
-            yield 'library_page', {'subpath': path.split('library/', 1)[1]}
-        elif path.startswith('research-log/'):
-            yield 'research_log_page', {'subpath': path.split('research-log/', 1)[1]}
-        elif path.startswith('writing/'):
-            yield 'writing_page', {'subpath': path.split('writing/', 1)[1]}
+def index():
+    """Home page"""
+    yield {}
 
 @freezer.register_generator
-def static_routes():
-    """Static top-level routes."""
-    yield 'index', {}
-    yield 'scarcity_hub', {}
-    yield 'scarcity_overview', {}
-    yield 'library_index', {}
-    yield 'research_log_index', {}
-    yield 'writing_index', {}
-    yield 'work_with_me', {}
-    yield 'work', {}
-    yield 'about', {}
+def scarcity_hub():
+    """Scarcity hub page"""
+    yield {}
+
+@freezer.register_generator
+def scarcity_overview():
+    """Scarcity overview page"""
+    yield {}
+
+@freezer.register_generator
+def library_index():
+    """Library index page"""
+    yield {}
+
+@freezer.register_generator
+def research_log_index():
+    """Research log index page"""
+    yield {}
+
+@freezer.register_generator
+def writing_index():
+    """Writing index page"""
+    yield {}
+
+@freezer.register_generator
+def work():
+    """Work page"""
+    yield {}
+
+@freezer.register_generator
+def work_with_me():
+    """Work with me page"""
+    yield {}
+
+@freezer.register_generator
+def about():
+    """About page"""
+    yield {}
+
+@freezer.register_generator
+def scarcity_page():
+    """Scarcity subpages"""
+    for page in flatpages:
+        if page.path.startswith('scarcity/') and page.path != 'scarcity/overview':
+            subpath = page.path.split('scarcity/', 1)[1]
+            yield {'subpath': subpath}
+
+@freezer.register_generator
+def library_page():
+    """Library detail pages"""
+    for page in flatpages:
+        if page.path.startswith('library/'):
+            subpath = page.path.split('library/', 1)[1]
+            yield {'subpath': subpath}
+
+@freezer.register_generator
+def research_log_page():
+    """Research log entries"""
+    for page in flatpages:
+        if page.path.startswith('research-log/'):
+            subpath = page.path.split('research-log/', 1)[1]
+            yield {'subpath': subpath}
+
+@freezer.register_generator
+def writing_page():
+    """Writing subpages"""
+    for page in flatpages:
+        if page.path.startswith('writing/'):
+            subpath = page.path.split('writing/', 1)[1]
+            yield {'subpath': subpath}
 
 def generate_sitemap():
     """Generate sitemap.xml for search engines"""
@@ -68,12 +110,14 @@ def generate_sitemap():
     sitemap.append('  </url>')
     
     static_paths = [
+        ('/scarcity', 'monthly', '0.9'),
         ('/scarcity/overview', 'monthly', '0.9'),
-        ('/library/', 'weekly', '0.8'),
-        ('/research-log/', 'weekly', '0.85'),
-        ('/writing/', 'monthly', '0.7'),
-        ('/about/', 'yearly', '0.6'),
-        ('/work-with-me/', 'monthly', '0.75'),
+        ('/library', 'weekly', '0.8'),
+        ('/research-log', 'weekly', '0.85'),
+        ('/writing', 'monthly', '0.7'),
+        ('/about', 'yearly', '0.6'),
+        ('/work-with-me', 'monthly', '0.75'),
+        ('/work', 'monthly', '0.7'),
     ]
 
     for path, changefreq, priority in static_paths:
@@ -86,6 +130,9 @@ def generate_sitemap():
 
     # FlatPages entries
     for page in flatpages:
+        # Skip overview as it's already in static_paths
+        if page.path == 'scarcity/overview':
+            continue
         loc = f'{site_url}/{page.path}'
         sitemap.append('  <url>')
         sitemap.append(f'    <loc>{loc}</loc>')
@@ -95,7 +142,8 @@ def generate_sitemap():
         if isinstance(post_date, str):
             sitemap.append(f'    <lastmod>{post_date}</lastmod>')
         else:
-            sitemap.append(f'    <lastmod>{post_date.strftime("%Y-%m-%d")}</lastmod>')
+            date_str = post_date.strftime("%Y-%m-%d")
+            sitemap.append(f'    <lastmod>{date_str}</lastmod>')
         sitemap.append('    <changefreq>monthly</changefreq>')
         sitemap.append('    <priority>0.7</priority>')
         sitemap.append('  </url>')
@@ -157,5 +205,3 @@ if __name__ == '__main__':
     print("Sitemap created for search engines")
     print("robots.txt created")
     print("Ready to deploy to GitHub Pages")
-
-
