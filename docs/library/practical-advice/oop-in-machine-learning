@@ -92,11 +92,8 @@
                 
                 <div class="hidden md:flex space-x-7 items-center text-sm font-semibold">
                     <a href="/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Home</a>
-                    <a href="/scarcity" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Scarcity</a>
-                    <a href="/research-log" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Research Log</a>
-                    <a href="/library" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Library</a>
+                    <a href="/work" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Work</a>
                     <a href="/writing" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Writing</a>
-                    <a href="/work-with-me" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Work With Me</a>
                     <a href="/about" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">About</a>
                     
                     <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-light-muted dark:text-dark-muted" aria-label="Toggle theme">
@@ -121,11 +118,8 @@
         <div class="md:hidden hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Home</a>
-                <a href="/scarcity" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Scarcity</a>
-                <a href="/research-log" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Research Log</a>
-                <a href="/library" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Library</a>
+                <a href="/work" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Work</a>
                 <a href="/writing" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Writing</a>
-                <a href="/work-with-me" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Work With Me</a>
                 <a href="/about" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">About</a>
             </div>
         </div>
@@ -189,37 +183,39 @@
 <h2>Core OOP Concepts in ML</h2>
 <h3>Classes for Models</h3>
 <p>Encapsulating models as classes provides:</p>
-<pre><code class="language-python">class Model:
-    def __init__(self, hyperparameters):
-        self.params = hyperparameters
-        self.model = None
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Model</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hyperparameters</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">hyperparameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
 
-    def train(self, X, y):
-        # Training logic
-        pass
+    <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="c1"># Training logic</span>
+        <span class="k">pass</span>
 
-    def predict(self, X):
-        # Prediction logic
-        pass
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="c1"># Prediction logic</span>
+        <span class="k">pass</span>
 
-    def evaluate(self, X, y):
-        # Evaluation logic
-        pass
-</code></pre>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="c1"># Evaluation logic</span>
+        <span class="k">pass</span>
+</code></pre></div>
+
 <h3>Data Pipeline Classes</h3>
 <p>Organizing data processing:</p>
-<pre><code class="language-python">class DataPipeline:
-    def __init__(self):
-        self.preprocessors = []
-        self.transformers = []
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DataPipeline</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preprocessors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transformers</span> <span class="o">=</span> <span class="p">[]</span>
 
-    def add_preprocessor(self, preprocessor):
-        self.preprocessors.append(preprocessor)
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_preprocessor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preprocessors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">preprocessor</span><span class="p">)</span>
 
-    def transform(self, data):
-        # Apply transformations
-        pass
-</code></pre>
+    <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="c1"># Apply transformations</span>
+        <span class="k">pass</span>
+</code></pre></div>
+
 <h3>Feature Engineering Classes</h3>
 <p>Structured feature creation:</p>
 <ul>
@@ -232,20 +228,21 @@
 <h2>Design Patterns for ML</h2>
 <h3>Strategy Pattern</h3>
 <p>Switching between algorithms:</p>
-<pre><code class="language-python">class ModelStrategy:
-    def train(self, data):
-        pass
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ModelStrategy</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">pass</span>
 
-class LinearModel(ModelStrategy):
-    def train(self, data):
-        # Linear model training
-        pass
+<span class="k">class</span><span class="w"> </span><span class="nc">LinearModel</span><span class="p">(</span><span class="n">ModelStrategy</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="c1"># Linear model training</span>
+        <span class="k">pass</span>
 
-class TreeModel(ModelStrategy):
-    def train(self, data):
-        # Tree model training
-        pass
-</code></pre>
+<span class="k">class</span><span class="w"> </span><span class="nc">TreeModel</span><span class="p">(</span><span class="n">ModelStrategy</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="c1"># Tree model training</span>
+        <span class="k">pass</span>
+</code></pre></div>
+
 <h3>Template Method Pattern</h3>
 <p>Standardizing workflows:</p>
 <ul>
@@ -296,29 +293,31 @@ class TreeModel(ModelStrategy):
 </ul>
 <h2>Practical Examples</h2>
 <h3>Model Wrapper Classes</h3>
-<pre><code class="language-python">class SklearnModel:
-    def __init__(self, model_type, **kwargs):
-        self.model_type = model_type
-        self.config = kwargs
-        self.model = self._initialize_model()
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SklearnModel</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_type</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_type</span> <span class="o">=</span> <span class="n">model_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_model</span><span class="p">()</span>
 
-    def _initialize_model(self):
-        if self.model_type == 'random_forest':
-            return RandomForestClassifier(**self.config)
-        # Add more model types
-</code></pre>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_type</span> <span class="o">==</span> <span class="s1">&#39;random_forest&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="c1"># Add more model types</span>
+</code></pre></div>
+
 <h3>Data Loader Classes</h3>
-<pre><code class="language-python">class DataLoader:
-    def __init__(self, source, preprocessing=None):
-        self.source = source
-        self.preprocessing = preprocessing
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DataLoader</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">preprocessing</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preprocessing</span> <span class="o">=</span> <span class="n">preprocessing</span>
 
-    def load(self):
-        data = self._read_from_source()
-        if self.preprocessing:
-            data = self.preprocessing.apply(data)
-        return data
-</code></pre>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_from_source</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span>
+</code></pre></div>
+
 <h2>Best Practices</h2>
 <h3>Single Responsibility</h3>
 <p>Each class should do one thing well:</p>

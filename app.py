@@ -52,6 +52,14 @@ def work_with_me():
     """Collaboration page"""
     return render_flatpage('work-with-me')
 
+@app.route('/work/')
+def work():
+    """Work page"""
+    page = flatpages.get('work')
+    if not page:
+        abort(404)
+    return render_template('work.html', page=page)
+
 @app.route('/scarcity/')
 def scarcity_overview():
     """Default Scarcity overview"""
@@ -64,48 +72,69 @@ def scarcity_page(subpath):
 
 @app.route('/library/')
 def library_index():
-    """Library landing showing grouped teaching notes"""
+    """Library landing grouped by category"""
     pages = [p for p in flatpages if p.path.startswith('library/')]
+    
     grouped = {}
-    for p in pages:
-        parts = p.path.split('/')
-        category = parts[1] if len(parts) > 1 else 'general'
-        grouped.setdefault(category, []).append(p)
+    for page in pages:
+        parts = page.path.split('/')
+        category = parts[1] if len(parts) > 1 else 'library'
+        grouped.setdefault(category, []).append(page)
+
     for items in grouped.values():
         items.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
-    ordered = [(k, grouped[k]) for k in sorted(grouped.keys())]
-    return render_template('library_index.html', grouped=ordered)
+
+    ordered_groups = sorted(grouped.items(), key=lambda x: x[0])
+    return render_template('library_index.html', grouped=ordered_groups)
 
 @app.route('/library/<path:subpath>')
 def library_page(subpath):
-    """Library subpages"""
+    """Library detail pages"""
     return render_flatpage(f'library/{subpath}')
 
 @app.route('/research-log/')
 def research_log_index():
-    """Research log index"""
+    """Research log landing"""
     logs = [p for p in flatpages if p.path.startswith('research-log/')]
     logs.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
     return render_template('research_log.html', logs=logs)
 
 @app.route('/research-log/<path:subpath>')
 def research_log_page(subpath):
-    """Research log entry"""
+    """Research log entries"""
     return render_flatpage(f'research-log/{subpath}')
 
 @app.route('/writing/')
 def writing_index():
-    """Writing landing grouped by subsection"""
-    pages = [p for p in flatpages if p.path.startswith('writing/')]
+    """Unified writing section landing"""
+    content_dirs = ['library', 'research-log', 'writing']
+    pages = [p for p in flatpages if p.path.startswith(tuple(f'{d}/' for d in content_dirs))]
+    
     grouped = {}
     for p in pages:
-        parts = p.path.split('/')
-        subsection = p.meta.get('subsection') or (parts[1] if len(parts) > 1 else 'notes')
-        grouped.setdefault(subsection, []).append(p)
+        # Determine category from the top-level directory
+        category = p.path.split('/')[0]
+        
+        # Use a more descriptive title for the category
+        category_title = category.replace('-', ' ').title()
+        
+        # Initialize category if not present
+        if category_title not in grouped:
+            grouped[category_title] = []
+        
+        # Add page to the corresponding category
+        grouped[category_title].append(p)
+
+    # Sort pages within each category by date
     for items in grouped.values():
         items.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
-    ordered = [(k, grouped[k]) for k in sorted(grouped.keys())]
-    return render_template('writing_index.html', grouped=ordered)
+    
+    # Create a sorted list of categories to ensure consistent order
+    # Example order: Research Log, Library, Writing
+    category_order = ['Research Log', 'Library', 'Writing']
+    ordered_groups = [(cat, grouped[cat]) for cat in category_order if cat in grouped]
+
+    return render_template('writing.html', grouped=ordered_groups)
 
 @app.route('/writing/<path:subpath>')
 def writing_page(subpath):

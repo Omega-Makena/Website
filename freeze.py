@@ -25,6 +25,8 @@ def flatpage_routes():
             yield 'about', {}
         elif path == 'work-with-me':
             yield 'work_with_me', {}
+        elif path == 'work':
+            yield 'work', {}
         elif path.startswith('scarcity/'):
             yield 'scarcity_page', {'subpath': path.split('scarcity/', 1)[1]}
         elif path.startswith('library/'):
@@ -43,6 +45,7 @@ def static_routes():
     yield 'research_log_index', {}
     yield 'writing_index', {}
     yield 'work_with_me', {}
+    yield 'work', {}
     yield 'about', {}
 
 def generate_sitemap():
