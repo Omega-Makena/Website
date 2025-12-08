@@ -13,6 +13,7 @@ freezer = Freezer(app)
 app.config['FREEZER_DESTINATION'] = 'docs'
 app.config['FREEZER_RELATIVE_URLS'] = False
 app.config['FREEZER_IGNORE_MIMETYPE_WARNINGS'] = True
+app.config['FREEZER_STATIC_IGNORE'] = ['*.md', '*.pyc', '__pycache__']
 
 @freezer.register_generator
 def index():

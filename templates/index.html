@@ -74,7 +74,7 @@
         </div>
         <div class="grid md:grid-cols-3 gap-6">
             {% for log in research_logs %}
-            <a href="/{{ log.path }}" class="border border-light-border dark:border-dark-border rounded-xl p-5 bg-white dark:bg-dark-card/60 hover:border-light-accent dark:hover:border-dark-accent transition-colors flex flex-col gap-3">
+            <a href="{{ log.path|page_url }}" class="border border-light-border dark:border-dark-border rounded-xl p-5 bg-white dark:bg-dark-card/60 hover:border-light-accent dark:hover:border-dark-accent transition-colors flex flex-col gap-3">
                 <span class="text-xs uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted font-semibold">{{ log.meta.track or 'Update' }}</span>
                 <h3 class="text-xl font-display font-semibold text-light-text dark:text-dark-text">{{ log.meta.title }}</h3>
                 {% if log.meta.description %}<p class="text-sm text-light-muted dark:text-dark-muted">{{ log.meta.description }}</p>{% endif %}
@@ -98,7 +98,7 @@
         </div>
         <div class="grid md:grid-cols-3 gap-6">
             {% for article in library_highlights %}
-            <a href="/{{ article.path }}" class="border border-light-border dark:border-dark-border rounded-xl p-5 bg-white dark:bg-dark-card/60 hover:border-light-accent dark:hover:border-dark-accent transition-colors flex flex-col gap-3">
+            <a href="{{ article.path|page_url }}" class="border border-light-border dark:border-dark-border rounded-xl p-5 bg-white dark:bg-dark-card/60 hover:border-light-accent dark:hover:border-dark-accent transition-colors flex flex-col gap-3">
                 <span class="text-xs uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted font-semibold">{{ article.meta.section or 'Concept' }}</span>
                 <h3 class="text-lg font-display font-semibold text-light-text dark:text-dark-text">{{ article.meta.title }}</h3>
                 {% if article.meta.description %}<p class="text-sm text-light-muted dark:text-dark-muted">{{ article.meta.description }}</p>{% endif %}
@@ -121,7 +121,7 @@
         </div>
         <div class="grid md:grid-cols-3 gap-6">
             {% for post in writing_highlights %}
-            <a href="/{{ post.path }}" class="border border-light-border dark:border-dark-border rounded-xl p-5 bg-white dark:bg-dark-card/60 hover:border-light-accent dark:hover:border-dark-accent transition-colors flex flex-col gap-3">
+            <a href="{{ post.path|page_url }}" class="border border-light-border dark:border-dark-border rounded-xl p-5 bg-white dark:bg-dark-card/60 hover:border-light-accent dark:hover:border-dark-accent transition-colors flex flex-col gap-3">
                 <span class="text-xs uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted font-semibold">{{ post.meta.section or post.path.split('/')[1] }}</span>
                 <h3 class="text-lg font-display font-semibold text-light-text dark:text-dark-text">{{ post.meta.title }}</h3>
                 {% if post.meta.description %}<p class="text-sm text-light-muted dark:text-dark-muted">{{ post.meta.description }}</p>{% endif %}

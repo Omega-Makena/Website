@@ -219,6 +219,17 @@ def format_date(date):
         return date.strftime('%B %d, %Y')
     return date
 
+@app.template_filter('page_url')
+def page_url(path):
+    """Generate proper URL for a FlatPage path"""
+    # Remove .md extension if present
+    if path.endswith('.md'):
+        path = path[:-3]
+    # Ensure it starts with /
+    if not path.startswith('/'):
+        path = '/' + path
+    return path
+
 @app.context_processor
 def inject_globals():
     """Inject global variables into all templates"""
