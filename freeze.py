@@ -11,33 +11,39 @@ freezer = Freezer(app)
 
 # Configure freezer
 app.config['FREEZER_DESTINATION'] = 'docs'
-app.config['FREEZER_RELATIVE_URLS'] = True
+app.config['FREEZER_RELATIVE_URLS'] = False
 app.config['FREEZER_IGNORE_MIMETYPE_WARNINGS'] = True
 
 @freezer.register_generator
-def blog_post():
-    """Generate URLs for all blog posts"""
-    for post in flatpages:
-        # Only generate URLs for blog posts and strip the leading "blog/" prefix
-        if post.path.startswith('blog/'):
-            clean_path = post.path.split('blog/', 1)[1]
-            yield {'path': clean_path}
-
-@freezer.register_generator
-def project_detail():
-    """Generate URLs for all project detail pages"""
-    # Derive project slugs from flatpages entries under portfolio/projects
+def flatpage_routes():
+    """
+    Map FlatPages paths to their Flask routes for freezing.
+    """
     for page in flatpages:
-        if page.path.startswith('portfolio/projects/') and page.path.endswith('/index'):
-            slug = page.path.split('/')[-2]
-            yield {'project_slug': slug}
+        path = page.path
+        if path == 'about':
+            yield 'about', {}
+        elif path == 'work-with-me':
+            yield 'work_with_me', {}
+        elif path.startswith('scarcity/'):
+            yield 'scarcity_page', {'subpath': path.split('scarcity/', 1)[1]}
+        elif path.startswith('library/'):
+            yield 'library_page', {'subpath': path.split('library/', 1)[1]}
+        elif path.startswith('research-log/'):
+            yield 'research_log_page', {'subpath': path.split('research-log/', 1)[1]}
+        elif path.startswith('writing/'):
+            yield 'writing_page', {'subpath': path.split('writing/', 1)[1]}
 
 @freezer.register_generator
-def blog_category():
-    """Generate URLs for all blog category pages"""
-    categories = ['ai-ml', 'finance-economics', 'poetry', 'self-improvement', 'tech-concepts', 'random']
-    for category in categories:
-        yield {'category': category}
+def static_routes():
+    """Static top-level routes."""
+    yield 'index', {}
+    yield 'scarcity_overview', {}
+    yield 'library_index', {}
+    yield 'research_log_index', {}
+    yield 'writing_index', {}
+    yield 'work_with_me', {}
+    yield 'about', {}
 
 def generate_sitemap():
     """Generate sitemap.xml for search engines"""
@@ -57,27 +63,29 @@ def generate_sitemap():
     sitemap.append('    <priority>1.0</priority>')
     sitemap.append('  </url>')
     
-    # Portfolio
-    sitemap.append('  <url>')
-    sitemap.append(f'    <loc>{site_url}/portfolio/</loc>')
-    sitemap.append(f'    <lastmod>{datetime.now().strftime("%Y-%m-%d")}</lastmod>')
-    sitemap.append('    <changefreq>monthly</changefreq>')
-    sitemap.append('    <priority>0.8</priority>')
-    sitemap.append('  </url>')
-    
-    # Blog listing
-    sitemap.append('  <url>')
-    sitemap.append(f'    <loc>{site_url}/blog/</loc>')
-    sitemap.append(f'    <lastmod>{datetime.now().strftime("%Y-%m-%d")}</lastmod>')
-    sitemap.append('    <changefreq>weekly</changefreq>')
-    sitemap.append('    <priority>0.9</priority>')
-    sitemap.append('  </url>')
-    
-    # Blog posts
-    for post in flatpages:
+    static_paths = [
+        ('/scarcity/overview', 'monthly', '0.9'),
+        ('/library/', 'weekly', '0.8'),
+        ('/research-log/', 'weekly', '0.85'),
+        ('/writing/', 'monthly', '0.7'),
+        ('/about/', 'yearly', '0.6'),
+        ('/work-with-me/', 'monthly', '0.75'),
+    ]
+
+    for path, changefreq, priority in static_paths:
         sitemap.append('  <url>')
-        sitemap.append(f'    <loc>{site_url}/blog/{post.path}</loc>')
-        post_date = post.meta.get('date')
+        sitemap.append(f'    <loc>{site_url}{path}</loc>')
+        sitemap.append(f'    <lastmod>{datetime.now().strftime("%Y-%m-%d")}</lastmod>')
+        sitemap.append(f'    <changefreq>{changefreq}</changefreq>')
+        sitemap.append(f'    <priority>{priority}</priority>')
+        sitemap.append('  </url>')
+
+    # FlatPages entries
+    for page in flatpages:
+        loc = f'{site_url}/{page.path}'
+        sitemap.append('  <url>')
+        sitemap.append(f'    <loc>{loc}</loc>')
+        post_date = page.meta.get('date')
         if not post_date:
             post_date = datetime.now()
         if isinstance(post_date, str):

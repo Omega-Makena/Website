@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
+    <meta name="description" content="Synthetic drills to break Scarcity assumptions before production.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="https://omegamakena.co.ke/blog/">
+    <link rel="canonical" href="https://omegamakena.co.ke/scarcity/implementations/experiments">
     
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://omegamakena.co.ke/blog/">
+    <meta property="og:url" content="https://omegamakena.co.ke/scarcity/implementations/experiments">
     <meta property="og:title" content="Omega Makena - Machine Learning Engineer &amp; Quantitative Researcher">
     <meta property="og:description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
     
-    <title>Blog - Omega Makena</title>
+    <title>Experiments - Omega Makena</title>
     
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     
@@ -133,32 +133,68 @@
     
     <main class="flex-grow pt-20">
         
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 fade-in">
+<section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-light-accent/5 via-transparent to-emerald-200/10 dark:from-dark-accent/10 dark:via-transparent dark:to-emerald-500/10 pointer-events-none"></div>
     
-    <div class="text-center mb-16">
-        <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-light-text dark:text-dark-text">
-            Writing
-        </h1>
-        <p class="text-xl text-light-muted dark:text-dark-muted max-w-2xl mx-auto">
-            Exploring the intersection of Artificial Intelligence, Economics, and the human experience.
-        </p>
-    </div>
-    
-    <div class="space-y-8">
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-10">
+        <div class="flex flex-col gap-6">
+            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 dark:bg-dark-card/70 border border-light-border dark:border-dark-border shadow-sm w-fit">
+                <span class="text-xs font-semibold uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted">
+                    Scarcity
+                </span>
+                
+                <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
+                    2025-01-11
+                </span>
+                
+            </div>
+            
+            <div class="space-y-4">
+                <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text leading-tight">
+                    Experiments
+                </h1>
+                
+                <p class="text-lg text-light-muted dark:text-dark-muted max-w-3xl leading-relaxed">
+                    Synthetic drills to break Scarcity assumptions before production.
+                </p>
+                
+            </div>
+        </div>
+        
+        <article class="bg-white dark:bg-dark-card/70 border border-light-border dark:border-dark-border rounded-2xl shadow-lg p-6 md:p-10">
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                <p><strong>Problem</strong><br />
+Find failure modes fast—simulate scarcity rather than wait for production outages.</p>
+<p><strong>Scarcity components exercised</strong><br />
+Simulation harness, resilience checks, aggregation patterns under stress.</p>
+<p><strong>What worked</strong><br />
+Client dropout simulations revealed stale-update risks early; bandwidth throttling forced payload compression plans.</p>
+<p><strong>What failed</strong><br />
+Adversarial update tests are incomplete; need better poisoning detection before rollout.</p>
+<p><strong>Next steps</strong><br />
+Add poisoning scenarios, automate staleness decay, and link outcomes directly into the constraint ledger.</p>
+            </div>
+        </article>
+        
+        
+        <div class="bg-white dark:bg-dark-card/60 border border-light-border dark:border-dark-border rounded-xl p-6 shadow-sm">
+            <h2 class="text-sm font-semibold uppercase tracking-[0.2em] text-light-muted dark:text-dark-muted mb-3">Related</h2>
+            <div class="grid gap-3 sm:grid-cols-2">
+                
+                <a href="/research-log" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
+                    <div>
+                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">Research Log</div>
+                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">Live notes from these drills.</div>
+                    </div>
+                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
+                </a>
+                
+            </div>
+        </div>
         
     </div>
-    
-    <script>
-        function toggleCategory(category) {
-            const postsDiv = document.getElementById('posts-' + category);
-            const icon = document.getElementById('icon-' + category);
-            
-            postsDiv.classList.toggle('hidden');
-            icon.classList.toggle('rotate-180');
-        }
-    </script>
-    
-</div>
+</section>
 
     </main>
     

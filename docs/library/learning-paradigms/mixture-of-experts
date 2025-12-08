@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
+    <meta name="description" content="Exploring how mixture of experts architectures enable more efficient and scalable machine learning systems.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="https://omegamakena.co.ke/blog/">
+    <link rel="canonical" href="https://omegamakena.co.ke/library/learning-paradigms/mixture-of-experts">
     
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://omegamakena.co.ke/blog/">
+    <meta property="og:url" content="https://omegamakena.co.ke/library/learning-paradigms/mixture-of-experts">
     <meta property="og:title" content="Omega Makena - Machine Learning Engineer &amp; Quantitative Researcher">
     <meta property="og:description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
     
-    <title>Blog - Omega Makena</title>
+    <title>Mixture of Experts - Scaling AI by Specialization - Omega Makena</title>
     
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     
@@ -133,32 +133,125 @@
     
     <main class="flex-grow pt-20">
         
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 fade-in">
+<section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-light-accent/5 via-transparent to-emerald-200/10 dark:from-dark-accent/10 dark:via-transparent dark:to-emerald-500/10 pointer-events-none"></div>
     
-    <div class="text-center mb-16">
-        <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-light-text dark:text-dark-text">
-            Writing
-        </h1>
-        <p class="text-xl text-light-muted dark:text-dark-muted max-w-2xl mx-auto">
-            Exploring the intersection of Artificial Intelligence, Economics, and the human experience.
-        </p>
-    </div>
-    
-    <div class="space-y-8">
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-10">
+        <div class="flex flex-col gap-6">
+            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 dark:bg-dark-card/70 border border-light-border dark:border-dark-border shadow-sm w-fit">
+                <span class="text-xs font-semibold uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted">
+                    Library
+                </span>
+                
+                <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
+                    2025-01-20
+                </span>
+                
+            </div>
+            
+            <div class="space-y-4">
+                <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text leading-tight">
+                    Mixture of Experts - Scaling AI by Specialization
+                </h1>
+                
+                <p class="text-lg text-light-muted dark:text-dark-muted max-w-3xl leading-relaxed">
+                    Exploring how mixture of experts architectures enable more efficient and scalable machine learning systems.
+                </p>
+                
+            </div>
+        </div>
+        
+        <article class="bg-white dark:bg-dark-card/70 border border-light-border dark:border-dark-border rounded-2xl shadow-lg p-6 md:p-10">
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                <h2>The Challenge of Scale</h2>
+<p>As machine learning models grow exponentially in size, we face a fundamental problem: how do we scale intelligence without exponentially scaling computational cost? Training models with trillions of parameters is becoming prohibitively expensive, both in terms of compute and energy consumption.</p>
+<p>This is where Mixture of Experts (MoE) comes in—a paradigm that challenges the traditional approach of monolithic neural networks.</p>
+<h2>What is Mixture of Experts?</h2>
+<p>Mixture of Experts is an architecture where instead of one large model processing every input, you have multiple specialized "expert" models, and a routing mechanism decides which experts to use for each input.</p>
+<p>Think of it like a department store: instead of one employee trying to handle every customer, you have specialists in electronics, clothing, and home goods. A routing system directs customers to the appropriate expert, and they might even consult multiple experts for complex purchases.</p>
+<h2>How It Works</h2>
+<h3>The Architecture</h3>
+<ol>
+<li><strong>Multiple Expert Networks</strong>: Each expert specializes in different aspects of the data</li>
+<li><strong>Router/Gating Network</strong>: Decides which experts to activate for each input</li>
+<li><strong>Combination Layer</strong>: Merges outputs from activated experts</li>
+</ol>
+<h3>Sparse Activation</h3>
+<p>The key innovation is <strong>sparse activation</strong>: for any given input, only a subset of experts are used. This means:</p>
+<ul>
+<li>Total model capacity can be huge (trillions of parameters)</li>
+<li>But only a fraction is activated per inference (billions used)</li>
+<li>Computation scales with active parameters, not total parameters</li>
+</ul>
+<h2>Real-World Applications</h2>
+<h3>Google's Switch Transformers</h3>
+<p>Google's Switch Transformer uses MoE to scale language models efficiently:</p>
+<ul>
+<li>1.6 trillion parameters total</li>
+<li>Only 37 billion active per inference</li>
+<li>Keeps inference cost manageable while maintaining massive capacity</li>
+</ul>
+<h3>Specialization in Vision</h3>
+<p>Vision models can have experts for:</p>
+<ul>
+<li>Different object categories</li>
+<li>Various image styles (photography, artwork, medical imaging)</li>
+<li>Multi-scale features (details vs. global patterns)</li>
+</ul>
+<h2>Benefits</h2>
+<h3>Efficiency</h3>
+<ul>
+<li>Lower computational cost per inference</li>
+<li>Faster training through parallel expert processing</li>
+<li>Better parameter utilization</li>
+</ul>
+<h3>Specialization</h3>
+<ul>
+<li>Experts naturally specialize in different patterns</li>
+<li>Better performance on diverse data</li>
+<li>More interpretable decisions</li>
+</ul>
+<h3>Scalability</h3>
+<ul>
+<li>Easy to add more capacity by adding experts</li>
+<li>Linear scaling with number of experts</li>
+<li>Doesn't require retraining entire model</li>
+</ul>
+<h2>Challenges</h2>
+<h3>Router Training</h3>
+<p>The gating network must learn to route effectively:</p>
+<ul>
+<li>Balance expert utilization</li>
+<li>Avoid collapsing to always using same experts</li>
+<li>Handle distribution shift</li>
+</ul>
+<h3>Load Balancing</h3>
+<p>Ensuring experts are used evenly:</p>
+<ul>
+<li>Some may become over-utilized</li>
+<li>Others might be underutilized</li>
+<li>Requires careful training and monitoring</li>
+</ul>
+<h3>Communication Overhead</h3>
+<p>In distributed systems:</p>
+<ul>
+<li>Need to coordinate expert selection</li>
+<li>Additional latency for routing decisions</li>
+<li>More complex distributed training</li>
+</ul>
+<h2>The Future of Efficient AI</h2>
+<p>MoE represents a shift toward more modular, efficient AI systems. As we push toward general intelligence, these architectures will be crucial for making AI accessible and sustainable.</p>
+<p>The principle—specialization through modularity—applies beyond neural networks. It's about designing systems that can handle complexity through intelligent routing and delegation, not brute force computation.</p>
+<h2>Conclusion</h2>
+<p>Mixture of Experts shows us that bigger isn't always better—smarter is. By using many specialized components efficiently rather than one monolithic system, we can achieve scale without sacrificing efficiency.</p>
+<p>This is the kind of engineering that will make AI truly practical and scalable for real-world applications.</p>
+            </div>
+        </article>
+        
         
     </div>
-    
-    <script>
-        function toggleCategory(category) {
-            const postsDiv = document.getElementById('posts-' + category);
-            const icon = document.getElementById('icon-' + category);
-            
-            postsDiv.classList.toggle('hidden');
-            icon.classList.toggle('rotate-180');
-        }
-    </script>
-    
-</div>
+</section>
 
     </main>
     

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exploring meta-learning as an approach to teaching models how to learn, with practical insights from building KShield and continuous adaptation systems.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena">
+    
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://omegamakena.co.ke/library/learning-paradigms/meta-learning-learning-how-to-learn">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://omegamakena.co.ke/library/learning-paradigms/meta-learning-learning-how-to-learn">
+    <meta property="og:title" content="Omega Makena - Machine Learning Engineer &amp; Quantitative Researcher">
+    <meta property="og:description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
+    <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
+    <meta property="og:site_name" content="Omega Makena">
+    
+    <title>Meta-Learning - Learning How to Learn - Omega Makena</title>
+    
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Manrope', 'sans-serif'],
+                        'display': ['Space Grotesk', 'Manrope', 'sans-serif'],
+                        'body': ['Manrope', 'sans-serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        light: {
+                            bg: '#F8FAFC',        // Cool Grey
+                            card: '#FFFFFF',
+                            text: '#0F172A',      // Slate 900
+                            muted: '#475569',     // Slate 600
+                            accent: '#0D9488',    // Teal 600 (Professional Data color)
+                            link: '#0F766E',      // Teal 700
+                            border: '#E2E8F0'
+                        },
+                        dark: {
+                            bg: '#020617',        // Very dark slate (almost black but richer)
+                            card: '#0F172A',      // Slate 900
+                            text: '#F1F5F9',      // Slate 100
+                            muted: '#94A3B8',     // Slate 400
+                            accent: '#2DD4BF',    // Teal 400 (Bright pop)
+                            link: '#5EEAD4',      // Teal 300
+                            border: '#1E293B'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { font-family: 'Manrope', sans-serif; letter-spacing: -0.01em; }
+        
+        /* Subtle Grid Pattern for Background */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+        
+        /* Smooth transitions */
+        * { transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+
+        /* Fade in */
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; opacity: 0; transform: translateY(10px); }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text min-h-screen flex flex-col selection:bg-light-accent selection:text-white dark:selection:bg-dark-accent dark:selection:text-dark-bg">
+    
+    <nav class="fixed w-full top-0 z-50 bg-light-card/90 dark:bg-dark-bg/90 backdrop-blur-md border-b border-light-border dark:border-dark-border">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="/" class="text-xl font-bold tracking-tight text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">
+                    Omega Makena<span class="text-light-accent dark:text-dark-accent">.</span>
+                </a>
+                
+                <div class="hidden md:flex space-x-7 items-center text-sm font-semibold">
+                    <a href="/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Home</a>
+                    <a href="/scarcity" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Scarcity</a>
+                    <a href="/research-log" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Research Log</a>
+                    <a href="/library" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Library</a>
+                    <a href="/writing" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Writing</a>
+                    <a href="/work-with-me" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Work With Me</a>
+                    <a href="/about" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">About</a>
+                    
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-light-muted dark:text-dark-muted" aria-label="Toggle theme">
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="p-2 rounded-md text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Home</a>
+                <a href="/scarcity" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Scarcity</a>
+                <a href="/research-log" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Research Log</a>
+                <a href="/library" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Library</a>
+                <a href="/writing" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Writing</a>
+                <a href="/work-with-me" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Work With Me</a>
+                <a href="/about" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">About</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="flex-grow pt-20">
+        
+<section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-light-accent/5 via-transparent to-emerald-200/10 dark:from-dark-accent/10 dark:via-transparent dark:to-emerald-500/10 pointer-events-none"></div>
+    
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-10">
+        <div class="flex flex-col gap-6">
+            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 dark:bg-dark-card/70 border border-light-border dark:border-dark-border shadow-sm w-fit">
+                <span class="text-xs font-semibold uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted">
+                    Library
+                </span>
+                
+                <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
+                    2025-10-29
+                </span>
+                
+            </div>
+            
+            <div class="space-y-4">
+                <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text leading-tight">
+                    Meta-Learning - Learning How to Learn
+                </h1>
+                
+                <p class="text-lg text-light-muted dark:text-dark-muted max-w-3xl leading-relaxed">
+                    Exploring meta-learning as an approach to teaching models how to learn, with practical insights from building KShield and continuous adaptation systems.
+                </p>
+                
+            </div>
+        </div>
+        
+        <article class="bg-white dark:bg-dark-card/70 border border-light-border dark:border-dark-border rounded-2xl shadow-lg p-6 md:p-10">
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                <h1>Meta-Learning: Learning How to Learn</h1>
+<p>Meta-learning. Learning how to learn. What a buzzword.<br />
+Search across the internet and that is the phrase you will keep finding. But in all seriousness, what does it really mean?  </p>
+<p>I first came across meta-learning while working on my project <strong>KShield</strong>. If you've followed me long enough, you know what KShield is. It's a large-scale simulation and analysis system for modeling Kenya's economic dynamics. I had already decided that KShield needed to be <strong>online</strong>. We'll talk about what that means later, but in simple terms, I wanted the system to keep learning continuously, not restart or retrain from scratch every time new data appeared.  </p>
+<p>When I rolled out the first version, I realized there was a problem.<br />
+The data quality wasn't good. I was cold starting the system, which meant it was learning from almost nothing. The user data was also inconsistent: sometimes good, sometimes bad. Even with quality checks, bad data slipped through, and that made the online learning unstable.  </p>
+<p>I needed the system to keep going, to keep absorbing, learning, and evolving, even when the input data was messy. That's when I asked myself, what if I built a <strong>knowledge layer</strong>? A layer that could remember, adapt, and make sense of information from everywhere instead of just reacting to it.  </p>
+<p>As I started searching for ways to design this layer, I stumbled into <strong>meta-learning</strong>. That moment changed how I saw learning systems altogether.  </p>
+<h2>What Exactly Is Meta-Learning</h2>
+<p>Forget the buzzwords for a moment. Meta-learning is an approach to machine learning that focuses on teaching models <em>how to learn</em>. Instead of training a model to perform one fixed task, you train it to adapt quickly to new tasks with minimal data.  </p>
+<p>The goal is not just to learn patterns in data, but to learn the process of learning itself. That is why people call it "learning to learn."  </p>
+<p>In standard learning, a model is trained once and deployed. If the environment changes, you retrain from scratch. In meta-learning, the system is trained across many small tasks so that it can generalize and perform well on new, unseen tasks without starting over.  </p>
+<h2>Meta-Learning Architecture</h2>
+<p>A typical meta-learning system has two layers:  </p>
+<ol>
+<li><strong>Base learner (inner level):</strong> The model that learns to perform specific tasks. It could be a small neural network, MLP, CNN, or any model depending on the problem.  </li>
+<li><strong>Meta-learner (outer level):</strong> The model that learns <em>how</em> to train the base learner. It observes how the base learner performs across different tasks and updates higher-level parameters to make future learning faster and more efficient.  </li>
+</ol>
+<p>The base learner focuses on what to learn. The meta-learner focuses on how to learn. Together, they create a two-level learning process that captures general strategies for adaptation.  </p>
+<h2>How Meta-Learning Works</h2>
+<p>Training happens in two loops:  </p>
+<ol>
+<li><strong>Inner loop:</strong> The base learner is trained on a small dataset for a specific task, updating its parameters through gradient descent or another optimizer.  </li>
+<li><strong>Outer loop:</strong> The meta-learner evaluates how well the base learner adapted and adjusts the initialization or learning rules so that next time, adaptation happens faster.  </li>
+</ol>
+<p>After many iterations, the system develops an internal sense of how to learn efficiently. When it encounters a new problem, it needs only a few gradient updates to adapt.  </p>
+<h2>Approaches to Meta-Learning</h2>
+<p>Meta-learning methods are usually grouped by what part of the learning process they try to optimize.</p>
+<ol>
+<li>
+<p><strong>Metric-based approaches</strong><br />
+   These methods learn a similarity measure between examples. Instead of direct predictions, they compare new data with stored representations.<br />
+<em>Examples:</em> Matching Networks, Prototypical Networks, Relation Networks.  </p>
+</li>
+<li>
+<p><strong>Model-based approaches</strong><br />
+   Here, the learner itself contains an internal memory mechanism (like an RNN or Transformer) that helps it adapt quickly.<br />
+<em>Examples:</em> Meta Networks, SNAIL, LSTM-based meta-learners.  </p>
+</li>
+<li>
+<p><strong>Optimization-based approaches</strong><br />
+   These focus on improving the optimization process itself, learning better initialization or even new learning rules.<br />
+<em>Examples:</em> MAML (Model-Agnostic Meta-Learning), Reptile, FOMAML, L2L (Learning to Learn).  </p>
+</li>
+</ol>
+<h2>Algorithms Used in Meta-Learning</h2>
+<p>Some of the most common algorithms include:  </p>
+<ul>
+<li><strong>MAML:</strong> Learns a good initialization that can be fine-tuned on new tasks with a few gradient steps.  </li>
+<li><strong>FOMAML:</strong> A faster, first-order version of MAML.  </li>
+<li><strong>Reptile:</strong> Simplifies MAML by removing second-order derivatives.  </li>
+<li><strong>Prototypical Networks:</strong> Learns an embedding space where new examples are classified by proximity to class prototypes.  </li>
+<li><strong>Matching Networks:</strong> Uses attention-based comparison for few-shot classification.  </li>
+<li><strong>Meta Networks:</strong> Dynamically generates weights for another network.  </li>
+<li><strong>SNAIL:</strong> Combines temporal convolution and attention to manage memory over time.  </li>
+<li><strong>LEO:</strong> Learns a latent representation of tasks and performs optimization in that lower-dimensional space.  </li>
+</ul>
+<h2>Use Cases of Meta-Learning</h2>
+<p>Meta-learning is powerful in environments where data is limited, dynamic, or distributed.</p>
+<p><strong>Best used when:</strong><br />
+- You only have a few examples per class (few-shot learning).<br />
+- The environment changes frequently and you need continual or online learning.<br />
+- Data is distributed across multiple clients, as in federated learning.<br />
+- You need personalized models that adapt to individual users or conditions.<br />
+- Agents operate in new environments and must adapt quickly, such as in reinforcement learning.  </p>
+<p><strong>Avoid when:</strong><br />
+- You already have large, static datasets.<br />
+- Tasks are unrelated, offering no transfer benefit.<br />
+- Compute resources are very limited.  </p>
+<h2>Step-by-Step: Training a Meta-Learning Model</h2>
+<h3>1. Define the problem</h3>
+<p>Choose an N-way K-shot setting (for example, 5-way 1-shot). Split your dataset into train, validation, and test class sets with no overlap.</p>
+<h3>2. Create tasks (episodes)</h3>
+<p>For each training step, sample N classes, pick K support examples and Q query examples from each, and form an episode.</p>
+<h3>3. Choose a base learner</h3>
+<p>Use a small network like a 4-layer CNN, ResNet, or MLP depending on your domain.  </p>
+<h3>4. Implement the inner loop</h3>
+<p>Train the base learner on the support set for a few steps using a high learning rate to adapt to the current task.  </p>
+<h3>5. Implement the outer loop</h3>
+<p>Evaluate the adapted model on the query set. Compute gradients of this loss with respect to the original parameters and update them.  </p>
+<h3>6. Repeat</h3>
+<p>Train across thousands of episodes, each with different tasks, until validation accuracy stabilizes.  </p>
+<h3>7. Evaluate</h3>
+<p>Test on new tasks (from unseen classes) and measure average accuracy over many episodes.  </p>
+<p><strong>Typical Hyperparameters</strong><br />
+- N-way: 5<br />
+- K-shot: 1 or 5<br />
+- Query per class: 15<br />
+- Inner steps: 1–5<br />
+- Meta batch size: 4–16<br />
+- Inner learning rate: 0.01–0.1<br />
+- Outer learning rate: 1e-3–5e-4  </p>
+<h2>In Case You're Wondering: Can You Have an Online Meta-Learning Model?</h2>
+<p>Yes, you can. You can combine meta-learning with online learning, where the model updates continuously as new data arrives. This is especially useful when you don't have enough data to train everything upfront.  </p>
+<p>However, online meta-learning requires careful design. You need enough task diversity over time for the meta-learner to actually learn how to learn. Otherwise, it risks memorizing instead of generalizing.  </p>
+<p>If your data is small, you can:<br />
+1. Use simulated or historical tasks for pretraining.<br />
+2. Use federated or cross-domain meta-learning to gather diverse experiences without centralizing data.<br />
+3. Update the meta-learner only after accumulating enough online episodes.<br />
+4. Choose simpler few-shot algorithms like Prototypical Networks for small data scenarios.  </p>
+<h2>Event-Based Meta-Learning</h2>
+<p>A practical way to build online meta-learning is to make it event-based. Instead of updating all the time, the system collects experience in memory and updates when something significant happens.  </p>
+<h3>How It Works</h3>
+<ol>
+<li><strong>Continuous input:</strong> New data arrives and the base learner adapts locally.  </li>
+<li><strong>Memory accumulation:</strong> Each experience or gradient update is stored in a buffer.  </li>
+<li><strong>Event detection:</strong> The system watches for triggers such as performance drift, domain shift, or reaching a memory threshold.  </li>
+<li><strong>Meta-update:</strong> When an event occurs, the meta-learner aggregates stored experiences and performs a meta-update.  </li>
+<li><strong>Reset:</strong> The memory decays or clears partially to stay efficient.  </li>
+</ol>
+<h3>Benefits</h3>
+<ul>
+<li>Stable learning because updates are spaced out and meaningful.  </li>
+<li>Efficient computation since meta-updates are event-triggered.  </li>
+<li>Works well under data scarcity because it learns only when the buffer is rich enough.  </li>
+<li>Fits real-world processes like policy changes, trading cycles, or new user sessions.  </li>
+</ul>
+<h3>Typical Implementation</h3>
+<ul>
+<li><strong>Memory:</strong> Sliding window or replay buffer.  </li>
+<li><strong>Triggers:</strong> Statistical (loss variance, gradient magnitude) or contextual (new quarter, data upload).  </li>
+<li><strong>Meta-update:</strong> Aggregate buffered episodes, run a few outer-loop updates, and refresh initialization.  </li>
+</ul>
+<h3>When It Works Best</h3>
+<ul>
+<li>Data comes in irregular bursts.  </li>
+<li>Environments evolve in phases rather than continuously.  </li>
+<li>You need stability and interpretability in your adaptation cycle.  </li>
+</ul>
+<h2>Where It Clicked for Me</h2>
+<p>It clicked for me because that's exactly what I needed in KShield.<br />
+I didn't have enough clean data to train big models from scratch. I only had small, scattered pieces to test and learn from. The system had to keep adjusting to new information, sometimes good, sometimes bad, and still improve.  </p>
+<p>That is what meta-learning offered — a way to let the model learn how to learn under scarcity. And by combining it with online and event-based learning, it could continue evolving without collapsing under bad data.  </p>
+<h2>Final Thought</h2>
+<p>I didn't find meta-learning in a research paper or classroom. I found it while trying to make a messy system work. It taught me that real intelligence isn't about perfection; it's about adaptability.  </p>
+<p>That is what meta-learning is about — not teaching a model to know everything, but teaching it how to learn anything.  </p>
+            </div>
+        </article>
+        
+        
+    </div>
+</section>
+
+    </main>
+    
+    <footer class="bg-light-bg dark:bg-dark-bg mt-20 border-t border-light-border dark:border-dark-border">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="text-light-muted dark:text-dark-muted text-sm font-medium">
+                    © 2025 Omega Makena.
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Dark Mode Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', function() {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
