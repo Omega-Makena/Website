@@ -174,10 +174,9 @@ def generate_robots_txt():
 def create_directories():
     """Create directories for nested pages"""
     for page in flatpages:
-        # Construct the output path
-        path = os.path.join(app.config['FREEZER_DESTINATION'], page.path)
-        # Get the directory name
-        directory = os.path.dirname(path)
+        # The path for the directory that will hold index.html
+        # e.g. for page.path 'a/b/c', we need directory 'docs/a/b/c'
+        directory = os.path.join(app.config['FREEZER_DESTINATION'], page.path)
         # Create directory if it doesn't exist
         if not os.path.exists(directory):
             os.makedirs(directory)
