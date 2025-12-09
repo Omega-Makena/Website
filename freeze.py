@@ -171,15 +171,7 @@ def generate_robots_txt():
     with open('docs/robots.txt', 'w', encoding='utf-8') as f:
         f.write('\n'.join(robots))
 
-def create_directories():
-    """Create directories for nested pages"""
-    for page in flatpages:
-        # The path for the directory that will hold index.html
-        # e.g. for page.path 'a/b/c', we need directory 'docs/a/b/c'
-        directory = os.path.join(app.config['FREEZER_DESTINATION'], page.path)
-        # Create directory if it doesn't exist
-        if not os.path.exists(directory):
-            os.makedirs(directory)
+
 
 if __name__ == '__main__':
     # Clean old build thoroughly
@@ -192,8 +184,7 @@ if __name__ == '__main__':
             print(f"Warning: Could not fully clean docs folder: {e}")
             print("Continuing anyway...")
     
-    # Create directories for nested pages
-    create_directories()
+
     
     # Generate static files
     try:
