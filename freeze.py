@@ -111,14 +111,14 @@ def generate_sitemap():
     sitemap.append('  </url>')
     
     static_paths = [
-        ('/scarcity', 'monthly', '0.9'),
-        ('/scarcity/overview', 'monthly', '0.9'),
-        ('/library', 'weekly', '0.8'),
-        ('/research-log', 'weekly', '0.85'),
-        ('/writing', 'monthly', '0.7'),
-        ('/about', 'yearly', '0.6'),
-        ('/work-with-me', 'monthly', '0.75'),
-        ('/work', 'monthly', '0.7'),
+        ('/scarcity/', 'monthly', '0.9'),
+        ('/scarcity/overview/', 'monthly', '0.9'),
+        ('/library/', 'weekly', '0.8'),
+        ('/research-log/', 'weekly', '0.85'),
+        ('/writing/', 'monthly', '0.7'),
+        ('/about/', 'yearly', '0.6'),
+        ('/work-with-me/', 'monthly', '0.75'),
+        ('/work/', 'monthly', '0.7'),
     ]
 
     for path, changefreq, priority in static_paths:
@@ -134,7 +134,15 @@ def generate_sitemap():
         # Skip overview as it's already in static_paths
         if page.path == 'scarcity/overview':
             continue
-        loc = f'{site_url}/{page.path}'
+        
+        # Use a similar logic to the page_url filter
+        path = page.path
+        if not path.startswith('/'):
+            path = '/' + path
+        if not path.endswith('/'):
+            path += '/'
+
+        loc = f'{site_url}{path}'
         sitemap.append('  <url>')
         sitemap.append(f'    <loc>{loc}</loc>')
         post_date = page.meta.get('date')
@@ -178,14 +186,15 @@ if __name__ == '__main__':
     if os.path.exists('docs'):
         import time
         try:
-            shutil.rmtree('docs', ignore_errors=True)
+            shutil.rmtree('docs')
             time.sleep(0.5)  # Give filesystem time to clean up
         except Exception as e:
             print(f"Warning: Could not fully clean docs folder: {e}")
-            print("Continuing anyway...")
+            print("You may need to delete it manually before running this script.")
     
+    # Recreate docs folder explicitly
+    os.makedirs('docs', exist_ok=True)
 
-    
     # Generate static files
     try:
         freezer.freeze()
@@ -194,8 +203,7 @@ if __name__ == '__main__':
         print("Retrying with fresh docs folder...")
         if os.path.exists('docs'):
             shutil.rmtree('docs', ignore_errors=True)
-        # Create directories again after cleaning
-        create_directories()
+        os.makedirs('docs', exist_ok=True)
         freezer.freeze()
     
     # Copy CNAME file to docs folder for custom domain

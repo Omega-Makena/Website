@@ -68,13 +68,11 @@ def render_flatpage(path):
         abort(404)
     return render_template('page.html', page=page)
 
-@app.route('/about')
 @app.route('/about/')
 def about():
     """About page"""
     return render_flatpage('about')
 
-@app.route('/work-with-me')
 @app.route('/work-with-me/')
 def work_with_me():
     """Collaboration page"""
@@ -88,7 +86,6 @@ def work():
         abort(404)
     return render_template('work.html', page=page)
 
-@app.route('/scarcity')
 @app.route('/scarcity/')
 def scarcity_hub():
     """Scarcity hub page"""
@@ -111,17 +108,16 @@ def scarcity_hub():
         })
     return render_template('scarcity_hub.html', sections=resolved)
 
-@app.route('/scarcity/overview')
+@app.route('/scarcity/overview/')
 def scarcity_overview():
     """Default Scarcity overview"""
     return render_flatpage('scarcity/overview')
 
-@app.route('/scarcity/<path:subpath>')
+@app.route('/scarcity/<path:subpath>/')
 def scarcity_page(subpath):
     """Scarcity subpages"""
     return render_flatpage(f'scarcity/{subpath}')
 
-@app.route('/library')
 @app.route('/library/')
 def library_index():
     """Library landing grouped by category"""
@@ -155,12 +151,11 @@ def library_index():
 
     return render_template('library_index.html', grouped=ordered_groups)
 
-@app.route('/library/<path:subpath>')
+@app.route('/library/<path:subpath>/')
 def library_page(subpath):
     """Library detail pages"""
     return render_flatpage(f'library/{subpath}')
 
-@app.route('/research-log')
 @app.route('/research-log/')
 def research_log_index():
     """Research log landing"""
@@ -168,12 +163,11 @@ def research_log_index():
     logs.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
     return render_template('research_log.html', logs=logs)
 
-@app.route('/research-log/<path:subpath>')
+@app.route('/research-log/<path:subpath>/')
 def research_log_page(subpath):
     """Research log entries"""
     return render_flatpage(f'research-log/{subpath}')
 
-@app.route('/writing')
 @app.route('/writing/')
 def writing_index():
     """Writing landing page for poetry and essays"""
@@ -183,8 +177,9 @@ def writing_index():
     for p in pages:
         # Determine category from folder under writing/
         parts = p.path.split('/')
-        category = parts[1] if len(parts) > 1 else 'writing'
-        grouped.setdefault(category, []).append(p)
+        if len(parts) > 1 and parts[1] in ['essays', 'poetry', 'reflections']:
+            category = parts[1]
+            grouped.setdefault(category, []).append(p)
 
     for items in grouped.values():
         items.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
@@ -194,13 +189,15 @@ def writing_index():
     for cat in category_order:
         if cat in grouped:
             ordered_groups.append((cat, grouped[cat]))
+    
+    # Add any remaining categories that might not be in the predefined order
     for cat, items in grouped.items():
         if cat not in category_order:
             ordered_groups.append((cat, items))
 
     return render_template('writing.html', grouped=ordered_groups)
 
-@app.route('/writing/<path:subpath>')
+@app.route('/writing/<path:subpath>/')
 def writing_page(subpath):
     """Writing subpages"""
     return render_flatpage(f'writing/{subpath}')
