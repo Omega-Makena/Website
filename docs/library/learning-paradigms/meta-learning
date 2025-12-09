@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Poetry, essays, and reflections that keep the work human.">
+    <meta name="description" content="How meta-learning enables AI systems to rapidly adapt to new tasks with minimal data.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="https://omegamakena.co.ke/writing/">
+    <link rel="canonical" href="https://omegamakena.co.ke/library/learning-paradigms/meta-learning">
     
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://omegamakena.co.ke/writing/">
+    <meta property="og:url" content="https://omegamakena.co.ke/library/learning-paradigms/meta-learning">
     <meta property="og:title" content="Omega Makena - Machine Learning Engineer &amp; Quantitative Researcher">
     <meta property="og:description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
     
-    <title>Writing - Omega Makena</title>
+    <title>Meta-Learning and Adaptation - Learning to Learn Faster - Omega Makena</title>
     
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     
@@ -133,90 +133,115 @@
     
     <main class="flex-grow pt-20">
         
-<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-8">
-    <div class="flex flex-col gap-3">
-        <p class="text-xs uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted font-semibold">Writing</p>
-        <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text">Poetry, essays, reflections</h1>
-        <p class="text-light-muted dark:text-dark-muted max-w-3xl">Non-technical writing that keeps ScarCity grounded in people, not just systems.</p>
-    </div>
-
-    <div class="space-y-10">
-        
-        <div class="space-y-4">
-            <div class="flex items-center gap-3">
-                <div class="h-8 w-8 rounded-full bg-light-accent/10 dark:bg-dark-accent/10 flex items-center justify-center text-sm font-semibold text-light-accent dark:text-dark-accent">1</div>
-                <h2 class="text-2xl font-display font-semibold text-light-text dark:text-dark-text">Essays</h2>
+<section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-light-accent/5 via-transparent to-emerald-200/10 dark:from-dark-accent/10 dark:via-transparent dark:to-emerald-500/10 pointer-events-none"></div>
+    
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-10">
+        <div class="flex flex-col gap-6">
+            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 dark:bg-dark-card/70 border border-light-border dark:border-dark-border shadow-sm w-fit">
+                <span class="text-xs font-semibold uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted">
+                    Library
+                </span>
+                
+                <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
+                    2025-01-10
+                </span>
+                
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div class="space-y-4">
+                <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text leading-tight">
+                    Meta-Learning and Adaptation - Learning to Learn Faster
+                </h1>
                 
-                <a href="/writing/essays/role-playing-mirroring/" class="group block border border-light-border dark:border-dark-border rounded-lg overflow-hidden bg-light-card dark:bg-dark-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6">
-                    <p class="text-sm font-semibold text-light-accent dark:text-dark-accent uppercase tracking-wider mb-2">Writing</p>
-                    <h3 class="text-xl font-display font-semibold text-light-text dark:text-dark-text mb-2">Why Role-Playing is Still Mirroring, Just Narrowed</h3>
-                    <p class="text-sm text-light-muted dark:text-dark-muted mb-4">Exploring the psychological mechanisms of role-playing and how it relates to our innate mirroring behaviors.</p>
-                    <div class="flex justify-between items-center text-xs text-light-muted dark:text-dark-muted">
-                        <span>2025-07-21</span>
-                        <span class="font-semibold text-light-accent dark:text-dark-accent">Read <span class="ml-1 transition-transform group-hover:translate-x-1">→</span></span>
-                    </div>
-                </a>
-                
-                <a href="/writing/essays/ai-transforming-education/" class="group block border border-light-border dark:border-dark-border rounded-lg overflow-hidden bg-light-card dark:bg-dark-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6">
-                    <p class="text-sm font-semibold text-light-accent dark:text-dark-accent uppercase tracking-wider mb-2">Writing</p>
-                    <h3 class="text-xl font-display font-semibold text-light-text dark:text-dark-text mb-2">How AI is Transforming Education – A Firsthand Look at Innovation</h3>
-                    <p class="text-sm text-light-muted dark:text-dark-muted mb-4">Insights from real-world implementation of AI in education, exploring the practical impact and opportunities.</p>
-                    <div class="flex justify-between items-center text-xs text-light-muted dark:text-dark-muted">
-                        <span>2025-03-03</span>
-                        <span class="font-semibold text-light-accent dark:text-dark-accent">Read <span class="ml-1 transition-transform group-hover:translate-x-1">→</span></span>
-                    </div>
-                </a>
+                <p class="text-lg text-light-muted dark:text-dark-muted max-w-3xl leading-relaxed">
+                    How meta-learning enables AI systems to rapidly adapt to new tasks with minimal data.
+                </p>
                 
             </div>
         </div>
         
-        <div class="space-y-4">
-            <div class="flex items-center gap-3">
-                <div class="h-8 w-8 rounded-full bg-light-accent/10 dark:bg-dark-accent/10 flex items-center justify-center text-sm font-semibold text-light-accent dark:text-dark-accent">2</div>
-                <h2 class="text-2xl font-display font-semibold text-light-text dark:text-dark-text">Poetry</h2>
+        <article class="bg-white dark:bg-dark-card/70 border border-light-border dark:border-dark-border rounded-2xl shadow-lg p-6 md:p-10">
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                <h2>The Adaptation Problem</h2>
+<p>Traditional machine learning requires enormous amounts of task-specific data. You need thousands of examples to recognize cats, thousands more to recognize dogs. This works well when data is abundant, but breaks down when you need to learn quickly from just a few examples.</p>
+<p>This is where meta-learning—the concept of "learning to learn"—becomes transformative.</p>
+<h2>What is Meta-Learning?</h2>
+<p>Meta-learning teaches models how to learn quickly on new tasks. Instead of learning a specific task, the model learns the process of learning itself. When faced with a new task, it can rapidly adapt using its "learning strategy" rather than starting from scratch.</p>
+<p>Imagine two students: one who has memorized specific facts (traditional ML), and another who has learned how to study effectively (meta-learning). When both encounter new material, the second student adapts much faster.</p>
+<h2>Key Approaches</h2>
+<h3>Model-Agnostic Meta-Learning (MAML)</h3>
+<p>MAML trains a model to be a good starting point for few-shot learning:</p>
+<ol>
+<li>Initialize model parameters</li>
+<li>Take a few gradient steps on a training task</li>
+<li>Measure performance on a test set</li>
+<li>Update initial parameters to make this process better</li>
+<li>Repeat across many tasks</li>
+</ol>
+<p>The result: model parameters that are close to optimal for many tasks.</p>
+<h3>Metric-Based Approaches</h3>
+<p>Learning similarity metrics that work across tasks:</p>
+<ul>
+<li><strong>Siamese Networks</strong>: Learn to compare examples</li>
+<li><strong>Prototypical Networks</strong>: Use centroids to represent classes</li>
+<li><strong>Matching Networks</strong>: Use attention to match examples</li>
+</ul>
+<h3>Optimization-Based Methods</h3>
+<p>Learning better optimization algorithms:</p>
+<ul>
+<li>Adapt update rules to task structure</li>
+<li>Learn initialization strategies</li>
+<li>Discover effective learning rates automatically</li>
+</ul>
+<h2>Real-World Applications</h2>
+<h3>Few-Shot Image Classification</h3>
+<p>Train on thousands of image classes, then classify new classes with just a few examples per class.</p>
+<h3>Rapid Prototyping</h3>
+<p>Software engineers can quickly develop AI features for new domains without collecting massive datasets.</p>
+<h3>Medical Diagnosis</h3>
+<p>Adapt diagnostic models to new conditions or populations with limited labeled data.</p>
+<h2>The Mathematical Foundation</h2>
+<p>Meta-learning optimizes for <strong>outer-loop</strong> performance—how well the model adapts—rather than just <strong>inner-loop</strong> performance on training tasks.</p>
+<p>The key insight: if your learning algorithm generalizes across tasks, you've learned something fundamental about the learning process itself.</p>
+<h2>Challenges and Future Directions</h2>
+<h3>Catastrophic Forgetting</h3>
+<p>Balancing adaptation with retention of general capabilities.</p>
+<h3>Task Distribution Shift</h3>
+<p>Handling tasks very different from those seen during meta-training.</p>
+<h3>Computational Efficiency</h3>
+<p>Making meta-learning faster and more practical.</p>
+<h3>Beyond Few-Shot Learning</h3>
+<p>Applying meta-learning to continual learning, reinforcement learning, and more.</p>
+<h2>Why It Matters</h2>
+<p>Meta-learning addresses a fundamental limitation of current AI: brittleness. Most models are trained for specific tasks and fail badly when faced with something new. Meta-learning promises more flexible, adaptable systems.</p>
+<p>As we build AI systems for an ever-changing world, the ability to learn quickly and adapt will be crucial. Meta-learning is how we get there.</p>
+<h2>Conclusion</h2>
+<p>Meta-learning represents a paradigm shift: from training for specific tasks to training for adaptability. It's learning the "how" of learning, not just the "what."</p>
+<p>This is essential progress toward AI that can truly work in dynamic, unpredictable environments.</p>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <a href="/writing/poetry/fragments-of-thought/" class="group block border border-light-border dark:border-dark-border rounded-lg overflow-hidden bg-light-card dark:bg-dark-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6">
-                    <p class="text-sm font-semibold text-light-accent dark:text-dark-accent uppercase tracking-wider mb-2">Writing</p>
-                    <h3 class="text-xl font-display font-semibold text-light-text dark:text-dark-text mb-2">Fragments of Thought</h3>
-                    <p class="text-sm text-light-muted dark:text-dark-muted mb-4">Random musings and fleeting thoughts captured in verse.</p>
-                    <div class="flex justify-between items-center text-xs text-light-muted dark:text-dark-muted">
-                        <span>2025-04-15</span>
-                        <span class="font-semibold text-light-accent dark:text-dark-accent">Read <span class="ml-1 transition-transform group-hover:translate-x-1">→</span></span>
-                    </div>
-                </a>
-                
-            </div>
-        </div>
+        </article>
         
-        <div class="space-y-4">
-            <div class="flex items-center gap-3">
-                <div class="h-8 w-8 rounded-full bg-light-accent/10 dark:bg-dark-accent/10 flex items-center justify-center text-sm font-semibold text-light-accent dark:text-dark-accent">3</div>
-                <h2 class="text-2xl font-display font-semibold text-light-text dark:text-dark-text">Reflections</h2>
-            </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="bg-white dark:bg-dark-card/60 border border-light-border dark:border-dark-border rounded-xl p-6 shadow-sm">
+            <h2 class="text-sm font-semibold uppercase tracking-[0.2em] text-light-muted dark:text-dark-muted mb-3">Related</h2>
+            <div class="grid gap-3 sm:grid-cols-2">
                 
-                <a href="/writing/reflections/self-actualization-growing/" class="group block border border-light-border dark:border-dark-border rounded-lg overflow-hidden bg-light-card dark:bg-dark-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6">
-                    <p class="text-sm font-semibold text-light-accent dark:text-dark-accent uppercase tracking-wider mb-2">Writing</p>
-                    <h3 class="text-xl font-display font-semibold text-light-text dark:text-dark-text mb-2">Self-Actualization - Growing to Be Your Best Self</h3>
-                    <p class="text-sm text-light-muted dark:text-dark-muted mb-4">A practical guide to understanding and pursuing self-actualization in your personal and professional life.</p>
-                    <div class="flex justify-between items-center text-xs text-light-muted dark:text-dark-muted">
-                        <span>2025-06-23</span>
-                        <span class="font-semibold text-light-accent dark:text-dark-accent">Read <span class="ml-1 transition-transform group-hover:translate-x-1">→</span></span>
+                <a href="/scarcity/overview" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
+                    <div>
+                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">Scarcity Overview</div>
+                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">Where constraint-led paradigms are chosen.</div>
                     </div>
+                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
                 </a>
                 
-                <a href="/writing/reflections/intellectual-loneliness/" class="group block border border-light-border dark:border-dark-border rounded-lg overflow-hidden bg-light-card dark:bg-dark-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6">
-                    <p class="text-sm font-semibold text-light-accent dark:text-dark-accent uppercase tracking-wider mb-2">Writing</p>
-                    <h3 class="text-xl font-display font-semibold text-light-text dark:text-dark-text mb-2">Intellectual Loneliness</h3>
-                    <p class="text-sm text-light-muted dark:text-dark-muted mb-4">Reflections on feeling intellectually isolated and finding ways to bridge the gap.</p>
-                    <div class="flex justify-between items-center text-xs text-light-muted dark:text-dark-muted">
-                        <span>2025-05-10</span>
-                        <span class="font-semibold text-light-accent dark:text-dark-accent">Read <span class="ml-1 transition-transform group-hover:translate-x-1">→</span></span>
+                <a href="/research-log/scarcity/2025-01-origin" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
+                    <div>
+                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">Research Log · Origin</div>
+                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">Federated experiments that need fast adaptation.</div>
                     </div>
+                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
                 </a>
                 
             </div>

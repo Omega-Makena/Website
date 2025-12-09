@@ -225,9 +225,15 @@ def page_url(path):
     # Remove .md extension if present
     if path.endswith('.md'):
         path = path[:-3]
+    
     # Ensure it starts with /
     if not path.startswith('/'):
         path = '/' + path
+        
+    # Add trailing slash for directory-based URLs
+    if not path.endswith('/'):
+        path += '/'
+        
     return path
 
 @app.context_processor

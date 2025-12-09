@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A comprehensive guide to Federated Learning, covering its approaches, algorithms, training process, and practical applications in privacy-preserving machine learning.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena">
+    
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://omegamakena.co.ke/library/learning-paradigms/federated-learning">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://omegamakena.co.ke/library/learning-paradigms/federated-learning">
+    <meta property="og:title" content="Omega Makena - Machine Learning Engineer &amp; Quantitative Researcher">
+    <meta property="og:description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
+    <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
+    <meta property="og:site_name" content="Omega Makena">
+    
+    <title>Federated Learning - What It Is, Approaches, Algorithms, and How to Train One - Omega Makena</title>
+    
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Manrope', 'sans-serif'],
+                        'display': ['Space Grotesk', 'Manrope', 'sans-serif'],
+                        'body': ['Manrope', 'sans-serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        light: {
+                            bg: '#F7F9FA',      // Off-white
+                            card: '#FFFFFF',
+                            text: '#1a202c',    // Darker Slate
+                            muted: '#718096',   // Muted Slate
+                            accent: '#0d9488',  // Teal
+                            accent_hover: '#0f766e', // Darker Teal
+                            border: '#e2e8f0'
+                        },
+                        dark: {
+                            bg: '#0A192F',      // Dark Navy
+                            card: '#112240',    // Lighter Navy
+                            text: '#ccd6f6',    // Light Slate
+                            muted: '#8892b0',   // Muted Slate
+                            accent: '#64ffda',  // Bright Teal
+                            accent_hover: '#5EEAD4', // Lighter Teal
+                            border: '#1E293B'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { font-family: 'Manrope', sans-serif; letter-spacing: -0.01em; }
+        
+        /* Subtle Grid Pattern for Background */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+        
+        /* Smooth transitions */
+        * { transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+
+        /* Fade in */
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; opacity: 0; transform: translateY(10px); }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text min-h-screen flex flex-col selection:bg-light-accent selection:text-white dark:selection:bg-dark-accent dark:selection:text-dark-bg">
+    
+    <nav class="fixed w-full top-0 z-50 bg-light-card/90 dark:bg-dark-bg/90 backdrop-blur-md border-b border-light-border dark:border-dark-border">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="/" class="text-xl font-bold tracking-tight text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">
+                    Omega Makena<span class="text-light-accent dark:text-dark-accent">.</span>
+                </a>
+                
+                <div class="hidden md:flex space-x-7 items-center text-sm font-semibold">
+                    <a href="/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Home</a>
+                    <a href="/scarcity/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">ScarCity</a>
+                    <a href="/research-log/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Research Log</a>
+                    <a href="/library/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Library</a>
+                    <a href="/writing/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Writing</a>
+                    <a href="/work-with-me/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Work With Me</a>
+                    <a href="/about/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">About</a>
+                    
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-light-muted dark:text-dark-muted" aria-label="Toggle theme">
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="p-2 rounded-md text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Home</a>
+                <a href="/scarcity/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">ScarCity</a>
+                <a href="/research-log/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Research Log</a>
+                <a href="/library/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Library</a>
+                <a href="/writing/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Writing</a>
+                <a href="/work-with-me/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Work With Me</a>
+                <a href="/about/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">About</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="flex-grow pt-20">
+        
+<section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-light-accent/5 via-transparent to-emerald-200/10 dark:from-dark-accent/10 dark:via-transparent dark:to-emerald-500/10 pointer-events-none"></div>
+    
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-10">
+        <div class="flex flex-col gap-6">
+            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 dark:bg-dark-card/70 border border-light-border dark:border-dark-border shadow-sm w-fit">
+                <span class="text-xs font-semibold uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted">
+                    Library
+                </span>
+                
+                <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
+                    2025-11-29
+                </span>
+                
+            </div>
+            
+            <div class="space-y-4">
+                <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text leading-tight">
+                    Federated Learning - What It Is, Approaches, Algorithms, and How to Train One
+                </h1>
+                
+                <p class="text-lg text-light-muted dark:text-dark-muted max-w-3xl leading-relaxed">
+                    A comprehensive guide to Federated Learning, covering its approaches, algorithms, training process, and practical applications in privacy-preserving machine learning.
+                </p>
+                
+            </div>
+        </div>
+        
+        <article class="bg-white dark:bg-dark-card/70 border border-light-border dark:border-dark-border rounded-2xl shadow-lg p-6 md:p-10">
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                <h1>Federated Learning: What It Is, Approaches, Algorithms, and How to Train One</h1>
+<p>Federated Learning (FL) is a machine learning paradigm that enables multiple devices or organizations to collaboratively train a shared model without exchanging their raw data. Each participant (often called a client) trains a local model on its private dataset and only shares model updates, such as gradients or weights, with a central aggregator or with peers in a decentralized setup. This makes it possible to build high-performing global models while preserving privacy, reducing data transfer, and allowing data to remain distributed where it is generated.</p>
+<p>The concept was first popularized by Google in 2016 for applications like Gboard's keyboard prediction, where models are trained across millions of mobile devices. Since then, it has evolved into a powerful framework used in healthcare, finance, IoT systems, and cross-institutional collaborations.</p>
+<h2>Why Federated Learning Matters</h2>
+<ul>
+<li><strong>Data privacy:</strong> Sensitive data stays on local devices or servers.</li>
+<li><strong>Regulatory compliance:</strong> Meets data protection standards such as GDPR and HIPAA.</li>
+<li><strong>Efficiency:</strong> Reduces central data storage needs.</li>
+<li><strong>Inclusivity:</strong> Allows participation from different entities with different data types.</li>
+<li><strong>Scalability:</strong> Supports millions of edge devices with intermittent connectivity.</li>
+</ul>
+<h2>Approaches to Federated Learning</h2>
+<p>Federated Learning can be categorized based on how data is distributed and how clients interact. Below are the major approaches and their characteristics.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Approach</strong></th>
+<th><strong>Data Distribution</strong></th>
+<th><strong>Typical Clients</strong></th>
+<th><strong>Aggregation Style</strong></th>
+<th><strong>Advantages</strong></th>
+<th><strong>Challenges / Limitations</strong></th>
+<th><strong>Use Cases</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Horizontal FL (Sample-based)</strong></td>
+<td>Same features, different samples</td>
+<td>Devices or branches with similar schema</td>
+<td>FedAvg / FedProx</td>
+<td>Simple, scalable</td>
+<td>Data heterogeneity (non-IID)</td>
+<td>Banking, hospitals, education</td>
+</tr>
+<tr>
+<td><strong>Vertical FL (Feature-based)</strong></td>
+<td>Same samples, different features</td>
+<td>Institutions sharing users</td>
+<td>Secure gradient aggregation</td>
+<td>Richer combined data</td>
+<td>Requires secure alignment</td>
+<td>Bank + e-commerce collaborations</td>
+</tr>
+<tr>
+<td><strong>Federated Transfer Learning (FTL)</strong></td>
+<td>Different samples, different features</td>
+<td>Cross-domain institutions</td>
+<td>Domain adaptation + fine-tuning</td>
+<td>Transfers knowledge</td>
+<td>Low sample overlap</td>
+<td>Cross-industry projects</td>
+</tr>
+<tr>
+<td><strong>Cross-Silo FL</strong></td>
+<td>Few reliable institutions</td>
+<td>Banks, agencies</td>
+<td>Centralized or hierarchical</td>
+<td>Stable, regulated</td>
+<td>Governance overhead</td>
+<td>Institutional partnerships</td>
+</tr>
+<tr>
+<td><strong>Cross-Device FL</strong></td>
+<td>Many small devices</td>
+<td>Smartphones, IoT</td>
+<td>Decentralized / asynchronous</td>
+<td>Highly scalable</td>
+<td>Connectivity and reliability</td>
+<td>Gboard, Siri, wearables</td>
+</tr>
+<tr>
+<td><strong>Asynchronous FL</strong></td>
+<td>Unaligned updates</td>
+<td>Any client type</td>
+<td>Incremental aggregation</td>
+<td>Faster convergence</td>
+<td>Model staleness</td>
+<td>Edge learning, mobile FL</td>
+</tr>
+<tr>
+<td><strong>Hierarchical FL</strong></td>
+<td>Multi-level aggregation</td>
+<td>Regional clusters</td>
+<td>Tiered aggregation</td>
+<td>Low communication cost</td>
+<td>System complexity</td>
+<td>Smart cities, health networks</td>
+</tr>
+<tr>
+<td><strong>Personalized FL (PFL)</strong></td>
+<td>Any data type</td>
+<td>All clients</td>
+<td>Meta-learning or interpolation</td>
+<td>Custom local models</td>
+<td>Hard to balance personalization</td>
+<td>Healthcare, education</td>
+</tr>
+<tr>
+<td><strong>Federated Reinforcement Learning (FRL)</strong></td>
+<td>Policy learning</td>
+<td>Multi-agent systems</td>
+<td>Shared policy updates</td>
+<td>Collaborative control</td>
+<td>Instability</td>
+<td>Smart traffic, robotics</td>
+</tr>
+<tr>
+<td><strong>Secure FL</strong></td>
+<td>Any</td>
+<td>All</td>
+<td>Encrypted updates</td>
+<td>Strong privacy</td>
+<td>Heavy computation</td>
+<td>Finance, healthcare</td>
+</tr>
+</tbody>
+</table>
+<h2>Common Federated Learning Algorithms</h2>
+<p>Federated Learning has diverse algorithms tailored for different data distributions, communication patterns, and system architectures.</p>
+<h3>1. Federated Averaging (FedAvg)</h3>
+<ul>
+<li><strong>How it works</strong>: Clients train locally, then send model updates to a server which averages them. This produces a global model without centralized data.</li>
+<li><strong>Best for</strong>: Homogeneous data and when clients are relatively reliable.</li>
+<li><strong>Challenges</strong>: Non-IID data and inconsistent client participation can slow convergence or cause divergence.</li>
+</ul>
+<h3>2. FedProx</h3>
+<ul>
+<li><strong>How it works</strong>: Adds a proximal term to the loss function to limit how much client updates diverge from the global model. This stabilizes training in heterogeneous environments.</li>
+<li><strong>Best for</strong>: Non-IID data distributions.</li>
+<li><strong>Challenges</strong>: Requires careful tuning of the proximal coefficient (μ).</li>
+</ul>
+<h3>3. SCAFFOLD</h3>
+<ul>
+<li><strong>How it works</strong>: Uses control variates to correct the drift between client updates and the global model.</li>
+<li><strong>Best for</strong>: Reducing variance caused by client drift.</li>
+<li><strong>Challenges</strong>: Increased computational and communication overhead.</li>
+</ul>
+<h3>4. FedNova</h3>
+<ul>
+<li><strong>How it works</strong>: Normalizes client updates to address objective inconsistency.</li>
+<li><strong>Best for</strong>: Reducing client drift and ensuring convergence.</li>
+<li><strong>Challenges</strong>: Requires consistent scaling across clients.</li>
+</ul>
+<h3>5. Personalized Federated Learning (pFedMe, FedPer, FedBABU)</h3>
+<ul>
+<li><strong>How it works</strong>: Allows clients to adapt the global model to their specific data through fine-tuning or personalized layers.</li>
+<li><strong>Best for</strong>: Highly heterogeneous data where clients have unique characteristics.</li>
+<li><strong>Challenges</strong>: Balancing personalization with the shared global model.</li>
+</ul>
+<h3>6. Federated Reinforcement Learning</h3>
+<ul>
+<li><strong>How it works</strong>: Collaboratively trains RL agents across multiple environments without sharing raw experience data.</li>
+<li><strong>Best for</strong>: Multi-agent systems and robotics.</li>
+<li><strong>Challenges</strong>: Synchronization and stability in training.</li>
+</ul>
+<h2>Training a Federated Learning Model</h2>
+<h3>Step 1: Define the Task and Data Distribution</h3>
+<ul>
+<li>Identify the types of clients, their data, and connectivity patterns.</li>
+<li>Determine whether the data is IID or non-IID.</li>
+<li>Set evaluation criteria that account for client diversity.</li>
+</ul>
+<h3>Step 2: Choose a Federated Learning Paradigm</h3>
+<ul>
+<li><strong>Centralized</strong>: A single aggregation server. Simpler but has a single point of failure.</li>
+<li><strong>Hierarchical</strong>: Multiple aggregation layers (regional servers). Better scalability and resilience.</li>
+<li><strong>Decentralized</strong>: Peer-to-peer aggregation. No central authority, but requires robust consensus mechanisms.</li>
+</ul>
+<h3>Step 3: Select Algorithms and Security Measures</h3>
+<ul>
+<li>Start with FedAvg, then consider FedProx or SCAFFOLD if heterogeneity is high.</li>
+<li>Implement secure aggregation to protect model updates.</li>
+<li>Apply differential privacy when dealing with sensitive data.</li>
+</ul>
+<h3>Step 4: Handle System Constraints</h3>
+<ul>
+<li>Account for intermittent connectivity and varying client compute power.</li>
+<li>Implement client selection to avoid stragglers.</li>
+<li>Use compression and quantization to reduce communication overhead.</li>
+</ul>
+<h3>Step 5: Monitor and Iterate</h3>
+<ul>
+<li>Track client participation rates, model convergence, and fairness metrics.</li>
+<li>Use validation sets that reflect client diversity.</li>
+<li>Iterate on algorithms and hyperparameters based on observed performance.</li>
+</ul>
+<h2>Practical Applications</h2>
+<h3>Healthcare</h3>
+<ul>
+<li>Collaborative model training across hospitals without sharing patient data.</li>
+<li>Improved diagnostic models through diverse datasets.</li>
+</ul>
+<h3>Finance</h3>
+<ul>
+<li>Fraud detection across banks without exposing sensitive transaction data.</li>
+<li>Credit scoring models that respect privacy regulations.</li>
+</ul>
+<h3>Smart Devices and IoT</h3>
+<ul>
+<li>On-device personalization for voice assistants.</li>
+<li>Collaborative anomaly detection in sensor networks.</li>
+</ul>
+<h2>Challenges in Federated Learning</h2>
+<ol>
+<li><strong>Non-IID Data</strong>: Data distributions vary widely across clients, complicating model convergence.</li>
+<li><strong>Communication Costs</strong>: Limited bandwidth and device constraints can hinder training.</li>
+<li><strong>Security and Privacy</strong>: Malicious clients may poison updates; secure aggregation and anomaly detection are crucial.</li>
+<li><strong>Client Availability</strong>: Participants may frequently disconnect or have unreliable connections.</li>
+<li><strong>Evaluation</strong>: Assessing model performance without centralized data is challenging.</li>
+</ol>
+<h2>Future Trends</h2>
+<ul>
+<li><strong>Personalization</strong>: More focus on client-specific models.</li>
+<li><strong>Decentralization</strong>: Reduced reliance on central servers through peer-to-peer methods.</li>
+<li><strong>Efficient Communication</strong>: Advanced compression and quantization techniques.</li>
+<li><strong>Robustness</strong>: Defenses against poisoning and backdoor attacks.</li>
+<li><strong>Regulatory Alignment</strong>: Compliance frameworks for cross-border federated learning.</li>
+</ul>
+<h2>Conclusion</h2>
+<p>Federated Learning represents a powerful approach to collaborative model training under privacy and data availability constraints. By carefully choosing algorithms, handling system limitations, and prioritizing security, organizations can build robust models while keeping data decentralized. In domains like finance, healthcare, and IoT, federated learning is not just a theoretical concept—it is already proving its value.</p>
+            </div>
+        </article>
+        
+        
+        <div class="bg-white dark:bg-dark-card/60 border border-light-border dark:border-dark-border rounded-xl p-6 shadow-sm">
+            <h2 class="text-sm font-semibold uppercase tracking-[0.2em] text-light-muted dark:text-dark-muted mb-3">Related</h2>
+            <div class="grid gap-3 sm:grid-cols-2">
+                
+                <a href="/scarcity/overview" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
+                    <div>
+                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">Scarcity Overview</div>
+                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">How the constraint system chooses paradigms.</div>
+                    </div>
+                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
+                </a>
+                
+                <a href="/research-log/scarcity/2025-01-origin" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
+                    <div>
+                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">Research Log · Origin</div>
+                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">First experiment thread that uses federated participation.</div>
+                    </div>
+                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
+                </a>
+                
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+    </main>
+    
+    <footer class="bg-light-bg dark:bg-dark-bg mt-20 border-t border-light-border dark:border-dark-border">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="text-light-muted dark:text-dark-muted text-sm font-medium">
+                    © 2025 Omega Makena.
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Dark Mode Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', function() {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
