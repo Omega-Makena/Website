@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Where Scarcity falls short and the trade-offs accepted.">
+    <meta name="description" content="Transparency about what is missing or in progress.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
@@ -18,7 +18,7 @@
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
     
-    <title>Limitations - Omega Makena</title>
+    <title>SCARCITY Limitations &amp; Roadmap - Omega Makena</title>
     
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     
@@ -140,23 +140,23 @@
         <div class="flex flex-col gap-6">
             <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 dark:bg-dark-card/70 border border-light-border dark:border-dark-border shadow-sm w-fit">
                 <span class="text-xs font-semibold uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted">
-                    Scarcity
+                    Notes
                 </span>
                 
                 <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
-                    2025-01-11
+                    January 01, 2025
                 </span>
                 
             </div>
             
             <div class="space-y-4">
                 <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text leading-tight">
-                    Limitations
+                    SCARCITY Limitations &amp; Roadmap
                 </h1>
                 
                 <p class="text-lg text-light-muted dark:text-dark-muted max-w-3xl leading-relaxed">
-                    Where Scarcity falls short and the trade-offs accepted.
+                    Transparency about what is missing or in progress.
                 </p>
                 
             </div>
@@ -164,31 +164,34 @@
         
         <article class="bg-white dark:bg-dark-card/70 border border-light-border dark:border-dark-border rounded-2xl shadow-lg p-6 md:p-10">
             <div class="prose prose-lg dark:prose-invert max-w-none">
-                <ul>
-<li>Slower upfront: constraint mapping and simulation add time before shipping.  </li>
-<li>Dependent on honest logging: without real failure notes, the ledger drifts from reality.  </li>
-<li>Sensitive to validation coverage: with sparse data, holdouts can misrepresent production.  </li>
-<li>Requires partner trust: federated setups hinge on governance and transparency.  </li>
-<li>Not a silver bullet: scarcity-aware design cannot replace good data—only make its absence explicit.</li>
+                <h1>Limitations &amp; Roadmap</h1>
+<p>We believe in transparency regarding the current state of the SCARCITY framework.</p>
+<h2>Current Limitations</h2>
+<h3>1. Hardware Utilization</h3>
+<ul>
+<li><strong>GPU Acceleration</strong>: While the architecture supports GPU hooks, the current version primarily utilizes CPU for the core MPIE loops. GPU offloading is currently experimental.</li>
+<li><strong>Memory Footprint</strong>: The hypergraph store can grow significantly with long-running sessions (500MB - 2GB), requiring periodic pruning.</li>
+</ul>
+<h3>2. Privacy Mechanisms</h3>
+<ul>
+<li><strong>Differential Privacy</strong>: The current implementation supports basic Gaussian noise addition ($\epsilon, \delta$). Advanced mechanisms like Secure Multi-Party Computation (SMPC) are not yet implemented.</li>
+</ul>
+<h2>Roadmap &amp; Future Work</h2>
+<h3>🚧 In Progress</h3>
+<ul>
+<li><strong>Advanced Privacy</strong>: Integrating homomorphic encryption for secure model aggregation.</li>
+<li><strong>Distributed Simulation</strong>: Expanding the simulation engine to support distributed agent-based modeling across multiple nodes.</li>
+<li><strong>Enhanced Meta-Learning</strong>: Improving the 5-tier meta-learning hierarchy for faster adaptation.</li>
+</ul>
+<h3>📋 Planned Features</h3>
+<ul>
+<li><strong>Full GPU Acceleration</strong>: moving tensor operations to CUDA for faster causal discovery.</li>
+<li><strong>Kubernetes Support</strong>: Native Helm charts for deploying the Federation layer on K8s clusters.</li>
+<li><strong>Model Export</strong>: Standardized ONNX export for causal graphs.</li>
 </ul>
             </div>
         </article>
         
-        
-        <div class="bg-white dark:bg-dark-card/60 border border-light-border dark:border-dark-border rounded-xl p-6 shadow-sm">
-            <h2 class="text-sm font-semibold uppercase tracking-[0.2em] text-light-muted dark:text-dark-muted mb-3">Related</h2>
-            <div class="grid gap-3 sm:grid-cols-2">
-                
-                <a href="/scarcity/faq" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
-                    <div>
-                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">FAQ</div>
-                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">Quick answers to common challenges.</div>
-                    </div>
-                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
-                </a>
-                
-            </div>
-        </div>
         
     </div>
 </section>

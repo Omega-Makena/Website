@@ -2,55 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://omegamakena.co.ke/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/scarcity/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/scarcity/overview/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/library/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/research-log/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/writing/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/about/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/work-with-me/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/work/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -62,13 +62,13 @@
   </url>
   <url>
     <loc>https://omegamakena.co.ke/PORTFOLIO_STRUCTURE/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/README/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -80,37 +80,37 @@
   </url>
   <url>
     <loc>https://omegamakena.co.ke/work/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/.venv/lib/python3.12/site-packages/flask/sansio/README/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/.venv/lib/python3.12/site-packages/Markdown-3.5.1.dist-info/LICENSE/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/.venv/lib/python3.12/site-packages/pip/_vendor/idna/LICENSE/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/.venv/lib/python3.12/site-packages/pip-25.3.dist-info/licenses/src/pip/_vendor/idna/LICENSE/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/.venv/lib/python3.12/site-packages/werkzeug/debug/shared/ICON_LICENSE/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -200,13 +200,13 @@
   </url>
   <url>
     <loc>https://omegamakena.co.ke/scarcity/architecture/</loc>
-    <lastmod>2025-01-11</lastmod>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/scarcity/components/</loc>
-    <lastmod>2025-01-11</lastmod>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -218,7 +218,7 @@
   </url>
   <url>
     <loc>https://omegamakena.co.ke/scarcity/limitations/</loc>
-    <lastmod>2025-01-11</lastmod>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -236,7 +236,7 @@
   </url>
   <url>
     <loc>https://omegamakena.co.ke/scarcity/implementations/index/</loc>
-    <lastmod>2025-01-11</lastmod>
+    <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -254,25 +254,25 @@
   </url>
   <url>
     <loc>https://omegamakena.co.ke/venv/Lib/site-packages/flask/sansio/README/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/venv/Lib/site-packages/Markdown-3.5.1.dist-info/LICENSE/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/venv/Lib/site-packages/pip-25.2.dist-info/licenses/src/pip/_vendor/idna/LICENSE/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://omegamakena.co.ke/venv/Lib/site-packages/werkzeug/debug/shared/ICON_LICENSE/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

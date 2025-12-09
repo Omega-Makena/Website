@@ -1,55 +1,52 @@
 ---
-title: Scarcity System Overview
-description: How I design machine learning systems when data, capital, and time are constrained.
-section: Scarcity
-date: 2025-01-10
-links:
-  - title: Research Log · Origin
-    url: /research-log/scarcity/2025-01-origin
-    description: First decisions and uncertainties in the finance track.
-  - title: Library · Federated Learning
-    url: /library/learning-paradigms/federated-learning
-    description: Primer on the paradigm used for data-sparse collaboration.
+title: "SCARCITY Overview"
+date: "2025-01-01"
+description: "The high-level 'Sales Pitch' for the system."
 ---
 
-### What Scarcity is
+# SCARCITY: Scarcity-aware Causal Adaptive Resource-efficient Intelligence Training sYstem
 
-Scarcity is a design system for building ML products when the inputs are limited: few labels, partial visibility, regulatory drag, or thin budgets. Instead of fighting constraints, each layer of the system makes them explicit and uses them to guide architecture choices.
+**SCARCITY** is an advanced machine learning framework designed for online, resource-constrained environments where data arrives in streams and computational resources are limited.
 
-### Architecture
+## Core Value Proposition
+SCARCITY enables organizations to:
+* **Learn from streaming data** in real-time without batch processing.
+* **Discover causal relationships** automatically from observational data.
+* **Adapt to resource constraints** dynamically (CPU, memory, GPU).
+* **Collaborate across domains** through federated learning.
 
-1. **Signals** — Identify the smallest reliable observables and codify data availability, privacy, and drift assumptions.  
-2. **Learning core** — Pick the paradigm that respects those constraints (federated/online/meta-learning). Favor modularity over monoliths.  
-3. **Experiment rail** — A repeatable loop for testing hypotheses with cheap counterfactuals and simulated scarcity.  
-4. **Governance** — Guardrails for compliance, ethics, and operational risk baked into the pipeline.  
-5. **Feedback** — Close the loop: deploy, observe failure, tighten the constraint model.
+## The Problem
+Traditional machine learning systems face critical challenges in production environments:
+* **Data Scarcity**: Limited labeled data in specialized domains.
+* **Resource Constraints**: Edge devices often have limited compute and memory capacities.
+* **Real-time Demands**: Decisions are needed immediately, not after overnight batch training.
 
-### Components
+## Key Features
 
-- **Constraint ledger** — A living document listing data/compute/legal limits per project.  
-- **Pattern library** — Reusable templates for onboarding new data sources, simulating gaps, and cold-start strategies.  
-- **Resilience checks** — Automated checks that fail fast when assumptions break (missing clients, skew, latency).  
-- **Narrative layer** — How insights are communicated to stakeholders without leaking sensitive detail.
+### 1. Multi-Path Inference Engine (MPIE)
+**Purpose**: Discover causal relationships from streaming data.
+* Automatic causal graph discovery.
+* Bootstrap-based statistical validation.
+* Hypergraph representation of causal structures.
 
-### Implementations (current focus)
+### 2. Dynamic Resource Governor (DRG)
+**Purpose**: Adapt system behavior to resource availability.
+* Real-time CPU/memory/GPU monitoring.
+* Predictive resource forecasting.
+* Adaptive policy enforcement to prevent system crashes.
 
-- **Finance** — Retail brokerage data with uneven participation. Goal: stable inference despite intermittent contributors.  
-- **Policy** — Resource-allocation simulations without collecting individual-level data.  
-- **Experiments** — Synthetic scarcity drills to stress-test deployment choices.
+### 3. Federation Layer
+**Purpose**: Enable decentralized learning across organizations.
+* Peer-to-peer model sharing.
+* Multiple aggregation strategies (FedAvg, Weighted, Adaptive).
+* Differential privacy protection.
 
-Each implementation documents:
+## Performance Characteristics
+SCARCITY is built for high-throughput, low-latency environments:
 
-- The problem being constrained  
-- Which Scarcity component is exercised  
-- What worked, what broke, and what to change next  
-- References back to the Research Log and Library entries
-
-### Limitations
-
-Scarcity does not remove the need for good data; it makes the lack of it a first-class citizen. It slows down upfront, accelerates later by reducing dead ends, and depends on honest logging of failures.
-
-### FAQ
-
-- **Is this only for finance?** No. Finance is the proving ground; the same constraint-first approach extends to macro and policy work.  
-- **Where are the results?** See the Research Log for in-progress thinking and the Library for distilled teaching notes.  
-- **How do you engage?** Work With Me is reserved for collaborations that align with the constraint model—mentorship, consulting, or joint experiments.
+| Metric | Performance |
+| :--- | :--- |
+| **Data Ingestion** | 100-500 windows/second |
+| **Causal Discovery** | 50-200 candidate paths/second |
+| **API Latency** | &lt; 100ms (p95) |
+| **Memory Usage** | 500MB - 2GB |

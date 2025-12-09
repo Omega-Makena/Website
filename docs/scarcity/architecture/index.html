@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The structural layers that make the Scarcity system operational.">
+    <meta name="description" content="Explain the technical design and data flow.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
@@ -18,7 +18,7 @@
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
     
-    <title>Scarcity Architecture - Omega Makena</title>
+    <title>SCARCITY Architecture - Omega Makena</title>
     
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     
@@ -140,23 +140,23 @@
         <div class="flex flex-col gap-6">
             <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 dark:bg-dark-card/70 border border-light-border dark:border-dark-border shadow-sm w-fit">
                 <span class="text-xs font-semibold uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted">
-                    Scarcity
+                    Notes
                 </span>
                 
                 <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
-                    2025-01-11
+                    January 01, 2025
                 </span>
                 
             </div>
             
             <div class="space-y-4">
                 <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text leading-tight">
-                    Scarcity Architecture
+                    SCARCITY Architecture
                 </h1>
                 
                 <p class="text-lg text-light-muted dark:text-dark-muted max-w-3xl leading-relaxed">
-                    The structural layers that make the Scarcity system operational.
+                    Explain the technical design and data flow.
                 </p>
                 
             </div>
@@ -164,40 +164,63 @@
         
         <article class="bg-white dark:bg-dark-card/70 border border-light-border dark:border-dark-border rounded-2xl shadow-lg p-6 md:p-10">
             <div class="prose prose-lg dark:prose-invert max-w-none">
-                <h3>Layers</h3>
-<p>1) <strong>Signals</strong> — Define observable data, freshness, and gaps. Handle schema volatility and drift before modeling.<br />
-2) <strong>Learning Core</strong> — Choose the paradigm (federated, online, meta-learning) that matches the constraint ledger. Keep models modular.<br />
-3) <strong>Experiment Rail</strong> — Cheap, repeatable loops: simulate client dropouts, skew, and latency; run counterfactuals before production.<br />
-4) <strong>Governance</strong> — Compliance, ethics, and operational risk embedded in the pipeline (approvals, logging, rollback).<br />
-5) <strong>Feedback</strong> — Post-deploy monitoring that feeds failures back into the constraint ledger.</p>
-<h3>Flow</h3>
-<p>Constraints inform paradigm → paradigm defines rail → rail hardens governance → feedback rewrites the constraints. Nothing is static.</p>
+                <h1>System Architecture</h1>
+<p>SCARCITY follows a modular, event-driven architecture designed for scalability and fault tolerance.</p>
+<h2>High-Level Design</h2>
+<p>The system is composed of three primary layers communicating via an asynchronous Runtime Bus.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">User</span><span class="p">[</span><span class="n">Frontend</span><span class="w"> </span><span class="n">Dashboard</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">API</span><span class="p">[</span><span class="n">Backend</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">Layer</span><span class="p">]</span>
+<span class="w">    </span><span class="n">API</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Manager</span><span class="p">[</span><span class="n">ScarcityCoreManager</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Core Components (Event Bus)&quot;</span>
+<span class="w">        </span><span class="n">Bus</span><span class="p">[</span><span class="n">Runtime</span><span class="w"> </span><span class="n">Bus</span><span class="p">]</span>
+<span class="w">        </span><span class="n">MPIE</span><span class="p">[</span><span class="n">MPIE</span><span class="w"> </span><span class="n">Engine</span><span class="p">]</span>
+<span class="w">        </span><span class="n">DRG</span><span class="p">[</span><span class="n">Resource</span><span class="w"> </span><span class="n">Governor</span><span class="p">]</span>
+<span class="w">        </span><span class="n">Fed</span><span class="p">[</span><span class="n">Federation</span><span class="w"> </span><span class="n">Coordinator</span><span class="p">]</span>
+<span class="w">        </span><span class="n">Meta</span><span class="p">[</span><span class="n">Meta</span><span class="o">-</span><span class="n">Learning</span><span class="w"> </span><span class="n">Agent</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">Manager</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Bus</span>
+<span class="w">    </span><span class="n">Bus</span><span class="w"> </span><span class="o">&lt;--&gt;</span><span class="w"> </span><span class="n">MPIE</span>
+<span class="w">    </span><span class="n">Bus</span><span class="w"> </span><span class="o">&lt;--&gt;</span><span class="w"> </span><span class="n">DRG</span>
+<span class="w">    </span><span class="n">Bus</span><span class="w"> </span><span class="o">&lt;--&gt;</span><span class="w"> </span><span class="n">Fed</span>
+<span class="w">    </span><span class="n">Bus</span><span class="w"> </span><span class="o">&lt;--&gt;</span><span class="w"> </span><span class="n">Meta</span>
+</code></pre></div>
+
+<p><em>(If you cannot render Mermaid diagrams, use the ASCII diagram below)</em></p>
+<div class="codehilite"><pre><span></span><code>┌────────────────────────┴────────────────────────────────────┐
+│                  Backend (FastAPI)                           │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │         ScarcityCoreManager (Orchestration)          │  │
+│  └──────────────────────────────────────────────────────┘  │
+└────────────────────────┬────────────────────────────────────┘
+                         │ Event Bus
+┌────────────────────────┴────────────────────────────────────┐
+│              Scarcity Core Components                        │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐      │
+│  │ Runtime  │ │   MPIE   │ │   DRG    │ │   Meta   │      │
+│  │   Bus    │ │Orchestr. │ │ Governor │ │ Learning │      │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘      │
+└─────────────────────────────────────────────────────────────┘
+</code></pre></div>
+
+<h2>Core Design Principles</h2>
+<ol>
+<li><strong>Event-Driven</strong>: All components communicate via an async message bus, decoupling the subsystems.</li>
+<li><strong>Modular</strong>: Each component (like the Federation Layer or Simulation Engine) can be enabled or disabled independently.</li>
+<li><strong>Observable</strong>: The system emits comprehensive telemetry for real-time monitoring.</li>
+</ol>
+<h2>Data Flow Pipeline</h2>
+<ol>
+<li><strong>Ingestion</strong>: Raw data arrives and is processed into windows by the Stream Manager.</li>
+<li><strong>Discovery</strong>: The MPIE Engine analyzes windows to propose causal paths.</li>
+<li><strong>Regulation</strong>: The DRG Governor monitors hardware usage and throttles the engine if limits are reached.</li>
+<li><strong>Federation</strong>: If enabled, the Federation Coordinator aggregates insights from other peers.</li>
+</ol>
+<!-- end list -->
             </div>
         </article>
         
-        
-        <div class="bg-white dark:bg-dark-card/60 border border-light-border dark:border-dark-border rounded-xl p-6 shadow-sm">
-            <h2 class="text-sm font-semibold uppercase tracking-[0.2em] text-light-muted dark:text-dark-muted mb-3">Related</h2>
-            <div class="grid gap-3 sm:grid-cols-2">
-                
-                <a href="/scarcity/components" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
-                    <div>
-                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">Components</div>
-                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">Reusable building blocks.</div>
-                    </div>
-                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
-                </a>
-                
-                <a href="/scarcity/implementations" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
-                    <div>
-                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">Implementations</div>
-                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">Where the architecture is exercised.</div>
-                    </div>
-                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
-                </a>
-                
-            </div>
-        </div>
         
     </div>
 </section>

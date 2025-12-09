@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Where Scarcity is tested in the wild.">
+    <meta name="description" content="Instructions for installing the Python Lib vs the Demo App.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
@@ -18,7 +18,7 @@
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
     
-    <title>Implementations - Omega Makena</title>
+    <title>SCARCITY Implementations - Omega Makena</title>
     
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     
@@ -140,23 +140,23 @@
         <div class="flex flex-col gap-6">
             <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 dark:bg-dark-card/70 border border-light-border dark:border-dark-border shadow-sm w-fit">
                 <span class="text-xs font-semibold uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted">
-                    Scarcity
+                    Notes
                 </span>
                 
                 <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
-                    2025-01-11
+                    January 01, 2025
                 </span>
                 
             </div>
             
             <div class="space-y-4">
                 <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text leading-tight">
-                    Implementations
+                    SCARCITY Implementations
                 </h1>
                 
                 <p class="text-lg text-light-muted dark:text-dark-muted max-w-3xl leading-relaxed">
-                    Where Scarcity is tested in the wild.
+                    Instructions for installing the Python Lib vs the Demo App.
                 </p>
                 
             </div>
@@ -164,49 +164,71 @@
         
         <article class="bg-white dark:bg-dark-card/70 border border-light-border dark:border-dark-border rounded-2xl shadow-lg p-6 md:p-10">
             <div class="prose prose-lg dark:prose-invert max-w-none">
-                <p>Each implementation documents: the problem, which Scarcity component is exercised, what worked, what broke, and links to Research Log + Library.</p>
+                <h1>Implementations &amp; Setup</h1>
+<p>SCARCITY can be used as a standalone Python library for your own projects, or deployed as a full-stack system with a visual dashboard.</p>
+<h2>1. Core Library (Python)</h2>
+<p>For data scientists and engineers who want to use the <strong>MPIE</strong> (Causal Discovery) or <strong>DRG</strong> (Resource Governor) algorithms in their own scripts.</p>
+<h3>Installation</h3>
+<div class="codehilite"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>scarcity
+</code></pre></div>
+
+<h3>Quick Usage</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">scarcity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scarcity.engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">MPIE</span>
+
+<span class="c1"># Initialize the engine</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">MPIE</span><span class="p">()</span>
+
+<span class="c1"># Feed a data window</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">data_window</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Discovered </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">paths</span><span class="p">)</span><span class="si">}</span><span class="s2"> causal paths&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<hr />
+<h2>2. Full Demo System (Dashboard + Backend)</h2>
+<p>For running the complete environment with the <strong>React Dashboard</strong> to visualize causal hypergraphs and resource monitoring in real-time.</p>
+<h3>Prerequisites</h3>
+<ul>
+<li><strong>Python 3.11+</strong></li>
+<li><strong>Node.js 18+</strong></li>
+</ul>
+<h3>Backend Setup</h3>
+<p>The backend serves the API that the dashboard connects to.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Clone the repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Omega-Makena/scarcity.git
+<span class="nb">cd</span><span class="w"> </span>scarcity/backend
+
+<span class="c1"># Create virtual environment</span>
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># Windows: .venv\Scripts\activate</span>
+
+<span class="c1"># Install dependencies</span>
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="c1"># Start the API server</span>
+uvicorn<span class="w"> </span>app.main:app<span class="w"> </span>--reload<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
+</code></pre></div>
+
+<h3>Frontend Setup (Demo UI)</h3>
+<p>The interactive dashboard for visualizing the system.</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>scarcity-deep-dive
+
+<span class="c1"># Install dependencies</span>
+npm<span class="w"> </span>install
+
+<span class="c1"># Start the development server</span>
+npm<span class="w"> </span>run<span class="w"> </span>dev
+</code></pre></div>
+
+<h3>Access</h3>
+<ul>
+<li><strong>Dashboard</strong>: <code>http://localhost:3000</code></li>
+<li><strong>API Documentation</strong>: <code>http://localhost:8000/docs</code></li>
+</ul>
+<!-- end list -->
             </div>
         </article>
         
-        
-        <div class="bg-white dark:bg-dark-card/60 border border-light-border dark:border-dark-border rounded-xl p-6 shadow-sm">
-            <h2 class="text-sm font-semibold uppercase tracking-[0.2em] text-light-muted dark:text-dark-muted mb-3">Related</h2>
-            <div class="grid gap-3 sm:grid-cols-2">
-                
-                <a href="/scarcity/implementations/finance" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
-                    <div>
-                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">Finance</div>
-                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">Retail brokerage participation gaps.</div>
-                    </div>
-                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
-                </a>
-                
-                <a href="/scarcity/implementations/macroeconomics" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
-                    <div>
-                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">Macroeconomics</div>
-                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">Signals without high-frequency data.</div>
-                    </div>
-                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
-                </a>
-                
-                <a href="/scarcity/implementations/policy" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
-                    <div>
-                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">Policy</div>
-                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">Resource allocation without personal data.</div>
-                    </div>
-                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
-                </a>
-                
-                <a href="/scarcity/implementations/experiments" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
-                    <div>
-                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">Experiments</div>
-                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">Synthetic drills to break assumptions.</div>
-                    </div>
-                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
-                </a>
-                
-            </div>
-        </div>
         
     </div>
 </section>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The reusable pieces that make constraint-driven ML shippable.">
+    <meta name="description" content="Deep dive into the algorithms and math.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
     
@@ -18,7 +18,7 @@
     <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
     <meta property="og:site_name" content="Omega Makena">
     
-    <title>Scarcity Components - Omega Makena</title>
+    <title>SCARCITY Components - Omega Makena</title>
     
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     
@@ -140,23 +140,23 @@
         <div class="flex flex-col gap-6">
             <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 dark:bg-dark-card/70 border border-light-border dark:border-dark-border shadow-sm w-fit">
                 <span class="text-xs font-semibold uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted">
-                    Scarcity
+                    Notes
                 </span>
                 
                 <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
-                    2025-01-11
+                    January 01, 2025
                 </span>
                 
             </div>
             
             <div class="space-y-4">
                 <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text leading-tight">
-                    Scarcity Components
+                    SCARCITY Components
                 </h1>
                 
                 <p class="text-lg text-light-muted dark:text-dark-muted max-w-3xl leading-relaxed">
-                    The reusable pieces that make constraint-driven ML shippable.
+                    Deep dive into the algorithms and math.
                 </p>
                 
             </div>
@@ -164,40 +164,59 @@
         
         <article class="bg-white dark:bg-dark-card/70 border border-light-border dark:border-dark-border rounded-2xl shadow-lg p-6 md:p-10">
             <div class="prose prose-lg dark:prose-invert max-w-none">
-                <ul>
-<li><strong>Constraint ledger</strong> — Captures data access, privacy, compute, and regulatory limits per project.  </li>
-<li><strong>Onboarding template</strong> — Standard checklist for new data sources or partners; defines schemas, consent, and failure modes.  </li>
-<li><strong>Simulation harness</strong> — Tools to mimic scarcity: missing clients, skewed updates, noisy labels, throttled bandwidth.  </li>
-<li><strong>Aggregation patterns</strong> — FedAvg + reliability weighting, secure aggregation, DP noise hooks.  </li>
-<li><strong>Resilience checks</strong> — Health probes for participation rate, gradient divergence, stale updates, and latency budgets.  </li>
-<li><strong>Narrative layer</strong> — How results are communicated without leaking sensitive detail; bridges to Library and Writing.</li>
-</ul>
+                <h1>Core Algorithms &amp; Components</h1>
+<p>SCARCITY implements custom algorithms for causal discovery, resource management, and privacy-preserving federation.</p>
+<h2>1. Multi-Path Inference Engine (MPIE)</h2>
+<p>The MPIE uses a multi-stage pipeline to discover causal structures from streaming data: <code>Encoder → Controller → Evaluator</code>.</p>
+<h3>Controller Algorithm</h3>
+<p>The controller generates and scores candidate causal paths based on strength, stability, and novelty.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compute_path_score</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">encoded</span><span class="p">:</span> <span class="n">EncodedFeatures</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Score = α·strength + β·stability + γ·novelty</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">strength</span> <span class="o">=</span> <span class="n">compute_strength</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">encoded</span><span class="p">)</span>
+    <span class="n">stability</span> <span class="o">=</span> <span class="n">compute_stability</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">encoded</span><span class="p">)</span>
+    <span class="n">novelty</span> <span class="o">=</span> <span class="n">compute_novelty</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">history</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">strength</span> <span class="o">+</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">stability</span> <span class="o">+</span> <span class="mf">0.2</span><span class="o">*</span><span class="n">novelty</span>
+</code></pre></div>
+
+<h3>Evaluator Algorithm</h3>
+<p>We use <strong>Bootstrap Resampling</strong> to validate candidate paths, ensuring statistical significance before adding them to the hypergraph.</p>
+<hr />
+<h2>2. Dynamic Resource Governor (DRG)</h2>
+<p>The DRG prevents system overload by using a <strong>PID Controller</strong> to regulate processing rates based on CPU and Memory feedback.</p>
+<h3>Control Policy</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compute_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ResourceProfile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Action</span><span class="p">:</span>
+    <span class="c1"># Compute error for each resource</span>
+    <span class="n">cpu_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_threshold</span> <span class="o">-</span> <span class="n">profile</span><span class="o">.</span><span class="n">cpu_percent</span>
+
+    <span class="c1"># Compute PID output</span>
+    <span class="n">cpu_output</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Kp</span> <span class="o">*</span> <span class="n">cpu_error</span> <span class="o">+</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Ki</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_integral</span> <span class="o">+</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Kd</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_derivative</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cpu_output</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span> <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="n">THROTTLE_HEAVY</span>
+    <span class="k">elif</span> <span class="n">cpu_output</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span> <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="n">INCREASE_RATE</span>
+    <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="n">MAINTAIN</span>
+</code></pre></div>
+
+<hr />
+<h2>3. Federation Layer</h2>
+<p>SCARCITY supports decentralized learning using <strong>Federated Averaging (FedAvg)</strong> and <strong>Differential Privacy</strong>.</p>
+<h3>Differential Privacy</h3>
+<p>To protect sensitive data, Gaussian noise is added to model weights before sharing:</p>
+<p>$$ \sigma = \frac{\sqrt{2 \ln(1.25/\delta)} \cdot \Delta f}{\epsilon} $$</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_privacy_noise</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.25</span> <span class="o">/</span> <span class="n">delta</span><span class="p">))</span> <span class="o">*</span> <span class="n">sensitivity</span> <span class="o">/</span> <span class="n">epsilon</span>
+    <span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">weights</span> <span class="o">+</span> <span class="n">noise</span>
+</code></pre></div>
             </div>
         </article>
         
-        
-        <div class="bg-white dark:bg-dark-card/60 border border-light-border dark:border-dark-border rounded-xl p-6 shadow-sm">
-            <h2 class="text-sm font-semibold uppercase tracking-[0.2em] text-light-muted dark:text-dark-muted mb-3">Related</h2>
-            <div class="grid gap-3 sm:grid-cols-2">
-                
-                <a href="/scarcity/architecture" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
-                    <div>
-                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">Architecture</div>
-                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">How the pieces fit together.</div>
-                    </div>
-                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
-                </a>
-                
-                <a href="/scarcity/implementations" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
-                    <div>
-                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">Implementations</div>
-                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">Where components are exercised.</div>
-                    </div>
-                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
-                </a>
-                
-            </div>
-        </div>
         
     </div>
 </section>

@@ -1,25 +1,67 @@
 ---
-title: Scarcity Architecture
-description: The structural layers that make the Scarcity system operational.
-section: Scarcity
-date: 2025-01-11
-links:
-  - title: Components
-    url: /scarcity/components
-    description: Reusable building blocks.
-  - title: Implementations
-    url: /scarcity/implementations
-    description: Where the architecture is exercised.
+title: "SCARCITY Architecture"
+date: "2025-01-01"
+description: "Explain the technical design and data flow."
 ---
 
-### Layers
+# System Architecture
 
-1) **Signals** — Define observable data, freshness, and gaps. Handle schema volatility and drift before modeling.  
-2) **Learning Core** — Choose the paradigm (federated, online, meta-learning) that matches the constraint ledger. Keep models modular.  
-3) **Experiment Rail** — Cheap, repeatable loops: simulate client dropouts, skew, and latency; run counterfactuals before production.  
-4) **Governance** — Compliance, ethics, and operational risk embedded in the pipeline (approvals, logging, rollback).  
-5) **Feedback** — Post-deploy monitoring that feeds failures back into the constraint ledger.
+SCARCITY follows a modular, event-driven architecture designed for scalability and fault tolerance.
 
-### Flow
+## High-Level Design
 
-Constraints inform paradigm → paradigm defines rail → rail hardens governance → feedback rewrites the constraints. Nothing is static.
+The system is composed of three primary layers communicating via an asynchronous Runtime Bus.
+
+```mermaid
+graph TD
+    User[Frontend Dashboard] --> API[Backend API Layer]
+    API --> Manager[ScarcityCoreManager]
+    
+    subgraph "Core Components (Event Bus)"
+        Bus[Runtime Bus]
+        MPIE[MPIE Engine]
+        DRG[Resource Governor]
+        Fed[Federation Coordinator]
+        Meta[Meta-Learning Agent]
+    end
+    
+    Manager --> Bus
+    Bus <--> MPIE
+    Bus <--> DRG
+    Bus <--> Fed
+    Bus <--> Meta
+```
+
+*(If you cannot render Mermaid diagrams, use the ASCII diagram below)*
+
+```text
+┌────────────────────────┴────────────────────────────────────┐
+│                  Backend (FastAPI)                           │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │         ScarcityCoreManager (Orchestration)          │  │
+│  └──────────────────────────────────────────────────────┘  │
+└────────────────────────┬────────────────────────────────────┘
+                         │ Event Bus
+┌────────────────────────┴────────────────────────────────────┐
+│              Scarcity Core Components                        │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐      │
+│  │ Runtime  │ │   MPIE   │ │   DRG    │ │   Meta   │      │
+│  │   Bus    │ │Orchestr. │ │ Governor │ │ Learning │      │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘      │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Core Design Principles
+
+1.  **Event-Driven**: All components communicate via an async message bus, decoupling the subsystems.
+2.  **Modular**: Each component (like the Federation Layer or Simulation Engine) can be enabled or disabled independently.
+3.  **Observable**: The system emits comprehensive telemetry for real-time monitoring.
+
+## Data Flow Pipeline
+
+1.  **Ingestion**: Raw data arrives and is processed into windows by the Stream Manager.
+2.  **Discovery**: The MPIE Engine analyzes windows to propose causal paths.
+3.  **Regulation**: The DRG Governor monitors hardware usage and throttles the engine if limits are reached.
+4.  **Federation**: If enabled, the Federation Coordinator aggregates insights from other peers.
+
+<!-- end list -->
