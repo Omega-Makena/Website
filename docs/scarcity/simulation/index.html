@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Agent-based modeling and visualization.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena">
+
+    <title>Simulation Engine - Omega Makena</title>
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
+                        },
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Labs Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Labs</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/scarcity/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">LAB NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/work-with-me/" class="nav-link">CONTACT</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/scarcity/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">LAB NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/work-with-me/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">CONTACT</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-20">
+        
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid lg:grid-cols-12 gap-12">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="lg:col-span-3 hidden lg:block">
+            <div class="sticky top-32">
+                
+                <h3
+                    class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-6 pl-4 border-l-2 border-transparent">
+                    Framework Manual
+                </h3>
+                
+
+                <nav class="space-y-1">
+                    
+                    <a href="/scarcity/overview/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Overview
+                    </a>
+                    
+                    <a href="/scarcity/architecture/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Architecture
+                    </a>
+                    
+                    <a href="/scarcity/components/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Core Components
+                    </a>
+                    
+                    <a href="/scarcity/engine/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Engine (MPIE)
+                    </a>
+                    
+                    <a href="/scarcity/federation/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Federation
+                    </a>
+                    
+                    <a href="/scarcity/meta_learning/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Meta-Learning
+                    </a>
+                    
+                    <a href="/scarcity/simulation/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-accent-main text-accent-main font-bold
+                              ">
+                        Simulation
+                    </a>
+                    
+                    <a href="/scarcity/drg/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Resource Governor
+                    </a>
+                    
+                    <a href="/scarcity/stream/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Stream Processing
+                    </a>
+                    
+                    <a href="/scarcity/runtime/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Runtime System
+                    </a>
+                    
+                    <a href="/scarcity/fmi/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        FMI
+                    </a>
+                    
+                    <a href="/scarcity/math/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Math Foundations
+                    </a>
+                    
+                    <a href="/scarcity/api/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        API Reference
+                    </a>
+                    
+                    <a href="/scarcity/implementation/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Implementation
+                    </a>
+                    
+
+                    <a href="/scarcity/"
+                        class="block mt-8 py-2 pl-4 text-xs font-mono text-gray-400 hover:text-text-primary transition-colors border-l-2 border-transparent hover:border-text-primary">
+                        ← Back to Project
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content with Sidebar -->
+        <main class="lg:col-span-9">
+            
+
+                <!-- Header -->
+                <header class="mb-12 border-b border-gray-200 pb-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent-main">
+                            NOTE
+                        </span>
+                        
+                        <span class="text-xs font-mono text-text-muted">
+                            // December 23, 2025
+                        </span>
+                        
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
+                        Simulation Engine
+                    </h1>
+
+                    
+                    <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
+                        Agent-based modeling and visualization.
+                    </p>
+                    
+                </header>
+
+                <!-- Prose Content -->
+                <!-- Prose Content -->
+                <article class="prose prose-lg max-w-none 
+                            prose-headings:font-serif prose-headings:text-text-primary 
+                            prose-p:text-text-secondary prose-p:leading-relaxed 
+                            prose-a:text-accent-blue prose-a:no-underline hover:prose-a:underline 
+                            prose-strong:text-text-primary 
+                            prose-code:text-accent-main prose-code:bg-gray-50 prose-code:px-1 prose-code:rounded
+                            prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
+                            prose-ul:list-disc prose-ul:pl-6
+                            prose-li:marker:text-accent-main prose-li:my-2">
+                    <h1>Simulation Engine</h1>
+<p>The <strong>Simulation Engine</strong> allows you to create Digital Twins of your deployment environment. It runs agent-based models to predict how the system will behave under stress.</p>
+<hr />
+<h3>Core Concepts</h3>
+<h4>Agent Registry</h4>
+<p>The central directory of all entities in the simulation.
+-   <strong>Agents</strong>: Nodes in the graph (Servers, Models, Data Sources).
+-   <strong>Edges</strong>: Connections between them (Network links, dependencies).</p>
+<h4>Dynamics Engine</h4>
+<p>The "Physics Engine" of the simulation.
+-   Calculates how agents affect each other over time.
+-   Applies "Shocks" (e.g., Latency spikes, Node failures) to test resilience.</p>
+<hr />
+<h3>Visualization</h3>
+<p>The engine renders the state of the hypergraph in 3D using force-directed layouts.</p>
+<ul>
+<li><strong>Nodes</strong>: Represent physical agents or logical domains.</li>
+<li><strong>Edges</strong>: Represent data flow or causal influence.</li>
+<li><strong>Colors</strong>: Indicate stability (Green=Stable, Red=Volatile).</li>
+<li><strong>Position</strong>: Determined by the strength of causal relationships.</li>
+</ul>
+                </article>
+
+                <!-- Mobile Navigation (Bottom) -->
+                
+                <div class="lg:hidden mt-16 border-t border-gray-200 pt-8">
+                    <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-4">Read Next
+                    </h3>
+                    <div class="flex flex-col gap-2">
+                        
+                        
+                        <a href="/scarcity/overview/" class="text-sm py-2 text-accent-blue hover:underline">Overview</a>
+                        
+                        
+                        
+                        <a href="/scarcity/architecture/" class="text-sm py-2 text-accent-blue hover:underline">Architecture</a>
+                        
+                        
+                        
+                        <a href="/scarcity/components/" class="text-sm py-2 text-accent-blue hover:underline">Core Components</a>
+                        
+                        
+                        
+                        <a href="/scarcity/engine/" class="text-sm py-2 text-accent-blue hover:underline">Engine (MPIE)</a>
+                        
+                        
+                        
+                        <a href="/scarcity/federation/" class="text-sm py-2 text-accent-blue hover:underline">Federation</a>
+                        
+                        
+                        
+                        <a href="/scarcity/meta_learning/" class="text-sm py-2 text-accent-blue hover:underline">Meta-Learning</a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/scarcity/drg/" class="text-sm py-2 text-accent-blue hover:underline">Resource Governor</a>
+                        
+                        
+                        
+                        <a href="/scarcity/stream/" class="text-sm py-2 text-accent-blue hover:underline">Stream Processing</a>
+                        
+                        
+                        
+                        <a href="/scarcity/runtime/" class="text-sm py-2 text-accent-blue hover:underline">Runtime System</a>
+                        
+                        
+                        
+                        <a href="/scarcity/fmi/" class="text-sm py-2 text-accent-blue hover:underline">FMI</a>
+                        
+                        
+                        
+                        <a href="/scarcity/math/" class="text-sm py-2 text-accent-blue hover:underline">Math Foundations</a>
+                        
+                        
+                        
+                        <a href="/scarcity/api/" class="text-sm py-2 text-accent-blue hover:underline">API Reference</a>
+                        
+                        
+                        
+                        <a href="/scarcity/implementation/" class="text-sm py-2 text-accent-blue hover:underline">Implementation</a>
+                        
+                        
+                    </div>
+                </div>
+                
+
+            </main>
+
+    </div>
+
+</div>
+
+    </main>
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA LABS</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2025 Omega Makena.<br>
+                        Engineering Intelligence.
+                    </div>
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'neutral',
+            themeVariables: {
+                'background': 'transparent',
+                'primaryColor': '#18181B',
+                'primaryTextColor': '#18181B',
+                'lineColor': '#a3a3a3',
+                'fontSize': '16px'
+            }
+        });
+    </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+</body>
+
+</html>

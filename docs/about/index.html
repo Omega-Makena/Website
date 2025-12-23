@@ -1,31 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="How I think, where Scarcity came from, and what matters outside the lab.">
+    <meta name="description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
-    
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="https://omegamakena.co.ke/about/">
-    
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://omegamakena.co.ke/about/">
-    <meta property="og:title" content="Omega Makena - Machine Learning Engineer &amp; Quantitative Researcher">
-    <meta property="og:description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
-    <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
-    <meta property="og:site_name" content="Omega Makena">
-    
-    <title>About Omega Makena - Omega Makena</title>
-    
+
+    <title>About - Omega Makena</title>
+
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -33,222 +25,510 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        'sans': ['Manrope', 'sans-serif'],
-                        'display': ['Space Grotesk', 'Manrope', 'sans-serif'],
-                        'body': ['Manrope', 'sans-serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
                         'mono': ['"JetBrains Mono"', 'monospace'],
                     },
                     colors: {
-                        light: {
-                            bg: '#F7F9FA',      // Off-white
-                            card: '#FFFFFF',
-                            text: '#1a202c',    // Darker Slate
-                            muted: '#718096',   // Muted Slate
-                            accent: '#0d9488',  // Teal
-                            accent_hover: '#0f766e', // Darker Teal
-                            border: '#e2e8f0'
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
                         },
-                        dark: {
-                            bg: '#0A192F',      // Dark Navy
-                            card: '#112240',    // Lighter Navy
-                            text: '#ccd6f6',    // Light Slate
-                            muted: '#8892b0',   // Muted Slate
-                            accent: '#64ffda',  // Bright Teal
-                            accent_hover: '#5EEAD4', // Lighter Teal
-                            border: '#1E293B'
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
                         }
                     }
                 }
             }
         }
     </script>
-    
-    <style>
-        body { font-family: 'Manrope', sans-serif; letter-spacing: -0.01em; }
-        
-        /* Subtle Grid Pattern for Background */
-        .bg-grid-pattern {
-            background-size: 40px 40px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-        }
-        
-        /* Smooth transitions */
-        * { transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
 
-        /* Fade in */
-        .fade-in { animation: fadeIn 0.6s ease-out forwards; opacity: 0; transform: translateY(10px); }
-        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
     </style>
 </head>
-<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text min-h-screen flex flex-col selection:bg-light-accent selection:text-white dark:selection:bg-dark-accent dark:selection:text-dark-bg">
-    
-    <nav class="fixed w-full top-0 z-50 bg-light-card/90 dark:bg-dark-bg/90 backdrop-blur-md border-b border-light-border dark:border-dark-border">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <a href="/" class="text-xl font-bold tracking-tight text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">
-                    Omega Makena<span class="text-light-accent dark:text-dark-accent">.</span>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Labs Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Labs</span>
                 </a>
-                
-                <div class="hidden md:flex space-x-7 items-center text-sm font-semibold">
-                    <a href="/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Home</a>
-                    <a href="/scarcity/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">ScarCity</a>
-                    <a href="/research-log/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Research Log</a>
-                    <a href="/library/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Library</a>
-                    <a href="/writing/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Writing</a>
-                    <a href="/work-with-me/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Work With Me</a>
-                    <a href="/about/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">About</a>
-                    
-                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-light-muted dark:text-dark-muted" aria-label="Toggle theme">
-                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                    </button>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/scarcity/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">LAB NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/work-with-me/" class="nav-link">CONTACT</a>
                 </div>
 
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" class="p-2 rounded-md text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile menu, show/hide based on menu state. -->
-        <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Home</a>
-                <a href="/scarcity/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">ScarCity</a>
-                <a href="/research-log/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Research Log</a>
-                <a href="/library/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Library</a>
-                <a href="/writing/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Writing</a>
-                <a href="/work-with-me/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Work With Me</a>
-                <a href="/about/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">About</a>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/scarcity/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">LAB NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/work-with-me/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">CONTACT</a>
             </div>
         </div>
     </nav>
-    
+
     <main class="flex-grow pt-20">
         
-<section class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-light-accent/5 via-transparent to-emerald-200/10 dark:from-dark-accent/10 dark:via-transparent dark:to-emerald-500/10 pointer-events-none"></div>
-    
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-10">
-        <div class="flex flex-col gap-6">
-            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 dark:bg-dark-card/70 border border-light-border dark:border-dark-border shadow-sm w-fit">
-                <span class="text-xs font-semibold uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted">
-                    About
-                </span>
-                
-                <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
-                    2025-01-02
-                </span>
-                
-            </div>
-            
-            <div class="space-y-4">
-                <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text leading-tight">
-                    About Omega Makena
-                </h1>
-                
-                <p class="text-lg text-light-muted dark:text-dark-muted max-w-3xl leading-relaxed">
-                    How I think, where Scarcity came from, and what matters outside the lab.
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid gap-6 lg:grid-cols-3">
+
+        <!-- COLUMN 1: Identity & Core -->
+        <div class="space-y-6">
+
+            <!-- [Container A] The Identity (Terminal) -->
+            <div class="bg-zinc-950 rounded-lg p-6 border border-zinc-800 shadow-xl overflow-hidden relative group">
+                <!-- Status Tag -->
+                <div class="absolute top-4 right-4 flex items-center space-x-2">
+                    <span class="relative flex h-3 w-3">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    </span>
+                    <span class="text-xs font-mono text-zinc-400">Deep in Research</span>
+                </div>
+
+                <div class="font-mono text-sm text-green-500 mb-4">
+                    <span class="text-zinc-500">$</span> pip install scarcity
+                </div>
+
+                <h2 class="text-2xl font-bold text-white mb-2 font-serif tracking-wide">The Architect of Constraints
+                </h2>
+                <div class="h-1 w-12 bg-accent-main mb-4"></div>
+
+                <p class="text-zinc-400 leading-relaxed font-sans text-sm">
+                    Machine Learning Engineer & Quantitative Researcher.
+                    <br><br>
+                    Building systems that thrive where data is sparse and compute is expensive.
                 </p>
-                
             </div>
+
+            <!-- [Container C] Philosophy -->
+            <div
+                class="omega-card bg-bg-card p-8 border border-border-main hover:border-accent-main transition-colors group">
+                <h3
+                    class="text-lg font-serif font-bold text-text-primary mb-4 group-hover:text-accent-main transition-colors">
+                    Default to Constraints.</h3>
+                <blockquote
+                    class="text-text-muted italic border-l-2 border-accent-main/30 pl-4 py-1 text-sm leading-relaxed">
+                    "I learned to ship ML with no paid data and minimal compute. No assumption is sacred unless the data
+                    can survive without it.
+                    <br><br>
+                    The best architectures are honest about what they don't know, and they fail in visible, reversible
+                    ways."
+                </blockquote>
+            </div>
+
+            <!-- [Container E] The Human -->
+            <div class="omega-card bg-bg-subtle p-6 border border-border-main">
+                <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-6">The Human</h3>
+                <ul class="space-y-3 font-mono text-sm">
+                    <li class="flex items-start justify-between border-b border-gray-200 pb-2">
+                        <span class="text-text-primary font-bold">Running</span>
+                        <span class="text-text-muted italic text-xs">To think.</span>
+                    </li>
+                    <li class="flex items-start justify-between border-b border-gray-200 pb-2">
+                        <span class="text-text-primary font-bold">Cooking</span>
+                        <span class="text-text-muted italic text-xs">To slow down.</span>
+                    </li>
+                    <li class="flex items-start justify-between border-b border-gray-200 pb-2">
+                        <span class="text-text-primary font-bold">TV</span>
+                        <span class="text-text-muted italic text-xs">To escape.</span>
+                    </li>
+                    <li class="flex items-start justify-between">
+                        <span class="text-text-primary font-bold">Sociology</span>
+                        <span class="text-text-muted italic text-xs">To understand failure.</span>
+                    </li>
+                </ul>
+            </div>
+
         </div>
-        
-        <article class="bg-white dark:bg-dark-card/70 border border-light-border dark:border-dark-border rounded-2xl shadow-lg p-6 md:p-10">
-            <div class="prose prose-lg dark:prose-invert max-w-none">
-                <h3>How I think</h3>
-<p>I default to constraints: no assumption is sacred unless the data can survive without it. The best architectures are honest about what they do not know, and they fail in visible, reversible ways.</p>
-<h3>Origin story (constraint-driven)</h3>
-<ul>
-<li>Learned to ship ML with <strong>no paid data</strong> and minimal compute.  </li>
-<li>Built models for <strong>high-regulation environments</strong> where privacy is non-negotiable.  </li>
-<li>Formal training blends <strong>software engineering, quantitative research, and mathematics</strong>—useful when the best answer is an experiment, not a slide deck.</li>
-</ul>
-<h3>What I do now</h3>
-<ul>
-<li>Design and stress-test the <strong>Scarcity</strong> system for finance and policy work.  </li>
-<li>Mentor women in tech through <strong>Tech-12</strong>, focusing on building reliable instincts with limited resources.  </li>
-<li>Write teaching notes in the <strong>Library</strong> and live logs in the <strong>Research Log</strong> to keep the work transparent.</li>
-</ul>
-<h3>Outside research</h3>
-<ul>
-<li>Obsessed with <strong>sociology and psychology</strong>—most failures are social, not technical.  </li>
-<li>Replenish by diving into <strong>East Asian storytelling</strong> (manga, manhua, manhwa).  </li>
-<li>Distance running to think; cooking to slow down.</li>
-</ul>
-<h3>Direction</h3>
-<p>Undergrad foundations → quantitative research → ML engineering → system architect. The through-line is making complex systems usable under pressure. If you want to collaborate, <strong>Work With Me</strong> is open for mentorship, consulting, or joint experiments.</p>
+
+        <!-- COLUMN 2 & 3: The Narrative -->
+        <div class="lg:col-span-2 space-y-6">
+
+            <!-- [Container B] Project Genesis -->
+            <div class="omega-card bg-white p-10 border border-border-main relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm6 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z" />
+                    </svg>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="text-3xl font-serif font-bold text-text-primary mb-2">PROJECT GENESIS</h2>
+                    <p class="font-mono text-sm text-accent-main tracking-widest uppercase">From "Tango" to "Scarcity":
+                        An Architecture of Necessity.</p>
+                </div>
+
+                <div class="space-y-8 relative pl-2">
+                    <!-- Vertical Line -->
+                    <div class="absolute left-[7px] top-2 bottom-4 w-0.5 bg-gray-200"></div>
+
+                    <!-- Step 1 -->
+                    <div class="relative pl-8 group">
+                        <div
+                            class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-main bg-white group-hover:bg-accent-main transition-colors">
+                        </div>
+                        <h4 class="font-bold text-text-primary mb-1">The Data Void</h4>
+                        <p class="text-sm text-text-muted leading-relaxed">
+                            Failed to build a Macro-Policy Sim because no data existed.
+                            <br><span class="text-accent-main font-bold">→ Solution: Online Learning.</span>
+                        </p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative pl-8 group">
+                        <div
+                            class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-main bg-white group-hover:bg-accent-main transition-colors">
+                        </div>
+                        <h4 class="font-bold text-text-primary mb-1">The Privacy Wall</h4>
+                        <p class="text-sm text-text-muted leading-relaxed">
+                            Needed sensitive user data without seeing it.
+                            <br><span class="text-accent-main font-bold">→ Solution: Federated Learning.</span>
+                        </p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative pl-8 group">
+                        <div
+                            class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-main bg-white group-hover:bg-accent-main transition-colors">
+                        </div>
+                        <h4 class="font-bold text-text-primary mb-1">The Cold Start</h4>
+                        <p class="text-sm text-text-muted leading-relaxed">
+                            System started with zero context.
+                            <br><span class="text-accent-main font-bold">→ Solution: Meta-Learning.</span>
+                        </p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative pl-8 group">
+                        <div
+                            class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-main bg-white group-hover:bg-accent-main transition-colors">
+                        </div>
+                        <h4 class="font-bold text-text-primary mb-1">The Dimensional Chaos</h4>
+                        <p class="text-sm text-text-muted leading-relaxed">
+                            Unpredictable data shapes.
+                            <br><span class="text-accent-main font-bold">→ Solution: Mixture of Experts (MoE).</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-gray-100 italic text-center text-text-muted text-sm font-serif">
+                    "It wasn't a bunch of buzzwords. It was a survival guide."
+                </div>
             </div>
-        </article>
-        
-        
+
+            <div class="grid lg:grid-cols-2 gap-6">
+                <!-- [Container D] Tech Twirls -->
+                <div
+                    class="bg-gradient-to-br from-indigo-900 to-indigo-950 p-8 rounded-lg text-white relative overflow-hidden flex flex-col justify-between">
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-serif font-bold mb-1">Tech Twirls</h3>
+                        <p class="text-indigo-300 font-mono text-xs uppercase tracking-widest mb-4">Instincts over
+                            Syntax</p>
+
+                        <p class="text-indigo-100 text-sm leading-relaxed mb-8">
+                            "Mentoring women in tech to build reliable engineering instincts. We are building a
+                            community that survives the hype cycle."
+                        </p>
+                    </div>
+
+                    <div class="relative z-10">
+                        <a href="https://techtwirls.co.ke" target="_blank"
+                            class="block w-full py-3 bg-white text-indigo-900 font-bold text-center text-sm hover:bg-indigo-50 transition-colors rounded-sm uppercase tracking-wide">
+                            Visit techtwirls.co.ke
+                        </a>
+                        <p class="mt-4 text-[10px] text-indigo-400 text-center italic">
+                            Interested in collaborating? Use the site form.
+                        </p>
+                    </div>
+
+                    <!-- Decor -->
+                    <div class="absolute -bottom-8 -right-8 w-32 h-32 bg-indigo-500 rounded-full blur-3xl opacity-20">
+                    </div>
+                </div>
+
+                <!-- [Container F] FAQs -->
+                <div class="space-y-3">
+                    <div class="omega-card bg-bg-card p-4 border border-border-main cursor-pointer hover:border-accent-main transition-all"
+                        onclick="this.classList.toggle('active')">
+                        <h4 class="font-bold text-sm text-text-primary flex justify-between items-center mb-1">
+                            Is Scarcity open source?
+                            <span class="text-accent-main text-xs font-mono">∨</span>
+                        </h4>
+                        <p class="text-xs text-text-muted leading-relaxed mt-2 hidden">
+                            Yes. It is designed for public transparency. My goal is to lower the barrier for
+                            high-privacy, low-resource machine learning.
+                        </p>
+                    </div>
+
+                    <div class="omega-card bg-bg-card p-4 border border-border-main cursor-pointer hover:border-accent-main transition-all"
+                        onclick="this.classList.toggle('active')">
+                        <h4 class="font-bold text-sm text-text-primary flex justify-between items-center mb-1">
+                            Are you an economist?
+                            <span class="text-accent-main text-xs font-mono">∨</span>
+                        </h4>
+                        <p class="text-xs text-text-muted leading-relaxed mt-2 hidden">
+                            No. Scarcity exists because I am not. I built the system to survive my lack of domain
+                            knowledge by using raw data and online learning instead.
+                        </p>
+                    </div>
+
+                    <div class="omega-card bg-bg-card p-4 border border-border-main cursor-pointer hover:border-accent-main transition-all"
+                        onclick="this.classList.toggle('active')">
+                        <h4 class="font-bold text-sm text-text-primary flex justify-between items-center mb-1">
+                            Partnerships?
+                            <span class="text-accent-main text-xs font-mono">∨</span>
+                        </h4>
+                        <p class="text-xs text-text-muted leading-relaxed mt-2 hidden">
+                            We love collaborations that help our students. Visit techtwirls.co.ke and use the contact
+                            form to discuss partnerships.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
-</section>
+
+</div>
+
+<style>
+    .omega-card.active p {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-5px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
 
     </main>
-    
-    <footer class="bg-light-bg dark:bg-dark-bg mt-20 border-t border-light-border dark:border-dark-border">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                <div class="text-light-muted dark:text-dark-muted text-sm font-medium">
-                    © 2025 Omega Makena.
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA LABS</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2025 Omega Makena.<br>
+                        Engineering Intelligence.
+                    </div>
                 </div>
                 <div class="flex space-x-8">
                     
-                    <a href="https://github.com/Omega-Makena" target="_blank" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">GitHub</a>
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
                     
                     
-                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
                     
-                    <a href="mailto:mwebiamakenaa@gmail.com" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">Email</a>
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
                 </div>
             </div>
         </div>
     </footer>
-    
+
     <script>
-        // Dark Mode Logic
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-        
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            themeToggleLightIcon.classList.remove('hidden');
-        } else {
-            document.documentElement.classList.remove('dark');
-            themeToggleDarkIcon.classList.remove('hidden');
-        }
-
-        themeToggleBtn.addEventListener('click', function() {
-            themeToggleDarkIcon.classList.toggle('hidden');
-            themeToggleLightIcon.classList.toggle('hidden');
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-
         // Mobile menu logic
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
 
-        mobileMenuButton.addEventListener('click', function() {
-            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-            mobileMenu.classList.toggle('hidden');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'neutral',
+            themeVariables: {
+                'background': 'transparent',
+                'primaryColor': '#18181B',
+                'primaryTextColor': '#18181B',
+                'lineColor': '#a3a3a3',
+                'fontSize': '16px'
+            }
         });
     </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
 </body>
+
 </html>

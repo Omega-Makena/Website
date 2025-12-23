@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena">
+
+    <title>Omega Makena</title>
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
+                        },
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Labs Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Labs</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/scarcity/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">LAB NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/work-with-me/" class="nav-link">CONTACT</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/scarcity/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">LAB NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/work-with-me/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">CONTACT</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-20">
+        
+<div class="max-w-7xl mx-auto px-6 lg:px-8 pb-32">
+
+    <!-- Header -->
+    <section class="max-w-4xl mx-auto text-center pt-24 pb-24 fade-in">
+        <h1 class="text-6xl md:text-7xl font-bold font-serif mb-8 text-text-primary">Lab Notes</h1>
+        <p class="text-xl md:text-2xl text-text-muted font-light leading-relaxed max-w-2xl mx-auto">
+            The archive of Omega Labs. Select a collection to explore.
+        </p>
+    </section>
+
+    <!-- Category Hub Grid -->
+    <div class="grid md:grid-cols-3 gap-8 fade-in" style="animation-delay: 0.1s;">
+
+        <!-- 1. ESSAYS & WRITING -->
+        <a href="/writing/"
+            class="omega-card group flex flex-col h-full hover:border-accent-main transition-all hover:-translate-y-1">
+            <div class="h-2 w-12 bg-accent-main mb-8"></div>
+
+            <h2 class="text-3xl font-serif font-bold mb-4 group-hover:text-accent-main transition-colors">
+                Essays & Writing
+            </h2>
+
+            <p class="text-text-muted leading-relaxed mb-8 flex-grow">
+                Long-form content, technical deep dives, and whitepapers.
+                <br><br>
+                <span class="text-sm italic opacity-80">
+                    Topics: Decentralized AI, Privacy Federation, Cryptographic Infrastructure.
+                </span>
+            </p>
+
+            <div class="border-t border-gray-200 pt-6 flex justify-between items-center">
+                <span class="font-mono text-sm font-bold text-accent-main uppercase tracking-widest">
+                    5 Articles
+                </span>
+                <span
+                    class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-accent-main group-hover:text-white transition-all">
+                    →
+                </span>
+            </div>
+        </a>
+
+        <!-- 2. RESEARCH LOGS -->
+        <a href="/research-log/"
+            class="omega-card group flex flex-col h-full hover:border-accent-blue transition-all hover:-translate-y-1">
+            <div class="h-2 w-12 bg-accent-blue mb-8"></div>
+
+            <h2 class="text-3xl font-serif font-bold mb-4 group-hover:text-accent-blue transition-colors">
+                Research Logs
+            </h2>
+
+            <p class="text-text-muted leading-relaxed mb-8 flex-grow">
+                Daily stream of consciousness, dev logs, and experimental notes.
+                <br><br>
+                <span class="text-sm italic opacity-80">
+                    Raw, unpolished, and real-time updates from the engineering bench.
+                </span>
+            </p>
+
+            <div class="border-t border-gray-200 pt-6 flex justify-between items-center">
+                <span class="font-mono text-sm font-bold text-accent-blue uppercase tracking-widest">
+                    1 Entries
+                </span>
+                <span
+                    class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-accent-blue group-hover:text-white transition-all">
+                    →
+                </span>
+            </div>
+        </a>
+
+        <!-- 3. LIBRARY -->
+        <a href="/library/"
+            class="omega-card group flex flex-col h-full hover:border-accent-yellow transition-all hover:-translate-y-1">
+            <div class="h-2 w-12 bg-accent-yellow mb-8"></div>
+
+            <h2 class="text-3xl font-serif font-bold mb-4 group-hover:text-accent-yellow transition-colors">
+                The Library
+            </h2>
+
+            <p class="text-text-muted leading-relaxed mb-8 flex-grow">
+                Curated collection of papers, books, and external resources.
+                <br><br>
+                <span class="text-sm italic opacity-80">
+                    Our knowledge base and reference material for Scarcity and distributed systems.
+                </span>
+            </p>
+
+            <div class="border-t border-gray-200 pt-6 flex justify-between items-center">
+                <span class="font-mono text-sm font-bold text-accent-yellow uppercase tracking-widest">
+                    13 Items
+                </span>
+                <span
+                    class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-accent-yellow group-hover:text-white transition-all">
+                    →
+                </span>
+            </div>
+        </a>
+
+    </div>
+
+</div>
+
+    </main>
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA LABS</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2025 Omega Makena.<br>
+                        Engineering Intelligence.
+                    </div>
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'neutral',
+            themeVariables: {
+                'background': 'transparent',
+                'primaryColor': '#18181B',
+                'primaryTextColor': '#18181B',
+                'lineColor': '#a3a3a3',
+                'fontSize': '16px'
+            }
+        });
+    </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+</body>
+
+</html>

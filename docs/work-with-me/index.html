@@ -1,31 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Clear paths to collaborate—mentoring, consulting, research, and build cycles grounded in Scarcity.">
+    <meta name="description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
-    
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="https://omegamakena.co.ke/work-with-me/">
-    
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://omegamakena.co.ke/work-with-me/">
-    <meta property="og:title" content="Omega Makena - Machine Learning Engineer &amp; Quantitative Researcher">
-    <meta property="og:description" content="Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.">
-    <meta property="og:image" content="https://omegamakena.co.ke/static/img/social-card.jpg">
-    <meta property="og:site_name" content="Omega Makena">
-    
+
     <title>Work With Me - Omega Makena</title>
-    
+
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -33,223 +25,464 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        'sans': ['Manrope', 'sans-serif'],
-                        'display': ['Space Grotesk', 'Manrope', 'sans-serif'],
-                        'body': ['Manrope', 'sans-serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
                         'mono': ['"JetBrains Mono"', 'monospace'],
                     },
                     colors: {
-                        light: {
-                            bg: '#F7F9FA',      // Off-white
-                            card: '#FFFFFF',
-                            text: '#1a202c',    // Darker Slate
-                            muted: '#718096',   // Muted Slate
-                            accent: '#0d9488',  // Teal
-                            accent_hover: '#0f766e', // Darker Teal
-                            border: '#e2e8f0'
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
                         },
-                        dark: {
-                            bg: '#0A192F',      // Dark Navy
-                            card: '#112240',    // Lighter Navy
-                            text: '#ccd6f6',    // Light Slate
-                            muted: '#8892b0',   // Muted Slate
-                            accent: '#64ffda',  // Bright Teal
-                            accent_hover: '#5EEAD4', // Lighter Teal
-                            border: '#1E293B'
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
                         }
                     }
                 }
             }
         }
     </script>
-    
-    <style>
-        body { font-family: 'Manrope', sans-serif; letter-spacing: -0.01em; }
-        
-        /* Subtle Grid Pattern for Background */
-        .bg-grid-pattern {
-            background-size: 40px 40px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-        }
-        
-        /* Smooth transitions */
-        * { transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
 
-        /* Fade in */
-        .fade-in { animation: fadeIn 0.6s ease-out forwards; opacity: 0; transform: translateY(10px); }
-        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
     </style>
 </head>
-<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text min-h-screen flex flex-col selection:bg-light-accent selection:text-white dark:selection:bg-dark-accent dark:selection:text-dark-bg">
-    
-    <nav class="fixed w-full top-0 z-50 bg-light-card/90 dark:bg-dark-bg/90 backdrop-blur-md border-b border-light-border dark:border-dark-border">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <a href="/" class="text-xl font-bold tracking-tight text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">
-                    Omega Makena<span class="text-light-accent dark:text-dark-accent">.</span>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Labs Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Labs</span>
                 </a>
-                
-                <div class="hidden md:flex space-x-7 items-center text-sm font-semibold">
-                    <a href="/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Home</a>
-                    <a href="/scarcity/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">ScarCity</a>
-                    <a href="/research-log/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Research Log</a>
-                    <a href="/library/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Library</a>
-                    <a href="/writing/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Writing</a>
-                    <a href="/work-with-me/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">Work With Me</a>
-                    <a href="/about/" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors">About</a>
-                    
-                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-light-muted dark:text-dark-muted" aria-label="Toggle theme">
-                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                    </button>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/scarcity/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">LAB NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/work-with-me/" class="nav-link">CONTACT</a>
                 </div>
 
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" class="p-2 rounded-md text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile menu, show/hide based on menu state. -->
-        <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Home</a>
-                <a href="/scarcity/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">ScarCity</a>
-                <a href="/research-log/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Research Log</a>
-                <a href="/library/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Library</a>
-                <a href="/writing/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Writing</a>
-                <a href="/work-with-me/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">Work With Me</a>
-                <a href="/about/" class="block px-3 py-2 rounded-md text-base font-medium text-light-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700">About</a>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/scarcity/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">LAB NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/work-with-me/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">CONTACT</a>
             </div>
         </div>
     </nav>
-    
+
     <main class="flex-grow pt-20">
         
-<section class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-light-accent/5 via-transparent to-emerald-200/10 dark:from-dark-accent/10 dark:via-transparent dark:to-emerald-500/10 pointer-events-none"></div>
-    
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-10">
-        <div class="flex flex-col gap-6">
-            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 dark:bg-dark-card/70 border border-light-border dark:border-dark-border shadow-sm w-fit">
-                <span class="text-xs font-semibold uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted">
-                    Work With Me
-                </span>
-                
-                <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
-                    2025-01-04
-                </span>
-                
-            </div>
-            
-            <div class="space-y-4">
-                <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text leading-tight">
-                    Work With Me
-                </h1>
-                
-                <p class="text-lg text-light-muted dark:text-dark-muted max-w-3xl leading-relaxed">
-                    Clear paths to collaborate—mentoring, consulting, research, and build cycles grounded in Scarcity.
-                </p>
-                
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary mb-4">Work With Me</h1>
+        <p class="text-xl text-text-muted font-light max-w-2xl">
+            Clear paths to collaborate. Start by choosing your intent.
+        </p>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-3">
+
+        <!-- COLUMN 1: The Contact Stack (Moved from About) -->
+        <div class="space-y-6">
+            <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-2">Select a Channel</h2>
+
+            <div class="flex flex-col gap-4">
+
+                <!-- Card 1: Tech Twirls (Community) -->
+                <a href="mailto:hello@techtwirls.co.ke"
+                    class="group block relative overflow-hidden bg-gradient-to-br from-indigo-900 to-indigo-800 rounded-lg p-6 transition-transform hover:-translate-y-1 shadow-md">
+                    <div class="relative z-10 flex justify-between items-center">
+                        <div>
+                            <h4
+                                class="text-white font-serif font-bold text-lg group-hover:underline decoration-indigo-400 underline-offset-4">
+                                I like Tech Twirls</h4>
+                            <p class="text-indigo-200 text-xs font-mono mt-1">Mentorship & Community</p>
+                        </div>
+                        <svg class="w-6 h-6 text-indigo-300 group-hover:text-white transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div
+                        class="absolute -bottom-4 -right-4 w-20 h-20 bg-indigo-500/20 rounded-full blur-xl group-hover:bg-indigo-400/30 transition-all">
+                    </div>
+                </a>
+
+                <!-- Card 2: Scarcity (Technical) -->
+                <a href="mailto:omega@scarcity.ai"
+                    class="group block relative overflow-hidden bg-bg-card border border-border-main rounded-lg p-6 hover:border-accent-main transition-all hover:-translate-y-1 shadow-sm">
+                    <div class="relative z-10 flex justify-between items-center">
+                        <div>
+                            <h4
+                                class="text-text-primary font-serif font-bold text-lg group-hover:text-accent-main transition-colors">
+                                I like Scarcity</h4>
+                            <p class="text-text-muted text-xs font-mono mt-1">Research & Engineering</p>
+                        </div>
+                        <svg class="w-6 h-6 text-text-muted group-hover:text-accent-main transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                            </path>
+                        </svg>
+                    </div>
+                </a>
+
+                <!-- Card 3: LinkedIn -->
+                <a href="https://linkedin.com/in/omega-makena" target="_blank"
+                    class="group block relative overflow-hidden bg-[#0A66C2] rounded-lg p-6 text-white transition-transform hover:-translate-y-1 shadow-md">
+                    <div class="relative z-10 flex justify-between items-center">
+                        <div>
+                            <h4
+                                class="font-serif font-bold text-lg group-hover:underline decoration-blue-300 underline-offset-4">
+                                Connect on LinkedIn</h4>
+                            <p class="text-blue-100 text-xs font-mono mt-1">Professional Network</p>
+                        </div>
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                    </div>
+                </a>
+
             </div>
         </div>
-        
-        <article class="bg-white dark:bg-dark-card/70 border border-light-border dark:border-dark-border rounded-2xl shadow-lg p-6 md:p-10">
-            <div class="prose prose-lg dark:prose-invert max-w-none">
-                <h3>How we can work together</h3>
-<p><strong>Mentoring</strong><br />
-1:1 guidance for engineers and researchers who want to ship under constraints—architecture reviews, experiment design, or career direction. Short, focused sessions.</p>
-<p><strong>Consulting / Freelance</strong><br />
-Designing and delivering ML systems where data is limited or regulated. Expect a constraint ledger, a testable plan, and transparency on risks.</p>
-<p><strong>Collaboration</strong><br />
-Academic or open-source projects that align with Scarcity. I co-design experiments, run simulations, and document failure openly.</p>
-<h3>What to expect</h3>
-<ul>
-<li>Calm, no-hype communication.  </li>
-<li>Written summaries after sessions.  </li>
-<li>Pushback when assumptions are weak.  </li>
-<li>Measurable outcomes and a debrief on what worked and what did not.</li>
-</ul>
-<h3>Proof of work</h3>
-<ul>
-<li>System model: <a href="/scarcity/overview">Scarcity Overview</a>  </li>
-<li>Thinking-in-motion: <a href="/research-log">Research Log</a>  </li>
-<li>Teaching notes: <a href="/library">Library</a></li>
-</ul>
-<h3>Contact</h3>
-<p>Email: <a href="mailto:mwebiamakenaa@gmail.com">mwebiamakenaa@gmail.com</a><br />
-Alternate: <a href="mailto:omegamakena@techtwirls.co.ke">omegamakena@techtwirls.co.ke</a> if you prefer.</p>
+
+        <!-- COLUMN 2 & 3: Engagement Models -->
+        <div class="lg:col-span-2 space-y-6">
+            <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-2">Engagement Models
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+
+                <!-- Model A: Consulting / Freelance -->
+                <div
+                    class="omega-card bg-white p-6 border border-border-main group hover:border-accent-main transition-colors">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-2 bg-purple-50 rounded-md text-purple-700">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <span class="text-xs font-mono text-text-muted">High Impact</span>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-text-primary mb-3">Consulting & Freelance</h3>
+                    <p class="text-sm text-text-muted leading-relaxed mb-4">
+                        Designing and delivering ML systems where data is limited or regulated. I provide a constraint
+                        ledger, a testable plan, and transparency on risks.
+                    </p>
+                    <ul class="space-y-2 mb-4">
+                        <li class="flex items-center text-xs text-text-primary font-mono">
+                            <span class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2"></span>Architecture Reviews
+                        </li>
+                        <li class="flex items-center text-xs text-text-primary font-mono">
+                            <span class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2"></span>System Design
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Model B: Mentoring (Giving) -->
+                <div
+                    class="omega-card bg-white p-6 border border-border-main group hover:border-accent-main transition-colors">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-2 bg-green-50 rounded-md text-green-700">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <span class="text-xs font-mono text-text-muted">1:1 Guidance</span>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-text-primary mb-3">I can Mentor You</h3>
+                    <p class="text-sm text-text-muted leading-relaxed mb-4">
+                        For engineers and researchers who want to ship under constraints. We focus on reliable
+                        engineering instincts and surviving hype cycles.
+                    </p>
+                    <ul class="space-y-2 mb-4">
+                        <li class="flex items-center text-xs text-text-primary font-mono">
+                            <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2"></span>Career Direction
+                        </li>
+                        <li class="flex items-center text-xs text-text-primary font-mono">
+                            <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2"></span>Experiment Design
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Model C: Collaboration -->
+                <div
+                    class="omega-card bg-white p-6 border border-border-main group hover:border-accent-main transition-colors">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-2 bg-blue-50 rounded-md text-blue-700">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                                </path>
+                            </svg>
+                        </div>
+                        <span class="text-xs font-mono text-text-muted">Research</span>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-text-primary mb-3">Collaboration</h3>
+                    <p class="text-sm text-text-muted leading-relaxed mb-4">
+                        I am drawn to hard, "cool" problems in ML and Systems. If you are working on interesting
+                        research—Scarcity-aligned or not—let's build something together.
+                    </p>
+                </div>
+
+                <!-- Model D: Being Mentored (Learning) -->
+                <div
+                    class="omega-card bg-bg-subtle p-6 border border-border-main group hover:border-accent-main transition-colors dashed-border">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-2 bg-orange-50 rounded-md text-orange-700">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                                </path>
+                            </svg>
+                        </div>
+                        <span class="text-xs font-mono text-text-muted">Growth</span>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-text-primary mb-3">Be My Mentor</h3>
+                    <p class="text-sm text-text-muted leading-relaxed mb-4">
+                        I am always looking to learn from people smarter than me. If you enjoy discussing complex system
+                        architecture or engineering philosophy, I’d love to listen.
+                    </p>
+                </div>
+
             </div>
-        </article>
-        
-        
+
+            <!-- Philosophy / Expectation Setting -->
+            <div class="mt-8 p-6 bg-zinc-900 rounded-lg border border-zinc-800 text-zinc-400 text-sm font-mono">
+                <h4 class="text-white font-bold mb-2 uppercase tracking-widest text-xs">Standard Operating Procedure
+                </h4>
+                <ul class="grid md:grid-cols-2 gap-4 list-disc pl-4 marker:text-accent-main">
+                    <li>Calm, no-hype communication.</li>
+                    <li>Pushback when assumptions are weak.</li>
+                    <li>Written summaries after sessions.</li>
+                    <li>Measurable outcomes and debriefs.</li>
+                </ul>
+            </div>
+
+        </div>
+
     </div>
-</section>
+</div>
 
     </main>
-    
-    <footer class="bg-light-bg dark:bg-dark-bg mt-20 border-t border-light-border dark:border-dark-border">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                <div class="text-light-muted dark:text-dark-muted text-sm font-medium">
-                    © 2025 Omega Makena.
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA LABS</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2025 Omega Makena.<br>
+                        Engineering Intelligence.
+                    </div>
                 </div>
                 <div class="flex space-x-8">
                     
-                    <a href="https://github.com/Omega-Makena" target="_blank" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">GitHub</a>
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
                     
                     
-                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
                     
-                    <a href="mailto:mwebiamakenaa@gmail.com" class="text-light-muted dark:text-dark-muted hover:text-light-accent dark:hover:text-dark-accent transition-colors text-sm font-medium">Email</a>
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
                 </div>
             </div>
         </div>
     </footer>
-    
+
     <script>
-        // Dark Mode Logic
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-        
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            themeToggleLightIcon.classList.remove('hidden');
-        } else {
-            document.documentElement.classList.remove('dark');
-            themeToggleDarkIcon.classList.remove('hidden');
-        }
-
-        themeToggleBtn.addEventListener('click', function() {
-            themeToggleDarkIcon.classList.toggle('hidden');
-            themeToggleLightIcon.classList.toggle('hidden');
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-
         // Mobile menu logic
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
 
-        mobileMenuButton.addEventListener('click', function() {
-            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-            mobileMenu.classList.toggle('hidden');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'neutral',
+            themeVariables: {
+                'background': 'transparent',
+                'primaryColor': '#18181B',
+                'primaryTextColor': '#18181B',
+                'lineColor': '#a3a3a3',
+                'fontSize': '16px'
+            }
         });
     </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
 </body>
+
 </html>
