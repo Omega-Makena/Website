@@ -30,53 +30,106 @@ def load_config():
 # Load configuration
 SITE_CONFIG = load_config()
 
+@app.template_filter('format_date')
+def format_date(value):
+    """Format date for display, handling string, date, and datetime"""
+    if not value:
+        return ''
+        
+    date_obj = value
+    
+    # If string, parse it
+    if isinstance(value, str):
+        try:
+            date_obj = datetime.strptime(value, '%Y-%m-%d')
+        except ValueError:
+            return value
+            
+    # If it's a date but not a datetime (time is 00:00), convert or just format
+    # Note: datetime is a subclass of date, so isinstance(dt, date) is True.
+    # We can just check for .strftime method.
+    if hasattr(date_obj, 'strftime'):
+        return date_obj.strftime('%B %d, %Y')
+        
+    return value
+
+def get_page_date(page):
+    """Extract date from page meta and ensure it is a datetime object for sorting"""
+    d = page.meta.get('date', datetime.min)
+    if isinstance(d, str):
+        try:
+            d = datetime.strptime(d, '%Y-%m-%d')
+        except ValueError:
+            return datetime.min
+    # Convert datetime.date to datetime.datetime if needed
+    if not isinstance(d, datetime) and hasattr(d, 'timetuple'):
+        # datetime.date to datetime.datetime
+        d = datetime.combine(d, datetime.min.time())
+    return d
+
 @app.route('/')
 def index():
-    """Home / About page"""
-    research_logs = [
-        p for p in flatpages
-        if p.path.startswith('research-log/')
-    ]
-    research_logs.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
-    research_logs = research_logs[:3]
-
-    library_highlights = [
-        p for p in flatpages
-        if p.path.startswith('library/')
-    ]
-    library_highlights.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
-    library_highlights = library_highlights[:3]
-
-    writing_highlights = [
-        p for p in flatpages
-        if p.path.startswith('writing/')
-    ]
-    writing_highlights.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
-    writing_highlights = writing_highlights[:3]
+    """Home / Command Center"""
+    all_content = []
+    
+    # Research Logs
+    for p in flatpages:
+        if p.path.startswith('research-log/'):
+            p.meta['type'] = 'LOG'
+            all_content.append(p)
+        elif p.path.startswith('library/'):
+            p.meta['type'] = 'LIBRARY'
+            all_content.append(p)
+        elif p.path.startswith('writing/'):
+            p.meta['type'] = 'ESSAY'
+            all_content.append(p)
+            
+    # Sort by date
+    all_content.sort(key=get_page_date, reverse=True)
+    
+    # Get top 6
+    feed_items = all_content[:6]
 
     return render_template(
         'index.html',
-        research_logs=research_logs,
-        library_highlights=library_highlights,
-        writing_highlights=writing_highlights,
+        feed_items=feed_items
     )
 
-def render_flatpage(path):
-    """Render a FlatPages entry or 404"""
-    page = flatpages.get(path)
-    if not page:
-        abort(404)
-    return render_template('page.html', page=page)
+@app.route('/lab-notes/')
+def lab_notes():
+    """The Lab Notes Archive (grouped)"""
+    grouped = {
+        'essays': [],
+        'logs': [],
+        'library': []
+    }
+    
+    for p in flatpages:
+        if p.path.startswith('writing/'):
+            p.meta['type'] = 'ESSAY'
+            grouped['essays'].append(p)
+        elif p.path.startswith('research-log/'):
+            p.meta['type'] = 'LOG'
+            grouped['logs'].append(p)
+        elif p.path.startswith('library/'):
+            p.meta['type'] = 'LIBRARY'
+            grouped['library'].append(p)
+            
+    # Sort each bucket
+    for key in grouped:
+        grouped[key].sort(key=get_page_date, reverse=True)
+    
+    return render_template('lab_notes.html', grouped=grouped)
 
 @app.route('/about/')
 def about():
-    """About page"""
-    return render_flatpage('about')
+    """About page (Bento Grid)"""
+    return render_template('about.html')
 
 @app.route('/work-with-me/')
 def work_with_me():
     """Collaboration page"""
-    return render_flatpage('work-with-me')
+    return render_template('work_with_me.html')
 
 @app.route('/work/')
 def work():
@@ -86,20 +139,29 @@ def work():
         abort(404)
     return render_template('work.html', page=page)
 
+# Global Scarcity Sections for Navigation
+SCARCITY_SECTIONS = [
+    ('Overview', 'scarcity/overview'),
+    ('Architecture', 'scarcity/architecture'),
+    ('Core Components', 'scarcity/components'),
+    ('Engine (MPIE)', 'scarcity/engine'),
+    ('Federation', 'scarcity/federation'),
+    ('Meta-Learning', 'scarcity/meta_learning'),
+    ('Simulation', 'scarcity/simulation'),
+    ('Resource Governor', 'scarcity/drg'),
+    ('Stream Processing', 'scarcity/stream'),
+    ('Runtime System', 'scarcity/runtime'),
+    ('FMI', 'scarcity/fmi'),
+    ('Math Foundations', 'scarcity/math'),
+    ('API Reference', 'scarcity/api'),
+    ('Implementation', 'scarcity/implementation'),
+]
+
 @app.route('/scarcity/')
 def scarcity_hub():
     """Scarcity hub page"""
-    sections = [
-        ('Overview', 'scarcity/overview'),
-        ('Architecture', 'scarcity/architecture'),
-        ('Components', 'scarcity/components'),
-        ('Implementations', 'scarcity/implementations/index'),
-        ('Use Cases', 'scarcity/implementations/experiments'),
-        ('Limitations & Roadmap', 'scarcity/limitations'),
-        ('FAQ', 'scarcity/faq'),
-    ]
     resolved = []
-    for title, path in sections:
+    for title, path in SCARCITY_SECTIONS:
         page = flatpages.get(path)
         resolved.append({
             'title': title,
@@ -118,6 +180,63 @@ def scarcity_page(subpath):
     """Scarcity subpages"""
     return render_flatpage(f'scarcity/{subpath}')
 
+
+
+def render_flatpage(path):
+    """Render a FlatPages entry with contextual sidebar"""
+    page = flatpages.get(path)
+    if not page:
+        abort(404)
+        
+    sidebar_items = []
+    sidebar_title = ""
+    back_label = "Back to Home"
+    back_url = "/"
+    
+    # context: Scarcity
+    if path.startswith('scarcity/'):
+        sidebar_title = "Framework Manual"
+        back_label = "← Back to Project"
+        back_url = "/scarcity/"
+        # Format for sidebar: (Title, URL)
+        for title, p_path in SCARCITY_SECTIONS:
+            sidebar_items.append({
+                'title': title,
+                'url': page_url(p_path),
+                'active': p_path == path
+            })
+            
+    # context: Research Log
+    elif path.startswith('research-log/'):
+        sidebar_title = "Recent Logs"
+        back_label = "← Back to Lab Notes"
+        back_url = "/lab-notes/"
+        # Get last 5 logs
+        logs = [p for p in flatpages if p.path.startswith('research-log/')]
+        logs.sort(key=get_page_date, reverse=True)
+        for p in logs[:5]:
+            sidebar_items.append({
+                'title': p.meta.get('title', 'Untitled'),
+                'url': page_url(p.path),
+                'active': p.path == path
+            })
+
+    # context: Writing
+    elif path.startswith('writing/'):
+        sidebar_title = "Recent Essays"
+        back_label = "← Back to Lab Notes"
+        back_url = "/lab-notes/"
+        essays = [p for p in flatpages if p.path.startswith('writing/')]
+        essays.sort(key=get_page_date, reverse=True)
+        for p in essays[:5]:
+            sidebar_items.append({
+                'title': p.meta.get('title', 'Untitled'),
+                'url': page_url(p.path),
+                'active': p.path == path
+            })
+
+    return render_template('page.html', page=page, sidebar_title=sidebar_title, sidebar_items=sidebar_items, back_label=back_label, back_url=back_url)
+
 @app.route('/library/')
 def library_index():
     """Library landing grouped by category"""
@@ -130,7 +249,7 @@ def library_index():
         grouped.setdefault(category, []).append(page)
 
     for items in grouped.values():
-        items.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
+        items.sort(key=get_page_date, reverse=True)
 
     # Friendly ordering for the library hub
     category_order = [
@@ -160,7 +279,7 @@ def library_page(subpath):
 def research_log_index():
     """Research log landing"""
     logs = [p for p in flatpages if p.path.startswith('research-log/')]
-    logs.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
+    logs.sort(key=get_page_date, reverse=True)
     return render_template('research_log.html', logs=logs)
 
 @app.route('/research-log/<path:subpath>/')
@@ -182,7 +301,7 @@ def writing_index():
             grouped.setdefault(category, []).append(p)
 
     for items in grouped.values():
-        items.sort(key=lambda x: x.meta.get('date', datetime.min), reverse=True)
+        items.sort(key=get_page_date, reverse=True)
     
     category_order = ['essays', 'poetry', 'reflections']
     ordered_groups = []
@@ -201,20 +320,6 @@ def writing_index():
 def writing_page(subpath):
     """Writing subpages"""
     return render_flatpage(f'writing/{subpath}')
-
-@app.template_filter('format_date')
-def format_date(date):
-    """Format date for display"""
-    if isinstance(date, str):
-        try:
-            # Handle 'YYYY-MM-DD'
-            date = datetime.strptime(date, '%Y-%m-%d')
-        except ValueError:
-            # Handle other formats if necessary, or return as is
-            return date
-    if isinstance(date, datetime):
-        return date.strftime('%B %d, %Y')
-    return date
 
 @app.template_filter('page_url')
 def page_url(path):

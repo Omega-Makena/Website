@@ -4,57 +4,104 @@
 {% block meta_description %}{{ page.meta.description or config.site.description }}{% endblock %}
 
 {% block content %}
-<section class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-light-accent/5 via-transparent to-emerald-200/10 dark:from-dark-accent/10 dark:via-transparent dark:to-emerald-500/10 pointer-events-none"></div>
-    
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 space-y-10">
-        <div class="flex flex-col gap-6">
-            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 dark:bg-dark-card/70 border border-light-border dark:border-dark-border shadow-sm w-fit">
-                <span class="text-xs font-semibold uppercase tracking-[0.18em] text-light-muted dark:text-dark-muted">
-                    {{ page.meta.section or "Notes" }}
-                </span>
-                {% if page.meta.date %}
-                <span class="text-xs text-light-muted dark:text-dark-muted flex items-center gap-2">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M5 19h14M5 11v10a2 2 0 002 2h10a2 2 0 002-2V11"></path></svg>
-                    {{ page.meta.date|format_date }}
-                </span>
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid lg:grid-cols-12 gap-12">
+        {% if sidebar_items %}
+        <!-- Sidebar Navigation -->
+        <aside class="lg:col-span-3 hidden lg:block">
+            <div class="sticky top-32">
+                {% if sidebar_title %}
+                <h3
+                    class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-6 pl-4 border-l-2 border-transparent">
+                    {{ sidebar_title }}
+                </h3>
                 {% endif %}
+
+                <nav class="space-y-1">
+                    {% for item in sidebar_items %}
+                    <a href="{{ item.url }}" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              {% if item.active %}
+                              border-accent-main text-accent-main font-bold
+                              {% else %}
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              {% endif %}">
+                        {{ item.title }}
+                    </a>
+                    {% endfor %}
+
+                    <a href="{{ back_url }}"
+                        class="block mt-8 py-2 pl-4 text-xs font-mono text-gray-400 hover:text-text-primary transition-colors border-l-2 border-transparent hover:border-text-primary">
+                        {{ back_label }}
+                    </a>
+                </nav>
             </div>
-            
-            <div class="space-y-4">
-                <h1 class="text-4xl md:text-5xl font-display font-bold text-light-text dark:text-dark-text leading-tight">
-                    {{ page.meta.title }}
-                </h1>
-                {% if page.meta.description %}
-                <p class="text-lg text-light-muted dark:text-dark-muted max-w-3xl leading-relaxed">
-                    {{ page.meta.description }}
-                </p>
+        </aside>
+
+        <!-- Main Content with Sidebar -->
+        <main class="lg:col-span-9">
+            {% else %}
+            <!-- Main Content Centered (No Sidebar) -->
+            <main class="lg:col-span-8 lg:col-start-3">
                 {% endif %}
-            </div>
-        </div>
-        
-        <article class="bg-white dark:bg-dark-card/70 border border-light-border dark:border-dark-border rounded-2xl shadow-lg p-6 md:p-10">
-            <div class="prose prose-lg dark:prose-invert max-w-none">
-                {{ page.html|safe }}
-            </div>
-        </article>
-        
-        {% if page.meta.links %}
-        <div class="bg-white dark:bg-dark-card/60 border border-light-border dark:border-dark-border rounded-xl p-6 shadow-sm">
-            <h2 class="text-sm font-semibold uppercase tracking-[0.2em] text-light-muted dark:text-dark-muted mb-3">Related</h2>
-            <div class="grid gap-3 sm:grid-cols-2">
-                {% for link in page.meta.links %}
-                <a href="{{ link.url }}" class="flex items-start justify-between p-4 rounded-lg border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-accent transition-colors">
-                    <div>
-                        <div class="text-sm font-semibold text-light-text dark:text-dark-text">{{ link.title }}</div>
-                        <div class="text-xs text-light-muted dark:text-dark-muted mt-1">{{ link.description }}</div>
+
+                <!-- Header -->
+                <header class="mb-12 border-b border-gray-200 pb-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent-main">
+                            {{ page.meta.section or "NOTE" }}
+                        </span>
+                        {% if page.meta.date %}
+                        <span class="text-xs font-mono text-text-muted">
+                            // {{ page.meta.date|format_date }}
+                        </span>
+                        {% endif %}
                     </div>
-                    <span class="text-light-accent dark:text-dark-accent text-sm">→</span>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
+
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
+                        {{ page.meta.title }}
+                    </h1>
+
+                    {% if page.meta.description %}
+                    <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
+                        {{ page.meta.description }}
+                    </p>
+                    {% endif %}
+                </header>
+
+                <!-- Prose Content -->
+                <!-- Prose Content -->
+                <article class="prose prose-lg max-w-none 
+                            prose-headings:font-serif prose-headings:text-text-primary 
+                            prose-p:text-text-secondary prose-p:leading-relaxed 
+                            prose-a:text-accent-blue prose-a:no-underline hover:prose-a:underline 
+                            prose-strong:text-text-primary 
+                            prose-code:text-accent-main prose-code:bg-gray-50 prose-code:px-1 prose-code:rounded
+                            prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
+                            prose-ul:list-disc prose-ul:pl-6
+                            prose-li:marker:text-accent-main prose-li:my-2">
+                    {{ page.html|safe }}
+                </article>
+
+                <!-- Mobile Navigation (Bottom) -->
+                {% if sidebar_items %}
+                <div class="lg:hidden mt-16 border-t border-gray-200 pt-8">
+                    <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-4">Read Next
+                    </h3>
+                    <div class="flex flex-col gap-2">
+                        {% for item in sidebar_items %}
+                        {% if not item.active %}
+                        <a href="{{ item.url }}" class="text-sm py-2 text-accent-blue hover:underline">{{ item.title
+                            }}</a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+            </main>
+
     </div>
-</section>
+
+</div>
 {% endblock %}

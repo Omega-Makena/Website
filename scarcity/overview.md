@@ -1,52 +1,47 @@
 ---
-title: "SCARCITY Overview"
-date: "2025-01-01"
-description: "The high-level 'Sales Pitch' for the system."
+title: Overview
+description: High-level introduction to the SCARCITY v1.0.0 framework.
+date: 2025-12-23
 ---
 
-# SCARCITY: Scarcity-aware Causal Adaptive Resource-efficient Intelligence Training sYstem
+# Overview
 
-**SCARCITY** is an advanced machine learning framework designed for online, resource-constrained environments where data arrives in streams and computational resources are limited.
+**SCARCITY** is an online-first framework for scarcity-aware deep learning. It provides a complete runtime for adaptive, resource-efficient machine learning with real-time performance feedback and dynamic optimization.
 
-## Core Value Proposition
-SCARCITY enables organizations to:
-* **Learn from streaming data** in real-time without batch processing.
-* **Discover causal relationships** automatically from observational data.
-* **Adapt to resource constraints** dynamically (CPU, memory, GPU).
-* **Collaborate across domains** through federated learning.
+The core library implements a sophisticated multi-layered architecture designed for:
+1.  **Federated Learning**: Training across distributed, private nodes.
+2.  **Online Inference**: Learning from streaming data in real-time.
+3.  **Adaptive Resource Management**: Scaling compute based on device health.
 
-## The Problem
-Traditional machine learning systems face critical challenges in production environments:
-* **Data Scarcity**: Limited labeled data in specialized domains.
-* **Resource Constraints**: Edge devices often have limited compute and memory capacities.
-* **Real-time Demands**: Decisions are needed immediately, not after overnight batch training.
+---
 
-## Key Features
+### Key Features
 
-### 1. Multi-Path Inference Engine (MPIE)
-**Purpose**: Discover causal relationships from streaming data.
-* Automatic causal graph discovery.
-* Bootstrap-based statistical validation.
-* Hypergraph representation of causal structures.
+*   **Multi-Path Inference Engine (MPIE)**
+    Online bandit-based path exploration with UCB/Thompson sampling. Automatically finds the best calculation path.
 
-### 2. Dynamic Resource Governor (DRG)
-**Purpose**: Adapt system behavior to resource availability.
-* Real-time CPU/memory/GPU monitoring.
-* Predictive resource forecasting.
-* Adaptive policy enforcement to prevent system crashes.
+*   **Federated Learning**
+    Decentralized model aggregation with differential privacy preservation. Learn from data without seeing it.
 
-### 3. Federation Layer
-**Purpose**: Enable decentralized learning across organizations.
-* Peer-to-peer model sharing.
-* Multiple aggregation strategies (FedAvg, Weighted, Adaptive).
-* Differential privacy protection.
+*   **Meta-Learning**
+    Cross-domain adaptation using online **Reptile** optimization. Transfer knowledge between different environments.
 
-## Performance Characteristics
-SCARCITY is built for high-throughput, low-latency environments:
+*   **Dynamic Resource Governance (DRG)**
+    Adaptive resource allocation based on system telemetry. If CPU usage spikes, the model shrinks.
 
-| Metric | Performance |
-| :--- | :--- |
-| **Data Ingestion** | 100-500 windows/second |
-| **Causal Discovery** | 50-200 candidate paths/second |
-| **API Latency** | &lt; 100ms (p95) |
-| **Memory Usage** | 500MB - 2GB |
+*   **Real-time Simulation**
+    Agent-based modeling with 3D visualization to stress-test policies.
+
+*   **Stream Processing**
+    Continuous data ingestion with backpressure control (PI-Controller).
+
+*   **Event-Driven Architecture**
+    Asynchronous `pub/sub` communication fabric for non-blocking operations.
+
+---
+
+### Version Information
+
+*   **Version**: `1.0.0`
+*   **Author**: Omega Makena
+*   **License**: MIT (See LICENSE file)

@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}About - {{ config.site.title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid gap-6 lg:grid-cols-3">
+
+        <!-- COLUMN 1: Identity & Core -->
+        <div class="space-y-6">
+
+            <!-- [Container A] The Identity (Terminal) -->
+            <div class="bg-zinc-950 rounded-lg p-6 border border-zinc-800 shadow-xl overflow-hidden relative group">
+                <!-- Status Tag -->
+                <div class="absolute top-4 right-4 flex items-center space-x-2">
+                    <span class="relative flex h-3 w-3">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    </span>
+                    <span class="text-xs font-mono text-zinc-400">Deep in Research</span>
+                </div>
+
+                <div class="font-mono text-sm text-green-500 mb-4">
+                    <span class="text-zinc-500">$</span> pip install scarcity
+                </div>
+
+                <h2 class="text-2xl font-bold text-white mb-2 font-serif tracking-wide">The Architect of Constraints
+                </h2>
+                <div class="h-1 w-12 bg-accent-main mb-4"></div>
+
+                <p class="text-zinc-400 leading-relaxed font-sans text-sm">
+                    Machine Learning Engineer & Quantitative Researcher.
+                    <br><br>
+                    Building systems that thrive where data is sparse and compute is expensive.
+                </p>
+            </div>
+
+            <!-- [Container C] Philosophy -->
+            <div
+                class="omega-card bg-bg-card p-8 border border-border-main hover:border-accent-main transition-colors group">
+                <h3
+                    class="text-lg font-serif font-bold text-text-primary mb-4 group-hover:text-accent-main transition-colors">
+                    Default to Constraints.</h3>
+                <blockquote
+                    class="text-text-muted italic border-l-2 border-accent-main/30 pl-4 py-1 text-sm leading-relaxed">
+                    "I learned to ship ML with no paid data and minimal compute. No assumption is sacred unless the data
+                    can survive without it.
+                    <br><br>
+                    The best architectures are honest about what they don't know, and they fail in visible, reversible
+                    ways."
+                </blockquote>
+            </div>
+
+            <!-- [Container E] The Human -->
+            <div class="omega-card bg-bg-subtle p-6 border border-border-main">
+                <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-6">The Human</h3>
+                <ul class="space-y-3 font-mono text-sm">
+                    <li class="flex items-start justify-between border-b border-gray-200 pb-2">
+                        <span class="text-text-primary font-bold">Running</span>
+                        <span class="text-text-muted italic text-xs">To think.</span>
+                    </li>
+                    <li class="flex items-start justify-between border-b border-gray-200 pb-2">
+                        <span class="text-text-primary font-bold">Cooking</span>
+                        <span class="text-text-muted italic text-xs">To slow down.</span>
+                    </li>
+                    <li class="flex items-start justify-between border-b border-gray-200 pb-2">
+                        <span class="text-text-primary font-bold">TV</span>
+                        <span class="text-text-muted italic text-xs">To escape.</span>
+                    </li>
+                    <li class="flex items-start justify-between">
+                        <span class="text-text-primary font-bold">Sociology</span>
+                        <span class="text-text-muted italic text-xs">To understand failure.</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- COLUMN 2 & 3: The Narrative -->
+        <div class="lg:col-span-2 space-y-6">
+
+            <!-- [Container B] Project Genesis -->
+            <div class="omega-card bg-white p-10 border border-border-main relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm6 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z" />
+                    </svg>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="text-3xl font-serif font-bold text-text-primary mb-2">PROJECT GENESIS</h2>
+                    <p class="font-mono text-sm text-accent-main tracking-widest uppercase">From "Tango" to "Scarcity":
+                        An Architecture of Necessity.</p>
+                </div>
+
+                <div class="space-y-8 relative pl-2">
+                    <!-- Vertical Line -->
+                    <div class="absolute left-[7px] top-2 bottom-4 w-0.5 bg-gray-200"></div>
+
+                    <!-- Step 1 -->
+                    <div class="relative pl-8 group">
+                        <div
+                            class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-main bg-white group-hover:bg-accent-main transition-colors">
+                        </div>
+                        <h4 class="font-bold text-text-primary mb-1">The Data Void</h4>
+                        <p class="text-sm text-text-muted leading-relaxed">
+                            Failed to build a Macro-Policy Sim because no data existed.
+                            <br><span class="text-accent-main font-bold">→ Solution: Online Learning.</span>
+                        </p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative pl-8 group">
+                        <div
+                            class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-main bg-white group-hover:bg-accent-main transition-colors">
+                        </div>
+                        <h4 class="font-bold text-text-primary mb-1">The Privacy Wall</h4>
+                        <p class="text-sm text-text-muted leading-relaxed">
+                            Needed sensitive user data without seeing it.
+                            <br><span class="text-accent-main font-bold">→ Solution: Federated Learning.</span>
+                        </p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative pl-8 group">
+                        <div
+                            class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-main bg-white group-hover:bg-accent-main transition-colors">
+                        </div>
+                        <h4 class="font-bold text-text-primary mb-1">The Cold Start</h4>
+                        <p class="text-sm text-text-muted leading-relaxed">
+                            System started with zero context.
+                            <br><span class="text-accent-main font-bold">→ Solution: Meta-Learning.</span>
+                        </p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative pl-8 group">
+                        <div
+                            class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-main bg-white group-hover:bg-accent-main transition-colors">
+                        </div>
+                        <h4 class="font-bold text-text-primary mb-1">The Dimensional Chaos</h4>
+                        <p class="text-sm text-text-muted leading-relaxed">
+                            Unpredictable data shapes.
+                            <br><span class="text-accent-main font-bold">→ Solution: Mixture of Experts (MoE).</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-gray-100 italic text-center text-text-muted text-sm font-serif">
+                    "It wasn't a bunch of buzzwords. It was a survival guide."
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-6">
+                <!-- [Container D] Tech Twirls -->
+                <div
+                    class="bg-gradient-to-br from-indigo-900 to-indigo-950 p-8 rounded-lg text-white relative overflow-hidden flex flex-col justify-between">
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-serif font-bold mb-1">Tech Twirls</h3>
+                        <p class="text-indigo-300 font-mono text-xs uppercase tracking-widest mb-4">Instincts over
+                            Syntax</p>
+
+                        <p class="text-indigo-100 text-sm leading-relaxed mb-8">
+                            "Mentoring women in tech to build reliable engineering instincts. We are building a
+                            community that survives the hype cycle."
+                        </p>
+                    </div>
+
+                    <div class="relative z-10">
+                        <a href="https://techtwirls.co.ke" target="_blank"
+                            class="block w-full py-3 bg-white text-indigo-900 font-bold text-center text-sm hover:bg-indigo-50 transition-colors rounded-sm uppercase tracking-wide">
+                            Visit techtwirls.co.ke
+                        </a>
+                        <p class="mt-4 text-[10px] text-indigo-400 text-center italic">
+                            Interested in collaborating? Use the site form.
+                        </p>
+                    </div>
+
+                    <!-- Decor -->
+                    <div class="absolute -bottom-8 -right-8 w-32 h-32 bg-indigo-500 rounded-full blur-3xl opacity-20">
+                    </div>
+                </div>
+
+                <!-- [Container F] FAQs -->
+                <div class="space-y-3">
+                    <div class="omega-card bg-bg-card p-4 border border-border-main cursor-pointer hover:border-accent-main transition-all"
+                        onclick="this.classList.toggle('active')">
+                        <h4 class="font-bold text-sm text-text-primary flex justify-between items-center mb-1">
+                            Is Scarcity open source?
+                            <span class="text-accent-main text-xs font-mono">∨</span>
+                        </h4>
+                        <p class="text-xs text-text-muted leading-relaxed mt-2 hidden">
+                            Yes. It is designed for public transparency. My goal is to lower the barrier for
+                            high-privacy, low-resource machine learning.
+                        </p>
+                    </div>
+
+                    <div class="omega-card bg-bg-card p-4 border border-border-main cursor-pointer hover:border-accent-main transition-all"
+                        onclick="this.classList.toggle('active')">
+                        <h4 class="font-bold text-sm text-text-primary flex justify-between items-center mb-1">
+                            Are you an economist?
+                            <span class="text-accent-main text-xs font-mono">∨</span>
+                        </h4>
+                        <p class="text-xs text-text-muted leading-relaxed mt-2 hidden">
+                            No. Scarcity exists because I am not. I built the system to survive my lack of domain
+                            knowledge by using raw data and online learning instead.
+                        </p>
+                    </div>
+
+                    <div class="omega-card bg-bg-card p-4 border border-border-main cursor-pointer hover:border-accent-main transition-all"
+                        onclick="this.classList.toggle('active')">
+                        <h4 class="font-bold text-sm text-text-primary flex justify-between items-center mb-1">
+                            Partnerships?
+                            <span class="text-accent-main text-xs font-mono">∨</span>
+                        </h4>
+                        <p class="text-xs text-text-muted leading-relaxed mt-2 hidden">
+                            We love collaborations that help our students. Visit techtwirls.co.ke and use the contact
+                            form to discuss partnerships.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .omega-card.active p {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-5px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}
