@@ -13,7 +13,7 @@ app.config['FLATPAGES_EXTENSION'] = '.md'
 app.config['FLATPAGES_ROOT'] = '.'  # Scan the entire project
 app.config['FLATPAGES_MARKDOWN_EXTENSIONS'] = ['codehilite', 'fenced_code', 'tables']
 # Exclude vendor folders to avoid parsing unnecessary files
-app.config['FLATPAGES_EXCLUDE'] = ['venv', 'node_modules']
+app.config['FLATPAGES_EXCLUDE'] = ['venv', '.venv', 'node_modules', '.git', 'docs', 'site', '__pycache__']
 
 
 flatpages = FlatPages(app)

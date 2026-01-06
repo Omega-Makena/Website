@@ -266,6 +266,22 @@ git push origin main
 4. **Enable HTTPS:**
    In GitHub Pages settings, check "Enforce HTTPS" once DNS has propagated (usually 24-48 hours)
 
+### Step 13: Enable Analytics (Optional)
+
+To track visits to your website:
+
+1.  Go to [Google Analytics](https://analytics.google.com/) and create a free account.
+2.  Create a new property for your website.
+3.  Get your **Measurement ID** (it starts with `G-XX...`).
+4.  Open `config.yaml` and paste it:
+    ```yaml
+    site:
+      # ...
+      google_analytics_id: "G-XXXXXXXXXX"
+    ```
+5.  Deploy your site using `python freeze.py` and git push.
+
+
 ## Project Structure Explained
 
 ```

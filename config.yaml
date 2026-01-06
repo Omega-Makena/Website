@@ -7,6 +7,8 @@ site:
   description: Machine Learning Engineer based in Kenya building systems that learn, predict, and automate.
   url: https://omegamakena.co.ke
   author: Omega Makena
+  # Google Analytics Measurement ID (starts with G-). Leave empty to disable.
+  google_analytics_id: ""
 
 # Personal Information
 personal:
