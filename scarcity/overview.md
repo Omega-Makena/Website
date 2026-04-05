@@ -1,12 +1,12 @@
 ---
 title: Overview
-description: High-level introduction to the SCARCITY v1.0.0 framework.
+description: High-level introduction to the Scarcity v1.0.0 framework.
 date: 2025-12-23
 ---
 
 # Overview
 
-**SCARCITY** is an online-first framework for scarcity-aware deep learning. It provides a complete runtime for adaptive, resource-efficient machine learning with real-time performance feedback and dynamic optimization.
+**Scarcity** is an online-first framework for scarcity-aware deep learning. It provides a complete runtime for adaptive, resource-efficient machine learning with real-time performance feedback and dynamic optimization.
 
 The core library implements a sophisticated multi-layered architecture designed for:
 1.  **Federated Learning**: Training across distributed, private nodes.

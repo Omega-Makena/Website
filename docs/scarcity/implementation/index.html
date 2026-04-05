@@ -20,7 +20,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="/static/css/syntax.css">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -182,7 +182,7 @@
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="/scarcity/" class="nav-link">PROJECTS</a>
+                    <a href="/projects/" class="nav-link">PROJECTS</a>
                     <a href="/lab-notes/" class="nav-link">LAB NOTES</a>
                     <a href="/about/" class="nav-link">ABOUT</a>
                     <a href="/work-with-me/" class="nav-link">CONTACT</a>
@@ -204,7 +204,7 @@
         <!-- Mobile menu -->
         <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
             <div class="px-4 pt-2 pb-4 space-y-2">
-                <a href="/scarcity/"
+                <a href="/projects/"
                     class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
                 <a href="/lab-notes/"
                     class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">LAB NOTES</a>
@@ -538,15 +538,47 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'neutral',
-            themeVariables: {
-                'background': 'transparent',
-                'primaryColor': '#18181B',
-                'primaryTextColor': '#18181B',
-                'lineColor': '#a3a3a3',
-                'fontSize': '16px'
+        document.addEventListener("DOMContentLoaded", function() {
+            // FlatPages/Pygments strips the `language-mermaid` class and injects spans.
+            // We search for all code blocks and check if the unformatted text indicates a diagram.
+            const allCodeBlocks = document.querySelectorAll(".codehilite code, pre code");
+            const blocksToProcess = [];
+            
+            allCodeBlocks.forEach(function(block) {
+                const text = block.textContent.trim();
+                if (text.startsWith("flowchart") || text.startsWith("sequenceDiagram") || text.startsWith("graph") || text.startsWith("stateDiagram")) {
+                    blocksToProcess.push({block: block, text: text});
+                }
+            });
+
+            blocksToProcess.forEach(function(item) {
+                const div = document.createElement('div');
+                div.className = 'mermaid flex justify-center w-full overflow-x-auto my-8'; 
+                div.textContent = item.text;
+                
+                const container = item.block.closest('.codehilite') || item.block.closest('pre');
+                if (container) {
+                    container.replaceWith(div);
+                }
+            });
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'neutral',
+                themeVariables: {
+                    'background': 'transparent',
+                    'primaryColor': '#18181B',
+                    'primaryTextColor': '#18181B',
+                    'lineColor': '#a3a3a3',
+                    'fontSize': '14px'
+                }
+            });
+            
+            if (blocksToProcess.length > 0) {
+                // Let the browser paint the divs before running mermaid
+                setTimeout(() => {
+                    mermaid.run({ querySelector: '.mermaid' });
+                }, 50);
             }
         });
     </script>

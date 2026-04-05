@@ -1,12 +1,12 @@
 ---
-title: "SCARCITY Limitations & Roadmap"
+title: "Scarcity Limitations & Roadmap"
 date: "2025-01-01"
 description: "Transparency about what is missing or in progress."
 ---
 
 # Limitations & Roadmap
 
-We believe in transparency regarding the current state of the SCARCITY framework.
+We believe in transparency regarding the current state of the Scarcity framework.
 
 ## Current Limitations
 

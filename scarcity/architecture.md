@@ -1,12 +1,12 @@
 ---
 title: Architecture
-description: The layered architecture of SCARCITY.
+description: The layered architecture of Scarcity.
 date: 2025-12-23
 ---
 
 # Architecture
 
-The **SCARCITY** core library follows a layered architecture with clear separation of concerns.
+The **Scarcity** core library follows a layered architecture with clear separation of concerns.
 
 ### System Diagram
 

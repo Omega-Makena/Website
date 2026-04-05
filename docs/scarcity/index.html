@@ -10,7 +10,7 @@
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
 
-    <title>ScarCity - Omega Makena</title>
+    <title>Scarcity - Omega Makena</title>
 
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +20,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="/static/css/syntax.css">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -182,7 +182,7 @@
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="/scarcity/" class="nav-link">PROJECTS</a>
+                    <a href="/projects/" class="nav-link">PROJECTS</a>
                     <a href="/lab-notes/" class="nav-link">LAB NOTES</a>
                     <a href="/about/" class="nav-link">ABOUT</a>
                     <a href="/work-with-me/" class="nav-link">CONTACT</a>
@@ -204,7 +204,7 @@
         <!-- Mobile menu -->
         <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
             <div class="px-4 pt-2 pb-4 space-y-2">
-                <a href="/scarcity/"
+                <a href="/projects/"
                     class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
                 <a href="/lab-notes/"
                     class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">LAB NOTES</a>
@@ -222,7 +222,7 @@
 
     <!-- Header -->
     <section class="max-w-4xl mx-auto text-center mb-24 fade-in">
-        <h1 class="text-6xl md:text-7xl font-serif font-bold text-text-primary mb-8">ScarCity</h1>
+        <h1 class="text-6xl md:text-7xl font-serif font-bold text-text-primary mb-8">Scarcity</h1>
         <p class="text-xl md:text-2xl text-text-muted font-light leading-relaxed max-w-3xl mx-auto">
             A framework for training ML models without data.
             <br>
@@ -248,7 +248,7 @@
 
             <p class="text-text-muted leading-relaxed mb-8 flex-grow">
                 
-                High-level introduction to the SCARCITY v1.0.0 framework.
+                High-level introduction to the Scarcity v1.0.0 framework.
                 
             </p>
 
@@ -278,7 +278,7 @@
 
             <p class="text-text-muted leading-relaxed mb-8 flex-grow">
                 
-                The layered architecture of SCARCITY.
+                The layered architecture of Scarcity.
                 
             </p>
 
@@ -578,7 +578,7 @@
 
             <p class="text-text-muted leading-relaxed mb-8 flex-grow">
                 
-                Algorithms and theoretical basis of SCARCITY.
+                Algorithms and theoretical basis of Scarcity.
                 
             </p>
 
@@ -658,7 +658,7 @@
 
     <!-- GitHub Link Footer -->
     <div class="text-center mt-24 border-t border-gray-200/50 pt-16 fade-in" style="animation-delay: 0.2s;">
-        <a href="https://github.com/Omega-Makena/code2" target="_blank"
+        <a href="https://github.com/Omega-Makena/KScarcity" target="_blank"
             class="inline-flex items-center space-x-3 text-text-muted hover:text-accent-green transition-colors">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path
@@ -711,15 +711,47 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'neutral',
-            themeVariables: {
-                'background': 'transparent',
-                'primaryColor': '#18181B',
-                'primaryTextColor': '#18181B',
-                'lineColor': '#a3a3a3',
-                'fontSize': '16px'
+        document.addEventListener("DOMContentLoaded", function() {
+            // FlatPages/Pygments strips the `language-mermaid` class and injects spans.
+            // We search for all code blocks and check if the unformatted text indicates a diagram.
+            const allCodeBlocks = document.querySelectorAll(".codehilite code, pre code");
+            const blocksToProcess = [];
+            
+            allCodeBlocks.forEach(function(block) {
+                const text = block.textContent.trim();
+                if (text.startsWith("flowchart") || text.startsWith("sequenceDiagram") || text.startsWith("graph") || text.startsWith("stateDiagram")) {
+                    blocksToProcess.push({block: block, text: text});
+                }
+            });
+
+            blocksToProcess.forEach(function(item) {
+                const div = document.createElement('div');
+                div.className = 'mermaid flex justify-center w-full overflow-x-auto my-8'; 
+                div.textContent = item.text;
+                
+                const container = item.block.closest('.codehilite') || item.block.closest('pre');
+                if (container) {
+                    container.replaceWith(div);
+                }
+            });
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'neutral',
+                themeVariables: {
+                    'background': 'transparent',
+                    'primaryColor': '#18181B',
+                    'primaryTextColor': '#18181B',
+                    'lineColor': '#a3a3a3',
+                    'fontSize': '14px'
+                }
+            });
+            
+            if (blocksToProcess.length > 0) {
+                // Let the browser paint the divs before running mermaid
+                setTimeout(() => {
+                    mermaid.run({ querySelector: '.mermaid' });
+                }, 50);
             }
         });
     </script>

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Projects - {{ config.site.title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <div class="mb-16 md:mb-24 mt-12 text-center">
+        <h1 class="text-4xl md:text-6xl font-serif text-text-primary mb-6">National Intelligence Network</h1>
+        <p class="text-lg md:text-xl text-text-muted max-w-3xl mx-auto font-sans leading-relaxed">
+            A cohesive suite of frameworks and platforms designed to monitor, simulate, and adapt to national-level dynamics under scarce compute and data realities.
+        </p>
+    </div>
+
+    <!-- The 5 Portrait Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        
+        <!-- Card 1: Scarcity -->
+        <a href="/projects/scarcity/" class="omega-card group flex flex-col justify-between aspect-[3/4] hover:border-accent-main transition-all duration-300 relative overflow-hidden">
+            <div class="z-10">
+                <div class="text-xs font-mono font-bold text-accent-main tracking-widest uppercase mb-4 opacity-80 group-hover:opacity-100">Framework</div>
+                <h2 class="text-2xl font-serif font-bold text-text-primary mb-4 group-hover:text-accent-main transition-colors">Scarcity</h2>
+                <p class="text-sm text-text-muted font-sans leading-relaxed">
+                    A machine learning framework designed to train machine learning models under data and compute scarce environments.
+                </p>
+            </div>
+            <div class="z-10 mt-6 flex items-center text-sm font-bold text-text-primary group-hover:text-accent-main transition-colors font-mono uppercase tracking-widest">
+                Explore <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </div>
+        </a>
+
+        <!-- Card 2: KShield -->
+        <a href="/projects/kshield/" class="omega-card group flex flex-col justify-between aspect-[3/4] hover:border-accent-main transition-all duration-300 relative overflow-hidden">
+            <div class="z-10">
+                <div class="text-xs font-mono font-bold text-accent-main tracking-widest uppercase mb-4 opacity-80 group-hover:opacity-100">Simulation</div>
+                <h2 class="text-2xl font-serif font-bold text-text-primary mb-4 group-hover:text-accent-main transition-colors">KShield</h2>
+                <p class="text-sm text-text-muted font-sans leading-relaxed">
+                    An agent-based economic simulation system that models Kenya's economy by representing sectors and actors as adaptive decision-making agents.
+                </p>
+            </div>
+            <div class="z-10 mt-6 flex items-center text-sm font-bold text-text-primary group-hover:text-accent-main transition-colors font-mono uppercase tracking-widest">
+                Explore <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </div>
+        </a>
+
+        <!-- Card 3: KPulse (K Policy) -->
+        <a href="/projects/kpulse/" class="omega-card group flex flex-col justify-between aspect-[3/4] hover:border-accent-main transition-all duration-300 relative overflow-hidden">
+            <div class="z-10">
+                <div class="text-xs font-mono font-bold text-accent-main tracking-widest uppercase mb-4 opacity-80 group-hover:opacity-100">Sensing</div>
+                <h2 class="text-2xl font-serif font-bold text-text-primary mb-4 group-hover:text-accent-main transition-colors">KPulse</h2>
+                <p class="text-sm text-text-muted font-sans leading-relaxed">
+                    A social sensing system that monitors online platforms in real-time to identify public sentiment, emerging threats, and reactions to policies or crises.
+                </p>
+            </div>
+            <div class="z-10 mt-6 flex items-center text-sm font-bold text-text-primary group-hover:text-accent-main transition-colors font-mono uppercase tracking-widest">
+                Explore <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </div>
+        </a>
+
+        <!-- Card 4: KCollab -->
+        <a href="/projects/kcollab/" class="omega-card group flex flex-col justify-between aspect-[3/4] hover:border-accent-main transition-all duration-300 relative overflow-hidden">
+            <div class="z-10">
+                <div class="text-xs font-mono font-bold text-accent-main tracking-widest uppercase mb-4 opacity-80 group-hover:opacity-100">Operation</div>
+                <h2 class="text-2xl font-serif font-bold text-text-primary mb-4 group-hover:text-accent-main transition-colors">KCollab</h2>
+                <p class="text-sm text-text-muted font-sans leading-relaxed">
+                    A collaborative platform connecting stakeholders—government, businesses, and researchers—to coordinate responses, joint planning, and decision-making.
+                </p>
+            </div>
+            <div class="z-10 mt-6 flex items-center text-sm font-bold text-text-primary group-hover:text-accent-main transition-colors font-mono uppercase tracking-widest">
+                Explore <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </div>
+        </a>
+
+        <!-- Card 5: KScarcity -->
+        <a href="/projects/kscarcity/" class="omega-card group flex flex-col justify-between aspect-[3/4] hover:border-accent-main transition-all duration-300 relative overflow-hidden">
+            <div class="z-10">
+                <div class="text-xs font-mono font-bold text-accent-main tracking-widest uppercase mb-4 opacity-80 group-hover:opacity-100">Platform</div>
+                <h2 class="text-2xl font-serif font-bold text-text-primary mb-4 group-hover:text-accent-main transition-colors">KScarcity</h2>
+                <p class="text-sm text-text-muted font-sans leading-relaxed">
+                    A unified national-level platform analyzing data across layers, simulating risks, explaining outcomes, and providing a real-time overview of interventions.
+                </p>
+            </div>
+            <div class="z-10 mt-6 flex items-center text-sm font-bold text-text-primary group-hover:text-accent-main transition-colors font-mono uppercase tracking-widest">
+                Explore <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </div>
+        </a>
+
+    </div>
+</div>
+{% endblock %}

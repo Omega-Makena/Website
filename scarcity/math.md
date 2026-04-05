@@ -1,6 +1,6 @@
 ---
 title: Mathematical Foundations
-description: Algorithms and theoretical basis of SCARCITY.
+description: Algorithms and theoretical basis of Scarcity.
 date: 2025-12-23
 ---
 

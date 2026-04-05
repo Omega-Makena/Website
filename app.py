@@ -1,6 +1,7 @@
 from flask import Flask, render_template, abort, redirect, url_for
 from flask_flatpages import FlatPages
-from datetime import datetime
+from datetime import datetime, date
+from typing import Any, List, Dict
 import yaml
 from pathlib import Path
 import os
@@ -49,7 +50,7 @@ def format_date(value):
     # Note: datetime is a subclass of date, so isinstance(dt, date) is True.
     # We can just check for .strftime method.
     if hasattr(date_obj, 'strftime'):
-        return date_obj.strftime('%B %d, %Y')
+        return date_obj.strftime('%B %d, %Y')  # type: ignore
         
     return value
 
@@ -70,7 +71,7 @@ def get_page_date(page):
 @app.route('/')
 def index():
     """Home / Command Center"""
-    all_content = []
+    all_content: List[Any] = []
     
     # Research Logs
     for p in flatpages:
@@ -88,7 +89,7 @@ def index():
     all_content.sort(key=get_page_date, reverse=True)
     
     # Get top 6
-    feed_items = all_content[:6]
+    feed_items = all_content[:6]  # type: ignore
 
     return render_template(
         'index.html',
@@ -98,7 +99,7 @@ def index():
 @app.route('/lab-notes/')
 def lab_notes():
     """The Lab Notes Archive (grouped)"""
-    grouped = {
+    grouped: Dict[str, List[Any]] = {
         'essays': [],
         'logs': [],
         'library': []
@@ -139,6 +140,16 @@ def work():
         abort(404)
     return render_template('work.html', page=page)
 
+@app.route('/projects/')
+def projects():
+    """Projects / Cards page"""
+    return render_template('projects.html')
+
+@app.route('/projects/<path:subpath>/')
+def project_page(subpath):
+    """Individual project pages"""
+    return render_flatpage(f'projects/{subpath}')
+
 # Global Scarcity Sections for Navigation
 SCARCITY_SECTIONS = [
     ('Overview', 'scarcity/overview'),
@@ -160,7 +171,7 @@ SCARCITY_SECTIONS = [
 @app.route('/scarcity/')
 def scarcity_hub():
     """Scarcity hub page"""
-    resolved = []
+    resolved: List[Dict[str, Any]] = []
     for title, path in SCARCITY_SECTIONS:
         page = flatpages.get(path)
         resolved.append({
@@ -188,7 +199,7 @@ def render_flatpage(path):
     if not page:
         abort(404)
         
-    sidebar_items = []
+    sidebar_items: List[Dict[str, Any]] = []
     sidebar_title = ""
     back_label = "Back to Home"
     back_url = "/"
@@ -214,7 +225,7 @@ def render_flatpage(path):
         # Get last 5 logs
         logs = [p for p in flatpages if p.path.startswith('research-log/')]
         logs.sort(key=get_page_date, reverse=True)
-        for p in logs[:5]:
+        for p in logs[:5]:  # type: ignore
             sidebar_items.append({
                 'title': p.meta.get('title', 'Untitled'),
                 'url': page_url(p.path),
@@ -228,7 +239,7 @@ def render_flatpage(path):
         back_url = "/lab-notes/"
         essays = [p for p in flatpages if p.path.startswith('writing/')]
         essays.sort(key=get_page_date, reverse=True)
-        for p in essays[:5]:
+        for p in essays[:5]:  # type: ignore
             sidebar_items.append({
                 'title': p.meta.get('title', 'Untitled'),
                 'url': page_url(p.path),
@@ -246,7 +257,9 @@ def library_index():
     for page in pages:
         parts = page.path.split('/')
         category = parts[1] if len(parts) > 1 else 'foundations'
-        grouped.setdefault(category, []).append(page)
+        if category not in grouped:
+            grouped[category] = []
+        grouped[category].append(page)
 
     for items in grouped.values():
         items.sort(key=get_page_date, reverse=True)
@@ -298,7 +311,9 @@ def writing_index():
         parts = p.path.split('/')
         if len(parts) > 1 and parts[1] in ['essays', 'poetry', 'reflections']:
             category = parts[1]
-            grouped.setdefault(category, []).append(p)
+            if category not in grouped:
+                grouped[category] = []
+            grouped[category].append(p)
 
     for items in grouped.values():
         items.sort(key=get_page_date, reverse=True)

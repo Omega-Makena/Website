@@ -1,12 +1,12 @@
 ---
-title: "SCARCITY Implementations"
+title: "Scarcity Implementations"
 date: "2025-01-01"
 description: "Instructions for installing the Python Lib vs the Demo App."
 ---
 
 # Implementations & Setup
 
-SCARCITY can be used as a standalone Python library for your own projects, or deployed as a full-stack system with a visual dashboard.
+Scarcity can be used as a standalone Python library for your own projects, or deployed as a full-stack system with a visual dashboard.
 
 ## 1. Core Library (Python)
 For data scientists and engineers who want to use the **MPIE** (Causal Discovery) or **DRG** (Resource Governor) algorithms in their own scripts.
