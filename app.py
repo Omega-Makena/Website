@@ -127,9 +127,9 @@ def about():
     """About page (Bento Grid)"""
     return render_template('about.html')
 
-@app.route('/work-with-me/')
-def work_with_me():
-    """Collaboration page"""
+@app.route('/services/')
+def services():
+    """Omega Labs Services page"""
     return render_template('work_with_me.html')
 
 @app.route('/work/')

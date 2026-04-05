@@ -3,95 +3,191 @@
 {% block content %}
 <div class="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
 
-    <!-- Hero Section -->
-    <section class="max-w-4xl mx-auto text-center pt-24 pb-20 fade-in">
-        <h1 class="text-4xl md:text-5xl lg:text-[48px] leading-tight mb-6 font-bold text-text-primary">
-            Engineering Intelligence <br /> Under Constraints.
+    <!-- Hero Section: Omega Labs Core Identity -->
+    <section class="max-w-5xl mx-auto pt-24 pb-20 fade-in flex flex-col items-center">
+        <div class="inline-block bg-accent-main/10 border border-accent-main/30 text-accent-main rounded-full px-4 py-1 text-[10px] font-mono uppercase tracking-widest mb-6 text-center">
+            Commercial AI Research Consultancy
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-[64px] leading-tight mb-6 font-serif text-text-primary font-bold text-center">
+            Omega Labs
         </h1>
-        <p class="text-lg md:text-[18px] text-text-muted leading-relaxed max-w-2xl mx-auto font-sans">
-            Omega Labs is a quantitative research studio building decentralized machine learning infrastructure.
+        <p class="text-lg md:text-xl text-text-muted font-light max-w-2xl text-center mb-12">
+            Engineering high-assurance artificial intelligence for environments where data is sparse, sensitive, and fiercely regulated.
         </p>
-    </section>
+        
+        <!-- Identity Matrix (Bento Grid) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full text-left">
+            
+            <div class="omega-card bg-bg-card p-8 border border-border-main hover:border-accent-main transition-colors shadow-sm group">
+                <div class="flex items-center mb-4">
+                    <span class="w-1.5 h-1.5 bg-accent-main rounded-full mr-3 group-hover:scale-150 transition-transform"></span>
+                    <h3 class="text-[10px] font-mono font-bold uppercase tracking-widest text-text-muted">Who We Are</h3>
+                </div>
+                <p class="text-sm text-text-muted leading-relaxed">
+                    A Kenyan AI research consultancy operating at the intersection of high-assurance AI engineering, enterprise R&D, and B2B/B2G productization.
+                </p>
+            </div>
+            
+            <div class="omega-card bg-bg-card p-8 border border-border-main hover:border-accent-blue transition-colors shadow-sm group">
+                <div class="flex items-center mb-4">
+                    <span class="w-1.5 h-1.5 bg-accent-blue rounded-full mr-3 group-hover:scale-150 transition-transform"></span>
+                    <h3 class="text-[10px] font-mono font-bold uppercase tracking-widest text-text-muted">What We Do</h3>
+                </div>
+                <p class="text-sm text-text-muted leading-relaxed">
+                    We design state-of-the-art machine learning systems, strategic simulation engines, and federated networks for environments where data is highly sensitive and strictly regulated.
+                </p>
+            </div>
+            
+            <div class="omega-card bg-bg-card p-8 border border-border-main hover:border-accent-yellow transition-colors shadow-sm group">
+                <div class="flex items-center mb-4">
+                    <span class="w-1.5 h-1.5 bg-accent-yellow rounded-full mr-3 group-hover:scale-150 transition-transform"></span>
+                    <h3 class="text-[10px] font-mono font-bold uppercase tracking-widest text-text-muted">How We Do It</h3>
+                </div>
+                <p class="text-sm text-text-muted leading-relaxed">
+                    We reject the "big data" fallacy. We push compute directly to the data through decentralized architectures—navigating privacy walls and data scarcity through rigorous, constraint-first design.
+                </p>
+            </div>
+            
+            <div class="omega-card bg-bg-card p-8 border border-accent-green hover:shadow-lg transition-all shadow-sm group relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 w-16 h-16 bg-accent-green/10 rounded-full blur-xl group-hover:bg-accent-green/20 transition-colors"></div>
+                <div class="flex items-center mb-4 relative z-10">
+                    <span class="w-1.5 h-1.5 bg-accent-green rounded-full mr-3 group-hover:scale-150 transition-transform animate-pulse"></span>
+                    <h3 class="text-[10px] font-mono font-bold uppercase tracking-widest text-accent-green">Why We Do It</h3>
+                </div>
+                <p class="text-sm text-text-muted leading-relaxed relative z-10">
+                    <strong class="text-text-primary">Sovereign systems require sovereign IP.</strong> We believe critical defense, enterprise, and national infrastructure must be designed entirely by our own minds to guarantee total technological independence.
+                </p>
+            </div>
 
-    <!-- Featured Project: Scarcity -->
-    <section class="mb-24 fade-in" style="animation-delay: 0.1s;">
-        <div class="flex items-center space-x-2 mb-4">
-            <div class="h-2 w-2 bg-accent-green rounded-full animate-pulse"></div>
-            <span class="text-accent-green font-mono text-xs font-bold tracking-wider uppercase">Active
-                Development</span>
         </div>
 
-        <div class="omega-card relative overflow-hidden border-l-[4px] border-l-accent-green group bg-bg-subtle">
-            <div class="grid md:grid-cols-2 gap-12 items-start">
-                <div class="space-y-6">
-                    <div>
-                        <h2 class="text-4xl font-serif font-bold mb-2 text-text-primary">ScarCity</h2>
-                        <span
-                            class="inline-block bg-white border border-gray-200 px-2 py-1 rounded text-xs font-mono text-text-muted">v0.1.0-alpha</span>
-                    </div>
+        <!-- Call to Action -->
+        <div class="mt-12 flex space-x-4">
+            <a href="/services/" class="px-8 py-3 bg-text-primary text-white font-bold text-sm rounded shadow hover:bg-black transition-colors hover:-translate-y-1">
+                Explore Our Services
+            </a>
+            <a href="/about/" class="px-8 py-3 bg-white text-text-primary border border-border-main font-bold text-sm rounded shadow-sm hover:border-text-primary transition-colors hover:-translate-y-1">
+                The Omega Methodology
+            </a>
+        </div>
+    </section>
 
-                    <p class="text-text-primary text-lg leading-relaxed">
-                        A framework for training machine learning models without direct data access.
-                        Scarcity introduces a new paradigm where <span class="font-semibold text-accent-main">compute
-                            moves to data</span>.
-                    </p>
-
-                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                        <div
-                            class="bg-text-primary text-white border border-text-primary rounded px-4 py-3 font-mono text-sm flex items-center shadow-lg">
-                            <span class="mr-2 text-gray-400">$</span> pip install scarcity
-                        </div>
-                        <a href="/scarcity/"
-                            class="inline-flex items-center text-text-primary font-bold hover:text-accent-main transition-colors px-4 py-3 border border-gray-300 rounded bg-white hover:border-accent-main">
-                            View Documentation
-                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Diagram Visual -->
-                <div
-                    class="hidden md:block relative h-full min-h-[200px] border border-gray-200 bg-white rounded-lg p-8 shadow-inner">
-                    <div class="absolute inset-0 opacity-5"
-                        style="background-image: linear-gradient(#18181B 1px, transparent 1px), linear-gradient(90deg, #18181B 1px, transparent 1px); background-size: 20px 20px;">
-                    </div>
-                    <div class="relative z-10 flex flex-col justify-center h-full space-y-4">
-                        <!-- Abstract Flow -->
-                        <div class="flex justify-between items-center">
-                            <div
-                                class="w-16 h-16 border-2 border-accent-blue rounded-full flex items-center justify-center bg-blue-50">
-                                <span class="font-mono text-xs font-bold text-accent-blue">DATA</span>
-                            </div>
-                            <div class="h-[2px] flex-grow bg-gray-200 mx-4 relative overflow-hidden">
-                                <div class="absolute inset-0 bg-accent-main w-1/2 animate-[shimmer_2s_infinite]"></div>
-                            </div>
-                            <div
-                                class="w-16 h-16 border-2 border-accent-main rounded text-accent-main flex items-center justify-center bg-red-50">
-                                <span class="font-mono text-xs font-bold">MODEL</span>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <span class="text-[10px] font-mono uppercase tracking-widest text-text-muted">Federated
-                                Pipeline</span>
-                        </div>
-                    </div>
-                </div>
+    <!-- The Federated Architecture Visual -->
+    <section class="mb-24 fade-in" style="animation-delay: 0.1s;">
+        
+        <!-- The Distributed Nodes -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6 text-center">
+            <div class="omega-card p-6 border-t-[4px] border-accent-blue bg-bg-subtle hover:-translate-y-1 transition-transform border border-border-main">
+                <h3 class="font-bold text-text-primary mb-2">Proprietary Databases</h3>
+                <p class="text-xs text-text-muted">Secure institutional records.</p>
+            </div>
+            <div class="omega-card p-6 border-t-[4px] border-accent-yellow bg-bg-subtle hover:-translate-y-1 transition-transform border border-border-main">
+                <h3 class="font-bold text-text-primary mb-2">Real-Time Telemetry</h3>
+                <p class="text-xs text-text-muted">Streaming network signals.</p>
+            </div>
+            <div class="omega-card p-6 border-t-[4px] border-accent-main bg-bg-subtle hover:-translate-y-1 transition-transform border border-border-main">
+                <h3 class="font-bold text-text-primary mb-2">Edge Devices</h3>
+                <p class="text-xs text-text-muted">Decentralized local clients.</p>
+            </div>
+            <div class="omega-card p-6 border-t-[4px] border-stone-800 bg-bg-subtle hover:-translate-y-1 transition-transform border border-border-main">
+                <h3 class="font-bold text-text-primary mb-2">Unstructured Archives</h3>
+                <p class="text-xs text-text-muted">Historical and textual logs.</p>
             </div>
         </div>
+        
+        <!-- Connectors -->
+        <div class="flex justify-center mb-6">
+            <div class="flex space-x-16 opacity-50">
+                <svg class="h-8 text-gray-300 w-full animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </div>
+        </div>
+        
+        <!-- The Federation Box -->
+        <div class="max-w-4xl mx-auto omega-card bg-bg-card p-10 border border-border-main text-center relative overflow-hidden group hover:border-accent-main transition-colors shadow-xl">
+            <!-- background grid -->
+            <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(#18181B 1px, transparent 1px), linear-gradient(90deg, #18181B 1px, transparent 1px); background-size: 20px 20px;"></div>
+            
+            <h2 class="text-3xl font-serif text-text-primary font-bold mb-4 relative z-10 transition-colors">Federated Logic Engine</h2>
+            <p class="text-text-muted text-sm md:text-base relative z-10 max-w-2xl mx-auto leading-relaxed">
+                Compute moves to the data. Our architecture detects cross-domain convergence and trains robust models without ever extracting sensitive client or citizen records.
+            </p>
+            
+            <a href="/about/" class="inline-flex items-center mt-8 px-6 py-3 bg-text-primary text-white rounded font-bold text-sm hover:bg-black transition-colors relative z-10">
+                Explore The Methodology
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </a>
+        </div>
     </section>
 
-    <!-- Intelligence Feed -->
-    <section class="fade-in" style="animation-delay: 0.2s;">
+    <!-- The Operational Suite -->
+    <section class="mb-24 fade-in" style="animation-delay: 0.2s;">
+        <div class="flex items-baseline justify-between mb-8 border-b border-gray-200 pb-4">
+            <h2 class="text-2xl font-serif font-bold text-text-primary">
+                The Operational Suite
+            </h2>
+            <a href="/projects/" class="text-sm font-sans font-medium text-text-muted hover:text-accent-main">View Full Network →</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            
+            <!-- Scarcity FW -->
+            <a href="/projects/scarcity/" class="omega-card bg-white p-6 hover:-translate-y-1 transition-all duration-300 border border-gray-200 hover:border-accent-main group flex flex-col justify-between">
+                <div>
+                    <div class="text-[10px] font-mono font-bold text-accent-main tracking-widest uppercase mb-3 opacity-80 group-hover:opacity-100">ML Framework</div>
+                    <h3 class="text-xl font-serif font-bold text-text-primary mb-3">Scarcity</h3>
+                    <p class="text-sm text-text-muted leading-relaxed">The underlying machine learning architecture for adaptive, resource-scarce environments.</p>
+                </div>
+            </a>
+
+            <!-- KShield -->
+            <a href="/projects/kshield/" class="omega-card bg-white p-6 hover:-translate-y-1 transition-all duration-300 border border-gray-200 hover:border-accent-main group flex flex-col justify-between">
+                <div>
+                    <div class="text-[10px] font-mono font-bold text-accent-main tracking-widest uppercase mb-3 opacity-80 group-hover:opacity-100">Simulation Layer</div>
+                    <h3 class="text-xl font-serif font-bold text-text-primary mb-3">KShield</h3>
+                    <p class="text-sm text-text-muted leading-relaxed">Agent-based scenario testing across national sectors to evaluate policy shocks safely.</p>
+                </div>
+            </a>
+
+            <!-- KPulse -->
+            <a href="/projects/kpulse/" class="omega-card bg-white p-6 hover:-translate-y-1 transition-all duration-300 border border-gray-200 hover:border-accent-main group flex flex-col justify-between">
+                <div>
+                    <div class="text-[10px] font-mono font-bold text-accent-main tracking-widest uppercase mb-3 opacity-80 group-hover:opacity-100">Sensing Layer</div>
+                    <h3 class="text-xl font-serif font-bold text-text-primary mb-3">KPulse</h3>
+                    <p class="text-sm text-text-muted leading-relaxed">Real-time social sensing and early-warning narrative intelligence algorithms.</p>
+                </div>
+            </a>
+            
+            <!-- KCollab -->
+            <a href="/projects/kcollab/" class="omega-card bg-white p-6 hover:-translate-y-1 transition-all duration-300 border border-gray-200 hover:border-accent-main group flex flex-col justify-between">
+                <div>
+                    <div class="text-[10px] font-mono font-bold text-accent-main tracking-widest uppercase mb-3 opacity-80 group-hover:opacity-100">Action Layer</div>
+                    <h3 class="text-xl font-serif font-bold text-text-primary mb-3">KCollab</h3>
+                    <p class="text-sm text-text-muted leading-relaxed">Interagency unified command spaces for synchronized tactical responses.</p>
+                </div>
+            </a>
+
+            <!-- KScarcity -->
+            <a href="/projects/kscarcity/" class="omega-card bg-white p-6 hover:-translate-y-1 transition-all duration-300 border border-gray-200 hover:border-accent-main group flex flex-col justify-between">
+                <div>
+                    <div class="text-[10px] font-mono font-bold text-accent-main tracking-widest uppercase mb-3 opacity-80 group-hover:opacity-100">Core Platform</div>
+                    <h3 class="text-xl font-serif font-bold text-text-primary mb-3">KScarcity</h3>
+                    <p class="text-sm text-text-muted leading-relaxed">The unified national dashboard tracking real-time risks and interventions.</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- Intelligence Feed / Lab Notes -->
+    <section class="fade-in" style="animation-delay: 0.3s;">
         <div class="flex items-baseline justify-between mb-8 border-b border-gray-200 pb-4">
             <h2 class="text-2xl font-serif font-bold text-text-primary">
                 Lab Notes & Research
             </h2>
-            <a href="/lab-notes/" class="text-sm font-sans font-medium text-text-muted hover:text-accent-main">View
-                Archive →</a>
+            <a href="/lab-notes/" class="text-sm font-sans font-medium text-text-muted hover:text-accent-main">View Archive →</a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -134,4 +230,11 @@
     </section>
 
 </div>
+
+<style>
+    @keyframes drop {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100%); }
+    }
+</style>
 {% endblock %}
