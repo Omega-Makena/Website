@@ -51,8 +51,8 @@ def work():
     yield {}
 
 @freezer.register_generator
-def work_with_me():
-    """Work with me page"""
+def services():
+    """Omega Labs Services page"""
     yield {}
 
 @freezer.register_generator
@@ -117,7 +117,7 @@ def generate_sitemap():
         ('/research-log/', 'weekly', '0.85'),
         ('/writing/', 'monthly', '0.7'),
         ('/about/', 'yearly', '0.6'),
-        ('/work-with-me/', 'monthly', '0.75'),
+        ('/services/', 'monthly', '0.75'),
         ('/work/', 'monthly', '0.7'),
     ]
 
