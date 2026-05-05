@@ -129,7 +129,7 @@ def about():
 
 @app.route('/services/')
 def services():
-    """Omega Labs Services page"""
+    """Omega Makena Services page"""
     return render_template('work_with_me.html')
 
 @app.route('/work/')

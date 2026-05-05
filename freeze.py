@@ -52,7 +52,7 @@ def work():
 
 @freezer.register_generator
 def services():
-    """Omega Labs Services page"""
+    """Omega Makena Services page"""
     yield {}
 
 @freezer.register_generator
