@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <meta name="description" content="Collaborative platform connecting stakeholders for joint planning and responses.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena">
+
+    <title>KCollab Architecture - Omega Makena</title>
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
+                        },
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Makena Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Makena</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/projects/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">LAB NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/services/" class="nav-link">SERVICES</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/projects/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">LAB NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/services/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">SERVICES</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-20">
+        
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid lg:grid-cols-12 gap-12">
+        
+            <!-- Main Content Centered (No Sidebar) -->
+            <main class="lg:col-span-8 lg:col-start-3">
+                
+
+                <!-- Header -->
+                <header class="mb-12 border-b border-gray-200 pb-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent-main">
+                            NOTE
+                        </span>
+                        
+                        <span class="text-xs font-mono text-text-muted">
+                            // April 05, 2026
+                        </span>
+                        
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
+                        KCollab Architecture
+                    </h1>
+
+                    
+                    <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
+                        Collaborative platform connecting stakeholders for joint planning and responses.
+                    </p>
+                    
+                </header>
+
+                <!-- Prose Content -->
+                <!-- Prose Content -->
+                <article class="prose prose-lg max-w-none 
+                            prose-headings:font-serif prose-headings:text-text-primary 
+                            prose-p:text-text-secondary prose-p:leading-relaxed 
+                            prose-a:text-accent-blue prose-a:no-underline hover:prose-a:underline 
+                            prose-strong:text-text-primary 
+                            prose-code:text-accent-main prose-code:bg-gray-50 prose-code:px-1 prose-code:rounded
+                            prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
+                            prose-ul:list-disc prose-ul:pl-6
+                            prose-li:marker:text-accent-main prose-li:my-2">
+                    <h1>KCollab — Aegis Federation &amp; Secure Collaboration</h1>
+<p>KCollab is a collaborative platform that connects stakeholders—such as government agencies, businesses, and researchers—to coordinate responses and share insights via secure privacy-preserving protocols.</p>
+<hr />
+<h2>1. Collaboration, Data Sharing, Privacy, and Encryption Architecture</h2>
+<p>This section documents how institutions collaborate through the dashboard while preserving privacy, enforcing consent boundaries, and protecting data in transit and at rest.</p>
+<h3>1.1 Collaboration Design Goals</h3>
+<ol>
+<li>Enable cross-institution coordination without forcing raw data exposure.</li>
+<li>Support role-specific visibility across Executive, Admin, and Local views.</li>
+<li>Provide verifiable audit trails for every promotion, share, and action.</li>
+<li>Preserve analytical utility while minimizing privacy leakage risk.</li>
+<li>Enforce secure transport and cryptographic integrity end to end.</li>
+</ol>
+<h3>1.2 Collaboration Architecture (Dashboard + Backend)</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Local</span><span class="p">[</span><span class="n">Local</span><span class="w"> </span><span class="n">Institution</span><span class="w"> </span><span class="n">Dashboard</span><span class="p">]</span>
+<span class="w">        </span><span class="n">L1</span><span class="p">[</span><span class="n">Signal</span><span class="w"> </span><span class="n">Analysis</span><span class="p">]</span>
+<span class="w">        </span><span class="n">L2</span><span class="p">[</span><span class="n">Inbox</span><span class="p">]</span>
+<span class="w">        </span><span class="n">L3</span><span class="p">[</span><span class="n">Collaboration</span><span class="w"> </span><span class="n">Room</span><span class="p">]</span>
+<span class="w">        </span><span class="n">L4</span><span class="p">[</span><span class="n">Data</span><span class="w"> </span><span class="n">Sharing</span><span class="w"> </span><span class="n">Preferences</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Admin</span><span class="p">[</span><span class="n">Admin</span><span class="w"> </span><span class="n">Governance</span><span class="w"> </span><span class="n">Dashboard</span><span class="p">]</span>
+<span class="w">        </span><span class="n">A1</span><span class="p">[</span><span class="n">Spoke</span><span class="w"> </span><span class="n">Reports</span><span class="p">]</span>
+<span class="w">        </span><span class="n">A2</span><span class="p">[</span><span class="n">Data</span><span class="w"> </span><span class="n">Sharing</span><span class="w"> </span><span class="n">Manager</span><span class="p">]</span>
+<span class="w">        </span><span class="n">A3</span><span class="p">[</span><span class="n">Escalation</span><span class="w"> </span><span class="n">Controls</span><span class="p">]</span>
+<span class="w">        </span><span class="n">A4</span><span class="p">[</span><span class="n">Operational</span><span class="w"> </span><span class="n">Projects</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Exec</span><span class="p">[</span><span class="n">Executive</span><span class="w"> </span><span class="n">Dashboard</span><span class="p">]</span>
+<span class="w">        </span><span class="n">E1</span><span class="p">[</span><span class="n">Threat</span><span class="w"> </span><span class="n">Intelligence</span><span class="p">]</span>
+<span class="w">        </span><span class="n">E2</span><span class="p">[</span><span class="n">National</span><span class="w"> </span><span class="n">Briefing</span><span class="p">]</span>
+<span class="w">        </span><span class="n">E3</span><span class="p">[</span><span class="n">Coordination</span><span class="w"> </span><span class="n">Recommendations</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Services</span><span class="p">[</span><span class="n">Collaboration</span><span class="w"> </span><span class="n">Services</span><span class="p">]</span>
+<span class="w">        </span><span class="n">S1</span><span class="p">[</span><span class="n">SecureMessaging</span><span class="p">]</span>
+<span class="w">        </span><span class="n">S2</span><span class="p">[</span><span class="n">DeltaSyncManager</span><span class="p">]</span>
+<span class="w">        </span><span class="n">S3</span><span class="p">[</span><span class="n">ProjectManager</span><span class="p">]</span>
+<span class="w">        </span><span class="n">S4</span><span class="p">[</span><span class="n">Audit</span><span class="w"> </span><span class="n">Logger</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Privacy</span><span class="p">[</span><span class="n">Privacy</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Federation</span><span class="p">]</span>
+<span class="w">        </span><span class="n">P1</span><span class="p">[</span><span class="n">Policy</span><span class="o">/</span><span class="n">Consent</span><span class="w"> </span><span class="n">Gate</span><span class="p">]</span>
+<span class="w">        </span><span class="n">P2</span><span class="p">[</span><span class="n">Differential</span><span class="w"> </span><span class="n">Privacy</span><span class="w"> </span><span class="n">Layer</span><span class="p">]</span>
+<span class="w">        </span><span class="n">P3</span><span class="p">[</span><span class="n">Federated</span><span class="w"> </span><span class="n">Aggregator</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">L1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S2</span>
+<span class="w">    </span><span class="n">L2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S1</span>
+<span class="w">    </span><span class="n">L3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S1</span>
+<span class="w">    </span><span class="n">L4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">P1</span>
+<span class="w">    </span><span class="n">P1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A2</span>
+<span class="w">    </span><span class="n">A1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A3</span>
+<span class="w">    </span><span class="n">A3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S2</span>
+<span class="w">    </span><span class="n">S2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E1</span>
+<span class="w">    </span><span class="n">S2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E2</span>
+<span class="w">    </span><span class="n">E3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S1</span>
+
+<span class="w">    </span><span class="n">L1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">P2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">P3</span>
+<span class="w">    </span><span class="n">P3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A4</span>
+
+<span class="w">    </span><span class="n">S1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S4</span>
+<span class="w">    </span><span class="n">S2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S4</span>
+<span class="w">    </span><span class="n">P1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S4</span>
+</code></pre></div>
+
+<h3>1.3 Collaboration Room and Messaging Flow</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">C1</span><span class="p">[</span><span class="n">Institution</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">Action</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M1</span><span class="p">[</span><span class="n">SecureMessaging</span><span class="p">]</span>
+<span class="w">    </span><span class="n">M1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M2</span><span class="p">[</span><span class="n">Role</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Scope</span><span class="w"> </span><span class="n">Authorization</span><span class="p">]</span>
+<span class="w">    </span><span class="n">M2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M3</span><span class="p">[</span><span class="n">Delivery</span><span class="w"> </span><span class="n">Queue</span><span class="p">]</span>
+<span class="w">    </span><span class="n">M3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M4</span><span class="p">[</span><span class="n">Recipient</span><span class="w"> </span><span class="n">Inbox</span><span class="p">]</span>
+<span class="w">    </span><span class="n">M4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M5</span><span class="p">[</span><span class="n">Acknowledgement</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Follow</span><span class="o">-</span><span class="n">up</span><span class="p">]</span>
+<span class="w">    </span><span class="n">M5</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">AUD</span><span class="p">[</span><span class="n">Audit</span><span class="w"> </span><span class="n">Trail</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Messaging design properties:</p>
+<ol>
+<li>Role-scoped delivery prevents unauthorized cross-sector visibility.</li>
+<li>Message lifecycle events are auditable.</li>
+<li>Collaboration threads can be linked to projects and escalation events.</li>
+</ol>
+<hr />
+<h2>2. Aegis Federation Protocol</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">N1</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">Institution</span><span class="w"> </span><span class="n">Node</span><span class="w"> </span><span class="n">A</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">N2</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">Institution</span><span class="w"> </span><span class="n">Node</span><span class="w"> </span><span class="n">B</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">G</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">Gossip</span><span class="w"> </span><span class="n">Layer</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">AGG</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">Global</span><span class="w"> </span><span class="n">Aggregator</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">META</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">Meta</span><span class="o">-</span><span class="n">Learning</span><span class="w"> </span><span class="n">Agent</span>
+
+<span class="w">    </span><span class="n">N1</span><span class="o">-&gt;&gt;</span><span class="nl">N1:</span><span class="w"> </span><span class="n">Local</span><span class="w"> </span><span class="n">training</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">sector</span><span class="w"> </span><span class="n">data</span>
+<span class="w">    </span><span class="n">N2</span><span class="o">-&gt;&gt;</span><span class="nl">N2:</span><span class="w"> </span><span class="n">Local</span><span class="w"> </span><span class="n">training</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">sector</span><span class="w"> </span><span class="n">data</span>
+
+<span class="w">    </span><span class="n">N1</span><span class="o">-&gt;&gt;</span><span class="nl">N1:</span><span class="w"> </span><span class="n">Apply</span><span class="w"> </span><span class="n">Local</span><span class="w"> </span><span class="n">DP</span><span class="w"> </span><span class="p">(</span><span class="n">Laplace</span><span class="w"> </span><span class="n">noise</span><span class="p">)</span>
+<span class="w">    </span><span class="n">N2</span><span class="o">-&gt;&gt;</span><span class="nl">N2:</span><span class="w"> </span><span class="n">Apply</span><span class="w"> </span><span class="n">Local</span><span class="w"> </span><span class="n">DP</span><span class="w"> </span><span class="p">(</span><span class="n">Laplace</span><span class="w"> </span><span class="n">noise</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">N1</span><span class="o">-&gt;&gt;</span><span class="nl">N1:</span><span class="w"> </span><span class="n">Q8</span><span class="w"> </span><span class="n">quantize</span><span class="w"> </span><span class="n">update</span>
+<span class="w">    </span><span class="n">N2</span><span class="o">-&gt;&gt;</span><span class="nl">N2:</span><span class="w"> </span><span class="n">Q8</span><span class="w"> </span><span class="n">quantize</span><span class="w"> </span><span class="n">update</span>
+
+<span class="w">    </span><span class="n">N1</span><span class="o">-&gt;&gt;</span><span class="nl">G:</span><span class="w"> </span><span class="n">Gossip</span><span class="w"> </span><span class="n">broadcast</span><span class="w"> </span><span class="p">(</span><span class="n">HKDF</span><span class="o">-</span><span class="n">SHA256</span><span class="w"> </span><span class="n">masked</span><span class="p">)</span>
+<span class="w">    </span><span class="n">N2</span><span class="o">-&gt;&gt;</span><span class="nl">G:</span><span class="w"> </span><span class="n">Gossip</span><span class="w"> </span><span class="n">broadcast</span><span class="w"> </span><span class="p">(</span><span class="n">HKDF</span><span class="o">-</span><span class="n">SHA256</span><span class="w"> </span><span class="n">masked</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="nl">G:</span><span class="w"> </span><span class="n">Exponential</span><span class="w"> </span><span class="kt">time</span><span class="o">-</span><span class="n">decay</span><span class="w"> </span><span class="n">merge\nAge-weighted</span><span class="w"> </span><span class="n">aggregation</span>
+
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="nl">AGG:</span><span class="w"> </span><span class="n">Basket</span><span class="o">-</span><span class="n">level</span><span class="w"> </span><span class="n">consensus</span><span class="w"> </span><span class="n">update</span>
+
+<span class="w">    </span><span class="n">AGG</span><span class="o">-&gt;&gt;</span><span class="nl">AGG:</span><span class="w"> </span><span class="n">Byzantine</span><span class="w"> </span><span class="n">defense\nKrum</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Multi</span><span class="o">-</span><span class="n">Krum</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Bulyan</span>
+<span class="w">    </span><span class="n">AGG</span><span class="o">-&gt;&gt;</span><span class="nl">AGG:</span><span class="w"> </span><span class="n">Trimmed</span><span class="o">-</span><span class="n">Mean</span><span class="w"> </span><span class="n">OR</span><span class="w"> </span><span class="n">Element</span><span class="o">-</span><span class="n">wise</span><span class="w"> </span><span class="n">Median</span>
+<span class="w">    </span><span class="n">AGG</span><span class="o">-&gt;&gt;</span><span class="nl">AGG:</span><span class="w"> </span><span class="n">Apply</span><span class="w"> </span><span class="n">Central</span><span class="w"> </span><span class="n">DP</span><span class="w"> </span><span class="p">(</span><span class="n">Gaussian</span><span class="w"> </span><span class="n">noise</span><span class="p">)</span>
+<span class="w">    </span><span class="n">AGG</span><span class="o">-&gt;&gt;</span><span class="nl">AGG:</span><span class="w"> </span><span class="n">Update</span><span class="w"> </span><span class="n">trust</span><span class="w"> </span><span class="n">scores\n(Agreement</span><span class="w"> </span><span class="mh">60</span><span class="o">%</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Compliance</span><span class="w"> </span><span class="mh">30</span><span class="o">%</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Impact</span><span class="w"> </span><span class="mh">10</span><span class="o">%</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">AGG</span><span class="o">-&gt;&gt;</span><span class="nl">META:</span><span class="w"> </span><span class="n">Aggregated</span><span class="w"> </span><span class="n">gradient</span>
+<span class="w">    </span><span class="n">META</span><span class="o">-&gt;&gt;</span><span class="nl">META:</span><span class="w"> </span><span class="n">Reptile</span><span class="w"> </span><span class="n">optimizer</span><span class="w"> </span><span class="n">step\nGlobal</span><span class="w"> </span><span class="n">Prior</span><span class="w"> </span><span class="n">update</span>
+
+<span class="w">    </span><span class="n">META</span><span class="o">-&gt;&gt;</span><span class="nl">N1:</span><span class="w"> </span><span class="n">Broadcast</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">prior</span>
+<span class="w">    </span><span class="n">META</span><span class="o">-&gt;&gt;</span><span class="nl">N2:</span><span class="w"> </span><span class="n">Broadcast</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">prior</span>
+</code></pre></div>
+
+<h3>2.1 Differential Privacy Pipeline</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>
+<span class="w">    </span><span class="n">I</span><span class="p">[</span><span class="n">Local</span><span class="w"> </span><span class="n">Model</span><span class="w"> </span><span class="n">Update</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LDP</span><span class="p">[</span><span class="n">Local</span><span class="w"> </span><span class="n">DP</span><span class="w"> </span><span class="n">Noise</span><span class="p">]</span>
+<span class="w">    </span><span class="n">LDP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Q</span><span class="p">[</span><span class="n">Quantization</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Normalization</span><span class="p">]</span>
+<span class="w">    </span><span class="n">Q</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">SEC</span><span class="p">[</span><span class="n">Secure</span><span class="w"> </span><span class="n">Aggregation</span><span class="w"> </span><span class="n">Exchange</span><span class="p">]</span>
+<span class="w">    </span><span class="n">SEC</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">AGG</span><span class="p">[</span><span class="n">Robust</span><span class="w"> </span><span class="n">Aggregation</span><span class="p">]</span>
+<span class="w">    </span><span class="n">AGG</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CDP</span><span class="p">[</span><span class="n">Central</span><span class="w"> </span><span class="n">DP</span><span class="w"> </span><span class="n">Noise</span><span class="p">]</span>
+<span class="w">    </span><span class="n">CDP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">OUT</span><span class="p">[</span><span class="n">Global</span><span class="w"> </span><span class="n">Update</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Metadata</span><span class="p">]</span>
+</code></pre></div>
+
+<hr />
+<h2>3. Security Architecture &amp; Encryption Model</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Clearance</span><span class="p">[</span><span class="s">&quot;Security Lattice&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">L4</span><span class="p">[</span><span class="n">TOP_SECRET</span><span class="p">]</span>
+<span class="w">        </span><span class="n">L3</span><span class="p">[</span><span class="n">SECRET</span><span class="p">]</span>
+<span class="w">        </span><span class="n">L2</span><span class="p">[</span><span class="n">RESTRICTED</span><span class="p">]</span>
+<span class="w">        </span><span class="n">L1</span><span class="p">[</span><span class="n">UNCLASSIFIED</span><span class="p">]</span>
+<span class="w">        </span><span class="n">L4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">L3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">L2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">L1</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Auth</span><span class="p">[</span><span class="s">&quot;Authentication Layers&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">A1</span><span class="p">[</span><span class="n">Institution</span><span class="o">:</span><span class="w"> </span><span class="n">PBKDF2</span><span class="o">-</span><span class="n">SHA256</span><span class="err">\</span><span class="n">n200</span><span class="p">,</span><span class="mo">000</span><span class="w"> </span><span class="n">iterations</span><span class="p">]</span>
+<span class="w">        </span><span class="n">A2</span><span class="p">[</span><span class="n">Module</span><span class="w"> </span><span class="n">Access</span><span class="o">:</span><span class="w"> </span><span class="n">SHA256</span><span class="w"> </span><span class="n">gate</span><span class="w"> </span><span class="n">codes</span><span class="p">]</span>
+<span class="w">        </span><span class="n">A3</span><span class="p">[</span><span class="n">Federation</span><span class="o">:</span><span class="w"> </span><span class="n">Ed25519</span><span class="w"> </span><span class="n">signatures</span><span class="p">]</span>
+<span class="w">        </span><span class="n">A4</span><span class="p">[</span><span class="n">Pairwise</span><span class="o">:</span><span class="w"> </span><span class="n">HKDF</span><span class="o">-</span><span class="n">SHA256</span><span class="w"> </span><span class="n">masking</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Privacy</span><span class="p">[</span><span class="s">&quot;Privacy Guarantees&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">P1</span><span class="p">[</span><span class="n">Local</span><span class="w"> </span><span class="n">DP</span><span class="o">:</span><span class="w"> </span><span class="n">Laplace</span><span class="w"> </span><span class="n">noise</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">weights</span><span class="p">]</span>
+<span class="w">        </span><span class="n">P2</span><span class="p">[</span><span class="n">Central</span><span class="w"> </span><span class="n">DP</span><span class="o">:</span><span class="w"> </span><span class="n">Gaussian</span><span class="w"> </span><span class="n">noise</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">aggregate</span><span class="err">\</span><span class="n">nσ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sensitivity</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="err">√</span><span class="mf">2l</span><span class="n">n</span><span class="p">(</span><span class="mf">1.25</span><span class="o">/</span><span class="n">δ</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">ε</span><span class="p">]</span>
+<span class="w">        </span><span class="n">P3</span><span class="p">[</span><span class="n">Q8</span><span class="w"> </span><span class="n">quantization</span><span class="o">:</span><span class="w"> </span><span class="n">economic</span><span class="w"> </span><span class="n">precision</span><span class="w"> </span><span class="n">preserved</span><span class="p">]</span>
+<span class="w">        </span><span class="n">P4</span><span class="p">[</span><span class="n">L2</span><span class="w"> </span><span class="n">materiality</span><span class="w"> </span><span class="n">check</span><span class="o">:</span><span class="w"> </span><span class="n">suppress</span><span class="w"> </span><span class="n">trivial</span><span class="w"> </span><span class="n">updates</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Trust</span><span class="p">[</span><span class="s">&quot;Trust Scoring&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">T1</span><span class="p">[</span><span class="n">Agreement</span><span class="w"> </span><span class="n">score</span><span class="o">:</span><span class="w"> </span><span class="mi">60</span><span class="o">%</span><span class="w"> </span><span class="n">weight</span><span class="p">]</span>
+<span class="w">        </span><span class="n">T2</span><span class="p">[</span><span class="n">Compliance</span><span class="w"> </span><span class="n">score</span><span class="o">:</span><span class="w"> </span><span class="mi">30</span><span class="o">%</span><span class="w"> </span><span class="n">weight</span><span class="p">]</span>
+<span class="w">        </span><span class="n">T3</span><span class="p">[</span><span class="n">Impact</span><span class="w"> </span><span class="n">score</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="o">%</span><span class="w"> </span><span class="n">weight</span><span class="p">]</span>
+<span class="w">        </span><span class="n">T1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">T2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">T3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">T4</span><span class="p">{</span><span class="n">Trust</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.2</span><span class="o">?</span><span class="p">}</span>
+<span class="w">        </span><span class="n">T4</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">T5</span><span class="p">[</span><span class="n">Sandboxed</span><span class="o">:</span><span class="w"> </span><span class="n">packets</span><span class="w"> </span><span class="n">accepted</span><span class="err">\</span><span class="n">nbut</span><span class="w"> </span><span class="n">silently</span><span class="w"> </span><span class="n">discarded</span><span class="p">]</span>
+<span class="w">        </span><span class="n">T4</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">T6</span><span class="p">[</span><span class="n">Normal</span><span class="w"> </span><span class="n">aggregation</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+</code></pre></div>
+
+<h3>3.1 Encryption and Integrity Model</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Node</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Institution</span><span class="w"> </span><span class="n">Node</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Mesh</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Collaboration</span><span class="o">/</span><span class="n">Federation</span><span class="w"> </span><span class="n">Mesh</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Agg</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Aggregator</span><span class="w"> </span><span class="n">Service</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Dash</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Dashboard</span><span class="w"> </span><span class="n">Services</span>
+
+<span class="w">    </span><span class="n">Node</span><span class="o">-&gt;&gt;</span><span class="n">Node</span><span class="p">:</span><span class="w"> </span><span class="n">Sign</span><span class="w"> </span><span class="n">payload</span><span class="w"> </span><span class="p">(</span><span class="n">Ed25519</span><span class="w"> </span><span class="n">identity</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Node</span><span class="o">-&gt;&gt;</span><span class="n">Mesh</span><span class="p">:</span><span class="w"> </span><span class="n">Encrypt</span><span class="w"> </span><span class="n">exchange</span><span class="w"> </span><span class="n">channel</span><span class="w"> </span><span class="p">(</span><span class="n">ephemeral</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">agreement</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Mesh</span><span class="o">-&gt;&gt;</span><span class="n">Agg</span><span class="p">:</span><span class="w"> </span><span class="n">Forward</span><span class="w"> </span><span class="n">masked</span><span class="w"> </span><span class="n">contribution</span>
+<span class="w">    </span><span class="n">Agg</span><span class="o">-&gt;&gt;</span><span class="n">Agg</span><span class="p">:</span><span class="w"> </span><span class="n">Verify</span><span class="w"> </span><span class="n">signature</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">trust</span><span class="w"> </span><span class="n">policy</span>
+<span class="w">    </span><span class="n">Agg</span><span class="o">-&gt;&gt;</span><span class="n">Dash</span><span class="p">:</span><span class="w"> </span><span class="n">Publish</span><span class="w"> </span><span class="n">accepted</span><span class="w"> </span><span class="n">aggregate</span><span class="w"> </span><span class="n">metadata</span>
+<span class="w">    </span><span class="n">Dash</span><span class="o">-&gt;&gt;</span><span class="n">Dash</span><span class="p">:</span><span class="w"> </span><span class="n">Persist</span><span class="w"> </span><span class="n">audit</span><span class="w"> </span><span class="n">record</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">immutable</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="n">id</span>
+</code></pre></div>
+
+<hr />
+<h2>4. Report Export Pipeline</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">A</span><span class="p">[</span><span class="n">Any</span><span class="w"> </span><span class="n">Institution</span><span class="w"> </span><span class="n">Dashboard</span><span class="err">\</span><span class="n">nExecutive</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Admin</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Developer</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Spoke</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">UnifiedReportExport</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C1</span><span class="p">[</span><span class="n">ReportNarrator</span><span class="err">\</span><span class="n">nPlain</span><span class="o">-</span><span class="n">language</span><span class="w"> </span><span class="n">narrative</span><span class="w"> </span><span class="n">generation</span><span class="p">]</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C2</span><span class="p">[</span><span class="n">MetricsExtractor</span><span class="err">\</span><span class="n">nHeadline</span><span class="w"> </span><span class="n">indicator</span><span class="w"> </span><span class="n">values</span><span class="p">]</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C3</span><span class="p">[</span><span class="n">StructuredAppendix</span><span class="err">\</span><span class="n">nTechnical</span><span class="w"> </span><span class="n">JSON</span><span class="w"> </span><span class="n">payload</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">C1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D</span><span class="p">[</span><span class="n">report_summary</span><span class="p">.</span><span class="n">txt</span><span class="err">\</span><span class="n">nNon</span><span class="o">-</span><span class="n">technical</span><span class="w"> </span><span class="n">audience</span><span class="p">]</span>
+<span class="w">    </span><span class="n">C2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span><span class="p">[</span><span class="n">metrics</span><span class="p">.</span><span class="n">csv</span><span class="err">\</span><span class="n">nHeadline</span><span class="w"> </span><span class="n">values</span><span class="p">]</span>
+<span class="w">    </span><span class="n">C3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span><span class="p">[</span><span class="n">report_payload</span><span class="p">.</span><span class="n">json</span><span class="err">\</span><span class="n">nStructured</span><span class="w"> </span><span class="n">technical</span><span class="w"> </span><span class="n">appendix</span><span class="p">]</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">G</span><span class="p">[</span><span class="n">Optional</span><span class="w"> </span><span class="n">table</span><span class="w"> </span><span class="n">CSVs</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span><span class="p">[</span><span class="n">ZIP</span><span class="w"> </span><span class="n">Archive</span><span class="p">]</span>
+<span class="w">    </span><span class="n">H</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="n">PDF</span><span class="w"> </span><span class="n">Export</span><span class="err">\</span><span class="n">nPrimary</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">instant</span><span class="o">-</span><span class="n">analysis</span><span class="w"> </span><span class="n">interpretation</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mi">1</span><span class="n">a6b3c</span><span class="p">,</span><span class="n">color</span><span class="o">:</span><span class="err">#</span><span class="n">fff</span>
+</code></pre></div>
+                </article>
+
+                <!-- Mobile Navigation (Bottom) -->
+                
+
+            </main>
+
+    </div>
+
+</div>
+
+    </main>
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA MAKENA</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2026 Omega Makena.<br>
+                        Engineering Intelligence.
+                    </div>
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // FlatPages/Pygments strips the `language-mermaid` class and injects spans.
+            // We search for all code blocks and check if the unformatted text indicates a diagram.
+            const allCodeBlocks = document.querySelectorAll(".codehilite code, pre code");
+            const blocksToProcess = [];
+            
+            allCodeBlocks.forEach(function(block) {
+                const text = block.textContent.trim();
+                if (text.startsWith("flowchart") || text.startsWith("sequenceDiagram") || text.startsWith("graph") || text.startsWith("stateDiagram")) {
+                    blocksToProcess.push({block: block, text: text});
+                }
+            });
+
+            blocksToProcess.forEach(function(item) {
+                const div = document.createElement('div');
+                div.className = 'mermaid flex justify-center w-full overflow-x-auto my-8'; 
+                div.textContent = item.text;
+                
+                const container = item.block.closest('.codehilite') || item.block.closest('pre');
+                if (container) {
+                    container.replaceWith(div);
+                }
+            });
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'neutral',
+                themeVariables: {
+                    'background': 'transparent',
+                    'primaryColor': '#18181B',
+                    'primaryTextColor': '#18181B',
+                    'lineColor': '#a3a3a3',
+                    'fontSize': '14px'
+                }
+            });
+            
+            if (blocksToProcess.length > 0) {
+                // Let the browser paint the divs before running mermaid
+                setTimeout(() => {
+                    mermaid.run({ querySelector: '.mermaid' });
+                }, 50);
+            }
+        });
+    </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+</body>
+
+</html>

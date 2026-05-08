@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <meta name="description" content="Agent-based economic simulation system modeling Kenya&#39;s economy.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena">
+
+    <title>KShield Architecture - Omega Makena</title>
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
+                        },
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Makena Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Makena</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/projects/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">LAB NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/services/" class="nav-link">SERVICES</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/projects/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">LAB NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/services/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">SERVICES</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-20">
+        
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid lg:grid-cols-12 gap-12">
+        
+            <!-- Main Content Centered (No Sidebar) -->
+            <main class="lg:col-span-8 lg:col-start-3">
+                
+
+                <!-- Header -->
+                <header class="mb-12 border-b border-gray-200 pb-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent-main">
+                            NOTE
+                        </span>
+                        
+                        <span class="text-xs font-mono text-text-muted">
+                            // April 05, 2026
+                        </span>
+                        
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
+                        KShield Architecture
+                    </h1>
+
+                    
+                    <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
+                        Agent-based economic simulation system modeling Kenya&#39;s economy.
+                    </p>
+                    
+                </header>
+
+                <!-- Prose Content -->
+                <!-- Prose Content -->
+                <article class="prose prose-lg max-w-none 
+                            prose-headings:font-serif prose-headings:text-text-primary 
+                            prose-p:text-text-secondary prose-p:leading-relaxed 
+                            prose-a:text-accent-blue prose-a:no-underline hover:prose-a:underline 
+                            prose-strong:text-text-primary 
+                            prose-code:text-accent-main prose-code:bg-gray-50 prose-code:px-1 prose-code:rounded
+                            prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
+                            prose-ul:list-disc prose-ul:pl-6
+                            prose-li:marker:text-accent-main prose-li:my-2">
+                    <h1>KShield — Simulation &amp; Impact Architecture</h1>
+<p>KShield is an agent-based economic simulation system that models Kenya's economy by representing sectors and actors as adaptive decision-making agents. </p>
+<hr />
+<h2>1. K-SHIELD — Module Architecture</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>
+<span class="w">    </span><span class="n">HUB</span><span class="p">[</span><span class="n">KShieldHub</span><span class="err">\</span><span class="n">nSingleton</span><span class="w"> </span><span class="n">Orchestrator</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">HUB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K1</span><span class="p">[</span><span class="n">Causal</span><span class="w"> </span><span class="n">Relationships</span><span class="p">]</span>
+<span class="w">    </span><span class="n">HUB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K2</span><span class="p">[</span><span class="n">Policy</span><span class="w"> </span><span class="n">Terrain</span><span class="p">]</span>
+<span class="w">    </span><span class="n">HUB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K3</span><span class="p">[</span><span class="n">Simulations</span><span class="p">]</span>
+<span class="w">    </span><span class="n">HUB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K4</span><span class="p">[</span><span class="n">Policy</span><span class="w"> </span><span class="n">Impact</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">K1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K1a</span><span class="p">[</span><span class="n">OnlineDiscoveryEngine</span><span class="err">\</span><span class="n">nForce</span><span class="o">-</span><span class="n">directed</span><span class="w"> </span><span class="n">graph</span><span class="p">]</span>
+<span class="w">    </span><span class="n">K1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K1b</span><span class="p">[</span><span class="n">Granger</span><span class="w"> </span><span class="n">causality</span><span class="w"> </span><span class="n">results</span><span class="err">\</span><span class="n">nConfidence</span><span class="w"> </span><span class="n">rankings</span><span class="p">]</span>
+<span class="w">    </span><span class="n">K1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K1c</span><span class="p">[</span><span class="n">Top</span><span class="o">-</span><span class="n">K</span><span class="w"> </span><span class="n">relationship</span><span class="w"> </span><span class="n">list</span><span class="err">\</span><span class="n">nEdge</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="n">visualization</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">K2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K2a</span><span class="p">[</span><span class="mi">3</span><span class="n">D</span><span class="w"> </span><span class="n">Stability</span><span class="w"> </span><span class="n">Landscape</span><span class="err">\</span><span class="n">nInflation</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="n">Unemployment</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Instability</span><span class="p">]</span>
+<span class="w">    </span><span class="n">K2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K2b</span><span class="p">[</span><span class="n">Phase</span><span class="w"> </span><span class="n">space</span><span class="w"> </span><span class="n">mapping</span><span class="err">\</span><span class="n">nCurrent</span><span class="w"> </span><span class="n">economy</span><span class="w"> </span><span class="n">position</span><span class="p">]</span>
+<span class="w">    </span><span class="n">K2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K2c</span><span class="p">[</span><span class="n">Stability</span><span class="w"> </span><span class="n">heatmap</span><span class="err">\</span><span class="n">nPolicy</span><span class="w"> </span><span class="n">corridor</span><span class="w"> </span><span class="n">visualization</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">K3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K3a</span><span class="p">[</span><span class="n">SFC</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ResearchSFC</span><span class="err">\</span><span class="n">n5</span><span class="err">–</span><span class="mi">10</span><span class="w"> </span><span class="n">year</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="n">projection</span><span class="p">]</span>
+<span class="w">    </span><span class="n">K3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K3b</span><span class="p">[</span><span class="n">Shock</span><span class="w"> </span><span class="n">Scenario</span><span class="w"> </span><span class="n">Designer</span><span class="err">\</span><span class="n">n380</span><span class="o">+</span><span class="w"> </span><span class="n">templates</span><span class="p">]</span>
+<span class="w">    </span><span class="n">K3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K3c</span><span class="p">[</span><span class="n">Policy</span><span class="w"> </span><span class="n">Constraint</span><span class="w"> </span><span class="n">Editor</span><span class="err">\</span><span class="n">nMonetary</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Fiscal</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Sectoral</span><span class="p">]</span>
+<span class="w">    </span><span class="n">K3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K3d</span><span class="p">[</span><span class="mi">4</span><span class="n">D</span><span class="w"> </span><span class="n">State</span><span class="w"> </span><span class="n">Cube</span><span class="err">\</span><span class="n">nGDP</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Inflation</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Unemployment</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Welfare</span><span class="p">]</span>
+<span class="w">    </span><span class="n">K3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K3e</span><span class="p">[</span><span class="n">Scenario</span><span class="w"> </span><span class="n">Library</span><span class="err">\</span><span class="n">nSave</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Load</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Reproduce</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">K4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K4a</span><span class="p">[</span><span class="n">Public</span><span class="w"> </span><span class="n">Sentiment</span><span class="err">\</span><span class="n">nPolicy</span><span class="w"> </span><span class="n">satisfaction</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">domain</span><span class="p">]</span>
+<span class="w">    </span><span class="n">K4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K4b</span><span class="p">[</span><span class="n">ScarcityVector</span><span class="err">\</span><span class="n">nFinance</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Healthcare</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Security</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Agriculture</span><span class="p">]</span>
+<span class="w">    </span><span class="n">K4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K4c</span><span class="p">[</span><span class="n">ActorStress</span><span class="err">\</span><span class="n">nCivil</span><span class="w"> </span><span class="n">society</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Business</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Security</span><span class="p">]</span>
+<span class="w">    </span><span class="n">K4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K4d</span><span class="p">[</span><span class="n">Social</span><span class="w"> </span><span class="n">Cohesion</span><span class="err">\</span><span class="n">nTrust</span><span class="w"> </span><span class="n">bonds</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Institutional</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Intra</span><span class="o">-</span><span class="n">group</span><span class="p">]</span>
+</code></pre></div>
+
+<hr />
+<h2>2. SFC Economy — Simulation Architecture</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">SFCConfig</span><span class="p">[</span><span class="s">&quot;SFCConfig (Input)&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">I1</span><span class="p">[</span><span class="n">shock_vectors</span><span class="err">\</span><span class="n">nGDP</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Inflation</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Trade</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">FX</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Confidence</span><span class="p">]</span>
+<span class="w">        </span><span class="n">I2</span><span class="p">[</span><span class="n">policy_vectors</span><span class="err">\</span><span class="n">nMonetary</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Fiscal</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Sectoral</span><span class="p">]</span>
+<span class="w">        </span><span class="n">I3</span><span class="p">[</span><span class="n">parameters</span><span class="err">\</span><span class="n">nMPC</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">CRR</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">tax_rate</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">gov_spend_ratio</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Base</span><span class="p">[</span><span class="s">&quot;SFCEconomy — 5 Sectors&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">I1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">I2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">I3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B1</span><span class="p">[</span><span class="n">Households</span><span class="err">\</span><span class="n">nConsumption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MPC</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="n">income</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">wealth_effect</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B2</span><span class="p">[</span><span class="n">Firms</span><span class="err">\</span><span class="n">nInvestment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="n">ΔGDP</span><span class="w"> </span><span class="err">−</span><span class="w"> </span><span class="n">credit_cost</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="n">Δr</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B3</span><span class="p">[</span><span class="n">Banks</span><span class="err">\</span><span class="n">nLending</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deposits</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="mi">1</span><span class="o">-</span><span class="n">CRR</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="n">multiplier</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B4</span><span class="p">[</span><span class="n">Government</span><span class="err">\</span><span class="n">nTax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tax_rate</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="n">GDP</span><span class="err">\</span><span class="n">nSpend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gov_ratio</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="n">GDP</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B5</span><span class="p">[</span><span class="n">Foreign</span><span class="err">\</span><span class="n">nNet</span><span class="w"> </span><span class="n">Exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CA</span><span class="w"> </span><span class="n">adjustment</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B5</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B6</span><span class="p">[</span><span class="n">GDP</span><span class="w"> </span><span class="n">Frame</span><span class="err">\</span><span class="n">ngdp_growth</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">inflation</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">unemployment</span><span class="err">\</span><span class="n">nhousehold_welfare</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">sector_balances</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Research</span><span class="p">[</span><span class="s">&quot;ResearchSFCEconomy — Extensions&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R1</span><span class="p">[</span><span class="n">HeterogeneousHouseholds</span><span class="err">\</span><span class="n">nQ1</span><span class="o">-</span><span class="n">Q5</span><span class="w"> </span><span class="n">agents</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Gini</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Palma</span><span class="w"> </span><span class="n">ratio</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R2</span><span class="p">[</span><span class="n">OpenEconomyModule</span><span class="err">\</span><span class="n">nREER</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">trade</span><span class="w"> </span><span class="n">balance</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R3</span><span class="p">[</span><span class="n">FinancialAcceleratorModule</span><span class="err">\</span><span class="n">nCredit</span><span class="w"> </span><span class="n">cycles</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">LTV</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">leverage</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R4</span><span class="p">[</span><span class="n">IOStructureModule</span><span class="err">\</span><span class="n">nAgriculture</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Manufacturing</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Services</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Finance</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R5</span><span class="p">[</span><span class="n">BayesianBeliefUpdater</span><span class="err">\</span><span class="n">nShock</span><span class="w"> </span><span class="n">probability</span><span class="w"> </span><span class="n">distributions</span><span class="p">]</span>
+<span class="w">        </span><span class="n">R1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">R2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">R3</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">R4</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">R5</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R6</span><span class="p">[</span><span class="n">Unified</span><span class="w"> </span><span class="n">Frame</span><span class="err">\</span><span class="n">noutcomes</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">inequality</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">sector_balances</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">flows</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Sectors</span><span class="p">[</span><span class="s">&quot;SectorSimulator — Post-Processing&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">R6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S1</span><span class="p">[</span><span class="n">Economics</span><span class="o">/</span><span class="n">Finance</span><span class="p">]</span>
+<span class="w">        </span><span class="n">R6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S2</span><span class="p">[</span><span class="n">Healthcare</span><span class="p">]</span>
+<span class="w">        </span><span class="n">R6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S3</span><span class="p">[</span><span class="n">Environment</span><span class="o">/</span><span class="n">Water</span><span class="p">]</span>
+<span class="w">        </span><span class="n">R6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S4</span><span class="p">[</span><span class="n">Social</span><span class="w"> </span><span class="n">Cohesion</span><span class="p">]</span>
+<span class="w">        </span><span class="n">R6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S5</span><span class="p">[</span><span class="n">Education</span><span class="o">/</span><span class="n">Labor</span><span class="p">]</span>
+<span class="w">        </span><span class="n">R6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S6</span><span class="p">[</span><span class="n">Security</span><span class="p">]</span>
+<span class="w">        </span><span class="n">S1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">S2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">S3</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">S4</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">S5</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">S6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S7</span><span class="p">[</span><span class="mi">5</span><span class="err">–</span><span class="mi">10</span><span class="w"> </span><span class="n">Year</span><span class="w"> </span><span class="n">Projections</span><span class="err">\</span><span class="n">nper</span><span class="w"> </span><span class="n">sector</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="mi">20</span><span class="o">+</span><span class="w"> </span><span class="n">indicators</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+</code></pre></div>
+
+<hr />
+<h2>3. Cost of Delay Engine</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>
+<span class="w">    </span><span class="n">A</span><span class="p">[</span><span class="n">Threat</span><span class="w"> </span><span class="nf">Index</span><span class="err">\</span><span class="n">nSeverity</span><span class="w"> </span><span class="n">Score</span><span class="w"> </span><span class="mi">0</span><span class="err">–</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">Response</span><span class="w"> </span><span class="n">Window</span><span class="err">\</span><span class="n">nDays</span><span class="w"> </span><span class="n">remaining</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C</span><span class="p">{</span><span class="n">Delay</span><span class="w"> </span><span class="n">Model</span><span class="p">}</span>
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C1</span><span class="p">[</span><span class="n">Linear</span><span class="w"> </span><span class="n">Component</span><span class="err">\</span><span class="n">nBaseRate</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="n">Severity</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="n">Days</span><span class="p">]</span>
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C2</span><span class="p">[</span><span class="n">Staged</span><span class="w"> </span><span class="n">Component</span><span class="err">\</span><span class="n">nStep</span><span class="o">-</span><span class="n">change</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">thresholds</span><span class="p">]</span>
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C3</span><span class="p">[</span><span class="n">Exponential</span><span class="w"> </span><span class="n">Component</span><span class="err">\</span><span class="n">ne</span><span class="o">^</span><span class="n">rate</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="n">Days</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">compounding</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">C1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D</span><span class="p">[</span><span class="n">Blended</span><span class="w"> </span><span class="n">Loss</span><span class="w"> </span><span class="kr">Function</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E1</span><span class="p">[</span><span class="n">Do</span><span class="w"> </span><span class="n">Nothing</span><span class="w"> </span><span class="n">Loss</span><span class="err">\</span><span class="n">nKES</span><span class="w"> </span><span class="n">billions</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="kr">full</span><span class="w"> </span><span class="n">inaction</span><span class="w"> </span><span class="n">trajectory</span><span class="p">]</span>
+<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E2</span><span class="p">[</span><span class="n">Act</span><span class="w"> </span><span class="n">Early</span><span class="w"> </span><span class="n">Loss</span><span class="err">\</span><span class="n">nKES</span><span class="w"> </span><span class="n">billions</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">cost</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="w"> </span><span class="n">intervention</span><span class="p">]</span>
+<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E3</span><span class="p">[</span><span class="n">Price</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="n">Being</span><span class="w"> </span><span class="n">Late</span><span class="err">\</span><span class="n">nE1</span><span class="w"> </span><span class="err">−</span><span class="w"> </span><span class="n">E2</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">marginal</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="n">cost</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">E1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">E2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">E3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span><span class="p">[</span><span class="n">Executive</span><span class="w"> </span><span class="n">Display</span><span class="err">\</span><span class="n">nWhole</span><span class="o">-</span><span class="n">number</span><span class="w"> </span><span class="n">KES</span><span class="w"> </span><span class="n">billions</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">E3</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">b5290e</span><span class="p">,</span><span class="n">color</span><span class="o">:</span><span class="err">#</span><span class="n">fff</span>
+</code></pre></div>
+
+<hr />
+<h2>4. Kenya Economic Baselines (KNBS / World Bank 2022)</h2>
+<table>
+<thead>
+<tr>
+<th>Sector</th>
+<th>Indicator</th>
+<th>Baseline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Economics</strong></td>
+<td>GDP Growth</td>
+<td>5.3%</td>
+</tr>
+<tr>
+<td><strong>Economics</strong></td>
+<td>Inflation</td>
+<td>7.6%</td>
+</tr>
+<tr>
+<td><strong>Economics</strong></td>
+<td>Unemployment</td>
+<td>5.5%</td>
+</tr>
+<tr>
+<td><strong>Healthcare</strong></td>
+<td>Capacity Utilization</td>
+<td>72%</td>
+</tr>
+<tr>
+<td><strong>Healthcare</strong></td>
+<td>Vaccination Coverage</td>
+<td>68%</td>
+</tr>
+<tr>
+<td><strong>Healthcare</strong></td>
+<td>Mortality Risk</td>
+<td>22%</td>
+</tr>
+<tr>
+<td><strong>Environment</strong></td>
+<td>Water Access</td>
+<td>62%</td>
+</tr>
+<tr>
+<td><strong>Environment</strong></td>
+<td>Drought Severity</td>
+<td>22%</td>
+</tr>
+<tr>
+<td><strong>Environment</strong></td>
+<td>Food Security</td>
+<td>68%</td>
+</tr>
+<tr>
+<td><strong>Social</strong></td>
+<td>Poverty Headcount</td>
+<td>36.5%</td>
+</tr>
+<tr>
+<td><strong>Social</strong></td>
+<td>Inequality (Gini-equivalent)</td>
+<td>38.6%</td>
+</tr>
+<tr>
+<td><strong>Social</strong></td>
+<td>Cohesion Index</td>
+<td>54%</td>
+</tr>
+<tr>
+<td><strong>Education</strong></td>
+<td>School Attendance</td>
+<td>83%</td>
+</tr>
+<tr>
+<td><strong>Education</strong></td>
+<td>Labor Productivity</td>
+<td>1.0 (index)</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>Stability Index</td>
+<td>61%</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>Conflict Risk</td>
+<td>28%</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>Institutional Trust</td>
+<td>42%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Heterogeneous Household Calibration (Q1–Q5):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Quintile</th>
+<th>Income Share</th>
+<th>MPC</th>
+<th>Formal Employment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q1 (bottom 20%)</td>
+<td>4%</td>
+<td>0.95</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>8%</td>
+<td>0.90</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>12%</td>
+<td>0.85</td>
+<td>45%</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>20%</td>
+<td>0.75</td>
+<td>70%</td>
+</tr>
+<tr>
+<td>Q5 (top 20%)</td>
+<td>56%</td>
+<td>0.60</td>
+<td>90%</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. Simulation Engine Deep Dive</h2>
+<p>This section explains how the Simulation Engine transforms risk intelligence into forward-looking scenario outcomes for decision support, including advanced modes, uncertainty systems, and multidimensional analysis views.</p>
+<h3>5.1 Simulation Engine Purpose</h3>
+<p>The Simulation Engine is designed to answer five policy questions:</p>
+<ol>
+<li>What is likely to happen if no action is taken?</li>
+<li>Which intervention pathway performs better under uncertainty?</li>
+<li>How quickly do outcomes diverge across policy options?</li>
+<li>Which sectors are most exposed over the next planning horizon?</li>
+<li>What trade-offs appear across growth, inflation, employment, and social pressure?</li>
+</ol>
+<h3>5.2 End-to-End Simulation Flow</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">A</span><span class="p">[</span><span class="n">Pulse</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">Outputs</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">Scenario</span><span class="w"> </span><span class="n">Orchestrator</span><span class="p">]</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="n">Baseline</span><span class="w"> </span><span class="n">Path</span><span class="err">\</span><span class="n">nNo</span><span class="w"> </span><span class="n">Intervention</span><span class="p">]</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D</span><span class="p">[</span><span class="n">Intervention</span><span class="w"> </span><span class="n">Path</span><span class="w"> </span><span class="n">A</span><span class="p">]</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span><span class="p">[</span><span class="n">Intervention</span><span class="w"> </span><span class="n">Path</span><span class="w"> </span><span class="n">B</span><span class="p">]</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span><span class="p">[</span><span class="n">Stress</span><span class="w"> </span><span class="n">Variants</span><span class="p">]</span>
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">G</span><span class="p">[</span><span class="n">Simulation</span><span class="w"> </span><span class="n">Core</span><span class="err">\</span><span class="n">nMacro</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Sector</span><span class="w"> </span><span class="n">Dynamics</span><span class="p">]</span>
+<span class="w">    </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span><span class="p">[</span><span class="n">Trajectory</span><span class="w"> </span><span class="n">Frames</span><span class="err">\</span><span class="n">nTime</span><span class="o">-</span><span class="n">series</span><span class="w"> </span><span class="n">outcomes</span><span class="p">]</span>
+<span class="w">    </span><span class="n">H</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="n">Comparative</span><span class="w"> </span><span class="n">Analytics</span><span class="err">\</span><span class="n">nDeltas</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">trade</span><span class="o">-</span><span class="n">offs</span><span class="p">]</span>
+<span class="w">    </span><span class="n">I</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">J</span><span class="p">[</span><span class="n">Decision</span><span class="w"> </span><span class="n">Views</span><span class="err">\</span><span class="n">nDashboards</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Reports</span><span class="p">]</span>
+</code></pre></div>
+
+<h3>5.3 Layered Architecture</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>
+<span class="w">    </span><span class="n">L1</span><span class="p">[</span><span class="n">Input</span><span class="w"> </span><span class="n">Layer</span>\<span class="n">nRisk</span><span class="w"> </span><span class="n">vectors</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">baseline</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">policy</span><span class="w"> </span><span class="n">assumptions</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">L2</span><span class="p">[</span><span class="n">Calibration</span><span class="w"> </span><span class="n">Layer</span>\<span class="n">nContext</span><span class="w"> </span><span class="n">tuning</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">scenario</span><span class="w"> </span><span class="n">readiness</span><span class="p">]</span>
+<span class="w">    </span><span class="n">L2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">L3</span><span class="p">[</span><span class="n">Core</span><span class="w"> </span><span class="n">Dynamics</span><span class="w"> </span><span class="n">Layer</span>\<span class="n">nStock</span><span class="o">-</span><span class="n">flow</span><span class="w"> </span><span class="n">macro</span><span class="w"> </span><span class="n">simulation</span><span class="p">]</span>
+<span class="w">    </span><span class="n">L3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">L4</span><span class="p">[</span><span class="n">Mode</span><span class="w"> </span><span class="n">Extensions</span>\<span class="n">nOpen</span><span class="w"> </span><span class="n">economy</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">financial</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">inequality</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">IO</span><span class="p">]</span>
+<span class="w">    </span><span class="n">L4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">L5</span><span class="p">[</span><span class="n">Uncertainty</span><span class="w"> </span><span class="n">Layer</span>\<span class="n">nMonte</span><span class="w"> </span><span class="n">Carlo</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">confidence</span><span class="w"> </span><span class="n">bands</span><span class="p">]</span>
+<span class="w">    </span><span class="n">L5</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">L6</span><span class="p">[</span><span class="n">Analysis</span><span class="w"> </span><span class="n">Surfaces</span>\<span class="n">n2D</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="mi">3</span><span class="n">D</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="mi">4</span><span class="n">D</span><span class="w"> </span><span class="n">decision</span><span class="w"> </span><span class="n">views</span><span class="p">]</span>
+<span class="w">    </span><span class="n">L6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">L7</span><span class="p">[</span><span class="n">Output</span><span class="w"> </span><span class="n">Layer</span>\<span class="n">nRole</span><span class="o">-</span><span class="n">specific</span><span class="w"> </span><span class="n">dashboards</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">exports</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Layer responsibilities:</p>
+<ol>
+<li>Input Layer standardizes assumptions, shock context, and time horizon.</li>
+<li>Calibration Layer aligns scenario setup with latest contextual baselines.</li>
+<li>Core Dynamics Layer computes macro trajectories over time.</li>
+<li>Mode Extensions layer adds domain-specific realism.</li>
+<li>Uncertainty Layer estimates plausible ranges around central paths.</li>
+<li>Analysis Surfaces layer converts trajectories into comparative decision tools.</li>
+<li>Output Layer publishes interpretable insights for each user role.</li>
+</ol>
+<h3>5.4 Engine Modes</h3>
+<p>The Simulation Engine supports multiple modes, each adding analytical depth:</p>
+<ol>
+<li>Core Mode: baseline macro pathway simulation for policy comparison.</li>
+<li>Open Economy Mode: trade, reserve, and currency-pressure dynamics.</li>
+<li>Financial Mode: credit-cycle and banking-stability pressure analysis.</li>
+<li>Inequality Mode: distribution-sensitive outcomes across population segments.</li>
+<li>IO Mode: inter-sector propagation across connected production systems.</li>
+<li>Research Workbench Mode: full advanced exploration combining all extensions.</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">M0</span><span class="p">[</span><span class="n">Core</span><span class="w"> </span><span class="n">Mode</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M1</span><span class="p">[</span><span class="n">Open</span><span class="w"> </span><span class="n">Economy</span><span class="w"> </span><span class="n">Mode</span><span class="p">]</span>
+<span class="w">    </span><span class="n">M1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M2</span><span class="p">[</span><span class="n">Financial</span><span class="w"> </span><span class="n">Mode</span><span class="p">]</span>
+<span class="w">    </span><span class="n">M2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M3</span><span class="p">[</span><span class="n">Inequality</span><span class="w"> </span><span class="n">Mode</span><span class="p">]</span>
+<span class="w">    </span><span class="n">M3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M4</span><span class="p">[</span><span class="n">IO</span><span class="w"> </span><span class="n">Mode</span><span class="p">]</span>
+<span class="w">    </span><span class="n">M4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M5</span><span class="p">[</span><span class="n">Research</span><span class="w"> </span><span class="n">Workbench</span><span class="w"> </span><span class="n">Mode</span><span class="p">]</span>
+</code></pre></div>
+
+<h3>5.5 Custom Shock System</h3>
+<p>Custom shocks allow users to model realistic disruptions with controlled timing and magnitude.</p>
+<p>Capabilities:</p>
+<ol>
+<li>Multi-channel targets such as demand, supply, trade, currency, and confidence.</li>
+<li>Temporal controls for start period, duration, and sequence ordering.</li>
+<li>Shape options including step, pulse, ramp, decay, and cyclical behavior.</li>
+<li>Multi-shock stacking so complex events can be composed in one scenario.</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>
+<span class="w">    </span><span class="n">S1</span><span class="p">[</span><span class="n">Preset</span><span class="w"> </span><span class="n">Shocks</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="n">Shock</span><span class="w"> </span><span class="n">Composer</span><span class="p">]</span>
+<span class="w">    </span><span class="n">S2</span><span class="p">[</span><span class="n">Custom</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">Shocks</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C</span>
+<span class="w">    </span><span class="n">S3</span><span class="p">[</span><span class="n">Risk</span><span class="o">-</span><span class="n">Derived</span><span class="w"> </span><span class="n">Shocks</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C</span>
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">V</span><span class="p">[</span><span class="n">Validation</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Harmonization</span><span class="p">]</span>
+<span class="w">    </span><span class="n">V</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">Shock</span><span class="w"> </span><span class="n">Timeline</span><span class="w"> </span><span class="n">Vectors</span><span class="p">]</span>
+<span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R</span><span class="p">[</span><span class="n">Scenario</span><span class="w"> </span><span class="n">Run</span><span class="p">]</span>
+</code></pre></div>
+
+<h3>5.6 Custom Policy System</h3>
+<p>The policy layer supports both template-based and custom intervention design.</p>
+<p>Policy design dimensions:</p>
+<ol>
+<li>Instrument type: monetary, fiscal, sectoral, emergency.</li>
+<li>Intensity: low, medium, high or user-defined gradients.</li>
+<li>Timing: immediate, staged, delayed, or sequenced response.</li>
+<li>Composition: combine several instruments into a coordinated policy package.</li>
+<li>Comparison: evaluate multiple policy mixes against baseline.</li>
+</ol>
+<h3>5.7 Scenario Orchestration</h3>
+<p>Scenarios are orchestrated as a portfolio, not isolated runs.</p>
+<ol>
+<li>Baseline is generated first as a reference pathway.</li>
+<li>Intervention scenarios are executed in parallel for comparability.</li>
+<li>Stress variants are applied to test policy robustness.</li>
+<li>Outputs are normalized into one comparison layer for decision review.</li>
+</ol>
+<h3>5.8 Monte Carlo and Confidence Logic</h3>
+<p>The Simulation Engine uses repeated stochastic variants to quantify uncertainty.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">U1</span><span class="p">[</span><span class="n">Scenario</span><span class="w"> </span><span class="n">Configuration</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">U2</span><span class="p">[</span><span class="n">Variant</span><span class="w"> </span><span class="n">Sampling</span><span class="p">]</span>
+<span class="w">    </span><span class="n">U2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">U3</span><span class="p">[</span><span class="n">Repeated</span><span class="w"> </span><span class="n">Simulation</span><span class="w"> </span><span class="n">Runs</span><span class="p">]</span>
+<span class="w">    </span><span class="n">U3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">U4</span><span class="p">[</span><span class="n">Percentile</span><span class="w"> </span><span class="n">Aggregation</span><span class="p">]</span>
+<span class="w">    </span><span class="n">U4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">U5</span><span class="p">[</span><span class="n">Confidence</span><span class="w"> </span><span class="n">Bands</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Fan</span><span class="w"> </span><span class="n">Views</span><span class="p">]</span>
+<span class="w">    </span><span class="n">U5</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">U6</span><span class="p">[</span><span class="n">Robust</span><span class="w"> </span><span class="n">Decision</span><span class="w"> </span><span class="n">Guidance</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Uncertainty principles:</p>
+<ol>
+<li>Show ranges, not only one deterministic line.</li>
+<li>Use median pathways for central interpretation.</li>
+<li>Evaluate tail ranges for contingency planning.</li>
+<li>Prefer policies that remain stable across wide bands.</li>
+</ol>
+<h3>5.9 Advanced Analysis Surfaces</h3>
+<p>The engine provides many analysis surfaces for different decision questions:</p>
+<ol>
+<li>Compare Runs: side-by-side scenario trajectory overlays.</li>
+<li>Sensitivity Matrix: outcome response to parameter and policy variation.</li>
+<li>Phase Explorer: state-space trajectory movement over time.</li>
+<li>Impulse Response: shock propagation and recovery dynamics.</li>
+<li>Stress Matrix: scenario-by-outcome pressure map.</li>
+<li>Parameter Surface: multidimensional response landscape.</li>
+<li>Monte Carlo Fan Views: uncertainty envelopes over horizon.</li>
+<li>3D and 4D State Views: multidimensional policy-state interpretation.</li>
+</ol>
+<h3>5.10 4D Visualization Perspective</h3>
+<p>The 4D view allows stakeholders to track multiple macro dimensions together rather than one metric at a time.</p>
+<p>Typical 4D interpretation pattern:</p>
+<ol>
+<li>Axis X: growth or output movement.</li>
+<li>Axis Y: inflation pressure trajectory.</li>
+<li>Axis Z: employment or stability path.</li>
+<li>Fourth dimension: welfare, risk score, or color-encoded pressure state.</li>
+</ol>
+<p>This helps teams spot stability corridors, divergence patterns, and policy turning points faster.</p>
+<h3>5.11 Simulation Output Contract</h3>
+<p>The Simulation Engine returns structured outputs for dashboards and reports:</p>
+<ol>
+<li>Time-series trajectories for key indicators.</li>
+<li>Scenario deltas versus baseline pathways.</li>
+<li>Sector impact summaries and pressure markers.</li>
+<li>Confidence-oriented interpretation notes.</li>
+<li>Planning priorities suitable for executive and operational workflows.</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>
+<span class="w">    </span><span class="n">O1</span><span class="p">[</span><span class="n">Trajectory</span><span class="w"> </span><span class="n">Data</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">O6</span><span class="p">[</span><span class="n">Dashboard</span><span class="w"> </span><span class="n">Views</span><span class="p">]</span>
+<span class="w">    </span><span class="n">O2</span><span class="p">[</span><span class="n">Scenario</span><span class="w"> </span><span class="n">Deltas</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">O6</span>
+<span class="w">    </span><span class="n">O3</span><span class="p">[</span><span class="n">Mode</span><span class="o">-</span><span class="n">Specific</span><span class="w"> </span><span class="n">Summaries</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">O6</span>
+<span class="w">    </span><span class="n">O4</span><span class="p">[</span><span class="n">Interpretation</span><span class="w"> </span><span class="n">Notes</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">O7</span><span class="p">[</span><span class="n">PDF</span><span class="o">/</span><span class="n">CSV</span><span class="o">/</span><span class="n">ZIP</span><span class="w"> </span><span class="n">Exports</span><span class="p">]</span>
+<span class="w">    </span><span class="n">O5</span><span class="p">[</span><span class="n">Planning</span><span class="w"> </span><span class="n">Priorities</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">O7</span>
+</code></pre></div>
+
+<h3>5.12 Role-Based Consumption</h3>
+<p>Simulation outputs feed different roles with tailored focus:</p>
+<ol>
+<li>Executive: strategic pathway selection and national-level trade-offs.</li>
+<li>Admin: sector coordination, escalation planning, and allocation decisions.</li>
+<li>Local Institution: operational priorities and monitoring checkpoints.</li>
+</ol>
+                </article>
+
+                <!-- Mobile Navigation (Bottom) -->
+                
+
+            </main>
+
+    </div>
+
+</div>
+
+    </main>
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA MAKENA</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2026 Omega Makena.<br>
+                        Engineering Intelligence.
+                    </div>
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // FlatPages/Pygments strips the `language-mermaid` class and injects spans.
+            // We search for all code blocks and check if the unformatted text indicates a diagram.
+            const allCodeBlocks = document.querySelectorAll(".codehilite code, pre code");
+            const blocksToProcess = [];
+            
+            allCodeBlocks.forEach(function(block) {
+                const text = block.textContent.trim();
+                if (text.startsWith("flowchart") || text.startsWith("sequenceDiagram") || text.startsWith("graph") || text.startsWith("stateDiagram")) {
+                    blocksToProcess.push({block: block, text: text});
+                }
+            });
+
+            blocksToProcess.forEach(function(item) {
+                const div = document.createElement('div');
+                div.className = 'mermaid flex justify-center w-full overflow-x-auto my-8'; 
+                div.textContent = item.text;
+                
+                const container = item.block.closest('.codehilite') || item.block.closest('pre');
+                if (container) {
+                    container.replaceWith(div);
+                }
+            });
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'neutral',
+                themeVariables: {
+                    'background': 'transparent',
+                    'primaryColor': '#18181B',
+                    'primaryTextColor': '#18181B',
+                    'lineColor': '#a3a3a3',
+                    'fontSize': '14px'
+                }
+            });
+            
+            if (blocksToProcess.length > 0) {
+                // Let the browser paint the divs before running mermaid
+                setTimeout(() => {
+                    mermaid.run({ querySelector: '.mermaid' });
+                }, 50);
+            }
+        });
+    </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+</body>
+
+</html>

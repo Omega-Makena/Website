@@ -51,6 +51,11 @@ def work():
     yield {}
 
 @freezer.register_generator
+def projects():
+    """Projects page"""
+    yield {}
+
+@freezer.register_generator
 def services():
     """Omega Makena Services page"""
     yield {}
@@ -59,6 +64,14 @@ def services():
 def about():
     """About page"""
     yield {}
+
+@freezer.register_generator
+def project_page():
+    """Individual project pages"""
+    for page in flatpages:
+        if page.path.startswith('projects/'):
+            subpath = page.path.split('projects/', 1)[1]
+            yield {'subpath': subpath}
 
 @freezer.register_generator
 def scarcity_page():
@@ -119,6 +132,7 @@ def generate_sitemap():
         ('/about/', 'yearly', '0.6'),
         ('/services/', 'monthly', '0.75'),
         ('/work/', 'monthly', '0.7'),
+        ('/projects/', 'monthly', '0.8'),
     ]
 
     for path, changefreq, priority in static_paths:

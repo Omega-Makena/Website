@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <meta name="description" content="Unified national-level platform for real-time overview and simulation.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena">
+
+    <title>KScarcity Architecture - Omega Makena</title>
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
+                        },
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Makena Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Makena</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/projects/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">LAB NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/services/" class="nav-link">SERVICES</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/projects/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">LAB NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/services/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">SERVICES</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-20">
+        
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid lg:grid-cols-12 gap-12">
+        
+            <!-- Main Content Centered (No Sidebar) -->
+            <main class="lg:col-span-8 lg:col-start-3">
+                
+
+                <!-- Header -->
+                <header class="mb-12 border-b border-gray-200 pb-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent-main">
+                            NOTE
+                        </span>
+                        
+                        <span class="text-xs font-mono text-text-muted">
+                            // April 05, 2026
+                        </span>
+                        
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
+                        KScarcity Architecture
+                    </h1>
+
+                    
+                    <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
+                        Unified national-level platform for real-time overview and simulation.
+                    </p>
+                    
+                </header>
+
+                <!-- Prose Content -->
+                <!-- Prose Content -->
+                <article class="prose prose-lg max-w-none 
+                            prose-headings:font-serif prose-headings:text-text-primary 
+                            prose-p:text-text-secondary prose-p:leading-relaxed 
+                            prose-a:text-accent-blue prose-a:no-underline hover:prose-a:underline 
+                            prose-strong:text-text-primary 
+                            prose-code:text-accent-main prose-code:bg-gray-50 prose-code:px-1 prose-code:rounded
+                            prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
+                            prose-ul:list-disc prose-ul:pl-6
+                            prose-li:marker:text-accent-main prose-li:my-2">
+                    <h1>KScarcity Unified Platform</h1>
+<p>KScarcity is a unified national-level platform that gives the government a real-time overview of policies, sectoral activities, and institutional operations. </p>
+<p>It analyzes data across sectoral, institutional, and national layers, trains machine learning models in real time, explains the five W's and one H, simulates risks and policy responses, and allows collaboration for planning and preparing for future shocks. Essentially, it integrates monitoring, analysis, and simulation tailored to a country's needs.</p>
+<hr />
+<h2>1. Full System Data Flow</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">RAW</span><span class="p">[</span><span class="s">&quot;Raw Data Sources&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">R1</span><span class="p">[</span><span class="n">Twitter</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">X</span><span class="p">]</span>
+<span class="w">        </span><span class="n">R2</span><span class="p">[</span><span class="n">Facebook</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Telegram</span><span class="p">]</span>
+<span class="w">        </span><span class="n">R3</span><span class="p">[</span><span class="n">News</span><span class="w"> </span><span class="n">Feeds</span><span class="p">]</span>
+<span class="w">        </span><span class="n">R4</span><span class="p">[</span><span class="n">World</span><span class="w"> </span><span class="n">Bank</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">KNBS</span><span class="p">]</span>
+<span class="w">        </span><span class="n">R5</span><span class="p">[</span><span class="n">Institution</span><span class="w"> </span><span class="n">CSVs</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">PULSE</span><span class="p">[</span><span class="s">&quot;Pulse Engine&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">P1</span><span class="p">[</span><span class="n">Scrapers</span><span class="p">]</span>
+<span class="w">        </span><span class="n">P2</span><span class="p">[</span><span class="n">NLP</span><span class="w"> </span><span class="n">Pipeline</span><span class="p">]</span>
+<span class="w">        </span><span class="n">P3</span><span class="p">[</span><span class="mi">15</span><span class="w"> </span><span class="n">Signal</span><span class="w"> </span><span class="n">Detectors</span><span class="p">]</span>
+<span class="w">        </span><span class="n">P4</span><span class="p">[</span><span class="n">PulseState</span><span class="err">\</span><span class="n">nScarcityVector</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">ActorStress</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">BondStrength</span><span class="p">]</span>
+<span class="w">        </span><span class="n">P5</span><span class="p">[</span><span class="mi">8</span><span class="w"> </span><span class="n">Threat</span><span class="w"> </span><span class="n">Indices</span><span class="err">\</span><span class="n">nPI</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">LEI</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">MRS</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">ECI</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">IWI</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">SFI</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">ECR</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">ETM</span><span class="p">]</span>
+<span class="w">        </span><span class="n">P6</span><span class="p">[</span><span class="n">ShockGenerator</span><span class="err">\</span><span class="n">nGDP</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Inflation</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Trade</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">FX</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Confidence</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">SCARCITY</span><span class="p">[</span><span class="s">&quot;Scarcity Engine&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">S1</span><span class="p">[</span><span class="n">Online</span><span class="w"> </span><span class="n">Discovery</span><span class="w"> </span><span class="n">Engine</span><span class="err">\</span><span class="n">n15</span><span class="w"> </span><span class="n">Hypotheses</span><span class="p">]</span>
+<span class="w">        </span><span class="n">S2</span><span class="p">[</span><span class="n">LearnedSFCEconomy</span><span class="p">]</span>
+<span class="w">        </span><span class="n">S3</span><span class="p">[</span><span class="n">Meta</span><span class="o">-</span><span class="n">Learning</span><span class="w"> </span><span class="n">Agent</span><span class="err">\</span><span class="n">nReptile</span><span class="w"> </span><span class="n">Optimizer</span><span class="p">]</span>
+<span class="w">        </span><span class="n">S4</span><span class="p">[</span><span class="n">DRG</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Dynamic</span><span class="w"> </span><span class="n">Resource</span><span class="w"> </span><span class="n">Governor</span><span class="p">]</span>
+<span class="w">        </span><span class="n">S5</span><span class="p">[</span><span class="n">RRCF</span><span class="w"> </span><span class="n">Anomaly</span><span class="w"> </span><span class="n">Detector</span><span class="p">]</span>
+<span class="w">        </span><span class="n">S6</span><span class="p">[</span><span class="n">Bayes</span><span class="w"> </span><span class="n">VARX</span><span class="w"> </span><span class="n">Forecaster</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">SIM</span><span class="p">[</span><span class="s">&quot;Simulation Layer&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">M1</span><span class="p">[</span><span class="n">SFCEconomy</span><span class="err">\</span><span class="n">nBase</span><span class="w"> </span><span class="n">Macro</span><span class="p">]</span>
+<span class="w">        </span><span class="n">M2</span><span class="p">[</span><span class="n">ResearchSFCEconomy</span><span class="err">\</span><span class="n">nHeterogeneous</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Open</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Financial</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">IO</span><span class="p">]</span>
+<span class="w">        </span><span class="n">M3</span><span class="p">[</span><span class="n">SectorSimulator</span><span class="err">\</span><span class="n">n6</span><span class="w"> </span><span class="n">Sectors</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="mi">20</span><span class="o">+</span><span class="w"> </span><span class="n">Indicators</span><span class="p">]</span>
+<span class="w">        </span><span class="n">M4</span><span class="p">[</span><span class="n">Shock</span><span class="w"> </span><span class="n">Templates</span><span class="err">\</span><span class="n">n380</span><span class="o">+</span><span class="p">]</span>
+<span class="w">        </span><span class="n">M5</span><span class="p">[</span><span class="mi">5</span><span class="err">–</span><span class="mi">10</span><span class="w"> </span><span class="n">Year</span><span class="w"> </span><span class="n">Projections</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">FED</span><span class="p">[</span><span class="s">&quot;Aegis Federation&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">F1</span><span class="p">[</span><span class="n">Institution</span><span class="w"> </span><span class="n">Nodes</span><span class="p">]</span>
+<span class="w">        </span><span class="n">F2</span><span class="p">[</span><span class="n">Gossip</span><span class="w"> </span><span class="n">Consensus</span><span class="p">]</span>
+<span class="w">        </span><span class="n">F3</span><span class="p">[</span><span class="n">Global</span><span class="w"> </span><span class="n">Meta</span><span class="o">-</span><span class="n">Aggregation</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">UI</span><span class="p">[</span><span class="s">&quot;Dashboards&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">U1</span><span class="p">[</span><span class="n">K</span><span class="o">-</span><span class="n">SHIELD</span><span class="p">]</span>
+<span class="w">        </span><span class="n">U2</span><span class="p">[</span><span class="n">Institution</span><span class="w"> </span><span class="n">Portal</span><span class="p">]</span>
+<span class="w">        </span><span class="n">U3</span><span class="p">[</span><span class="n">SENTINEL</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">R1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">R2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">R3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">P1</span>
+<span class="w">    </span><span class="n">P1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">P2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">P3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">P4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">P5</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">P6</span>
+<span class="w">    </span><span class="n">P6</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M3</span>
+<span class="w">    </span><span class="n">P5</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">U3</span>
+
+<span class="w">    </span><span class="n">R4</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">R5</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S1</span>
+<span class="w">    </span><span class="n">S1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S2</span>
+<span class="w">    </span><span class="n">S2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">M2</span>
+<span class="w">    </span><span class="n">S3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S2</span>
+<span class="w">    </span><span class="n">S4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S2</span>
+<span class="w">    </span><span class="n">S5</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S6</span>
+
+<span class="w">    </span><span class="n">M2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M5</span>
+<span class="w">    </span><span class="n">M5</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">U1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">U2</span>
+
+<span class="w">    </span><span class="n">F1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S3</span>
+<span class="w">    </span><span class="n">R5</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F1</span>
+</code></pre></div>
+
+<hr />
+<h2>2. Scarcity Engine — Online Learning Architecture</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Preprocessing</span><span class="p">[</span><span class="s">&quot;Pre-Processing&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">A1</span><span class="p">[</span><span class="n">Raw</span><span class="w"> </span><span class="n">Stream</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A2</span><span class="p">[</span><span class="n">Online</span><span class="w"> </span><span class="n">Winsorization</span><span class="err">\</span><span class="n">n5th</span><span class="err">–</span><span class="mi">95</span><span class="n">th</span><span class="w"> </span><span class="n">percentile</span><span class="w"> </span><span class="n">clipping</span><span class="p">]</span>
+<span class="w">        </span><span class="n">A2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A3</span><span class="p">[</span><span class="n">Online</span><span class="w"> </span><span class="n">MAD</span><span class="err">\</span><span class="n">nMedian</span><span class="w"> </span><span class="n">Absolute</span><span class="w"> </span><span class="n">Deviation</span><span class="p">]</span>
+<span class="w">        </span><span class="n">A3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A4</span><span class="p">[</span><span class="n">Huber</span><span class="w"> </span><span class="n">Loss</span><span class="err">\</span><span class="n">nGradient</span><span class="w"> </span><span class="n">Clipping</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Encoding</span><span class="p">[</span><span class="s">&quot;Sketching &amp; Encoding&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">A4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B1</span><span class="p">[</span><span class="n">CountSketch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">FFT</span><span class="err">\</span><span class="n">nPolynomial</span><span class="w"> </span><span class="n">Approximation</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B2</span><span class="p">[</span><span class="n">Tensor</span><span class="w"> </span><span class="n">Sketch</span><span class="err">\</span><span class="n">nKronecker</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">Compression</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B3</span><span class="p">[</span><span class="n">Top</span><span class="o">-</span><span class="n">K</span><span class="w"> </span><span class="n">Sparse</span><span class="w"> </span><span class="n">Attention</span><span class="err">\</span><span class="n">nFP16</span><span class="w"> </span><span class="n">Transformer</span><span class="o">-</span><span class="n">style</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B4</span><span class="p">[</span><span class="n">Lag</span><span class="w"> </span><span class="n">Positional</span><span class="w"> </span><span class="n">Encodings</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Hypotheses</span><span class="p">[</span><span class="s">&quot;15 Competing Hypotheses (Online)&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C1</span><span class="p">[</span><span class="n">Causal</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Granger</span><span class="w"> </span><span class="n">Augmented</span><span class="w"> </span><span class="n">Ridge</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C2</span><span class="p">[</span><span class="n">Correlational</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Welford</span><span class="w"> </span><span class="n">Pearson</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C3</span><span class="p">[</span><span class="n">Temporal</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Recursive</span><span class="w"> </span><span class="n">Least</span><span class="w"> </span><span class="n">Squares</span><span class="w"> </span><span class="n">VAR</span><span class="o">-</span><span class="n">p</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C4</span><span class="p">[</span><span class="n">Functional</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Online</span><span class="w"> </span><span class="n">Polynomial</span><span class="w"> </span><span class="n">RLS</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C5</span><span class="p">[</span><span class="n">Equilibrium</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Kalman</span><span class="w"> </span><span class="n">Mean</span><span class="w"> </span><span class="n">Reversion</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C6</span><span class="p">[</span><span class="n">Compositional</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Sum</span><span class="w"> </span><span class="n">Constraints</span><span class="w"> </span><span class="n">MAE</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C7</span><span class="p">[</span><span class="n">Competitive</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">CV</span><span class="w"> </span><span class="n">Zero</span><span class="o">-</span><span class="n">Sum</span><span class="w"> </span><span class="n">Detection</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C8</span><span class="p">[</span><span class="n">Synergistic</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Interaction</span><span class="w"> </span><span class="n">Term</span><span class="w"> </span><span class="n">Regression</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C9</span><span class="p">[</span><span class="n">Probabilistic</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Cohen</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="n">Distribution</span><span class="w"> </span><span class="n">Shift</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C10</span><span class="p">[</span><span class="n">Structural</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">ICC</span><span class="w"> </span><span class="n">Hierarchical</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C11</span><span class="p">[</span><span class="n">Mediating</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Baron</span><span class="o">-</span><span class="n">Kenny</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C12</span><span class="p">[</span><span class="n">Moderating</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Conditional</span><span class="w"> </span><span class="n">Effects</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C13</span><span class="p">[</span><span class="n">Graph</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Network</span><span class="w"> </span><span class="n">Density</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C14</span><span class="p">[</span><span class="n">Similarity</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Online</span><span class="w"> </span><span class="n">K</span><span class="o">-</span><span class="n">Means</span><span class="p">]</span>
+<span class="w">        </span><span class="n">B4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C15</span><span class="p">[</span><span class="n">Logical</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="n">Gate</span><span class="w"> </span><span class="n">Rules</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Arbitration</span><span class="p">[</span><span class="s">&quot;Arbitration &amp; Validation&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">C1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C3</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C4</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C5</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C6</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C7</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C8</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C9</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C10</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C11</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C12</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C13</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C14</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C15</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D1</span><span class="p">[</span><span class="n">HypothesisArbiter</span><span class="err">\</span><span class="n">nParsimony</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Conflict</span><span class="w"> </span><span class="n">Resolution</span><span class="p">]</span>
+<span class="w">        </span><span class="n">D1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D2</span><span class="p">[</span><span class="n">Page</span><span class="o">-</span><span class="n">Hinkley</span><span class="err">\</span><span class="n">nConcept</span><span class="w"> </span><span class="n">Drift</span><span class="w"> </span><span class="n">Detection</span><span class="p">]</span>
+<span class="w">        </span><span class="n">D2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D3</span><span class="p">[</span><span class="n">Bootstrap</span><span class="w"> </span><span class="n">CI</span><span class="err">\</span><span class="n">nConfidence</span><span class="w"> </span><span class="n">Intervals</span><span class="p">]</span>
+<span class="w">        </span><span class="n">D3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D4</span><span class="p">[</span><span class="n">Spearman</span><span class="w"> </span><span class="n">Concordance</span><span class="err">\</span><span class="n">nSign</span><span class="o">-</span><span class="n">Agreement</span><span class="w"> </span><span class="n">Validation</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+
+<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Output</span><span class="p">[</span><span class="s">&quot;Knowledge Output&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="n">D4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E1</span><span class="p">[</span><span class="n">Causal</span><span class="w"> </span><span class="n">Knowledge</span><span class="w"> </span><span class="n">Graph</span><span class="err">\</span><span class="n">nEdge</span><span class="w"> </span><span class="n">strengths</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">confidence</span><span class="p">]</span>
+<span class="w">        </span><span class="n">D4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E2</span><span class="p">[</span><span class="n">RRCF</span><span class="w"> </span><span class="n">Anomaly</span><span class="w"> </span><span class="n">Detector</span><span class="p">]</span>
+<span class="w">        </span><span class="n">D4</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E3</span><span class="p">[</span><span class="n">Bayes</span><span class="w"> </span><span class="n">VARX</span><span class="w"> </span><span class="n">Forecaster</span><span class="p">]</span>
+<span class="w">        </span><span class="n">E1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E4</span><span class="p">[</span><span class="n">LearnedSFCEconomy</span><span class="p">]</span>
+<span class="w">        </span><span class="n">E2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">E3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E5</span><span class="p">[</span><span class="n">DRG</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Assurance</span><span class="w"> </span><span class="n">Levels</span><span class="err">\</span><span class="n">nHIGH</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">MEDIUM</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">LOW</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">FALLBACK</span><span class="p">]</span>
+<span class="w">    </span><span class="n">end</span>
+</code></pre></div>
+
+<hr />
+<h2>3. Institution Dashboard — Navigation Structure</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">L</span><span class="p">[</span><span class="n">Landing</span><span class="w"> </span><span class="n">Page</span><span class="err">\</span><span class="n">n5</span><span class="w"> </span><span class="n">Ws</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Who</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">What</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">When</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Where</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Why</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A</span>
+
+<span class="w">    </span><span class="n">A</span><span class="p">[</span><span class="n">Institution</span><span class="w"> </span><span class="n">Portal</span><span class="w"> </span><span class="n">Login</span><span class="err">\</span><span class="n">nSector</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Invite</span><span class="w"> </span><span class="n">Code</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Password</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">{</span><span class="n">Role</span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="n">Executive</span><span class="w"> </span><span class="n">Dashboard</span><span class="p">]</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D</span><span class="p">[</span><span class="n">Admin</span><span class="w"> </span><span class="n">Governance</span><span class="w"> </span><span class="n">Console</span><span class="p">]</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span><span class="p">[</span><span class="n">Developer</span><span class="w"> </span><span class="n">Dashboard</span><span class="p">]</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span><span class="p">[</span><span class="n">Local</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Spoke</span><span class="w"> </span><span class="n">Dashboard</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C1</span><span class="p">[</span><span class="n">National</span><span class="w"> </span><span class="n">Briefing</span><span class="err">\</span><span class="n">nThreat</span><span class="w"> </span><span class="n">Intelligence</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Social</span><span class="w"> </span><span class="n">Signals</span><span class="p">]</span>
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C2</span><span class="p">[</span><span class="n">Sector</span><span class="w"> </span><span class="n">Reports</span><span class="err">\</span><span class="n">n7</span><span class="w"> </span><span class="n">Sectors</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="n">grid</span><span class="w"> </span><span class="n">always</span><span class="w"> </span><span class="n">visible</span><span class="p">]</span>
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C3</span><span class="p">[</span><span class="n">Command</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Control</span><span class="err">\</span><span class="n">nActive</span><span class="w"> </span><span class="n">Operations</span><span class="p">]</span>
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C4</span><span class="p">[</span><span class="n">Policy</span><span class="w"> </span><span class="n">Simulator</span><span class="err">\</span><span class="n">nScenario</span><span class="w"> </span><span class="n">design</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">projections</span><span class="p">]</span>
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C5</span><span class="p">[</span><span class="n">Collaboration</span><span class="w"> </span><span class="n">Room</span><span class="err">\</span><span class="n">nCross</span><span class="o">-</span><span class="n">institution</span><span class="w"> </span><span class="n">messaging</span><span class="p">]</span>
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C6</span><span class="p">[</span><span class="n">Archive</span><span class="err">\</span><span class="n">nHistorical</span><span class="w"> </span><span class="n">reports</span><span class="p">]</span>
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C7</span><span class="p">[</span><span class="n">Analytics</span><span class="w"> </span><span class="n">Pillars</span><span class="err">\</span><span class="n">nSO</span><span class="w"> </span><span class="n">WHAT</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">COMPARED</span><span class="w"> </span><span class="n">TO</span><span class="w"> </span><span class="n">WHAT</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">WHERE</span><span class="w"> </span><span class="n">EXACTLY</span><span class="err">\</span><span class="n">nWHAT</span><span class="w"> </span><span class="n">SHOULD</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">DO</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">DID</span><span class="w"> </span><span class="n">IT</span><span class="w"> </span><span class="n">WORK</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D1</span><span class="p">[</span><span class="n">Pending</span><span class="w"> </span><span class="n">Approvals</span><span class="err">\</span><span class="n">nInstitution</span><span class="w"> </span><span class="n">registration</span><span class="w"> </span><span class="n">review</span><span class="p">]</span>
+<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D2</span><span class="p">[</span><span class="n">Audit</span><span class="w"> </span><span class="n">Logs</span><span class="err">\</span><span class="n">nFull</span><span class="w"> </span><span class="n">approval</span><span class="w"> </span><span class="n">audit</span><span class="w"> </span><span class="n">trail</span><span class="p">]</span>
+<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D3</span><span class="p">[</span><span class="n">Topology</span><span class="w"> </span><span class="n">Injection</span><span class="err">\</span><span class="n">nLevel</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="w"> </span><span class="n">agency</span><span class="w"> </span><span class="n">hierarchy</span><span class="p">]</span>
+<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D4</span><span class="p">[</span><span class="n">FL</span><span class="w"> </span><span class="n">Dashboard</span><span class="err">\</span><span class="n">nFederated</span><span class="w"> </span><span class="n">learning</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="n">management</span><span class="p">]</span>
+<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D5</span><span class="p">[</span><span class="n">Admin</span><span class="w"> </span><span class="n">Data</span><span class="w"> </span><span class="n">Schemas</span><span class="err">\</span><span class="n">nStructured</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="n">tracking</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E1</span><span class="p">[</span><span class="n">Model</span><span class="w"> </span><span class="n">Quality</span><span class="err">\</span><span class="n">nDRG</span><span class="w"> </span><span class="n">assurance</span><span class="w"> </span><span class="n">levels</span><span class="p">]</span>
+<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E2</span><span class="p">[</span><span class="n">Causal</span><span class="w"> </span><span class="n">Adapter</span><span class="err">\</span><span class="n">nDiscovery</span><span class="w"> </span><span class="n">engine</span><span class="w"> </span><span class="n">inspection</span><span class="p">]</span>
+<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E3</span><span class="p">[</span><span class="n">Technical</span><span class="w"> </span><span class="n">Metrics</span><span class="err">\</span><span class="n">nLatency</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">throughput</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">hypothesis</span><span class="w"> </span><span class="n">counts</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F1</span><span class="p">[</span><span class="n">County</span><span class="w"> </span><span class="n">Analytics</span><span class="err">\</span><span class="n">nLocalized</span><span class="w"> </span><span class="n">indicators</span><span class="p">]</span>
+<span class="w">    </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F2</span><span class="p">[</span><span class="n">Cost</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Delay</span><span class="err">\</span><span class="n">nKES</span><span class="w"> </span><span class="n">billions</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="n">Nothing</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Act</span><span class="w"> </span><span class="n">Early</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Price</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Late</span><span class="p">]</span>
+<span class="w">    </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F3</span><span class="p">[</span><span class="n">Data</span><span class="w"> </span><span class="n">Upload</span><span class="err">\</span><span class="n">nCSV</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">FL</span><span class="w"> </span><span class="n">training</span><span class="w"> </span><span class="n">trigger</span><span class="p">]</span>
+<span class="w">    </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F4</span><span class="p">[</span><span class="n">Report</span><span class="w"> </span><span class="n">Export</span><span class="err">\</span><span class="n">nPDF</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">ZIP</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">CSV</span><span class="p">]</span>
+</code></pre></div>
+
+<hr />
+<h2>4. DRG Assurance Levels</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
+<span class="w">    </span><span class="n">A</span><span class="p">[</span><span class="n">Projection</span><span class="w"> </span><span class="n">Request</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">{</span><span class="n">Discovery</span><span class="w"> </span><span class="n">Confidence</span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;|</span><span class="err">≥</span><span class="w"> </span><span class="mf">0.85</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">recent</span><span class="w"> </span><span class="n">data</span><span class="o">|</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="n">HIGH</span><span class="err">\</span><span class="n">nReliable</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">policy</span><span class="w"> </span><span class="n">decisions</span><span class="p">]</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;|</span><span class="mf">0.65</span><span class="err">–</span><span class="mf">0.85</span><span class="o">|</span><span class="w"> </span><span class="n">D</span><span class="p">[</span><span class="n">MEDIUM</span><span class="err">\</span><span class="n">nDirectionally</span><span class="w"> </span><span class="n">correct</span><span class="err">\</span><span class="n">nQuantitative</span><span class="w"> </span><span class="n">uncertainty</span><span class="p">]</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;|&lt;</span><span class="w"> </span><span class="mf">0.65</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">stale</span><span class="o">|</span><span class="w"> </span><span class="n">E</span><span class="p">[</span><span class="n">LOW</span><span class="err">\</span><span class="n">nIndicative</span><span class="w"> </span><span class="n">only</span><span class="err">\</span><span class="n">nManual</span><span class="w"> </span><span class="n">review</span><span class="w"> </span><span class="n">recommended</span><span class="p">]</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Discovery</span><span class="w"> </span><span class="n">failed</span><span class="o">|</span><span class="w"> </span><span class="n">F</span><span class="p">[</span><span class="n">FALLBACK</span><span class="err">\</span><span class="n">nHardcoded</span><span class="w"> </span><span class="n">SFC</span><span class="w"> </span><span class="n">baselines</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">G</span><span class="p">[</span><span class="n">LearnedSFCEconomy</span><span class="err">\</span><span class="n">nFull</span><span class="w"> </span><span class="n">discovered</span><span class="w"> </span><span class="n">relationships</span><span class="p">]</span>
+<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span><span class="p">[</span><span class="n">Blended</span><span class="o">:</span><span class="w"> </span><span class="n">Learned</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Hardcoded</span><span class="err">\</span><span class="n">nWeighted</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">confidence</span><span class="p">]</span>
+<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="n">LearnedSFCEconomy</span><span class="err">\</span><span class="n">nwith</span><span class="w"> </span><span class="n">wide</span><span class="w"> </span><span class="n">confidence</span><span class="w"> </span><span class="n">bands</span><span class="p">]</span>
+<span class="w">    </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">J</span><span class="p">[</span><span class="n">BaselineSFCEconomy</span><span class="err">\</span><span class="n">nStatic</span><span class="w"> </span><span class="n">Kenya</span><span class="w"> </span><span class="mi">2022</span><span class="w"> </span><span class="n">calibration</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mi">1</span><span class="n">a6b3c</span><span class="p">,</span><span class="n">color</span><span class="o">:</span><span class="err">#</span><span class="n">fff</span>
+<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">b8860b</span><span class="p">,</span><span class="n">color</span><span class="o">:</span><span class="err">#</span><span class="n">fff</span>
+<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">b5290e</span><span class="p">,</span><span class="n">color</span><span class="o">:</span><span class="err">#</span><span class="n">fff</span>
+<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mi">555</span><span class="p">,</span><span class="n">color</span><span class="o">:</span><span class="err">#</span><span class="n">fff</span>
+</code></pre></div>
+
+<hr />
+<h2>5. Component Interaction Map (Low-Level)</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">scarcity</span><span class="sr">/engine/</span>
+<span class="err">┌──────────────────────────────────────────────────────────────────────┐</span>
+<span class="err">│</span><span class="w">  </span><span class="n">EventBus</span><span class="w"> </span><span class="p">(</span><span class="n">runtime</span><span class="sr">/bus.py)  — async pub/s</span><span class="n">ub</span><span class="w"> </span><span class="n">backbone</span><span class="w">                 </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="s">&quot;data_window&quot;</span><span class="w">                </span><span class="err">←</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="n">arrives</span><span class="w">                </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="s">&quot;scarcity.anomaly_detected&quot;</span><span class="w">  </span><span class="err">→</span><span class="w"> </span><span class="n">RRCF</span><span class="w"> </span><span class="n">result</span><span class="w">                         </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="s">&quot;scarcity.forecasted_trends&quot;</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Bayes</span><span class="w"> </span><span class="n">VARX</span><span class="w"> </span><span class="n">result</span><span class="w">                   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="s">&quot;scarcity.drg_extension_profile&quot;</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">DRG</span><span class="w"> </span><span class="n">risk</span><span class="w"> </span><span class="n">profile</span><span class="w">                </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="n">OnlineAnomalyDetector</span><span class="w">  </span><span class="p">(</span><span class="n">RRCF</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">streaming</span><span class="p">,</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="nn">training</span><span class="w"> </span><span class="n">phase</span><span class="p">)</span><span class="w">        </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">Output:</span><span class="w"> </span><span class="p">{</span><span class="n">anomaly_score:</span><span class="w"> </span><span class="n">float</span><span class="p">,</span><span class="w"> </span><span class="n">is_anomaly:</span><span class="w"> </span><span class="n">bool</span><span class="p">,</span><span class="w"> </span><span class="n">context:</span><span class="w"> </span><span class="n">dict</span><span class="p">}</span><span class="w">    </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="n">PredictiveForecaster</span><span class="w">  </span><span class="p">(</span><span class="n">GARCH</span><span class="o">-</span><span class="n">VARX</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">multi</span><span class="o">-</span><span class="n">variate</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">exogenous</span><span class="p">)</span><span class="w">      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">Output:</span><span class="w"> </span><span class="p">{</span><span class="n">forecasts:</span><span class="w"> </span><span class="n">List</span><span class="p">[</span><span class="n">float</span><span class="p">],</span><span class="w"> </span><span class="n">variances</span><span class="p">,</span><span class="w"> </span><span class="n">horizon</span><span class="p">}</span><span class="w">               </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="n">OnlineDiscoveryEngine</span><span class="w"> </span><span class="p">(</span><span class="n">engine_v2</span><span class="o">.</span><span class="n">py</span><span class="p">)</span><span class="w">                                 </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">HypothesisPool</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">AdaptiveGrouper</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">HypothesisArbiter</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">MetaCtrl</span><span class="w">   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">process_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">hypotheses</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">arbitrate</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">promote</span><span class="w">    </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">get_knowledge_graph</span><span class="p">()</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">top</span><span class="o">-</span><span class="n">K</span><span class="w"> </span><span class="n">confirmed</span><span class="w"> </span><span class="n">relationships</span><span class="w"> </span><span class="p">(</span><span class="n">JSON</span><span class="p">)</span><span class="w">      </span><span class="err">│</span>
+<span class="err">└──────────────────────────────────────────────────────────────────────┘</span>
+
+<span class="n">scarcity</span><span class="sr">/simulation/</span>
+<span class="err">┌──────────────────────────────────────────────────────────────────────┐</span>
+<span class="err">│</span><span class="w">  </span><span class="n">SFCEconomy</span><span class="w">                                                          </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">step</span><span class="p">()</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Consumption</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Investment</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Tax</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Gov</span><span class="w"> </span><span class="n">Spend</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Net</span><span class="w"> </span><span class="n">Exports</span><span class="w"> </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">steps</span><span class="p">)</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">List</span><span class="p">[</span><span class="n">frame</span><span class="p">]</span><span class="w">                                          </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">apply_shock</span><span class="p">(</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">magnitude</span><span class="p">)</span><span class="w">                                       </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="n">ResearchSFCEconomy</span><span class="w"> </span><span class="p">(</span><span class="n">wraps</span><span class="w"> </span><span class="n">SFCEconomy</span><span class="p">)</span><span class="w">                               </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">+</span><span class="w"> </span><span class="n">HeterogeneousHouseholdEconomy</span><span class="w"> </span><span class="p">(</span><span class="n">Q1</span><span class="err">–</span><span class="n">Q5</span><span class="w"> </span><span class="n">income</span><span class="w"> </span><span class="n">quintiles</span><span class="p">)</span><span class="w">           </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">+</span><span class="w"> </span><span class="n">OpenEconomyModule</span><span class="w"> </span><span class="p">(</span><span class="n">REER</span><span class="p">,</span><span class="w"> </span><span class="n">reserves</span><span class="p">,</span><span class="w"> </span><span class="n">trade</span><span class="w"> </span><span class="n">balance</span><span class="p">)</span><span class="w">                </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">+</span><span class="w"> </span><span class="n">FinancialAcceleratorModule</span><span class="w"> </span><span class="p">(</span><span class="n">credit</span><span class="w"> </span><span class="n">cycles</span><span class="p">,</span><span class="w"> </span><span class="n">LTV</span><span class="p">,</span><span class="w"> </span><span class="n">leverage</span><span class="p">)</span><span class="w">        </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">+</span><span class="w"> </span><span class="n">IOStructureModule</span><span class="w"> </span><span class="p">(</span><span class="n">agriculture</span><span class="p">,</span><span class="w"> </span><span class="n">manufacturing</span><span class="p">,</span><span class="w"> </span><span class="n">services</span><span class="p">,</span><span class="w"> </span><span class="n">finance</span><span class="p">)</span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">+</span><span class="w"> </span><span class="n">BayesianBeliefUpdater</span><span class="w"> </span><span class="p">(</span><span class="n">shock</span><span class="w"> </span><span class="n">probability</span><span class="w"> </span><span class="n">distributions</span><span class="p">)</span><span class="w">          </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">stress_test</span><span class="p">(</span><span class="n">shocks</span><span class="p">)</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">shocked</span><span class="w"> </span><span class="n">scenario</span><span class="w"> </span><span class="n">outcomes</span><span class="w">                   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">twin_deficit_analysis</span><span class="p">()</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">fiscal</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="n">positions</span><span class="w">      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">external_vulnerability_index</span><span class="p">()</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mi">0</span><span class="err">–</span><span class="mi">1</span><span class="w"> </span><span class="n">reserve</span><span class="w"> </span><span class="n">adequacy</span><span class="w">            </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">financial_stability_index</span><span class="p">()</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mi">0</span><span class="err">–</span><span class="mi">1</span><span class="w"> </span><span class="n">leverage</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">credit</span><span class="w"> </span><span class="n">health</span><span class="w">       </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="n">WhatIfManager</span><span class="w">                                                        </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">run_bootstrap</span><span class="p">(</span><span class="n">base_cfg</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="n">jitter_pct</span><span class="o">=</span><span class="mi">8</span><span class="nv">%</span><span class="p">)</span><span class="w">                       </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="err">→</span><span class="w"> </span><span class="p">(</span><span class="n">mean</span><span class="err">−</span><span class="n">std</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="o">+</span><span class="n">std</span><span class="p">)</span><span class="w"> </span><span class="n">confidence</span><span class="w"> </span><span class="n">interval</span><span class="w"> </span><span class="n">tuple</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">dimension</span><span class="w">     </span><span class="err">│</span>
+<span class="err">└──────────────────────────────────────────────────────────────────────┘</span>
+
+<span class="n">kshiked</span><span class="sr">/core/</span>
+<span class="err">┌──────────────────────────────────────────────────────────────────────┐</span>
+<span class="err">│</span><span class="w">  </span><span class="n">ScarcityBridge</span><span class="w">                                                       </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mi">306</span><span class="o">+</span><span class="w"> </span><span class="n">causal</span><span class="w"> </span><span class="n">hypotheses</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">World</span><span class="w"> </span><span class="n">Bank</span><span class="w"> </span><span class="n">data</span><span class="w">    </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">create_learned_economy</span><span class="p">()</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">SFC</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">discovered</span><span class="w"> </span><span class="n">relationships</span><span class="w">       </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">get_top_relationships</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">ranked</span><span class="w"> </span><span class="n">causal</span><span class="w"> </span><span class="n">chains</span><span class="w">                   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">get_confidence_map</span><span class="p">()</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">per</span><span class="o">-</span><span class="n">variable</span><span class="w"> </span><span class="n">confidence</span><span class="w"> </span><span class="n">scores</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="err">–</span><span class="mi">1</span><span class="p">)</span><span class="w">       </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="o">.</span><span class="n">validate</span><span class="p">()</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">historical</span><span class="w"> </span><span class="n">accuracy</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">replay</span><span class="w"> </span><span class="n">validation</span><span class="w">        </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="n">EconomicGovernor</span><span class="w">                                                     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">Enforces</span><span class="w"> </span><span class="n">resource</span><span class="w"> </span><span class="n">stability</span><span class="w"> </span><span class="n">constraints</span><span class="w">                            </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">Transmits</span><span class="w"> </span><span class="n">monetary</span><span class="o">/</span><span class="n">fiscal</span><span class="w"> </span><span class="n">policy</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">SFC</span><span class="w"> </span><span class="n">engine</span><span class="w">                     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="n">Shocks</span><span class="w"> </span><span class="p">(</span><span class="n">Phase</span><span class="w"> </span><span class="mi">4</span><span class="err">–</span><span class="mi">5</span><span class="w"> </span><span class="n">Stochastic</span><span class="p">)</span><span class="w">                                        </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">ImpulseShock</span><span class="w">      </span><span class="err">→</span><span class="w"> </span><span class="n">exponential</span><span class="w"> </span><span class="n">decay</span><span class="w"> </span><span class="n">impulse</span><span class="w">                      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">OUProcessShock</span><span class="w">    </span><span class="err">→</span><span class="w"> </span><span class="n">Ornstein</span><span class="o">-</span><span class="n">Uhlenbeck</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="n">reversion</span><span class="w">              </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">BrownianShock</span><span class="w">     </span><span class="err">→</span><span class="w"> </span><span class="n">Geometric</span><span class="w"> </span><span class="n">Brownian</span><span class="w"> </span><span class="n">Motion</span><span class="w">                      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">MarkovSwitchingShock</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Hamilton</span><span class="w"> </span><span class="n">regime</span><span class="o">-</span><span class="n">switching</span><span class="w">                   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">JumpDiffusionShock</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Poisson</span><span class="w"> </span><span class="n">jump</span><span class="w"> </span><span class="n">process</span><span class="w">                          </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">StudentTShock</span><span class="w">     </span><span class="err">→</span><span class="w"> </span><span class="n">fat</span><span class="o">-</span><span class="n">tailed</span><span class="w"> </span><span class="n">shocks</span><span class="w">                              </span><span class="err">│</span>
+<span class="err">└──────────────────────────────────────────────────────────────────────┘</span>
+
+<span class="n">kshiked</span><span class="sr">/federation/</span><span class="w">  </span><span class="p">(</span><span class="n">Aegis</span><span class="w"> </span><span class="n">Protocol</span><span class="p">)</span>
+<span class="err">┌──────────────────────────────────────────────────────────────────────┐</span>
+<span class="err">│</span><span class="w">  </span><span class="n">AegisNode</span><span class="w"> </span><span class="p">(</span><span class="n">extends</span><span class="w"> </span><span class="n">FederationClientAgent</span><span class="p">)</span><span class="w">                           </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">Security</span><span class="w"> </span><span class="n">lattice:</span><span class="w"> </span><span class="n">UNCLASSIFIED</span><span class="w"> </span><span class="sr">/ RESTRICTED /</span><span class="w"> </span><span class="n">SECRET</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">TOP_SECRET</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">Trust</span><span class="w"> </span><span class="n">scoring</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">incoming</span><span class="w"> </span><span class="n">packet</span><span class="w">                                   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">Graph</span><span class="w"> </span><span class="n">merging</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">external</span><span class="w"> </span><span class="n">nodes</span><span class="w">                                   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">CryptoSigner</span><span class="w"> </span><span class="p">(</span><span class="n">Ed25519</span><span class="w"> </span><span class="n">signatures</span><span class="p">)</span><span class="w">                                   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="n">Cryptographic</span><span class="w"> </span><span class="n">Secure</span><span class="w"> </span><span class="n">Aggregation</span><span class="w">                                     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">Ed25519</span><span class="w"> </span><span class="n">long</span><span class="o">-</span><span class="n">term</span><span class="w"> </span><span class="n">identity</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">X25519</span><span class="w"> </span><span class="n">ephemeral</span><span class="w"> </span><span class="nb">keys</span><span class="w">                 </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">HKDF</span><span class="o">-</span><span class="n">SHA256</span><span class="w"> </span><span class="n">pairwise</span><span class="w"> </span><span class="n">masking</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">summation</span><span class="w"> </span><span class="n">cancellation</span><span class="w">              </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="n">Q8</span><span class="w"> </span><span class="n">quantization</span><span class="w"> </span><span class="n">before</span><span class="w"> </span><span class="n">broadcast</span><span class="w">                                    </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="n">Byzantine</span><span class="w"> </span><span class="n">Defense</span><span class="w"> </span><span class="n">Stack</span><span class="w">                                              </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="mi">1</span><span class="o">.</span><span class="w"> </span><span class="n">Krum</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">reject</span><span class="w"> </span><span class="n">outlier</span><span class="w"> </span><span class="n">models</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">pairwise</span><span class="w"> </span><span class="n">Euclidean</span><span class="w"> </span><span class="n">distance</span><span class="w">      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="mi">2</span><span class="o">.</span><span class="w"> </span><span class="n">Multi</span><span class="o">-</span><span class="n">Krum</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="nb">select</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="n">safest</span><span class="w"> </span><span class="n">models</span><span class="w">                              </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="mi">3</span><span class="o">.</span><span class="w"> </span><span class="n">Bulyan</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Krum</span><span class="w"> </span><span class="n">survivors</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Trimmed</span><span class="o">-</span><span class="n">Mean</span><span class="w"> </span><span class="p">(</span><span class="n">most</span><span class="w"> </span><span class="n">hardened</span><span class="p">)</span><span class="w">          </span><span class="err">│</span>
+<span class="err">│</span><span class="w">   </span><span class="mi">4</span><span class="o">.</span><span class="w"> </span><span class="n">Coordinate</span><span class="o">-</span><span class="n">wise</span><span class="w"> </span><span class="n">Trimmed</span><span class="w"> </span><span class="n">Mean</span><span class="w"> </span><span class="p">(</span><span class="n">top</span><span class="w"> </span><span class="mi">10</span><span class="nv">%</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="nv">bottom</span><span class="w"> </span><span class="mi">10</span><span class="nv">%</span><span class="w"> </span><span class="nv">discarded</span><span class="p">)</span><span class="w">   </span><span class="err">│</span>
+<span class="err">└──────────────────────────────────────────────────────────────────────┘</span>
+</code></pre></div>
+                </article>
+
+                <!-- Mobile Navigation (Bottom) -->
+                
+
+            </main>
+
+    </div>
+
+</div>
+
+    </main>
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA MAKENA</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2026 Omega Makena.<br>
+                        Engineering Intelligence.
+                    </div>
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // FlatPages/Pygments strips the `language-mermaid` class and injects spans.
+            // We search for all code blocks and check if the unformatted text indicates a diagram.
+            const allCodeBlocks = document.querySelectorAll(".codehilite code, pre code");
+            const blocksToProcess = [];
+            
+            allCodeBlocks.forEach(function(block) {
+                const text = block.textContent.trim();
+                if (text.startsWith("flowchart") || text.startsWith("sequenceDiagram") || text.startsWith("graph") || text.startsWith("stateDiagram")) {
+                    blocksToProcess.push({block: block, text: text});
+                }
+            });
+
+            blocksToProcess.forEach(function(item) {
+                const div = document.createElement('div');
+                div.className = 'mermaid flex justify-center w-full overflow-x-auto my-8'; 
+                div.textContent = item.text;
+                
+                const container = item.block.closest('.codehilite') || item.block.closest('pre');
+                if (container) {
+                    container.replaceWith(div);
+                }
+            });
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'neutral',
+                themeVariables: {
+                    'background': 'transparent',
+                    'primaryColor': '#18181B',
+                    'primaryTextColor': '#18181B',
+                    'lineColor': '#a3a3a3',
+                    'fontSize': '14px'
+                }
+            });
+            
+            if (blocksToProcess.length > 0) {
+                // Let the browser paint the divs before running mermaid
+                setTimeout(() => {
+                    mermaid.run({ querySelector: '.mermaid' });
+                }, 50);
+            }
+        });
+    </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+</body>
+
+</html>
