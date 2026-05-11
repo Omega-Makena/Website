@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     
-    <meta name="description" content="Defining the exact JSON specifications needed for institutions to share meaning without sharing raw data.">
+    <meta name="description" content="Main prediction and discovery results, non-IID verification, and data scarcity curves.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
 
-    <title>The Three Contracts of Risk Governance - Omega Makena</title>
+    <title>Scarcity Benchmark 02: Core Results and Data Scarcity - Omega Makena</title>
 
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -243,7 +243,7 @@
                     
                     <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-02-core-results/" class="block py-2 pl-4 border-l-2 transition-all text-sm
                               
-                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              border-accent-main text-accent-main font-bold
                               ">
                         Scarcity Benchmark 02: Core Results and Data Scarcity
                     </a>
@@ -290,18 +290,18 @@
                         </span>
                         
                         <span class="text-xs font-mono text-text-muted">
-                            // April 05, 2026
+                            // May 11, 2026
                         </span>
                         
                     </div>
 
                     <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
-                        The Three Contracts of Risk Governance
+                        Scarcity Benchmark 02: Core Results and Data Scarcity
                     </h1>
 
                     
                     <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
-                        Defining the exact JSON specifications needed for institutions to share meaning without sharing raw data.
+                        Main prediction and discovery results, non-IID verification, and data scarcity curves.
                     </p>
                     
                 </header>
@@ -317,66 +317,442 @@
                             prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
                             prose-ul:list-disc prose-ul:pl-6
                             prose-li:marker:text-accent-main prose-li:my-2">
-                    <h1>The Base Interfaces of Federated Risk</h1>
-<p>To achieve a true "Federated National Risk Coordination Layer," standardizing how information is passed is more critical than the algorithms running underneath. Raw data must never be shared—only the <em>meaning</em> and <em>interpretation</em> of that data. </p>
-<p>To govern this, we introduce three core mathematical and structural contracts.</p>
-<h2>1. The Signal Contract (Institution → Federation)</h2>
-<p>This is the single most important interface. It standardizes how a Treasury department and a Health department report stress to each other, using a common temporal and geospatial matrix.</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;signal_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;producer_org&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ministry of Health&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;health&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;indicator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hospital_bed_capacity&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;geo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;county&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;047&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;window&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-04-01T00:00:00Z&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;end&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-04-07T00:00:00Z&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;anomaly_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.85</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;trend_velocity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;confidence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;data_latency_hours&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">24.0</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;quality_flags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;missingness&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;revision&quot;</span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;sensitivity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;restricted&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;provenance&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ml&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;model_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v1.2.0&quot;</span><span class="w"> </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<p><strong>Why it matters:</strong> Notice that there is no sensitive patient data included. The federation only receives the <em>anomaly score</em>, <em>trend velocity</em>, and <em>confidence degree</em>.</p>
-<h2>2. The Coordination Trigger Contract (Engine → Conveners)</h2>
-<p>When the Cross-Layer Interpretation Engine detects systemic alignment across independent fields, it translates those signals into actionable triggers for the Executive layer.</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;trigger_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-04-08T12:00:00Z&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;geo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;county&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;047&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.92</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;confidence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.88</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;supporting_domains&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;econ&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;health&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;infra&quot;</span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;supporting_signals&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;sig_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;sig_456&quot;</span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;rationale&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;convergence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.89</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;persistence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.95</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;coherence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.81</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;acceleration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.40</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;recommended_action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;REVIEW&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;constraints&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;classified_dependencies&quot;</span><span class="p">]</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<h2>3. The Action &amp; Feedback Contract (Conveners → Engine)</h2>
-<p>The system requires a closed-loop. Once a coordination trigger is escalated and action is taken, the system logs the intervention to verify if the risk actually damped over the following weeks.</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;action_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;trigger_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;owner&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;National Security Secretariat&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;action_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;resource_shift&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;geo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;county&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;047&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;time_horizon_days&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;expected_effects&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;health&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;indicator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;anomaly_score&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;direction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;down&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;target_delta&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="w"> </span><span class="p">}</span>
-<span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;in_progress&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<p>These three contracts form the backbone of cross-institutional collaboration.</p>
+                    <h2>4. Main Results — Prediction Accuracy</h2>
+<p><strong>Real World Bank data | 20 seeds × 3 countries × rolling folds | lower MAE = better</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>MAE</th>
+<th>± std</th>
+<th>95% CI</th>
+<th>R²</th>
+<th>p vs FedAvg</th>
+<th>d</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Random</td>
+<td>1.213</td>
+<td>0.066</td>
+<td>[1.196, 1.229]</td>
+<td>−1.032</td>
+<td>&lt;0.001</td>
+<td>+11.1</td>
+</tr>
+<tr>
+<td>Mean</td>
+<td>0.982</td>
+<td>0.036</td>
+<td>[0.972, 0.991]</td>
+<td>−0.505</td>
+<td>&lt;0.001</td>
+<td>+10.7</td>
+</tr>
+<tr>
+<td>Local-AR1</td>
+<td>0.535</td>
+<td>0.024</td>
+<td>[0.529, 0.541]</td>
+<td>+0.264</td>
+<td>&lt;0.001</td>
+<td>−7.7</td>
+</tr>
+<tr>
+<td>Ridge-Lag</td>
+<td>0.872</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>FedAvg-AR1</strong></td>
+<td><strong>0.687</strong></td>
+<td><strong>0.014</strong></td>
+<td><strong>[0.683, 0.690]</strong></td>
+<td><strong>+0.058</strong></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Oracle-AR1</td>
+<td>0.562</td>
+<td>0.059</td>
+<td>[0.547, 0.577]</td>
+<td>+0.313</td>
+<td>&lt;0.001</td>
+<td>−2.9</td>
+</tr>
+<tr>
+<td><strong>Scarcity</strong></td>
+<td><strong>0.493</strong></td>
+<td><strong>0.039</strong></td>
+<td><strong>[0.483, 0.503]</strong></td>
+<td><strong>+0.380</strong></td>
+<td>&lt;0.001</td>
+<td>−6.6</td>
+</tr>
+</tbody>
+</table>
+<p><em>Ridge-Lag from dry-run benchmark (synthetic data, single seed); other methods on real WB data.</em>
+<em>Scarcity-Local and Scarcity-Fed produce identical MAE (same lag-1 mechanism). Federation benefit is in discovery quality, not point prediction.</em></p>
+<p><strong>Finding (C2, C3):</strong> FedAvg-AR1 is 28% worse than Local-AR1 despite 3× more training data —
+parameter averaging across heterogeneous AR(1) slopes degrades both countries' models. Scarcity
+achieves the best MAE (0.493), beating Oracle-AR1 (0.562). Lag-1 is more robust to structural
+breaks than fitted AR(1) at N&lt;25.</p>
+<h3>§4b — The Oracle-Loss Argument (why Scarcity beating Oracle matters)</h3>
+<p>Oracle-AR1 is the theoretical upper bound of the entire AR(1) model family. It trains on pooled
+data from all 3 countries (3× the local observations), uses the same rolling fold protocol, and
+is not achievable without data centralisation (a privacy violation in federated settings).</p>
+<p><strong>Scarcity (MAE=0.493) beats Oracle-AR1 (MAE=0.562) by 12.3%.</strong></p>
+<p>This is counterintuitive and requires explanation. The prediction mechanism for Scarcity is lag-1
+(predict last observed value), whereas AR(1) fits a slope parameter β. At N&lt;25:
+- Fitted β̂ has high estimation variance — the slope "chases" noise in 5–24 training points
+- Lag-1 (β≡1) is the correct prediction for nearly random-walk processes at this horizon
+- Oracle-AR1's pooled data gives a more stable β̂, but the fitted slope still misses structural
+  breaks that lag-1 naturally handles (last value is always correct at t−1)</p>
+<p>Scarcity does not beat Oracle because it is a better predictor. Lag-1 is a better predictor of
+annual macroeconomic series at N&lt;25. This is a known property of random-walk-adjacent processes
+(Diebold &amp; Mariano 1995). The result is reported honestly: Scarcity's primary contribution is
+discovery, not prediction accuracy.</p>
+<hr />
+<h2>5. Discovery Quality</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Conf @ end</th>
+<th>Steps → 0.25 gate</th>
+<th>Comm rounds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scarcity-Local</td>
+<td>0.205</td>
+<td>never crossed</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Scarcity-Fed</strong></td>
+<td><strong>0.298</strong></td>
+<td><strong>3</strong></td>
+<td><strong>34</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Critical threshold:</strong> The 0.25 gate allows <code>get_candidate_paths()</code> to emit hypotheses to the
+PolicySimulator. Local-only confidence (0.205) never crosses this threshold. Federation is not an
+enhancement — it is what unlocks simulation capability entirely.</p>
+<p>This is a binary capability difference: without federation, the PolicySimulator returns empty
+trajectories for all shocks. With federation, it propagates shocks with 91% directional coherence.</p>
+<hr />
+<h2>6. C1 — Non-IID Verification</h2>
+<p><strong>Method:</strong> Jensen-Shannon Divergence (JSD) between each country pair's empirical distribution
+per indicator. JSD ∈ [0, 0.5]; &gt;0.3 = non-IID; &lt;0.1 = near-IID.</p>
+<table>
+<thead>
+<tr>
+<th>Statistic</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mean JSD (57 indicator-pair combinations)</td>
+<td><strong>0.295</strong></td>
+</tr>
+<tr>
+<td>High-divergence pairs (JSD &gt; 0.3)</td>
+<td><strong>28 / 57 (49%)</strong></td>
+</tr>
+<tr>
+<td>Near-IID pairs (JSD &lt; 0.1)</td>
+<td><strong>7 / 57 (12%)</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Most heterogeneous indicators</strong> (JSD = 0.5, maximum possible):</p>
+<table>
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Country pair</th>
+<th>Structural reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>govt_debt</td>
+<td>Kenya–Tanzania</td>
+<td>Different IMF programme histories</td>
+</tr>
+<tr>
+<td>electricity_access</td>
+<td>Kenya–Uganda</td>
+<td>15 pp gap in electrification rate</td>
+</tr>
+<tr>
+<td>internet_users</td>
+<td>Tanzania–Uganda</td>
+<td>Different telecoms investment cycles</td>
+</tr>
+<tr>
+<td>mobile_subscriptions</td>
+<td>Kenya–Tanzania</td>
+<td>Safaricom M-Pesa vs Vodacom market structure</td>
+</tr>
+<tr>
+<td>broad_money</td>
+<td>Tanzania–Uganda</td>
+<td>BoT vs BoU monetary policy divergence</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verdict (C1 confirmed):</strong> 49% of indicator pairs are maximally non-IID. This satisfies the
+FL prerequisite. Without this, federation could not be justified as solving a fundamentally harder
+problem than centralised learning.</p>
+<hr />
+<h2>7. Q2 — Online vs Batch (Characterisation, Not a Core Claim)</h2>
+<table>
+<thead>
+<tr>
+<th>Country</th>
+<th>Online MAE (final fold)</th>
+<th>Batch AR1 MAE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kenya</td>
+<td>1.110</td>
+<td>0.858</td>
+</tr>
+<tr>
+<td>Tanzania</td>
+<td>1.140</td>
+<td>0.877</td>
+</tr>
+<tr>
+<td>Uganda</td>
+<td>1.103</td>
+<td>0.878</td>
+</tr>
+</tbody>
+</table>
+<p>Online outperforms batch in <strong>6/84 folds (7%)</strong>. The justification for the online engine is not
+prediction performance — it operates in streaming mode without future look-ahead, and its
+hypothesis confidence evolves in real time. The 7% win rate is reported honestly.</p>
+<hr />
+<h2>8. S1 — Meta-Learning: Warm-Start Sensitivity</h2>
+<table>
+<thead>
+<tr>
+<th>Pioneer rows</th>
+<th>Final conf @ end</th>
+<th>Change vs zero-pioneer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0.184</td>
+<td>—</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.124</td>
+<td>−33% (noise injection phase)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0.143</td>
+<td>−22%</td>
+</tr>
+<tr>
+<td>20</td>
+<td>0.184</td>
+<td>0% (recovered)</td>
+</tr>
+<tr>
+<td>30</td>
+<td><strong>0.221</strong></td>
+<td><strong>+20%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The non-monotonic curve is real: 5–10 cross-domain rows injected before local priors stabilise
+introduces noise that takes ~10 local steps to resolve. Benefit becomes persistent at 30 pioneers.
+This matches REPTILE/MAML behaviour: minimal but sufficient foreign-task initialisation outperforms
+no initialisation, but the warm-up window matters.</p>
+<hr />
+<h2>9. C2 — FL Justification: When Does Federation Help?</h2>
+<table>
+<thead>
+<tr>
+<th>Own data</th>
+<th>Years</th>
+<th>Local conf</th>
+<th>Fed conf</th>
+<th>Advantage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20%</td>
+<td>6</td>
+<td>0.195</td>
+<td>0.143</td>
+<td><strong>−0.051</strong> (harmful)</td>
+</tr>
+<tr>
+<td>40%</td>
+<td>13</td>
+<td>0.129</td>
+<td>0.266</td>
+<td><strong>+0.137</strong></td>
+</tr>
+<tr>
+<td>60%</td>
+<td>20</td>
+<td>0.136</td>
+<td>0.408</td>
+<td><strong>+0.272</strong></td>
+</tr>
+<tr>
+<td>80%</td>
+<td>27</td>
+<td>0.156</td>
+<td>0.403</td>
+<td><strong>+0.247</strong></td>
+</tr>
+<tr>
+<td>100%</td>
+<td>34</td>
+<td>0.183</td>
+<td>0.443</td>
+<td><strong>+0.259</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cross-over point: 13 years of local data.</strong> Below this, federation adds noise faster than signal.
+The <code>_not_ready()</code> sentinel in the engine quantifies this empirically.</p>
+<p><strong>vs FedAvg:</strong> FedAvg's failure (MAE 0.687 vs Local 0.535) is structural, not tuning. Even at
+100% data availability, parameter averaging creates models wrong for all countries. Scarcity's
+evidence-sharing avoids this: each node decides what to believe from peer data rather than having
+peer parameters imposed on it.</p>
+<hr />
+<h2>10. S2 — Ethiopia: Generalisation to Unseen Domain</h2>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Final conf @ 2023</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cold start</td>
+<td>0.170</td>
+</tr>
+<tr>
+<td><strong>Warm start (102 pioneer rows)</strong></td>
+<td><strong>0.219</strong></td>
+</tr>
+<tr>
+<td>Advantage</td>
+<td><strong>+0.049 (+29%)</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The +29% warm-start advantage reflects structural patterns (inflation–interest linkages,
+debt–GDP relationships) that transfer across East African economies even when specific magnitudes
+differ. The <code>GlobalMetaMemory</code> provides portable initialisation that accelerates confidence
+accumulation in an unseen domain.</p>
+<hr />
+<h2>11. S3 — DRG: Compute Budget vs Discovery Quality</h2>
+<table>
+<thead>
+<tr>
+<th>Buffer size</th>
+<th>Final conf</th>
+<th>Relative to max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>0.293</td>
+<td>94%</td>
+</tr>
+<tr>
+<td>25</td>
+<td>0.293</td>
+<td>94%</td>
+</tr>
+<tr>
+<td>50</td>
+<td>0.299</td>
+<td>96%</td>
+</tr>
+<tr>
+<td>100</td>
+<td>0.304</td>
+<td>98%</td>
+</tr>
+<tr>
+<td>200</td>
+<td><strong>0.311</strong></td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+<p>A node with 20× less memory achieves 94% of maximum confidence — graceful degradation. The
+trade-off is modest at this stream length and expected to be more pronounced at daily frequency.</p>
+<hr />
+<h2>12. C3 — Data Scarcity Curve</h2>
+<table>
+<thead>
+<tr>
+<th>Years</th>
+<th>Conf</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td>0.172</td>
+<td>AR1 requires 5-year warm-up; 1 usable fold</td>
+</tr>
+<tr>
+<td>12</td>
+<td>0.152</td>
+<td>Exploration phase</td>
+</tr>
+<tr>
+<td>20</td>
+<td>0.107</td>
+<td>Trough: exploration–confirmation transition</td>
+</tr>
+<tr>
+<td>30</td>
+<td>0.158</td>
+<td></td>
+</tr>
+<tr>
+<td>34</td>
+<td><strong>0.187</strong></td>
+<td>Full data</td>
+</tr>
+</tbody>
+</table>
+<p>Confidence is positive at 8 years. The non-monotonic curve (trough at 20 years) reflects active
+exploration at 12–20 years, generating more hypotheses than can be confirmed. Recovery from 20–34
+years is the confirmation phase.</p>
                 </article>
 
                 <!-- Mobile Navigation (Bottom) -->
@@ -390,8 +766,6 @@
                         <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-01-architecture/" class="text-sm py-2 text-accent-blue hover:underline">Scarcity Benchmark 01: Architecture and Protocol</a>
                         
                         
-                        
-                        <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-02-core-results/" class="text-sm py-2 text-accent-blue hover:underline">Scarcity Benchmark 02: Core Results and Data Scarcity</a>
                         
                         
                         

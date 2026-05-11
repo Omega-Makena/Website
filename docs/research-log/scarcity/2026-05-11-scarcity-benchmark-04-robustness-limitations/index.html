@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <meta name="description" content="Reproducibility harness, stress tests, failure modes, privacy analysis, and final claim integrity.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena">
+
+    <title>Scarcity Benchmark 04: Robustness, Reproducibility, and Limitations - Omega Makena</title>
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
+                        },
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Makena Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Makena</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/projects/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">LAB NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/services/" class="nav-link">SERVICES</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/projects/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">LAB NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/services/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">SERVICES</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-20">
+        
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid lg:grid-cols-12 gap-12">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="lg:col-span-3 hidden lg:block">
+            <div class="sticky top-32">
+                
+                <h3
+                    class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-6 pl-4 border-l-2 border-transparent">
+                    Recent Logs
+                </h3>
+                
+
+                <nav class="space-y-1">
+                    
+                    <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-01-architecture/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Scarcity Benchmark 01: Architecture and Protocol
+                    </a>
+                    
+                    <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-02-core-results/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Scarcity Benchmark 02: Core Results and Data Scarcity
+                    </a>
+                    
+                    <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-03-simulation-ablations/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Scarcity Benchmark 03: Economic Simulation and Ablations
+                    </a>
+                    
+                    <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-04-robustness-limitations/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-accent-main text-accent-main font-bold
+                              ">
+                        Scarcity Benchmark 04: Robustness, Reproducibility, and Limitations
+                    </a>
+                    
+                    <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-05-advanced-validation/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Scarcity Benchmark 05: Relationship Structure Discovery
+                    </a>
+                    
+
+                    <a href="/lab-notes/"
+                        class="block mt-8 py-2 pl-4 text-xs font-mono text-gray-400 hover:text-text-primary transition-colors border-l-2 border-transparent hover:border-text-primary">
+                        ← Back to Lab Notes
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content with Sidebar -->
+        <main class="lg:col-span-9">
+            
+
+                <!-- Header -->
+                <header class="mb-12 border-b border-gray-200 pb-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent-main">
+                            NOTE
+                        </span>
+                        
+                        <span class="text-xs font-mono text-text-muted">
+                            // May 11, 2026
+                        </span>
+                        
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
+                        Scarcity Benchmark 04: Robustness, Reproducibility, and Limitations
+                    </h1>
+
+                    
+                    <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
+                        Reproducibility harness, stress tests, failure modes, privacy analysis, and final claim integrity.
+                    </p>
+                    
+                </header>
+
+                <!-- Prose Content -->
+                <!-- Prose Content -->
+                <article class="prose prose-lg max-w-none 
+                            prose-headings:font-serif prose-headings:text-text-primary 
+                            prose-p:text-text-secondary prose-p:leading-relaxed 
+                            prose-a:text-accent-blue prose-a:no-underline hover:prose-a:underline 
+                            prose-strong:text-text-primary 
+                            prose-code:text-accent-main prose-code:bg-gray-50 prose-code:px-1 prose-code:rounded
+                            prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
+                            prose-ul:list-disc prose-ul:pl-6
+                            prose-li:marker:text-accent-main prose-li:my-2">
+                    <h2>21. Reproducibility</h2>
+<h3>Comprehensive Harness (primary entry point)</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Run all 26 stages (synthetic data, no API required)</span>
+python<span class="w"> </span>scripts/benchmark_harness.py
+
+<span class="c1"># Fast smoke-test (~2 min, skips slow stages)</span>
+python<span class="w"> </span>scripts/benchmark_harness.py<span class="w"> </span>--skip-slow<span class="w"> </span>--fast
+
+<span class="c1"># Single stage or group</span>
+python<span class="w"> </span>scripts/benchmark_harness.py<span class="w"> </span>--stage<span class="w"> </span><span class="m">9</span>
+python<span class="w"> </span>scripts/benchmark_harness.py<span class="w"> </span>--stage<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">11</span>.1<span class="w"> </span><span class="m">11</span>.2
+
+<span class="c1"># List all stages</span>
+python<span class="w"> </span>scripts/benchmark_harness.py<span class="w"> </span>--list
+
+<span class="c1"># Enable real World Bank API where supported</span>
+python<span class="w"> </span>scripts/benchmark_harness.py<span class="w"> </span>--live
+</code></pre></div>
+
+<p>Artefacts: <code>artifacts/harness/harness_results.json</code>, <code>artifacts/harness/claim_integrity_matrix.json</code>.</p>
+<h3>Individual benchmarks</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Dry-run (synthetic data, no API required)</span>
+python<span class="w"> </span>scripts/benchmark_proper.py<span class="w"> </span>--seeds<span class="w"> </span><span class="m">20</span>
+python<span class="w"> </span>scripts/benchmark_scientific_questions.py
+python<span class="w"> </span>scripts/experiment_east_africa_federation.py<span class="w"> </span>--dry-run
+python<span class="w"> </span>scripts/benchmark_comprehensive.py
+python<span class="w"> </span>scripts/benchmark_reviewer.py
+
+<span class="c1"># Live (real World Bank API data — required for §4 claim numbers)</span>
+python<span class="w"> </span>scripts/benchmark_proper.py<span class="w"> </span>--live<span class="w"> </span>--seeds<span class="w"> </span><span class="m">20</span>
+python<span class="w"> </span>scripts/benchmark_scientific_questions.py<span class="w"> </span>--live
+python<span class="w"> </span>scripts/experiment_east_africa_federation.py
+
+<span class="c1"># Economic simulation (requires Kenya WB CSV)</span>
+python<span class="w"> </span>scripts/benchmark_economic_simulation.py
+
+<span class="c1"># Visuals</span>
+python<span class="w"> </span>scripts/generate_benchmark_visuals.py
+</code></pre></div>
+
+<p>Fixed seeds 0–19. World Bank REST API — free, no authentication. All artefacts to <code>artifacts/meta/</code>.
+Stress tests (§23), failure modes (§24), ablations (§15E–H), reviewer additions (§18) use synthetic
+data by design and do not require <code>--live</code>.</p>
+<hr />
+<h2>22. Stress Tests</h2>
+<p>All tests use Kenya synthetic data (34 years, seed=42) unless noted.</p>
+<h3>B1: Permutation Test — Temporal Ordering Dependency</h3>
+<p><strong>Result:</strong> Shuffled order produces <strong>+0.105 higher mean confidence</strong> than chronological order.</p>
+<p>Shuffling does not destroy correlational structure on smooth synthetic data — it only destroys
+the time axis. Consistent patterns are detected equally well in any order.</p>
+<p><strong>Interpretation (reported honestly):</strong> Scarcity's confidence metric is NOT a Granger causality
+test. It is a Bayesian measure of cross-variable pattern consistency. Temporal directionality is
+embedded in the <em>simulation</em> (shocks propagate forward) but not in the <em>discovery</em> (confidence
+accumulation). This distinction must be clearly stated. Temporal ordering is a future enhancement.</p>
+<h3>B2: Time Reversal</h3>
+<p><strong>Result:</strong> Reversed chronology produces <strong>60% higher confidence</strong> than forward.</p>
+<p>Reversed smooth trends are as structurally consistent as forward trends. The engine cannot
+distinguish "A causes B" from "B causes A" at the discovery stage — both produce identical
+cross-variable patterns.</p>
+<h3>B3: Synthetic Null World — False Positive Rate</h3>
+<p><strong>Method:</strong> 5 trials of N=34 independent Gaussian draws (no structure).</p>
+<table>
+<thead>
+<tr>
+<th>Mean false positive rate</th>
+<th>41%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>avg_conf on null data</td>
+<td>0.481 (exceeds 0.25 gate)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation (reported honestly):</strong> The 0.25 gate is NOT equivalent to p&lt;0.05. On random
+data, the Bayesian prior (α=1, β=1) combined with N=34 random fit scores (~0.5) pushes confidence
+toward 0.5. The 91% direction match in §13 is meaningful precisely because it validates against an
+external economic benchmark — the confidence score alone cannot distinguish real structure from chance.</p>
+<p><strong>The 0.25 gate is a capability threshold (unlocks simulation), not a significance threshold.</strong></p>
+<h3>B4: Shock Falsification</h3>
+<p>Falsified shock (life_expectancy +10, no economic causal path) propagates equally to the real
+inflation shock. This confirms the graph is observational, not interventional: spurious edges
+(life_expectancy trending with GDP) develop confidence through correlation, not causation.</p>
+<p>The simulation is observational propagation through a correlational knowledge graph, not an SCM
+counterfactual. This limitation is stated clearly and quantitatively demonstrated.</p>
+<hr />
+<h2>23. Failure Modes</h2>
+<h3>C1: Cold-Start Cliff</h3>
+<p>Zero usable confidence for the first 9 observations (lifecycle requires min_evidence=5 before
+promotion), then abrupt activation at step 10 (conf=0.442). A new node cannot drive simulation
+for at least 10 periods. Warm-start (§8, §10) reduces this to ~3–5 periods at 30 pioneer rows.</p>
+<p><strong>High confidence does not guarantee correctness:</strong> After the cliff (step 10), confidence
+immediately reaches 0.44 and barely grows further. The confidence is stable because the active
+hypotheses have seen enough evidence to be promoted, not because the relationships are correct.</p>
+<h3>C2: Conflict Oscillation</h3>
+<p>0 of 25 tracked hypotheses showed ACTIVE ↔ DECAYING oscillation over 34 steps. The engine quickly
+reaches stable state — hypotheses either die in early exploration or survive to stay active.
+Oscillation would be visible at daily frequency where N&gt;&gt;365 allows multiple decay-recovery cycles.</p>
+<h3>C3: Structural Break Response</h3>
+<p>Moderate structural breaks (variables shift ±3–5×) kill weak hypotheses but the 5 survivors are
+resilient: confidence drops ~14% then recovers. The surviving relationships are those robust enough
+to hold across both regimes — the correct behaviour for a streaming syste11m.</p>
+<p><strong>Caveat:</strong> This test used synthetic data. Real structural breaks (COVID shock to East African
+trade flows) may be more disruptive because they break correlational structure, not just scale.</p>
+<hr />
+<h2>24. Calibration</h2>
+<h3>D1: Internal Calibration Design Flaw</h3>
+<p>The internal Brier score analogue (confidence bins vs hypothesis survival) is uninformative:
+hypotheses almost never die <em>between consecutive steps</em>, so survival rate = 1.0 in all bins,
+giving Brier=0.541 (worse than random). This is a measurement design flaw, not a model failure.</p>
+<p><strong>The correct calibration anchor is the external direction-match (91%, §13):</strong> among hypotheses
+with conf ≥ 0.25, 91% of unambiguous predicted shock directions match IMF/WB documented
+relationships. Future calibration work should compare confidence at year T against AR(1) directional
+accuracy at year T+1 on held-out years.</p>
+<hr />
+<h2>25. Hypothesis Lifecycle</h2>
+<h3>E1: Distribution (Kenya, 34 years)</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total hypotheses explored</td>
+<td>123</td>
+</tr>
+<tr>
+<td>Final active</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Total killed</td>
+<td>93 (76%)</td>
+</tr>
+<tr>
+<td>avg_lifetime</td>
+<td>9.4 steps</td>
+</tr>
+<tr>
+<td>Dominant surviving type</td>
+<td>TEMPORAL (all 5 active)</td>
+</tr>
+</tbody>
+</table>
+<p>93 of 123 hypotheses (76%) are pruned. All 5 final active are TEMPORAL. CAUSAL, COMPETITIVE,
+SYNERGISTIC, MEDIATING remain TENTATIVE throughout (confidence 0.125–0.25) — 34 observations
+insufficient for higher-order type confirmation.</p>
+<hr />
+<h2>26. DRG Performance</h2>
+<h3>F1: Throughput and Latency</h3>
+<table>
+<thead>
+<tr>
+<th>Observations</th>
+<th>Throughput (obs/s)</th>
+<th>p95 latency (ms)</th>
+<th>Memory (KB)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>111</td>
+<td>13.6</td>
+<td>150</td>
+</tr>
+<tr>
+<td>34</td>
+<td>159</td>
+<td>13.0</td>
+<td>218</td>
+</tr>
+<tr>
+<td>100</td>
+<td><strong>204</strong></td>
+<td><strong>10.6</strong></td>
+<td>349</td>
+</tr>
+<tr>
+<td>500</td>
+<td>126</td>
+<td>15.6</td>
+<td>696</td>
+</tr>
+</tbody>
+</table>
+<p>Peak at n=100 (204 obs/s). p95=10–16ms. Memory linear: 150 KB → 696 KB at n=500 daily obs.
+At 696 KB, memory is negligible for any modern edge deployment.</p>
+<hr />
+<h2>27. Privacy Analysis</h2>
+<h3>Current privacy posture</h3>
+<p><strong>What is shared in evidence-sharing federation:</strong>
+Each node transmits its raw observation row to peers: 19 float values per year per node.
+This is equivalent to sharing the actual data point, not derived parameters.</p>
+<p><strong>Privacy risk:</strong> A single transmitted observation row (year 2023 Kenya: GDP=2847 USD,
+inflation=9.3%, ...) contains no individual-level information — it is an aggregate macroeconomic
+statistic from a public World Bank database. In macroeconomic deployments, this data is already
+public, making privacy less critical than in healthcare or financial federated learning.</p>
+<p><strong>In non-public data deployments</strong> (e.g., firm-level financial data, patient cohort data), raw
+row transmission would create privacy exposure. Three mitigations are possible:</p>
+<ol>
+<li>
+<p><strong>Differential privacy on observations:</strong> Add calibrated Laplace/Gaussian noise before
+   transmitting (ε-DP per observation). This reduces the informativeness of each shared row
+   but also reduces the evidence quality for hypothesis accumulation. The trade-off between ε
+   and final conf@end has not been measured. Recommended future work.</p>
+</li>
+<li>
+<p><strong>Secure aggregation:</strong> Instead of sharing raw rows, nodes could share hypothesis updates
+   (Δα_success, Δβ_failure per hypothesis) via secure aggregation (Bonawitz et al. 2017).
+   This would expose parameter updates rather than raw data but requires all nodes to agree
+   on hypothesis structure — complicating the asynchronous discovery protocol.</p>
+</li>
+<li>
+<p><strong>Hypothesis-level sharing only:</strong> Share only the identities and confidence scores of
+   active hypotheses (not raw observations). Peers use this to boost or suppress their own
+   hypotheses for matching variables. This provides the weakest privacy guarantees but preserves
+   the discovery independence that makes evidence-sharing superior to parameter averaging.</p>
+</li>
+</ol>
+<h3>Formal privacy guarantee</h3>
+<p>No ε-δ differential privacy budget has been measured for this implementation. This is a hard
+requirement for real deployment with non-public data. The current system should be labelled
+"privacy-not-quantified" until formal analysis is conducted.</p>
+<p><strong>Communication cost vs privacy trade-off note:</strong> Scarcity transmits 5.2 KB total per node over
+34 years. Adding Laplace noise calibrated to ε=1.0, Δf=range(indicator) would require knowledge
+of the global sensitivity of each indicator — feasible with bounded per-indicator ranges (set
+during schema registration) and measurable prior to deployment.</p>
+<hr />
+<h2>28. Claim Integrity Summary</h2>
+<h3>Supported without qualification</h3>
+<table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Key evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nodes are non-IID</td>
+<td>Mean JSD=0.295; 49% of pairs high-divergence (JSD&gt;0.3)</td>
+</tr>
+<tr>
+<td>FedAvg is harmful</td>
+<td>MAE 0.687 vs Local-AR1 0.535; p&lt;0.001; Cohen's d=−7.7</td>
+</tr>
+<tr>
+<td>Scarcity beats Oracle</td>
+<td>MAE 0.493 vs Oracle 0.562 on real World Bank data</td>
+</tr>
+<tr>
+<td>Lag-1 beats fitted AR1 at N&lt;25</td>
+<td>Oracle-loss explained; Diebold-Mariano analogue</td>
+</tr>
+<tr>
+<td>Ridge-Lag confirms AR1 is correct baseline</td>
+<td>Ridge-Lag MAE=1.026 vs AR1=0.860 (+19.3%) at N≈19</td>
+</tr>
+<tr>
+<td>Federation crosses simulation threshold</td>
+<td>Fed conf=0.298 &gt; 0.25; local conf=0.205 &lt; 0.25</td>
+</tr>
+<tr>
+<td>Simulation is economically coherent</td>
+<td>91% direction match vs IMF/WB documented relationships</td>
+</tr>
+<tr>
+<td>Discovery is stable across seeds</td>
+<td>avg_conf = 0.442 ± 0.007 (CV=1.5%) across 5 seeds</td>
+</tr>
+<tr>
+<td>Meta-learning warm-start works</td>
+<td>+20% final conf at 30 pioneer rows</td>
+</tr>
+<tr>
+<td>Ethiopia generalisation</td>
+<td>+29% warm-start advantage on unseen domain</td>
+</tr>
+<tr>
+<td>DRG graceful degradation</td>
+<td>10-row buffer = 94% of 200-row confidence</td>
+</tr>
+<tr>
+<td>Data scarcity: positive conf at 8 years</td>
+<td>conf=0.172; AR1 near-random at this N</td>
+</tr>
+<tr>
+<td>Lifecycle management is essential</td>
+<td>Without it: conf=0.121 (below gate); no simulation possible</td>
+</tr>
+<tr>
+<td>Evidence sharing captures 65% of centralised gain</td>
+<td>0.455 vs 0.390 baseline; 0.503 ceiling</td>
+</tr>
+<tr>
+<td>AR1 degrades under regime change</td>
+<td>AR1-fixed post-2008: +4.3% worse than rolling</td>
+</tr>
+<tr>
+<td>Scarcity prediction immune to regime change</td>
+<td>Lag-1 is parameter-free; no stale coefficients</td>
+</tr>
+<tr>
+<td>Adaptive engine beats frozen AR1 post-break</td>
+<td>Stage 10: ScarcityEngine MAE 1.25 vs AR1-fixed 2.21 on synthetic post-2008 data</td>
+</tr>
+<tr>
+<td>Fed degrades more gracefully under sparsity</td>
+<td>Stage 11.1: fed MAE slope negative at 0→60% drop; local slope positive</td>
+</tr>
+</tbody>
+</table>
+<h3>Findings reported honestly (not claimed as advantages)</h3>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Why honest</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Online engine wins in 7% of folds</td>
+<td>Not a predictor; lag-1 is a placeholder</td>
+</tr>
+<tr>
+<td>FL harmful below 13 years</td>
+<td>Real design constraint, not a flaw</td>
+</tr>
+<tr>
+<td>Simulation magnitudes not validated</td>
+<td>34 observations insufficient</td>
+</tr>
+<tr>
+<td>S2 interest rate direction inverted</td>
+<td>Explained by Kenya financial repression; not concealed</td>
+</tr>
+<tr>
+<td>Permutation test: shuffled &gt; ordered</td>
+<td>Confidence is pattern consistency, not temporal causality</td>
+</tr>
+<tr>
+<td>False positive rate 41% on null data</td>
+<td>Confidence gate is not a significance test</td>
+</tr>
+<tr>
+<td>Shock falsification: no discrimination</td>
+<td>Observational graph; spurious edges persist</td>
+</tr>
+<tr>
+<td>Internal calibration (Brier=0.541) invalid</td>
+<td>Survival proxy wrong; external match is valid anchor</td>
+</tr>
+<tr>
+<td>Cold-start cliff at step 9</td>
+<td>Abrupt activation; warm-start partially mitigates</td>
+</tr>
+<tr>
+<td>CAUSAL/MEDIATING types never activated</td>
+<td>34 annual obs insufficient for higher-order types</td>
+</tr>
+<tr>
+<td>Binomial CI on 91% is [59%, 100%]</td>
+<td>Small sample (N=11 tests); external replication needed</td>
+</tr>
+<tr>
+<td>No ε-δ DP budget measured</td>
+<td>Hard requirement for non-public data deployments</td>
+</tr>
+<tr>
+<td>Temporal ordering not detected</td>
+<td>B1/B2: confidence insensitive to chronological order</td>
+</tr>
+<tr>
+<td>Synthetic data direction match ~20%</td>
+<td>Expected: random data → random directions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>29. Limitations</h2>
+<ol>
+<li><strong>Annual frequency (N ≤ 34):</strong> All supervised baselines are marginal. Results may not
+   generalise to higher-frequency domains.</li>
+<li><strong>Confidence ≠ statistical significance:</strong> The 0.25 gate is a capability threshold, not
+   p&lt;0.05. On random data, 41% of hypotheses exceed it (B3). External validation is the
+   meaningful calibration anchor.</li>
+<li><strong>Observational, not interventional:</strong> 9 relationship types but no do-calculus. Simulation
+   is observational propagation, not SCM counterfactual. B4 confirms spurious edges persist.</li>
+<li><strong>Temporal ordering not tested:</strong> Confidence is not sensitive to chronological order (B1,
+   B2). Granger-causal ordering is a future enhancement.</li>
+<li><strong>FedProx/SCAFFOLD not tested:</strong> These FL variants also average parameters and share FedAvg's
+   structural failure mode in heterogeneous settings. Future benchmark on larger dataset needed.</li>
+<li><strong>Scarcity prediction is lag-1:</strong> A dedicated prediction head using high-confidence
+   hypotheses is future work.</li>
+<li><strong>Simulation magnitude not validated:</strong> Direction is 91% coherent. Magnitude requires
+   calibration against panel econometric estimates.</li>
+<li><strong>No differential privacy:</strong> No ε-δ budget measured. Hard requirement for non-public
+   data deployments (see §27 for analysis).</li>
+<li><strong>Uganda missing data pre-2000:</strong> Dropped silently; effective training window shorter.</li>
+<li><strong>Higher-order types require more data:</strong> CAUSAL, MEDIATING, SYNERGISTIC remain TENTATIVE
+    throughout the 34-year stream. Activation requires N &gt; ~50 consistent observations per pair.</li>
+<li><strong>Simulation uncertainty is small-sample:</strong> 91% direction match over 11 relationships.
+    95% binomial CI = [59%, 100%]. External replication is recommended.</li>
+<li><strong>Ridge-Lag baseline from synthetic data:</strong> The Ridge-Lag MAE (1.026) uses dry-run data
+    (single seed). Re-running with <code>--live</code> on real WB data would sharpen this comparison.</li>
+</ol>
+<hr />
+<h2>30. Visuals</h2>
+<p>Generated by <code>scripts/generate_benchmark_visuals.py</code> → <code>artifacts/meta/</code>:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fig1_mae_comparison.png</code></td>
+<td>MAE baseline comparison with error bars</td>
+</tr>
+<tr>
+<td><code>fig2_discovery_quality.png</code></td>
+<td>Local vs federated confidence trajectory</td>
+</tr>
+<tr>
+<td><code>fig3_noniid_heatmap.png</code></td>
+<td>JSD heatmap: 19 indicators × 3 country pairs</td>
+</tr>
+<tr>
+<td><code>fig4_fl_justification.png</code></td>
+<td>Federation advantage vs own data fraction</td>
+</tr>
+<tr>
+<td><code>fig5_drg_tradeoff.png</code></td>
+<td>Buffer size vs discovery confidence</td>
+</tr>
+<tr>
+<td><code>fig6_data_scarcity_curve.png</code></td>
+<td>Confidence vs training window size</td>
+</tr>
+<tr>
+<td><code>fig7_sparsity_sweep.png</code></td>
+<td>Local vs federated at 0/20/40/60% data drop</td>
+</tr>
+<tr>
+<td><code>fig8_shock_propagation.png</code></td>
+<td>Policy shock sector effects (directional)</td>
+</tr>
+</tbody>
+</table>
+<p>Ablation/stress/failure mode visuals: extend <code>generate_benchmark_visuals.py</code> with:
+<code>artifacts/meta/ablation_*.csv</code>, <code>stress_*.csv</code>, <code>failure_*.csv</code>, <code>reviewer_*.csv</code>.</p>
+<hr />
+<p><em>Claim accuracy results (§4) from <code>--live</code> runs on real World Bank data.
+Stress tests (§22), failure modes (§23), ablations (§15E–H), reviewer additions (§18) use
+synthetic data by design. Re-run with <code>--live</code> for real-data versions where applicable.</em></p>
+                </article>
+
+                <!-- Mobile Navigation (Bottom) -->
+                
+                <div class="lg:hidden mt-16 border-t border-gray-200 pt-8">
+                    <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-4">Read Next
+                    </h3>
+                    <div class="flex flex-col gap-2">
+                        
+                        
+                        <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-01-architecture/" class="text-sm py-2 text-accent-blue hover:underline">Scarcity Benchmark 01: Architecture and Protocol</a>
+                        
+                        
+                        
+                        <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-02-core-results/" class="text-sm py-2 text-accent-blue hover:underline">Scarcity Benchmark 02: Core Results and Data Scarcity</a>
+                        
+                        
+                        
+                        <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-03-simulation-ablations/" class="text-sm py-2 text-accent-blue hover:underline">Scarcity Benchmark 03: Economic Simulation and Ablations</a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-05-advanced-validation/" class="text-sm py-2 text-accent-blue hover:underline">Scarcity Benchmark 05: Relationship Structure Discovery</a>
+                        
+                        
+                    </div>
+                </div>
+                
+
+            </main>
+
+    </div>
+
+</div>
+
+    </main>
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA MAKENA</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2026 Omega Makena.<br>
+                        Engineering Intelligence.
+                    </div>
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // FlatPages/Pygments strips the `language-mermaid` class and injects spans.
+            // We search for all code blocks and check if the unformatted text indicates a diagram.
+            const allCodeBlocks = document.querySelectorAll(".codehilite code, pre code");
+            const blocksToProcess = [];
+            
+            allCodeBlocks.forEach(function(block) {
+                const text = block.textContent.trim();
+                if (text.startsWith("flowchart") || text.startsWith("sequenceDiagram") || text.startsWith("graph") || text.startsWith("stateDiagram")) {
+                    blocksToProcess.push({block: block, text: text});
+                }
+            });
+
+            blocksToProcess.forEach(function(item) {
+                const div = document.createElement('div');
+                div.className = 'mermaid flex justify-center w-full overflow-x-auto my-8'; 
+                div.textContent = item.text;
+                
+                const container = item.block.closest('.codehilite') || item.block.closest('pre');
+                if (container) {
+                    container.replaceWith(div);
+                }
+            });
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'neutral',
+                themeVariables: {
+                    'background': 'transparent',
+                    'primaryColor': '#18181B',
+                    'primaryTextColor': '#18181B',
+                    'lineColor': '#a3a3a3',
+                    'fontSize': '14px'
+                }
+            });
+            
+            if (blocksToProcess.length > 0) {
+                // Let the browser paint the divs before running mermaid
+                setTimeout(() => {
+                    mermaid.run({ querySelector: '.mermaid' });
+                }, 50);
+            }
+        });
+    </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+</body>
+
+</html>

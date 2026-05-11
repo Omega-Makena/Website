@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <meta name="description" content="Overview of the Scarcity federated causal discovery system, its four-layer architecture, and evaluation protocol.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena">
+
+    <title>Scarcity Benchmark 01: Architecture and Protocol - Omega Makena</title>
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
+                        },
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Makena Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Makena</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/projects/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">LAB NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/services/" class="nav-link">SERVICES</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/projects/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">LAB NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/services/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">SERVICES</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-20">
+        
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid lg:grid-cols-12 gap-12">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="lg:col-span-3 hidden lg:block">
+            <div class="sticky top-32">
+                
+                <h3
+                    class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-6 pl-4 border-l-2 border-transparent">
+                    Recent Logs
+                </h3>
+                
+
+                <nav class="space-y-1">
+                    
+                    <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-01-architecture/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-accent-main text-accent-main font-bold
+                              ">
+                        Scarcity Benchmark 01: Architecture and Protocol
+                    </a>
+                    
+                    <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-02-core-results/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Scarcity Benchmark 02: Core Results and Data Scarcity
+                    </a>
+                    
+                    <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-03-simulation-ablations/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Scarcity Benchmark 03: Economic Simulation and Ablations
+                    </a>
+                    
+                    <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-04-robustness-limitations/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Scarcity Benchmark 04: Robustness, Reproducibility, and Limitations
+                    </a>
+                    
+                    <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-05-advanced-validation/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Scarcity Benchmark 05: Relationship Structure Discovery
+                    </a>
+                    
+
+                    <a href="/lab-notes/"
+                        class="block mt-8 py-2 pl-4 text-xs font-mono text-gray-400 hover:text-text-primary transition-colors border-l-2 border-transparent hover:border-text-primary">
+                        ← Back to Lab Notes
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content with Sidebar -->
+        <main class="lg:col-span-9">
+            
+
+                <!-- Header -->
+                <header class="mb-12 border-b border-gray-200 pb-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent-main">
+                            NOTE
+                        </span>
+                        
+                        <span class="text-xs font-mono text-text-muted">
+                            // May 11, 2026
+                        </span>
+                        
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
+                        Scarcity Benchmark 01: Architecture and Protocol
+                    </h1>
+
+                    
+                    <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
+                        Overview of the Scarcity federated causal discovery system, its four-layer architecture, and evaluation protocol.
+                    </p>
+                    
+                </header>
+
+                <!-- Prose Content -->
+                <!-- Prose Content -->
+                <article class="prose prose-lg max-w-none 
+                            prose-headings:font-serif prose-headings:text-text-primary 
+                            prose-p:text-text-secondary prose-p:leading-relaxed 
+                            prose-a:text-accent-blue prose-a:no-underline hover:prose-a:underline 
+                            prose-strong:text-text-primary 
+                            prose-code:text-accent-main prose-code:bg-gray-50 prose-code:px-1 prose-code:rounded
+                            prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
+                            prose-ul:list-disc prose-ul:pl-6
+                            prose-li:marker:text-accent-main prose-li:my-2">
+                    <h1>Scarcity — Benchmark Findings Report</h1>
+<p><strong>Date:</strong> 2026-05-11 (§39 engine-routed calibration re-run; §38 full-mode calibration results; §37 weakness audit; §36 typed validation v3 fixes; §35 real-data typed discovery validation; §34 synthetic GT validation suite; prior: 2026-04-26 v11 KEN)
+<strong>Environment:</strong> Python 3.11.9 | numpy 2.3.5 | scipy 1.15.3 | Windows 11
+<strong>Dataset:</strong> World Bank annual indicators — Kenya (KEN), Tanzania (TZA), Uganda (UGA), 1990–2023
+<strong>Indicators:</strong> 19 macroeconomic series
+<strong>Scripts:</strong> <code>scripts/benchmark_proper.py</code>, <code>scripts/benchmark_comprehensive.py</code>,
+             <code>scripts/benchmark_reviewer.py</code>, <code>scripts/benchmark_economic_simulation.py</code>,
+             <code>scripts/experiment_east_africa_federation.py</code>, <code>scripts/benchmark_scientific_questions.py</code>,
+             <code>scripts/benchmark_harness.py</code> (comprehensive 26-stage harness)
+<strong>Artefacts:</strong> <code>artifacts/meta/</code>, <code>artifacts/harness/</code></p>
+<hr />
+<h2>Contribution</h2>
+<p>Scarcity is a <strong>federated causal discovery system for streaming, data-scarce environments</strong> where
+supervised methods fail and centralised learning is infeasible. It discovers structural patterns
+incrementally as observations arrive — without requiring a full dataset upfront and without
+centralising data — and uses those patterns to drive policy simulation.</p>
+<p><strong>The primary contribution is a binary capability unlock:</strong> local evidence accumulation reaches
+confidence 0.205 (below the 0.25 simulation gate); federated evidence-sharing lifts confidence
+to 0.298 (above the gate), enabling shock propagation that is 91% directionally coherent with
+documented economic relationships from IMF and World Bank publications.</p>
+<p>This is not a marginal improvement over a weaker model. Without federation, the PolicySimulator
+returns empty trajectories for all shocks. With federation, it produces economically meaningful
+shock propagation validated against macroeconomic theory. No supervised baseline achieves this:
+AR(1) and its variants are predictors, not discoverers; they have no simulation capability at any
+level of confidence.</p>
+<hr />
+<h2>System Architecture</h2>
+<p>Scarcity is a four-layer platform. The benchmark exercises the bottom two layers directly; the
+upper two are the operational consumers of what the benchmark validates.</p>
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="err">┌─────────────────────────────────────────────────────────────────────┐</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">PRESENTATION</span><span class="w"> </span><span class="n">LAYER</span><span class="w">                                                  </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">K</span><span class="o">-</span><span class="n">SHIELD</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">Institution</span><span class="w"> </span><span class="n">Portal</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">SENTINEL</span><span class="w"> </span><span class="n">dashboards</span><span class="w"> </span><span class="p">(</span><span class="n">Streamlit</span><span class="p">)</span><span class="w">    </span><span class="err">│</span>
+<span class="w"> </span><span class="err">├─────────────────────────────────────────────────────────────────────┤</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">INTELLIGENCE</span><span class="w"> </span><span class="n">LAYER</span><span class="w">                                                  </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">KShieldHub</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">EconomicGovernor</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">PulseSensor</span><span class="w"> </span><span class="p">(</span><span class="mi">15</span><span class="w"> </span><span class="n">SIGINT</span><span class="w"> </span><span class="n">signals</span><span class="p">)</span><span class="w">    </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">KenyaCalibration</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">ScenarioTemplates</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">ScarcityBridge</span><span class="w">              </span><span class="err">│</span>
+<span class="w"> </span><span class="err">├─────────────────────────────────────────────────────────────────────┤</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">FOUNDATION</span><span class="w"> </span><span class="n">LAYER</span><span class="w">  </span><span class="err">◄──</span><span class="w"> </span><span class="n">benchmark</span><span class="w"> </span><span class="n">targets</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">layer</span><span class="w">                 </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">scarcity</span><span class="o">.</span><span class="n">engine</span><span class="w">      </span><span class="n">OnlineDiscoveryEngine</span><span class="w"> </span><span class="p">(</span><span class="mi">15</span><span class="w"> </span><span class="n">hypothesis</span><span class="w"> </span><span class="n">types</span><span class="p">)</span><span class="w">   </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">scarcity</span><span class="o">.</span><span class="n">federation</span><span class="w">  </span><span class="n">FederationNode</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">FederationHub</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">baskets</span><span class="w">      </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">scarcity</span><span class="o">.</span><span class="n">simulation</span><span class="w">  </span><span class="n">MultiSectorSFCEngine</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">IO</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="p">(</span><span class="n">KNBS</span><span class="p">)</span><span class="w">    </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">scarcity</span><span class="o">.</span><span class="n">meta</span><span class="w">        </span><span class="n">Reptile</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">MAML</span><span class="w"> </span><span class="n">meta</span><span class="o">-</span><span class="n">learner</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">GlobalMetaMemory</span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">scarcity</span><span class="o">.</span><span class="n">governor</span><span class="w">    </span><span class="n">DynamicResourceGovernor</span><span class="w"> </span><span class="p">(</span><span class="n">DRG</span><span class="p">)</span><span class="w">                 </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">scarcity</span><span class="o">.</span><span class="n">causal</span><span class="w">      </span><span class="n">DoWhy</span><span class="w"> </span><span class="n">causal</span><span class="w"> </span><span class="n">identification</span><span class="w">                   </span><span class="err">│</span>
+<span class="w"> </span><span class="err">├─────────────────────────────────────────────────────────────────────┤</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">DATA</span><span class="w"> </span><span class="n">LAYER</span><span class="w">                                                          </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">World</span><span class="w"> </span><span class="n">Bank</span><span class="w"> </span><span class="n">REST</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">FRED</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">FederatedDatabases</span><span class="w"> </span><span class="err">·</span><span class="w"> </span><span class="n">StreamIngester</span><span class="w">   </span><span class="err">│</span>
+<span class="w"> </span><span class="err">└─────────────────────────────────────────────────────────────────────┘</span>
+</code></pre></div>
+
+<h3>A. OnlineDiscoveryEngine — hypothesis survival paradigm</h3>
+<p>The engine treats relationship discovery as a <strong>survival-of-the-fittest competition</strong> among
+hypotheses. Each hypothesis is a probabilistic model of one relationship between two variables.</p>
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="n">Streaming</span><span class="w"> </span><span class="n">rows</span>
+<span class="w">       </span><span class="err">│</span>
+<span class="w">       </span><span class="err">▼</span>
+<span class="w"> </span><span class="err">┌─────────────────────────────────────────────────────────────────┐</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">HypothesisPool</span><span class="w">  </span><span class="p">(</span><span class="n">up</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="n">types</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">variable</span><span class="w"> </span><span class="n">pair</span><span class="p">)</span><span class="w">             </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">                                                                  </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">CausalHypothesis</span><span class="w">       </span><span class="err">—</span><span class="w"> </span><span class="n">Granger</span><span class="w"> </span><span class="n">F</span><span class="o">-</span><span class="n">test</span><span class="p">;</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">backward</span><span class="w">    </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">                           </span><span class="n">Bayesian</span><span class="w"> </span><span class="n">accumulators</span><span class="w"> </span><span class="p">(</span><span class="err">α</span><span class="n">_fwd</span><span class="o">/</span><span class="err">β</span><span class="n">_fwd</span><span class="p">,</span><span class="w">   </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">                           </span><span class="err">α</span><span class="n">_bwd</span><span class="o">/</span><span class="err">β</span><span class="n">_bwd</span><span class="p">);</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">via</span><span class="w">       </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">                           </span><span class="n">F</span><span class="o">-</span><span class="n">ratio</span><span class="w"> </span><span class="n">asymmetry</span><span class="w"> </span><span class="n">guard</span><span class="w"> </span><span class="p">(</span><span class="n">F_fwd</span><span class="o">/</span><span class="n">F_bwd</span><span class="w">  </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">                           </span><span class="err">≥</span><span class="w"> </span><span class="mf">1.3</span><span class="p">);</span><span class="w"> </span><span class="n">confidence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conf_fwd</span><span class="w">         </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">                                                                  </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">TemporalHypothesis</span><span class="w">     </span><span class="err">—</span><span class="w"> </span><span class="n">AR</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">autoregressive</span><span class="w"> </span><span class="n">persistence</span><span class="w">       </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">CorrelationalHypothesis</span><span class="err">—</span><span class="w"> </span><span class="n">Online</span><span class="w"> </span><span class="n">Pearson</span><span class="p">;</span><span class="w"> </span><span class="n">bidirectional</span><span class="w"> </span><span class="k">signal</span><span class="w">   </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">MediationHypothesis</span><span class="w">    </span><span class="err">—</span><span class="w"> </span><span class="n">Two</span><span class="o">-</span><span class="n">stage</span><span class="w"> </span><span class="n">Sobel</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="p">(</span><span class="n">X</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Y</span><span class="p">)</span><span class="w">      </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">FunctionalHypothesis</span><span class="w">   </span><span class="err">—</span><span class="w"> </span><span class="n">Polynomial</span><span class="w"> </span><span class="n">regression</span><span class="w">                  </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="n">additional</span><span class="w"> </span><span class="n">types</span><span class="w"> </span><span class="p">(</span><span class="n">Equilibrium</span><span class="p">,</span><span class="w"> </span><span class="n">Structural</span><span class="p">,</span><span class="w"> </span><span class="n">Compositional</span><span class="p">,</span><span class="w"> </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">    </span><span class="n">Competitive</span><span class="p">,</span><span class="w"> </span><span class="n">Synergistic</span><span class="p">,</span><span class="w"> </span><span class="n">Moderating</span><span class="p">,</span><span class="w"> </span><span class="n">Probabilistic</span><span class="p">,</span><span class="w">         </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">    </span><span class="n">Graph</span><span class="p">,</span><span class="w"> </span><span class="n">Similarity</span><span class="p">,</span><span class="w"> </span><span class="n">Logical</span><span class="p">)</span><span class="w">                                   </span><span class="err">│</span>
+<span class="w"> </span><span class="err">└─────────────────────────────────────────────────────────────────┘</span>
+<span class="w">       </span><span class="err">│</span><span class="w">  </span><span class="n">each</span><span class="w"> </span><span class="n">row</span><span class="p">:</span><span class="w"> </span><span class="n">fit_step</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">evaluate</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="n">Bayesian</span><span class="w"> </span><span class="n">accumulators</span>
+<span class="w">       </span><span class="err">▼</span>
+<span class="w"> </span><span class="err">┌─────────────────────────────────────────────────────────────────┐</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">MetaController</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">hypothesis</span><span class="w"> </span><span class="n">lifecycle</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="n">machine</span><span class="w">             </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">                                                                  </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">TENTATIVE</span><span class="w"> </span><span class="err">──►</span><span class="w"> </span><span class="n">ACTIVE</span><span class="w"> </span><span class="err">──►</span><span class="w"> </span><span class="n">DECAYING</span><span class="w"> </span><span class="err">──►</span><span class="w"> </span><span class="n">DEAD</span><span class="w">                     </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">                                                                  </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">Promotions</span><span class="p">:</span><span class="w"> </span><span class="n">conf</span><span class="w"> </span><span class="err">≥</span><span class="w"> </span><span class="mf">0.25</span><span class="w"> </span><span class="n">AND</span><span class="w"> </span><span class="n">evidence</span><span class="w"> </span><span class="err">≥</span><span class="w"> </span><span class="n">min_ev</span><span class="w">                  </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">Kill</span><span class="w"> </span><span class="n">condition</span><span class="p">:</span><span class="w"> </span><span class="n">conf</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.10</span><span class="w"> </span><span class="n">AND</span><span class="w"> </span><span class="n">evidence</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">20</span><span class="w">                   </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">BH</span><span class="o">-</span><span class="n">FDR</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">q</span><span class="o">=</span><span class="mf">0.05</span><span class="p">:</span><span class="w"> </span><span class="n">soft</span><span class="w"> </span><span class="n">penalty</span><span class="w"> </span><span class="p">(</span><span class="err">×</span><span class="mf">0.92</span><span class="p">)</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">low</span><span class="o">-</span><span class="n">evidence</span><span class="w"> </span><span class="n">hyps</span><span class="w">    </span><span class="err">│</span>
+<span class="w"> </span><span class="err">└─────────────────────────────────────────────────────────────────┘</span>
+<span class="w">       </span><span class="err">│</span>
+<span class="w">       </span><span class="err">▼</span>
+<span class="w"> </span><span class="err">┌─────────────────────────────────────────────────────────────────┐</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">HypothesisArbiter</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="n">winner</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="p">(</span><span class="n">source</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p">)</span><span class="w"> </span><span class="n">pair</span><span class="w">        </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">Sorted</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="p">(</span><span class="n">confidence</span><span class="p">,</span><span class="w"> </span><span class="n">get_strength</span><span class="p">)</span><span class="w"> </span><span class="n">descending</span><span class="w">                 </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">Causal</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">Temporal</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">Correlational</span><span class="w"> </span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="n">priority</span><span class="p">)</span><span class="w">               </span><span class="err">│</span>
+<span class="w"> </span><span class="err">└─────────────────────────────────────────────────────────────────┘</span>
+<span class="w">       </span><span class="err">│</span>
+<span class="w">       </span><span class="err">▼</span>
+<span class="w"> </span><span class="err">┌─────────────────────────────────────────────────────────────────┐</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">HypergraphStore</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">knowledge</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">temporal</span><span class="w"> </span><span class="n">decay</span><span class="w">           </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">Edges</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">source</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p">,</span><span class="w"> </span><span class="n">effect_size</span><span class="p">,</span><span class="w"> </span><span class="n">confidence</span><span class="p">,</span><span class="w"> </span><span class="n">stability</span><span class="p">)</span><span class="w">     </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">Simulation</span><span class="w"> </span><span class="n">gate</span><span class="p">:</span><span class="w"> </span><span class="n">confidence</span><span class="w"> </span><span class="err">≥</span><span class="w"> </span><span class="mf">0.25</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">emitted</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">PolicySimulator</span><span class="err">│</span>
+<span class="w"> </span><span class="err">└─────────────────────────────────────────────────────────────────┘</span>
+</code></pre></div>
+
+<p><strong>Key internal algorithms:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Where</th>
+<th>Role in benchmark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Incremental Granger F-test (RLS)</td>
+<td><code>CausalHypothesis.update()</code></td>
+<td>Sets direction (+1/−1/0); primary signal</td>
+</tr>
+<tr>
+<td>Bayesian accumulator (α/β)</td>
+<td><code>CausalHypothesis</code></td>
+<td>confidence = α_fwd / (α_fwd + β_fwd)</td>
+</tr>
+<tr>
+<td>F-ratio asymmetry guard</td>
+<td><code>relationships.py</code></td>
+<td>F_fwd/F_bwd ≥ 1.3 before direction commit</td>
+</tr>
+<tr>
+<td>BH-FDR correction (q=0.05)</td>
+<td><code>discovery.py</code></td>
+<td>Penalises low-evidence hypotheses (fix #1)</td>
+</tr>
+<tr>
+<td>Live-direction override</td>
+<td><code>relationships.py</code></td>
+<td>Mini-buffer ≥15 live rows overrides pretrain direction (fix #2)</td>
+</tr>
+<tr>
+<td>Page-Hinkley drift detection</td>
+<td><code>vectorized_core.py</code></td>
+<td>Resets coefficients on structural breaks</td>
+</tr>
+<tr>
+<td>Thompson sampling (BanditRouter)</td>
+<td><code>bandit_router.py</code></td>
+<td>Exploration-exploitation over hypothesis types</td>
+</tr>
+<tr>
+<td>Sobel mediation test</td>
+<td><code>relationships_extended.py</code></td>
+<td>X → M → Y indirect effects</td>
+</tr>
+</tbody>
+</table>
+<h3>B. Federation layer — basket-routed evidence sharing</h3>
+<p>The benchmark runs federation through <code>FederationHub</code> → <code>FederationNode</code> → per-basket engines.
+This is distinct from FedAvg: nodes share <strong>observation rows</strong>, not model parameters.</p>
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="err">┌───────────────────────────────────────────────────────────────┐</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">FederationHub</span><span class="w">                                                 </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="err">├─</span><span class="w"> </span><span class="n">register</span><span class="p">(</span><span class="n">node</span><span class="p">)</span><span class="w">                                             </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="err">├─</span><span class="w"> </span><span class="n">broadcast</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="w"> </span><span class="n">source_node_id</span><span class="p">)</span><span class="w">                             </span><span class="err">│</span>
+<span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="err">└─</span><span class="w"> </span><span class="n">sync_directions</span><span class="p">()</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">majority</span><span class="o">-</span><span class="n">vote</span><span class="w"> </span><span class="n">CausalHypothesis</span><span class="w"> </span><span class="n">dirs</span><span class="w">   </span><span class="err">│</span>
+<span class="w"> </span><span class="err">└──────────────────────┬────────────────────────────────────────┘</span>
+<span class="w">                        </span><span class="err">│</span><span class="w"> </span><span class="n">peer</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="p">(</span><span class="n">trust</span><span class="o">-</span><span class="n">weighted</span><span class="p">,</span><span class="w"> </span><span class="n">renormalised</span><span class="p">)</span>
+<span class="w">          </span><span class="err">┌─────────────┼─────────────────┐</span>
+<span class="w">          </span><span class="err">▼</span><span class="w">             </span><span class="err">▼</span><span class="w">                 </span><span class="err">▼</span>
+<span class="w">   </span><span class="n">FederationNode</span><span class="w">    </span><span class="n">FederationNode</span><span class="w">   </span><span class="n">FederationNode</span>
+<span class="w">       </span><span class="n">KEN</span><span class="w">               </span><span class="n">TZA</span><span class="w">               </span><span class="n">UGA</span>
+<span class="w">          </span><span class="err">│</span>
+<span class="w">          </span><span class="err">│</span><span class="w">  </span><span class="n">per</span><span class="o">-</span><span class="n">basket</span><span class="w"> </span><span class="n">isolated</span><span class="w"> </span><span class="n">engines</span>
+<span class="w">          </span><span class="err">├──</span><span class="w"> </span><span class="nl">basket:</span><span class="w"> </span><span class="n">macro</span><span class="w">        </span><span class="err">→</span><span class="w"> </span><span class="n">OnlineDiscoveryEngine</span>
+<span class="w">          </span><span class="err">├──</span><span class="w"> </span><span class="nl">basket:</span><span class="w"> </span><span class="n">financial</span><span class="w">    </span><span class="err">→</span><span class="w"> </span><span class="n">OnlineDiscoveryEngine</span>
+<span class="w">          </span><span class="err">├──</span><span class="w"> </span><span class="nl">basket:</span><span class="w"> </span><span class="n">infrastructure</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">OnlineDiscoveryEngine</span>
+<span class="w">          </span><span class="err">└──</span><span class="w"> </span><span class="nl">basket:</span><span class="w"> </span><span class="n">human_capital</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">OnlineDiscoveryEngine</span>
+</code></pre></div>
+
+<p><strong>Basket routing</strong> (<code>BasketRegistry</code>) ensures cross-basket contamination is impossible: each
+engine sees only the variables in its own sector schema, enforced at both <code>pretrain()</code> and
+<code>receive_peer()</code> boundaries.</p>
+<p><strong>Peer renormalisation</strong> (fix #3): before feeding a peer row to own-country engines, the row is
+z-scored to peer-country scale then re-expressed in own-country scale using rolling-window
+mean/std (last 15 own observations), removing cross-country level differences while preserving
+relative moves.</p>
+<p><strong>begin_live_stream()</strong>: after pretraining, all hypothesis confidences are discounted by 50% and
+evidence counts are capped at 10, so live observations can revise pretrained directions without
+the MetaController kill condition firing prematurely.</p>
+<h3>C. Simulation engine — Stock-Flow Consistent economy</h3>
+<p>The <code>PolicySimulator</code> (and underlying <code>MultiSectorSFCEngine</code>) consumes the knowledge graph
+produced by the engine. It propagates shocks forward through discovered relationships.</p>
+<div class="codehilite"><pre><span></span><code>  <span class="n">Discovered</span> <span class="n">relationships</span> <span class="p">(</span><span class="n">conf</span> <span class="err">≥</span> <span class="mf">0.25</span><span class="p">)</span>
+          <span class="err">│</span>
+          <span class="err">▼</span>
+  <span class="n">ScarcityBridge</span><span class="o">.</span><span class="n">create_learned_economy</span><span class="p">()</span>
+          <span class="err">│</span>
+          <span class="err">▼</span>
+  <span class="n">MultiSectorSFCEngine</span>  <span class="p">(</span><span class="mi">4</span> <span class="n">SFC</span> <span class="n">sectors</span><span class="p">:</span> <span class="n">AGR</span> <span class="o">/</span> <span class="n">MFG</span> <span class="o">/</span> <span class="n">SRV</span> <span class="o">/</span> <span class="n">INFORMAL</span><span class="p">)</span>
+  <span class="err">├─</span> <span class="n">production</span><span class="o">.</span><span class="n">py</span>    <span class="n">CES</span> <span class="n">output</span> <span class="n">function</span>
+  <span class="err">├─</span> <span class="n">labor_market</span><span class="o">.</span><span class="n">py</span>  <span class="n">Wages</span> <span class="o">+</span> <span class="n">unemployment</span> <span class="p">(</span><span class="n">Okun</span><span class="s1">&#39;s Law)</span>
+  <span class="err">├─</span> <span class="n">price_system</span><span class="o">.</span><span class="n">py</span>  <span class="n">CPI</span> <span class="o">+</span> <span class="kn">import</span><span class="w"> </span><span class="nn">prices</span> <span class="p">(</span><span class="n">Phillips</span> <span class="n">Curve</span><span class="p">)</span>
+  <span class="err">├─</span> <span class="n">government</span><span class="o">.</span><span class="n">py</span>    <span class="n">Fiscal</span> <span class="n">block</span> <span class="p">(</span><span class="n">taxes</span><span class="p">,</span> <span class="n">debt</span><span class="p">,</span> <span class="n">expenditure</span><span class="p">)</span>
+  <span class="err">├─</span> <span class="n">monetary</span><span class="o">.</span><span class="n">py</span>      <span class="n">Taylor</span> <span class="n">Rule</span> <span class="o">+</span> <span class="n">interest</span> <span class="k">pass</span><span class="o">-</span><span class="n">through</span>
+  <span class="err">├─</span> <span class="n">foreign</span><span class="o">.</span><span class="n">py</span>       <span class="n">Current</span> <span class="n">account</span> <span class="o">+</span> <span class="n">FX</span>
+  <span class="err">└─</span> <span class="n">banking</span><span class="o">.</span><span class="n">py</span>       <span class="n">Credit</span><span class="p">,</span> <span class="n">CAR</span><span class="p">,</span> <span class="n">NPL</span>
+          <span class="err">│</span>
+          <span class="err">▼</span>
+  <span class="n">Shock</span> <span class="n">propagation</span> <span class="p">(</span><span class="mi">5</span> <span class="n">steps</span> <span class="kn">from</span><span class="w"> </span><span class="nn">base</span> <span class="n">state</span><span class="p">)</span>
+  <span class="err">→</span> <span class="n">directional</span> <span class="n">response</span> <span class="n">per</span> <span class="n">variable</span> <span class="n">validated</span> <span class="n">vs</span> <span class="n">IMF</span><span class="o">/</span><span class="n">WB</span> <span class="n">theory</span>
+</code></pre></div>
+
+<p>The IO structure (<code>io_structure.py</code>) bridges KNBS 9-sector to SFC 4-sector using the standard
+IO aggregation formula. Column sums satisfy the Hawkins-Simon condition (AGR=0.42, MFG=0.46,
+SRV=0.49), ensuring the Leontief inverse is economically meaningful.</p>
+<h3>D. How the benchmark exercises the architecture</h3>
+<p>The discovery benchmark (<code>scripts/benchmark_discovery.py</code>) runs four conditions (A–D) that
+directly stress-test specific architectural paths:</p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Engine init</th>
+<th>Peer data</th>
+<th>Architecture path exercised</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. Cold-start, no fed</td>
+<td>Fresh</td>
+<td>None</td>
+<td>Engine alone; all signal from 44 KEN rows</td>
+</tr>
+<tr>
+<td>B. Cold-start + fed</td>
+<td>Fresh</td>
+<td>TZA+UGA</td>
+<td>Hub broadcast + basket routing + peer renorm</td>
+</tr>
+<tr>
+<td>C. Pretrained, no fed</td>
+<td>SSA prior</td>
+<td>None</td>
+<td>begin_live_stream + live-direction override</td>
+</tr>
+<tr>
+<td>D. Pretrained + fed</td>
+<td>SSA prior</td>
+<td>TZA+UGA</td>
+<td>All paths; direction sync from hub</td>
+</tr>
+</tbody>
+</table>
+<p>The 70% conf-weighted sign accuracy target in conditions A/B directly measures whether the
+<strong>Bayesian accumulator + F-ratio asymmetry guard + BH-FDR</strong> pipeline produces directionally
+reliable hypotheses from 44 annual observations. The pretrained conditions (C/D) additionally
+test whether <strong>begin_live_stream + live-direction override</strong> can correct SSA-corpus direction
+inversion with only 44 live override observations.</p>
+<hr />
+<h2>1. What This Benchmark Tests</h2>
+<h3>Primary claims (paper stands or falls on these)</h3>
+<table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>C1.</strong> The nodes have genuinely non-IID data — FL prerequisite satisfied</td>
+<td>§6</td>
+</tr>
+<tr>
+<td><strong>C2.</strong> Federation is harmful with FedAvg but beneficial with Scarcity's evidence-sharing</td>
+<td>§4, §9</td>
+</tr>
+<tr>
+<td><strong>C3.</strong> Scarcity accumulates useful relationship evidence where all supervised baselines fail</td>
+<td>§4, §12</td>
+</tr>
+</tbody>
+</table>
+<h3>Supporting claims</h3>
+<table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>S1.</strong> Meta-learning warm-start accelerates new node onboarding</td>
+<td>§8</td>
+</tr>
+<tr>
+<td><strong>S2.</strong> Scarcity generalises to an unseen domain (Ethiopia)</td>
+<td>§10</td>
+</tr>
+<tr>
+<td><strong>S3.</strong> The DRG provides a quantifiable compute/accuracy trade-off</td>
+<td>§11</td>
+</tr>
+<tr>
+<td><strong>S4.</strong> Discovered relationships produce economically coherent shock propagation</td>
+<td>§13</td>
+</tr>
+</tbody>
+</table>
+<h3>Characterisation findings (honest accounting, not claims)</h3>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Online engine does not outperform batch AR1 on point prediction</td>
+<td>§7</td>
+</tr>
+<tr>
+<td>FL is harmful below 13 years of local data (cold-start threshold)</td>
+<td>§9</td>
+</tr>
+<tr>
+<td>Buffer size does not affect annual-frequency results</td>
+<td>§15C</td>
+</tr>
+<tr>
+<td>Confidence ≠ statistical significance; 41% false positive rate on null data</td>
+<td>§22</td>
+</tr>
+<tr>
+<td>Temporal ordering not detected; confidence measures pattern consistency</td>
+<td>§22</td>
+</tr>
+<tr>
+<td>Only TEMPORAL hypothesis type confirmed at annual frequency (N≤34)</td>
+<td>§17</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Evaluation Protocol</h2>
+<p><strong>Prediction accuracy</strong> — rolling leave-one-year-out:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">For</span><span class="w"> </span><span class="nv">each</span><span class="w"> </span><span class="nv">year</span><span class="w"> </span><span class="nv">T</span><span class="w"> </span><span class="nv">from</span><span class="w"> </span><span class="ss">(</span><span class="nv">start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">5</span><span class="ss">)</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="mi">2023</span>:
+<span class="w">    </span><span class="nv">train</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">all</span><span class="w"> </span><span class="nv">years</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nv">T</span>
+<span class="w">    </span><span class="nv">predict</span><span class="w"> </span><span class="nv">year</span><span class="w"> </span><span class="nv">T</span>,<span class="w"> </span><span class="nv">compute</span><span class="w"> </span><span class="nv">normalised</span><span class="w"> </span><span class="nv">MAE</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">R</span>²
+</code></pre></div>
+
+<p>Normalisation: z-score per indicator on training data. MAE &lt; 1.0 beats naive z-score predictor.</p>
+<p><strong>No fold leakage:</strong> Year T is never in the training set. Normalisation statistics are computed
+on the held-out actuals after all folds complete — not on training data. Oracle-AR1 uses the same
+temporal boundary as Local-AR1 (pools all countries but trains only on rows with year &lt; T).</p>
+<p><strong>Discovery quality</strong> (Scarcity only):
+- <code>conf@end</code> — mean confidence of active hypotheses at stream end
+- <code>steps→0.25</code> — first step at which mean confidence crosses the simulation gate</p>
+<p><strong>Statistical rigour:</strong> 20 random seeds, mean ± std, 95% CI, Welch t-test (two-tailed), Cohen's d.</p>
+<p><strong>What seeds affect:</strong>
+- RandomBaseline: seeded directly; predictions vary across seeds
+- Synthetic data (dry-run): numpy.random seeded; data varies per seed
+- AR1, FedAvg, Oracle, Scarcity: deterministic given fixed data; seed-invariant on real WB data</p>
+<hr />
+<h2>3. Baselines</h2>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trivial</td>
+<td><strong>Random</strong></td>
+<td>Predict U[min, max]</td>
+</tr>
+<tr>
+<td>Trivial</td>
+<td><strong>Mean</strong></td>
+<td>Predict training mean</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td><strong>Local-AR1</strong></td>
+<td>AR(1) per indicator, local data only (Hamilton 1994)</td>
+</tr>
+<tr>
+<td>Stronger-still-fails</td>
+<td><strong>Ridge-Lag</strong></td>
+<td>Ridge regression on all 18 cross-variable lag-1 features</td>
+</tr>
+<tr>
+<td>FL standard</td>
+<td><strong>FedAvg-AR1</strong></td>
+<td>AR(1) + federated parameter averaging (McMahan et al. 2017)</td>
+</tr>
+<tr>
+<td>Upper bound</td>
+<td><strong>Oracle-AR1</strong></td>
+<td>AR(1) on pooled all-node data — not deployable</td>
+</tr>
+<tr>
+<td>Proposed</td>
+<td><strong>Scarcity</strong></td>
+<td>Scarcity engine, cross-node evidence sharing</td>
+</tr>
+</tbody>
+</table>
+<h3>Why AR(1) is the right supervised baseline</h3>
+<p>VAR requires N &gt; k·p = 19 rows minimum; LSTM requires ~100+ sequences; ARIMA and Prophet
+degenerate on annual data. At N=5–24, AR(1) is the strongest numerically stable supervised
+baseline (Hamilton 1994).</p>
+<p><strong>Ridge-Lag validation (§4b):</strong> To confirm this is not a weak baseline choice, we add Ridge
+regression with all 18 cross-variable lag-1 features (α=10 regularisation). Despite being
+strictly more powerful than AR(1) in capability, Ridge-Lag produces <strong>MAE=1.026 vs AR(1)=0.860</strong>
+at mean N=19 training rows with 18 features per indicator — 19.3% worse. This confirms the p/n
+ratio (19 features, 5–24 rows) is genuinely the binding constraint, not the choice of AR(1) as
+baseline. More complex models fail harder at this sample size.</p>
+<p><strong>Modern FL variants:</strong> FedProx (Li et al. 2020) and SCAFFOLD (Karimireddy et al. 2020) are
+stronger FL variants but still average model parameters — they share FedAvg's structural failure
+mode in heterogeneous settings. They require larger datasets for a fair comparison.</p>
+                </article>
+
+                <!-- Mobile Navigation (Bottom) -->
+                
+                <div class="lg:hidden mt-16 border-t border-gray-200 pt-8">
+                    <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-4">Read Next
+                    </h3>
+                    <div class="flex flex-col gap-2">
+                        
+                        
+                        
+                        
+                        <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-02-core-results/" class="text-sm py-2 text-accent-blue hover:underline">Scarcity Benchmark 02: Core Results and Data Scarcity</a>
+                        
+                        
+                        
+                        <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-03-simulation-ablations/" class="text-sm py-2 text-accent-blue hover:underline">Scarcity Benchmark 03: Economic Simulation and Ablations</a>
+                        
+                        
+                        
+                        <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-04-robustness-limitations/" class="text-sm py-2 text-accent-blue hover:underline">Scarcity Benchmark 04: Robustness, Reproducibility, and Limitations</a>
+                        
+                        
+                        
+                        <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-05-advanced-validation/" class="text-sm py-2 text-accent-blue hover:underline">Scarcity Benchmark 05: Relationship Structure Discovery</a>
+                        
+                        
+                    </div>
+                </div>
+                
+
+            </main>
+
+    </div>
+
+</div>
+
+    </main>
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA MAKENA</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2026 Omega Makena.<br>
+                        Engineering Intelligence.
+                    </div>
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // FlatPages/Pygments strips the `language-mermaid` class and injects spans.
+            // We search for all code blocks and check if the unformatted text indicates a diagram.
+            const allCodeBlocks = document.querySelectorAll(".codehilite code, pre code");
+            const blocksToProcess = [];
+            
+            allCodeBlocks.forEach(function(block) {
+                const text = block.textContent.trim();
+                if (text.startsWith("flowchart") || text.startsWith("sequenceDiagram") || text.startsWith("graph") || text.startsWith("stateDiagram")) {
+                    blocksToProcess.push({block: block, text: text});
+                }
+            });
+
+            blocksToProcess.forEach(function(item) {
+                const div = document.createElement('div');
+                div.className = 'mermaid flex justify-center w-full overflow-x-auto my-8'; 
+                div.textContent = item.text;
+                
+                const container = item.block.closest('.codehilite') || item.block.closest('pre');
+                if (container) {
+                    container.replaceWith(div);
+                }
+            });
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'neutral',
+                themeVariables: {
+                    'background': 'transparent',
+                    'primaryColor': '#18181B',
+                    'primaryTextColor': '#18181B',
+                    'lineColor': '#a3a3a3',
+                    'fontSize': '14px'
+                }
+            });
+            
+            if (blocksToProcess.length > 0) {
+                // Let the browser paint the divs before running mermaid
+                setTimeout(() => {
+                    mermaid.run({ querySelector: '.mermaid' });
+                }, 50);
+            }
+        });
+    </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+</body>
+
+</html>

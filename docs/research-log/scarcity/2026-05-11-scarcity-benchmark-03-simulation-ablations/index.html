@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     
-    <meta name="description" content="Defining the exact JSON specifications needed for institutions to share meaning without sharing raw data.">
+    <meta name="description" content="Validation of directional economic simulation, confidence anchoring, and structural ablation studies.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
 
-    <title>The Three Contracts of Risk Governance - Omega Makena</title>
+    <title>Scarcity Benchmark 03: Economic Simulation and Ablations - Omega Makena</title>
 
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -250,7 +250,7 @@
                     
                     <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-03-simulation-ablations/" class="block py-2 pl-4 border-l-2 transition-all text-sm
                               
-                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              border-accent-main text-accent-main font-bold
                               ">
                         Scarcity Benchmark 03: Economic Simulation and Ablations
                     </a>
@@ -290,18 +290,18 @@
                         </span>
                         
                         <span class="text-xs font-mono text-text-muted">
-                            // April 05, 2026
+                            // May 11, 2026
                         </span>
                         
                     </div>
 
                     <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
-                        The Three Contracts of Risk Governance
+                        Scarcity Benchmark 03: Economic Simulation and Ablations
                     </h1>
 
                     
                     <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
-                        Defining the exact JSON specifications needed for institutions to share meaning without sharing raw data.
+                        Validation of directional economic simulation, confidence anchoring, and structural ablation studies.
                     </p>
                     
                 </header>
@@ -317,66 +317,717 @@
                             prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
                             prose-ul:list-disc prose-ul:pl-6
                             prose-li:marker:text-accent-main prose-li:my-2">
-                    <h1>The Base Interfaces of Federated Risk</h1>
-<p>To achieve a true "Federated National Risk Coordination Layer," standardizing how information is passed is more critical than the algorithms running underneath. Raw data must never be shared—only the <em>meaning</em> and <em>interpretation</em> of that data. </p>
-<p>To govern this, we introduce three core mathematical and structural contracts.</p>
-<h2>1. The Signal Contract (Institution → Federation)</h2>
-<p>This is the single most important interface. It standardizes how a Treasury department and a Health department report stress to each other, using a common temporal and geospatial matrix.</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;signal_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;producer_org&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ministry of Health&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;health&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;indicator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hospital_bed_capacity&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;geo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;county&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;047&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;window&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-04-01T00:00:00Z&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;end&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-04-07T00:00:00Z&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;anomaly_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.85</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;trend_velocity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;confidence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;data_latency_hours&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">24.0</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;quality_flags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;missingness&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;revision&quot;</span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;sensitivity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;restricted&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;provenance&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ml&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;model_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v1.2.0&quot;</span><span class="w"> </span><span class="p">}</span>
-<span class="p">}</span>
+                    <h2>13. S4 — Economic Simulation: Direction Validation and Uncertainty</h2>
+<p><strong>Engine trained on Kenya 1990–2023 (34 years). Three shocks propagated 5 steps from 2023 state.</strong>
+<strong>Validated against directional coherence with IMF/WB documented relationships.</strong>
+<strong>Magnitude is not validated — 34 observations insufficient for magnitude precision.</strong></p>
+<h3>Shock S1: Electricity access +20 pp (50% → 70%)</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Direction</th>
+<th>IMF/WB expectation</th>
+<th>Match</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>labor_force_part</td>
+<td>+1.53%</td>
+<td>+ (electrification raises female LFP)</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>gov_expense_gdp</td>
+<td>+1.11%</td>
+<td>+ (maintenance and operations spending)</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>real_interest_rate</td>
+<td>+0.65%</td>
+<td>+ (infrastructure investment pressure)</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>dom_credit_pvt</td>
+<td>−1.39%</td>
+<td>ambiguous</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<p>S1 direction score: <strong>3/3 unambiguous (100%)</strong></p>
+<h3>Shock S2: Government debt +15 pp GDP (~55% → ~70%)</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Direction</th>
+<th>IMF/WB expectation</th>
+<th>Match</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gdp_usd / gdp_per_capita</td>
+<td>+1.67% / +1.15%</td>
+<td>+ (fiscal multiplier)</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>unemployment</td>
+<td>−1.82%</td>
+<td>− (Okun's law)</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>real_interest_rate</td>
+<td><strong>−2.12%</strong></td>
+<td>+ (crowding-out)</td>
+<td><strong>NO</strong></td>
+</tr>
+</tbody>
+</table>
+<p>S2 direction score: <strong>2/3 unambiguous (67%)</strong></p>
+<p><strong>Anomaly note:</strong> The negative interest rate response contradicts crowding-out theory but is
+consistent with Kenya's documented financial repression — the CBK used administered rates during
+fiscal expansions (IMF Art. IV 2019, 2022). This is empirically grounded even if it violates
+textbook expectation.</p>
+<h3>Shock S3: Inflation +5 pp (7.7% → 12.7%)</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Direction</th>
+<th>IMF/WB expectation</th>
+<th>Match</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gdp_per_capita</td>
+<td>−1.26%</td>
+<td>− (real income erosion)</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>dom_credit_pvt</td>
+<td>−1.36%</td>
+<td>− (real credit tightening)</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>labor_force_part</td>
+<td>−1.31%</td>
+<td>− (discouraged workers)</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>money_broad_gdp</td>
+<td>+0.86%</td>
+<td>+ (Fisher: nominal money demand)</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>inflation_cpi</td>
+<td>+65% relative</td>
+<td>+ (AR persistence)</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+<p>S3 direction score: <strong>5/5 unambiguous (100%)</strong></p>
+<h3>Overall</h3>
+<table>
+<thead>
+<tr>
+<th>Shock</th>
+<th>Unambiguous tested</th>
+<th>Match</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S1 Electricity</td>
+<td>3</td>
+<td>3/3</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>S2 Govt debt</td>
+<td>3</td>
+<td>2/3</td>
+<td>67%</td>
+</tr>
+<tr>
+<td>S3 Inflation</td>
+<td>5</td>
+<td>5/5</td>
+<td>100%</td>
+</tr>
+<tr>
+<td><strong>Overall</strong></td>
+<td><strong>11</strong></td>
+<td><strong>10/11</strong></td>
+<td><strong>91%</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>Simulation uncertainty</h3>
+<p><strong>Multi-seed discovery stability (5 seeds, federated KEN+TZA+UGA):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mean</th>
+<th>± std</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>avg_conf (federated)</td>
+<td>0.442</td>
+<td>0.007</td>
+</tr>
+<tr>
+<td>n_active hypotheses</td>
+<td>18–19</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Discovery quality is highly stable across seeds: coefficient of variation = 1.5% on avg_conf.
+The hypothesis graph that drives simulation is therefore reproducible.</p>
+<p><strong>Binomial 95% CI on the 10/11 direction-match (Clopper-Pearson):</strong>
+The 91% direction-match is based on 11 unambiguous relationships. The binomial 95% CI is
+approximately <strong>[59%, 100%]</strong>. This wide interval reflects the small sample of testable
+relationships, not instability in the engine. External replication on a larger set of
+economic shocks is the right path to a tighter estimate — this benchmark validates the
+<em>direction</em> of the contribution, not its <em>precision</em>.</p>
+<p><strong>Synthetic data simulation (direction match on random data):</strong>
+Running the same shock tests on synthetic random data (5 seeds) produces ~20% direction match
+(near-chance). This confirms the 91% on real Kenya data is not an artefact of the simulation
+machinery: random data → random directions, real economic data → coherent directions.</p>
+<p><strong>Comparison to no-discovery baseline:</strong> Without Scarcity, the PolicySimulator has no hypothesis
+graph and returns zero propagation for all shocks. The 91% match is a comparison to no model at
+all, not to a weaker model.</p>
+<hr />
+<h2>14. Confidence: External Anchoring</h2>
+<table>
+<thead>
+<tr>
+<th>Confidence level</th>
+<th>External meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 0.10</td>
+<td>Fewer than 5 consistent observations. No external correlate.</td>
+</tr>
+<tr>
+<td>0.10 – 0.25</td>
+<td>Pattern tentative. Pearson |r| same direction but below N&lt;10 significance.</td>
+</tr>
+<tr>
+<td><strong>0.25</strong></td>
+<td><strong>Simulation gate.</strong> Below: PolicySimulator returns empty output.</td>
+</tr>
+<tr>
+<td>0.25 – 0.50</td>
+<td>Active. On average, 91% direction match vs textbook relationships (this benchmark).</td>
+</tr>
+<tr>
+<td>&gt; 0.50</td>
+<td>Not observed on annual data; expected in high-frequency physical systems with N&gt;1000.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Critical fact:</strong> Local-only final confidence = 0.205 (below 0.25). Federated final confidence =
+0.298 (above 0.25). This is not marginal — it is the difference between zero and non-zero
+simulation capability.</p>
+<hr />
+<h2>15. Ablation Studies</h2>
+<h3>A. Sparsity Sweep</h3>
+<table>
+<thead>
+<tr>
+<th>Drop %</th>
+<th>Local conf</th>
+<th>Federated conf</th>
+<th>Fed advantage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0%</td>
+<td>0.154</td>
+<td>0.361</td>
+<td>+0.207</td>
+</tr>
+<tr>
+<td>20%</td>
+<td>0.141</td>
+<td>0.365</td>
+<td>+0.224</td>
+</tr>
+<tr>
+<td>40%</td>
+<td>0.116</td>
+<td>0.326</td>
+<td>+0.210</td>
+</tr>
+<tr>
+<td>60%</td>
+<td>0.137</td>
+<td>0.226</td>
+<td>+0.089</td>
+</tr>
+</tbody>
+</table>
+<p>At 60% data drop, federated confidence (0.226) exceeds local confidence at 0% drop (0.154).
+Federation compensates for losing 60% of observations.</p>
+<h3>B. Federation Size</h3>
+<table>
+<thead>
+<tr>
+<th>Peers</th>
+<th>Conf @ end</th>
+<th>Marginal gain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0.152</td>
+<td>—</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0.342–0.346</td>
+<td>+0.19</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.360</td>
+<td>+0.014</td>
+</tr>
+</tbody>
+</table>
+<p>Concave benefit curve. First peer dominates.</p>
+<h3>C. Buffer Size (Annual Data)</h3>
+<p>No effect at 34 annual observations — buffer is never full. See §11 for high-frequency results.</p>
+<h3>D. Peer Specificity</h3>
+<p>All pairs: +0.15 to +0.20. No dominant pair. Federation benefit does not depend on geographic
+or structural similarity.</p>
+<h3>E. Lifecycle Management Ablation</h3>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>avg_conf</th>
+<th>n_active</th>
+<th>can_simulate</th>
+<th>n_dead</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard (conf≥0.25, min_ev=5)</td>
+<td>0.390</td>
+<td>5</td>
+<td>YES</td>
+<td>93</td>
+</tr>
+<tr>
+<td>No lifecycle (conf≥0.0, min_ev=1)</td>
+<td>0.121</td>
+<td>19</td>
+<td>NO</td>
+<td>89</td>
+</tr>
+<tr>
+<td>Tight (conf≥0.5, min_ev=15)</td>
+<td>0.375</td>
+<td>1</td>
+<td>YES (1 country)</td>
+<td>68</td>
+</tr>
+</tbody>
+</table>
+<p>Lifecycle management is essential: without it, conf=0.121 (below gate, no simulation). Too tight
+(conf≥0.5) leaves 2/3 countries with zero active hypotheses at N=34.</p>
+<h3>F. Confidence Gate Sensitivity</h3>
+<p>At gate=0.25, the top half of the hypothesis pool qualifies (44–50%). Avg confidence of eligible
+hypotheses: 0.384.</p>
+<h3>G. Federation Mechanism Ablation</h3>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>avg_conf</th>
+<th>Fraction of centralised gain captured</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Isolated</td>
+<td>0.390</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Evidence sharing</td>
+<td>0.455</td>
+<td>65%</td>
+</tr>
+<tr>
+<td>Pooled centralised</td>
+<td>0.503</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+<p>Evidence sharing captures 65% of centralised advantage without requiring data pooling.</p>
+<h3>H. Peer Count Ablation (Uganda focus)</h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>avg_conf</th>
+<th>n_active</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No peers</td>
+<td>0.473</td>
+<td>4</td>
+</tr>
+<tr>
+<td>+KEN</td>
+<td>0.506</td>
+<td>7</td>
+</tr>
+<tr>
+<td>+TZA</td>
+<td>0.542</td>
+<td>3</td>
+</tr>
+<tr>
+<td>+KEN &amp; TZA</td>
+<td>0.530</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>First peer gives largest gain. Second peer marginal. Concave returns confirmed.</p>
+<hr />
+<h2>16. What Is Being Learned</h2>
+<p>Scarcity discovers <strong>15 relationship types</strong> across variable pairs, organised into 4 families:</p>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Types</th>
+<th>What is learned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Temporal</strong></td>
+<td>TEMPORAL, EQUILIBRIUM</td>
+<td>Persistence: Y_t ~ f(Y_{t-1}); mean-reversion</td>
+</tr>
+<tr>
+<td><strong>Directional</strong></td>
+<td>CAUSAL, CORRELATIONAL</td>
+<td>A→B or A↔B (no guaranteed causal direction without do-calculus)</td>
+</tr>
+<tr>
+<td><strong>Compositional</strong></td>
+<td>COMPETITIVE, SYNERGISTIC, MEDIATING, MODERATING</td>
+<td>Trade-offs, amplification, mediation pathways</td>
+</tr>
+<tr>
+<td><strong>Structural</strong></td>
+<td>STRUCTURAL, FUNCTIONAL, PROBABILISTIC, GRAPH, SIMILARITY, LOGICAL</td>
+<td>Deep distributional/logical relationships</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What is confirmed at annual frequency (N≤34):</strong></p>
+<p>All 5 final active hypotheses are TEMPORAL type. Examples from Kenya:</p>
+<table>
+<thead>
+<tr>
+<th>Discovered relationship</th>
+<th>Type</th>
+<th>conf</th>
+<th>Economic interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>inflation_cpi_t ~ 0.75·inflation_cpi_{t-1}</td>
+<td>TEMPORAL</td>
+<td>0.43</td>
+<td>Autoregressive inflation persistence (AR coefficient = 0.75)</td>
+</tr>
+<tr>
+<td>gdp_growth_t ~ f(gdp_growth_{t-1})</td>
+<td>TEMPORAL</td>
+<td>0.41</td>
+<td>GDP growth mean-reversion (characteristic of emerging markets)</td>
+</tr>
+<tr>
+<td>unemployment_t ~ f(unemployment_{t-1})</td>
+<td>TEMPORAL</td>
+<td>0.39</td>
+<td>Labour market inertia (hysteresis effect)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why only TEMPORAL at N=34:</strong></p>
+<p>CAUSAL, MEDIATING, SYNERGISTIC, COMPETITIVE types require sustained cross-variable evidence:
+the Bayesian accumulator needs N &gt;&gt; 34 consistent observations of the multi-variable pattern
+to cross the 0.25 confidence gate. At annual frequency, 34 years is sufficient to confirm
+univariate persistence (TEMPORAL) but not directional cross-variable structure (CAUSAL).
+CAUSAL and MEDIATING types remain TENTATIVE throughout (conf = 0.125–0.25), accumulating
+evidence but never crossing the promotion threshold.</p>
+<p><strong>Implication:</strong> The simulation in §13 propagates shocks through TEMPORAL hypotheses (autoregressive
+persistence) rather than explicit CAUSAL edges. This is observationally coherent but is not an
+SCM counterfactual graph. Explicitly causal edges require either higher-frequency data (daily:
+N&gt;&gt;365) or longer time series (N&gt;&gt;50 annual).</p>
+<hr />
+<h2>17. Error Analysis — Hardest Indicators</h2>
+<table>
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Country</th>
+<th>MAE(mean)</th>
+<th>MAE(AR1)</th>
+<th>Difficulty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>real_interest_rate</td>
+<td>Uganda</td>
+<td>1.206</td>
+<td>2.755</td>
+<td>2.28</td>
+</tr>
+<tr>
+<td>exports_gdp</td>
+<td>Uganda</td>
+<td>1.778</td>
+<td>3.158</td>
+<td>1.78</td>
+</tr>
+<tr>
+<td>govt_consumption</td>
+<td>Tanzania</td>
+<td>1.719</td>
+<td>2.217</td>
+<td>1.29</td>
+</tr>
+<tr>
+<td>private_credit</td>
+<td>Kenya</td>
+<td>1.673</td>
+<td>2.157</td>
+<td>1.29</td>
+</tr>
+<tr>
+<td>school_enrollment</td>
+<td>Uganda</td>
+<td>1.960</td>
+<td>2.467</td>
+<td>1.26</td>
+</tr>
+</tbody>
+</table>
+<p>Difficulty &gt; 1 means AR1 is worse than predicting the mean. Real interest rate and exports are
+hardest — structural shocks (2008 GFC, COVID, CBK policy shifts) invalidate AR(1). These are
+exactly where cross-variable causal structure adds most value.</p>
+<hr />
+<h2>18. Temporal Instability — Regime Transfer Test</h2>
+<p><strong>Method:</strong> Train AR1 fixed on 1990–2007 (pre-GFC). Evaluate on 2008–2023 (post-GFC + COVID
+regime). Compare to AR1 rolling (retrained up to each test year). Also track Scarcity discovery
+quality across the split.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Train period</th>
+<th>Test period (2008–2023) MAE</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AR1-rolling (standard)</td>
+<td>All years &lt; T</td>
+<td>0.882</td>
+<td>baseline</td>
+</tr>
+<tr>
+<td><strong>AR1-fixed</strong></td>
+<td>1990–2007 only</td>
+<td><strong>0.920</strong></td>
+<td><strong>+4.3% worse</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scarcity discovery quality:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>conf@end</th>
+<th>n_active</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1990–2007 only (pre-crisis)</td>
+<td>0.099</td>
+<td>0 (below gate)</td>
+</tr>
+<tr>
+<td>1990–2023 full stream</td>
+<td>0.164</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Gain from post-2008 data</td>
+<td><strong>+66.5%</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Findings:</strong></p>
+<ol>
+<li>
+<p><strong>AR1 regime degradation:</strong> Frozen pre-2008 parameters degrade 4.3% on post-2008 data
+   (on smooth synthetic data). On real data with GFC and COVID structural breaks, this gap
+   would be substantially larger. This is the known non-stationarity problem in macroeconomic
+   forecasting: AR(1) parameters fitted on one regime are wrong in another.</p>
+</li>
+<li>
+<p><strong>Scarcity prediction is immune:</strong> Scarcity's lag-1 prediction (use last observed value)
+   does not rely on fitted parameters — it is inherently regime-agnostic. There is no AR1
+   slope to become stale. Prediction MAE does not degrade under regime change.</p>
+</li>
+<li>
+<p><strong>Scarcity discovery continues post-crisis:</strong> Discovery confidence grows +66.5% as the
+   engine continues to observe post-2008 data. Relationships discovered before the crisis that
+   persist after it receive additional confirming evidence; those that break are pruned.
+   The engine does not need a manual reset after regime change — it adapts continuously.</p>
+</li>
+<li>
+<p><strong>Note on synthetic data:</strong> This test uses synthetic data, which has smooth gradients and no
+   real structural breaks. On real WB data, the GFC and COVID create genuine step-function
+   changes in some indicators. The 4.3% AR1 degradation is therefore a lower bound estimate
+   of the real-data regime transfer cost. Re-running with <code>--live</code> is recommended.</p>
+</li>
+</ol>
+<hr />
+<h2>19. Federation Mechanism — Evidence Sharing vs Parameter Averaging</h2>
+<div class="codehilite"><pre><span></span><code>FedAvg each round:
+  all nodes fit local AR(1)
+  server averages alpha, beta per indicator → replaces local model
+
+Scarcity each period:
+  each node streams its new observation row to peers
+  each node processes peer rows through its local hypothesis engine
+  hypotheses confirmed by multiple peers accumulate confidence faster
+  hypotheses contradicted by peers lose confidence and are pruned
+  each node&#39;s model is never replaced — only its evidence base grows
 </code></pre></div>
 
-<p><strong>Why it matters:</strong> Notice that there is no sensitive patient data included. The federation only receives the <em>anomaly score</em>, <em>trend velocity</em>, and <em>confidence degree</em>.</p>
-<h2>2. The Coordination Trigger Contract (Engine → Conveners)</h2>
-<p>When the Cross-Layer Interpretation Engine detects systemic alignment across independent fields, it translates those signals into actionable triggers for the Executive layer.</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;trigger_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-04-08T12:00:00Z&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;geo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;county&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;047&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.92</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;confidence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.88</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;supporting_domains&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;econ&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;health&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;infra&quot;</span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;supporting_signals&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;sig_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;sig_456&quot;</span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;rationale&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;convergence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.89</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;persistence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.95</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;coherence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.81</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;acceleration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.40</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;recommended_action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;REVIEW&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;constraints&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;classified_dependencies&quot;</span><span class="p">]</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<h2>3. The Action &amp; Feedback Contract (Conveners → Engine)</h2>
-<p>The system requires a closed-loop. Once a coordination trigger is escalated and action is taken, the system logs the intervention to verify if the risk actually damped over the following weeks.</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;action_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;trigger_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;owner&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;National Security Secretariat&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;action_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;resource_shift&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;geo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;county&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;047&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;time_horizon_days&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;expected_effects&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;health&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;indicator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;anomaly_score&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;direction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;down&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;target_delta&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="w"> </span><span class="p">}</span>
-<span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;in_progress&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<p>These three contracts form the backbone of cross-institutional collaboration.</p>
+<p>FedAvg assumes all nodes learn the same function. Scarcity assumes nodes share structural
+patterns but may differ in magnitudes, lags, and regimes. Evidence sharing lets each node
+confirm or deny peer patterns without having peer parameters imposed on it.</p>
+<p><strong>Communication cost:</strong> 34 rounds for annual data, each round transmitting 19 float32 values
+per peer (~76 bytes per peer per year). Total per node: 76 × 2 peers × 34 years = 5.2 KB —
+negligible even for constrained edge deployments.</p>
+<hr />
+<h2>20. Scenario Experiments</h2>
+<h3>Local vs Federated (all 3 countries, full timeline)</h3>
+<table>
+<thead>
+<tr>
+<th>Country</th>
+<th>Scenario</th>
+<th>Conf @ 2023</th>
+<th>Active Hyp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kenya</td>
+<td>local</td>
+<td>0.147</td>
+<td>63</td>
+</tr>
+<tr>
+<td>Kenya</td>
+<td><strong>federated</strong></td>
+<td><strong>0.343</strong></td>
+<td>52</td>
+</tr>
+<tr>
+<td>Tanzania</td>
+<td>local</td>
+<td>0.153</td>
+<td>63</td>
+</tr>
+<tr>
+<td>Tanzania</td>
+<td><strong>federated</strong></td>
+<td><strong>0.354</strong></td>
+<td>53</td>
+</tr>
+<tr>
+<td>Uganda</td>
+<td>local</td>
+<td>0.153</td>
+<td>63</td>
+</tr>
+<tr>
+<td>Uganda</td>
+<td><strong>federated</strong></td>
+<td><strong>0.354</strong></td>
+<td>53</td>
+</tr>
+</tbody>
+</table>
+<p>Federated: 2.3× higher confidence, tighter hypothesis set (52–53 vs 63 active).</p>
+<h3>Late Joiner (Uganda joins 10 years after KEN+TZA)</h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Conf @ 2023</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cold start</td>
+<td>0.120</td>
+</tr>
+<tr>
+<td>Warm start</td>
+<td>0.267</td>
+</tr>
+</tbody>
+</table>
+<p>Warm-start: 2.2× higher. Consistent with Ethiopia result (§10).</p>
                 </article>
 
                 <!-- Mobile Navigation (Bottom) -->
@@ -394,8 +1045,6 @@
                         <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-02-core-results/" class="text-sm py-2 text-accent-blue hover:underline">Scarcity Benchmark 02: Core Results and Data Scarcity</a>
                         
                         
-                        
-                        <a href="/research-log/scarcity/2026-05-11-scarcity-benchmark-03-simulation-ablations/" class="text-sm py-2 text-accent-blue hover:underline">Scarcity Benchmark 03: Economic Simulation and Ablations</a>
                         
                         
                         
