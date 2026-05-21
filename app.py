@@ -61,12 +61,12 @@ def get_page_date(page):
         try:
             d = datetime.strptime(d, '%Y-%m-%d')
         except ValueError:
-            return datetime.min
+            return (datetime.min, page.path)
     # Convert datetime.date to datetime.datetime if needed
     if not isinstance(d, datetime) and hasattr(d, 'timetuple'):
         # datetime.date to datetime.datetime
         d = datetime.combine(d, datetime.min.time())
-    return d
+    return (d, page.path)
 
 @app.route('/')
 def index():
