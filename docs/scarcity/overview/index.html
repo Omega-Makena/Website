@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     
-    <meta name="description" content="High-level introduction to the Scarcity v1.0.0 framework.">
+    <meta name="description" content="High-level introduction to the Scarcity framework — an online relationship-discovery engine for data that drifts under scarcity.">
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena">
 
@@ -364,7 +364,7 @@
 
                     
                     <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
-                        High-level introduction to the Scarcity v1.0.0 framework.
+                        High-level introduction to the Scarcity framework — an online relationship-discovery engine for data that drifts under scarcity.
                     </p>
                     
                 </header>
@@ -381,14 +381,16 @@
                             prose-ul:list-disc prose-ul:pl-6
                             prose-li:marker:text-accent-main prose-li:my-2">
                     <h1>Overview</h1>
-<p><strong>Scarcity</strong> is an online-first framework for scarcity-aware deep learning. It provides a complete runtime for adaptive, resource-efficient machine learning with real-time performance feedback and dynamic optimization.</p>
-<p>The core library implements a sophisticated multi-layered architecture designed for:
-1.  <strong>Federated Learning</strong>: Training across distributed, private nodes.
-2.  <strong>Online Inference</strong>: Learning from streaming data in real-time.
-3.  <strong>Adaptive Resource Management</strong>: Scaling compute based on device health.</p>
+<p><strong>Scarcity</strong> is a general online <strong>relationship-discovery engine</strong> — an automated statistician for multivariate data streams. You feed it one row at a time; it learns <em>which relationships currently hold</em> between the variables and hands that structure downstream as a continuously-updated knowledge graph. It is not specific to any one field; macroeconomics was simply the first domain it was applied to.</p>
+<p>Around that engine sits a full runtime for learning under scarcity — few samples, high noise, constant drift: federation so nodes can learn together without sharing raw data, meta-learning so magnitudes can be borrowed across systems, and dynamic resource governance so the whole thing runs within a device's compute budget. "Scarcity" names both regimes — scarce <em>data</em> and scarce <em>compute</em> — and the framework is built to work under each.</p>
+<p>Scarcity is also the framework from which <a href="/projects/organizational-identity-theory/"><strong>Organizational Identity Theory</strong></a> emerged: the finding that a system's <em>form</em> — the structure this engine recovers — survives scarcity while its <em>magnitudes</em> do not.</p>
 <hr />
 <h3>Key Features</h3>
 <ul>
+<li>
+<p><strong>Relationship-Discovery Engine</strong>
+    A living population of 15 typed relational hypotheses (causal, correlational, functional, temporal, mediating, and more). Each must survive the data stream or die; survivors are calibrated against permutation nulls with false-discovery control, so noise is not reported as structure.</p>
+</li>
 <li>
 <p><strong>Multi-Path Inference Engine (MPIE)</strong>
     Online bandit-based path exploration with UCB/Thompson sampling. Automatically finds the best calculation path.</p>
@@ -423,7 +425,7 @@
 <ul>
 <li><strong>Version</strong>: <code>1.0.0</code></li>
 <li><strong>Author</strong>: Omega Makena</li>
-<li><strong>License</strong>: MIT (See LICENSE file)</li>
+<li><strong>License</strong>: Apache-2.0 (See LICENSE file)</li>
 </ul>
                 </article>
 

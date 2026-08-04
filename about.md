@@ -17,7 +17,8 @@ I default to constraints: no assumption is sacred unless the data can survive wi
 
 ### What I do now
 
-- Design and stress-test the **Scarcity** system for finance and policy work.  
+- Build and stress-test the **[Scarcity](/scarcity/)** engine, and develop **[Organizational Identity Theory](/projects/organizational-identity-theory/)**—a foundational account of what dynamic systems preserve under scarcity, tested across economics, biology, and markets. It is a living preprint, revised as the work holds up or breaks.  
+- Apply the same tools to **financial data** for finance and policy work.  
 - Mentor women in tech through **Tech-12**, focusing on building reliable instincts with limited resources.  
 - Write teaching notes in the **Library** and live logs in the **Research Log** to keep the work transparent.
 

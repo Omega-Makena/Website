@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <meta name="description" content="The foundational paper (Paper 0) — form recovers under scarcity, magnitudes do not. Evidence from macroeconomics, mechanistic biology, and financial markets.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena">
+
+    <title>Organizational Identity Theory - Omega Makena</title>
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
+                        },
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Makena Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Makena</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/projects/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">LAB NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/services/" class="nav-link">SERVICES</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/projects/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">LAB NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/services/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">SERVICES</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-20">
+        
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid lg:grid-cols-12 gap-12">
+        
+            <!-- Main Content Centered (No Sidebar) -->
+            <main class="lg:col-span-8 lg:col-start-3">
+                
+
+                <!-- Header -->
+                <header class="mb-12 border-b border-gray-200 pb-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent-main">
+                            Theory
+                        </span>
+                        
+                        <span class="text-xs font-mono text-text-muted">
+                            // August 04, 2026
+                        </span>
+                        
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
+                        Organizational Identity Theory
+                    </h1>
+
+                    
+                    <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
+                        The foundational paper (Paper 0) — form recovers under scarcity, magnitudes do not. Evidence from macroeconomics, mechanistic biology, and financial markets.
+                    </p>
+                    
+                </header>
+
+                <!-- Prose Content -->
+                <!-- Prose Content -->
+                <article class="prose prose-lg max-w-none 
+                            prose-headings:font-serif prose-headings:text-text-primary 
+                            prose-p:text-text-secondary prose-p:leading-relaxed 
+                            prose-a:text-accent-blue prose-a:no-underline hover:prose-a:underline 
+                            prose-strong:text-text-primary 
+                            prose-code:text-accent-main prose-code:bg-gray-50 prose-code:px-1 prose-code:rounded
+                            prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
+                            prose-ul:list-disc prose-ul:pl-6
+                            prose-li:marker:text-accent-main prose-li:my-2">
+                    <p>Organizational Identity Theory asks one question about systems that drift under
+scarcity — few samples, high noise, constant change: <strong>which of their properties can actually be
+recovered from data, and which cannot?</strong> The answer it proposes is that every such system carries a
+<em>partially persistent organizational identity</em> — the <em>form</em> of how its parts relate — that survives
+when the exact magnitudes through which it is expressed do not.</p>
+<p>This is the foundational paper of the theory. It grew out of <a href="/scarcity/"><strong>Scarcity</strong></a>, the online
+relationship-discovery engine I built to learn structure from thin, drifting data, and it is tested
+across three complementary domains: real macroeconomic time series, a controlled biological oracle,
+and live financial-market microstructure. For who's behind it, see <a href="/about/"><strong>About</strong></a>.</p>
+<p><em>This is a </em><em>living preprint</em><em> — a working draft, not peer reviewed, revised as the programme
+develops. The full paper follows.</em></p>
+<hr />
+<p><strong>Organizational Identity Theory for Dynamic Data: The Foundational Paper (Paper 0) — Form Recovers Under Scarcity, Magnitudes Do Not (Evidence from Macroeconomics, Mechanistic Biology, and Financial Markets)</strong></p>
+<p><strong>Author:</strong> Omega Makena M. <em>(corresponding: mwebiamakenaa@gmail.com)</em>
+<strong>Affiliation:</strong> Innova Limited
+<strong>Preprint — draft, June 2026. Not peer reviewed.</strong></p>
+<hr />
+<h2>Abstract</h2>
+<p>Dynamic systems observed under scarcity — few samples, high noise, constant drift — pose
+a recurring problem: which of their properties can actually be recovered from data, and
+which cannot? <strong>This is the foundational paper of Organizational Identity Theory for Dynamic
+Data</strong> — a framework we introduce here and intend to extend, domain by domain, in subsequent
+work. Its claim:
+every such system possesses a <em>partially persistent organizational identity</em> — a latent
+organizational continuity we do not observe directly, but infer from <strong>markers</strong>, chief among
+them the topological-conjugacy class of its flow and its statistically recoverable projection,
+the typed dependency graph (the <em>form</em> of relationships). The hypothesis is that this identity
+is more stable than the magnitudes through which it is expressed: its markers are recoverable
+under scarcity, while the system's <em>magnitudes</em> (rate constants, hazards, effect sizes — the
+coordinates within the identity class) are not uniformly recoverable. A <strong>scarcity paradox</strong> follows: because structure
+recovery is cheap in data while magnitude exploitation is expensive — discovery works at low
+sample size, exploitation needs high — and both draw on one budget, the regime in which recovered
+structure is most valuable is exactly the regime in which a magnitude-hungry consumer of it fails
+worst (not overfitting: a graph neural network ends 96% worse than a naive baseline, and no
+structure-exploiting forecaster beats it). We support the theory
+in <strong>three domains</strong> — two real-world (macroeconomics, financial markets) and one controlled
+oracle (mechanistic biology). In <strong>macroeconomics</strong> (federated World Bank time series across seven
+economies, plus a labelled synthetic benchmark), a streaming relationship-discovery engine
+recovers typed structure with calibrated control of false positives (null false-positive
+rate driven from 41% to 0%; first-ground-truth rank from 123 to 4), shallow consumers of
+that structure improve forecasts by 4–7%, and progressively deeper magnitude-hungry
+consumers fail monotonically — a graph neural network worsens by 96% over a naive baseline,
+the scarcity paradox measured directly. In <strong>biology</strong> we build a mechanistic digital twin
+whose generative equations are <em>known</em>, making it a ground-truth oracle, and test the theory
+across four validated disease models from four organ systems (metabolic, oncologic,
+chronic-pain, autoimmune). The same engine, pointed blind at simulated trajectories, recovers
+the known coupling graph (edge-recovery F1 0.4–1.00 across the four heads, in every case far
+above a per-variable time-shuffle null that collapses to ≈0); parameter identifiability separates into a <strong>stiff</strong> tier recoverable from a
+single day of data and a <strong>slow/sloppy</strong> tier that is not recoverable at clinically plausible
+horizons (stiff/slow sensitivity gaps 2.5×–224×); and an offline do-calculus engine recovers
+a known causal effect (−34.8 mg/dl) that naive estimation biases four-fold. In <strong>financial
+markets</strong> (six days of Bitcoin five-second bars built from ≈6 million signed high-frequency
+trades) the same engine, pointed blind at the order-flow panel with no query posed, autonomously
+recovers and <em>types</em> the microstructure relationship graph — correctly labelling
+trade-intensity → next-return a functional/volatility relation (correlation with the absolute
+next return 0.18, with the signed return −0.008) and order-flow-imbalance ↔ return correlational —
+and the form/magnitude split reappears against an efficient market: the online engine cannot
+certify the directional edge (no confidence threshold clears a multi-seed shuffle null — a 0%
+false-positive rate only where it abstains, 40–80% where it would confirm), while the offline
+do-calculus engine recovers a robust effect of order flow on the next return (placebo p &lt; 0.001,
+agreeing across ATE/ATT/ATC/CATE/ITE). Here the scarcity paradox becomes literal unexploitability:
+the effect is real but transient (significant only to ≈1 minute) and below transaction cost at
+every horizon and regime, so a magnitude-hungry trading strategy loses while the disciplined
+engine, declining to certify what fails its null, abstains and thereby wins — and following the
+engine's own typed discovery to the recoverable magnitude yields a genuine realized-volatility
+forecast (out-of-sample R² to 0.40) where directional exploitation failed. The picture that
+survives is not the slogan "form recovers, magnitudes do not" — a single insulin-sensitivity
+parameter is recoverable from eight noisy samples — but a <strong>recoverability hierarchy</strong>: form
+and stiff magnitudes recover from modest data; slow and sloppy magnitudes do not, and must be
+borrowed from a cohort. The biological results are on synthetic ground truth and constitute
+mechanistic-generalisation evidence, not clinical validation; the macroeconomic results are
+on real data with the honest caveat that recovery is Granger-predictive, not interventional.
+We present this as the <strong>foundational paper</strong> of the theory — fixing its definitions,
+hypotheses, and falsification criteria, and treating the recovered graphs, motifs, and
+attractor fingerprints as <em>markers</em> of identity rather than identity itself. Whether those
+markers share one latent — the <em>concordance</em> test that would establish the construct — is
+specified here and run as the programme's first dedicated empirical paper; this foundational
+work supplies its prerequisite, that the markers are individually recoverable at all. These
+three complementary domains — two real-world, one a controlled oracle — are the first of a
+programme we intend to extend, domain by domain, to further systems that drift under scarcity.</p>
+<hr />
+<h2>Letter to the Reader</h2>
+<p><em>Paper 0</em></p>
+<p>This paper introduces a theory, but it did not begin as one. It began as a macroeconomic
+simulator.</p>
+<p>I wanted to simulate an economy, and I wanted the simulation driven by data. The problem was
+immediate and stubborn: I had almost no usable economic data, and what I could find was messy
+enough that I spent more time cleaning it than learning from it. So I stopped fighting the data
+and changed the question. Instead of waiting for a complete dataset, could I build a system that
+learns from whatever arrives, whenever it arrives, and simply keeps going? That, I later learned,
+has a name: <em>online learning</em>.</p>
+<p>That solved one problem and exposed the next. Learning continuously is costly, and re-learning
+everything from scratch is wasteful. So I tried to put a layer on top — an accumulating knowledge
+that would teach the system to learn faster and feed itself back in. I thought of it as the brain
+of the thing. (The project had a different name then; "scarcity" came later.) That layer also had
+a name: <em>meta-learning</em>.</p>
+<p>By then I had spent the better part of a year on this, and a question I'd been avoiding became
+impossible to ignore: was I building this for economics alone? That seemed too small, so I made
+the system domain-agnostic — it should find structure in any field. Which revived the original
+wound: I still had no data. My answer was to let the data come from users — but how do you learn
+from people's data without taking it from them? That question has a name too: <em>federated learning</em>.</p>
+<p>So the architecture assembled itself one forced discovery at a time, each a named field I backed
+into rather than chose. And underneath all of it sat one conviction: <em>the relationship between two
+variables — its direction, its sign — is the thing that does not change.</em> If I could recover that,
+I could hand it to any downstream model and beat the scarcity that had defeated me at the start.
+The whole system was a bet on that.</p>
+<p>The bet broke. Fed the recovered structure, progressively deeper models did not improve — they got
+monotonically worse, a graph neural network ending 96% worse than the most naive baseline
+imaginable. Not overfitting; something more basic. The same scarcity that made structure
+<em>discoverable</em> made it <em>unexploitable</em> — the two pull on one budget from opposite ends. I called
+it the scarcity paradox, and it was the first sign my premise was wrong in an interesting way.</p>
+<p>The deeper crack came later. I had been treating the recovered graph as the system's identity. But
+the graph cannot be the identity, for a simple reason: I can always build a better engine. A finer
+instrument finds more relationships, more types, subtler dependencies. If the graph <em>were</em> the
+identity, a better instrument would hand me a different identity for the same unchanged system.
+That is not allowed. The map cannot be the territory. So the graph is a <em>marker</em> of identity, not
+identity — and so is everything else I can compute: the attractor fingerprint, the stiffness
+profile, the motifs. All markers. None the thing itself.</p>
+<p>Which is why, for now, I can only tell you what organizational identity is <em>not</em>. Not the
+relationships. Not the graph. Not any single marker. The theory is, at this moment, defined by
+exclusion — and I am at peace with the possibility that it stays that way, or that the decisive
+test (do the markers point at one shared invariant, or just a pile of unrelated persistence
+facts?) comes back negative and the thing I'm chasing turns out not to exist. People who have
+looked at this tell me it's "just philosophy." I don't mind. I don't mind proving the theory true,
+and I don't mind proving it false. I hold partial evidence and real faith that it's true — but I'm
+certain the search will surface something worth more than the answer I expected when I started.</p>
+<p>This is paper 0. It does not answer the question. It states what an answer must satisfy, rules out
+the easy wrong answers, specifies the test that adjudicates the next one, and shows the markers are
+individually recoverable — the prerequisite for asking whether they converge. The real tests come
+after.</p>
+<p>Every paper in this programme will open with a letter like this one. Read in sequence, they are
+meant to be an honest log of the search — including, especially, the turns where it went wrong.</p>
+<p>If you want a finished result, this will disappoint you. If you're willing to watch a question get
+sharpened until it can be answered — true or false — read on.</p>
+<p>And if you already know what stays the same when everything measurable about a system changes —
+what makes a river a river — I would genuinely like to hear from you.</p>
+<p>— Omega Makena M.
+<em>Innova Limited · June 2026</em></p>
+<hr />
+<h2>1. Definitions and Terminology</h2>
+<p>This paper introduces a new theory and, with it, a number of new terms. We define all of them
+here, once, before they are used anywhere in the paper. Each entry gives a plain statement
+first and the precise one second. A reader should be able to understand the whole paper from
+this section alone; nothing below is defined only in passing.</p>
+<p><strong>The lineage, in one sentence.</strong> <em>Scarcity</em> is the research framework we developed for learning
+from thin, drifting data; <em>Organizational Identity Theory</em> is the theory that framework produced
+— an account of <em>what</em> in such data can be recovered, and what cannot.</p>
+<h3>The scarcity setting</h3>
+<ul>
+<li><strong>Scarcity (the regime).</strong> <em>Plainly:</em> having too little informative data to pin a system down.
+  <em>Precisely:</em> an operating regime defined by few informative observations, high noise, and
+  ongoing drift (non-stationarity), in which a system must be learned from data that does not
+  support estimating most of its quantities. When this paper says "scarcity" unqualified, it
+  means this regime.</li>
+<li><strong>Scarcity (the framework).</strong> <em>Plainly:</em> the system we built to learn from scarce, drifting,
+  distributed data without trusting any one source too much — and the work <em>from which
+  Organizational Identity Theory emerged.</em> <em>Precisely:</em> a federated, streaming
+  relationship-discovery program whose major components are:</li>
+<li><strong>Streaming typed discovery</strong> — a population of typed relationship hypotheses (fifteen types:
+    causal/Granger, correlational, functional, temporal, competitive, mediating, and others)
+    tested incrementally against the data stream as active constraints, rather than one model fit
+    in batch.</li>
+<li><strong>Mandatory calibration</strong> — every candidate relationship is gated against a type-appropriate
+    permutation null with false-discovery-rate control and bootstrap stability selection; <em>no edge
+    is trusted on the engine's raw confidence</em> (this is what drives the null false-positive rate
+    from 41% to 0%).</li>
+<li><strong>Federation without raw-data sharing</strong> — structure and priors are learned across many scarce
+    systems and transported between sites privately, so a system too data-poor to learn alone
+    borrows strength from its peers without their raw observations ever moving.</li>
+<li><strong>Meta-learned magnitude supply</strong> — the quantities a single system cannot estimate are sourced
+    from a cross-system prior (warm-started, adapted few-shot), never estimated freely from one
+    system's scarce data.</li>
+<li><strong>Uncertainty that widens under scarcity</strong> — forecasts and effects carry intervals that grow
+    automatically as data thins or drifts, instead of reporting false precision.</li>
+</ul>
+<p><em>What makes it unique to this theory:</em> the framework is built on a refusal. It recovers and
+  trusts <em>structure</em> cheaply, but it <em>refuses to estimate per-system magnitudes freely</em>, borrowing
+  them from the federation instead. That architecture already embodied the form/magnitude split
+  before the split had a name. Organizational Identity Theory is that operating principle made
+  explicit: the framework works <em>because</em> form is recoverable under scarcity and magnitude is not
+  — and the theory is the account of why.
+- <strong>Magnitude.</strong> <em>Plainly:</em> a number that says <em>how much</em> — a rate, a strength, an effect size.
+  <em>Precisely:</em> a continuous quantitative coordinate of a system (a rate constant, a hazard, a
+  regression or effect coefficient), as opposed to the qualitative structure relating its
+  variables. Magnitudes are the quantities scarcity makes hard to estimate.
+- <strong>Form (or direction).</strong> <em>Plainly:</em> the <em>shape</em> of the relationships — what affects what, and
+  with what sign — without the numbers. <em>Precisely:</em> the qualitative, typed structure of a
+  system's dependencies: which variables couple, in which direction, through which relationship
+  type. Form is what scarcity leaves recoverable.
+- <strong>The scarcity paradox.</strong> <em>Plainly:</em> the very data shortage that makes structure <em>discovery</em>
+  necessary and possible is what makes <em>exploiting</em> that structure impossible — discovery works at
+  low sample size, but using the discovered structure quantitatively needs high sample size, and
+  you have only one (small) data budget. <em>Precisely:</em> structure recovery is a <em>low-sample</em>
+  operation (detecting an edge is a hypothesis test, cheap in data) while magnitude exploitation
+  is a <em>high-sample</em> operation (each coefficient is an estimate whose variance scales as 1/N);
+  because both draw on one per-system budget, the regime in which recovered structure is most
+  valuable — scarcity — is exactly the regime in which a magnitude-hungry consumer of it fails
+  worst. The engine that earns its keep by discovering structure <em>from scarce data</em> cannot have
+  that structure exploited quantitatively, because quantitative exploitation needs the abundance
+  scarcity denies. This is <strong>not generic overfitting</strong>: even a perfectly regularised model cannot
+  estimate magnitudes the data does not contain. Measured directly in §5.1, where feeding the
+  recovered structure to progressively deeper consumers degrades them monotonically — a graph
+  neural network ends 96% worse than a naive persistence baseline, and <em>no</em> structure-exploiting
+  forecaster beats persistence at all.</p>
+<h3>The theory and its objects</h3>
+<ul>
+<li><strong>Organizational Identity Theory (for Dynamic Data).</strong> <em>Plainly:</em> the claim that every drifting
+  system has a persistent organizational identity that survives data scarcity, even though its
+  numbers do not. <em>Precisely:</em> the theory that a dynamic system observed under scarcity possesses
+  a partially persistent <em>organizational identity</em> whose <em>markers</em> are recoverable from data while
+  its <em>magnitudes</em> are not — and recoverable in a fixed order (the recoverability hierarchy). Its
+  hypotheses H1–H3 are stated in §3.2; its falsification criteria in §3.7.</li>
+<li><strong>Organizational identity.</strong> <em>Plainly:</em> the persistent "what the system <em>is</em>" that stays the
+  same while all its numbers drift — never seen directly, only inferred. <em>Precisely:</em> a <em>latent
+  construct</em> — the persistent organizational invariant of a system under the group of
+  transformations that change its magnitudes and local functional forms while preserving it. Never
+  observed directly; inferred from multiple markers; held to the seven rules of §3.1. Even its
+  richest marker — the topological-conjugacy class of the system's flow — is a <em>marker</em>, not the
+  identity: it is model-relative and lossy. <em>No single marker is the identity.</em></li>
+<li><strong>Organizational marker.</strong> <em>Plainly:</em> a measurable fingerprint of the identity — not the
+  identity itself. <em>Precisely:</em> any separately computable descriptor that tracks the identity
+  without being it: the typed dependency graph, a causal motif, the attractor fingerprint, the
+  recoverability profile (and, deferred to later work, conservation and symmetry constraints).
+  Markers are observable; identity is not.</li>
+<li><strong>Topological-conjugacy class (the primary marker).</strong> <em>Plainly:</em> the <em>shape</em> of a system's
+  behaviour — how many stable states it has and how they are arranged — ignoring the exact
+  numbers. <em>Precisely:</em> the qualitative phase portrait of the flow (number and type of attractors,
+  the saddles between them, the basins, the bifurcation skeleton), invariant under smooth
+  coordinate changes and rate rescalings.</li>
+<li><strong>Bifurcation (= change of identity).</strong> <em>Plainly:</em> the point where the system's behaviour
+  changes <em>kind</em>, not merely degree — e.g. a healthy stable state disappears. <em>Precisely:</em> a
+  qualitative change in the phase portrait (a change of conjugacy class). Under this theory a
+  bifurcation <em>is</em> a change of organizational identity, whereas magnitude drift only moves a
+  system <em>within</em> its identity.</li>
+<li><strong>Marker concordance.</strong> <em>Plainly:</em> the different markers <em>agree</em> about what survives — evidence
+  they are all measuring one underlying thing. <em>Precisely:</em> the agreement of distinct markers
+  about what is preserved under a transformation; operationally, the low-rankness of the
+  marker-by-transformation stability matrix (§3.8). Concordance is the empirical signature that a
+  single latent identity exists (hypothesis H3); its absence would refute the construct. It is
+  tested in the programme's first empirical paper, not this one.</li>
+</ul>
+<h3>Recovery, stability, and the hierarchy</h3>
+<ul>
+<li><strong>Organizational recovery.</strong> <em>Plainly:</em> reading a system's structure off its data. <em>Precisely:</em>
+  the estimation, from one system's data, of a recoverable marker of its identity — chiefly the
+  typed dependency graph. Recovery is per-system and cheap; it is what survives scarcity.</li>
+<li><strong>Magnitude stability.</strong> <em>Plainly:</em> whether a particular number can actually be measured from
+  the data at hand. <em>Precisely:</em> the degree to which a magnitude is identifiable and persistent.
+  <em>Stiff</em> magnitudes carry high information and are recoverable even at low sample size; <em>sloppy</em>
+  or <em>slow</em> magnitudes carry near-zero information and are not recoverable at the horizons data
+  spans. This property decides whether a magnitude can be estimated per-system or must be borrowed
+  from a cohort.</li>
+<li><strong>Stiff vs. sloppy/slow magnitude.</strong> <em>Plainly:</em> stiff = the data pins it down; sloppy/slow = the
+  data barely constrains it. <em>Precisely:</em> measured by the normalised sensitivity
+  S(θ) = ‖∂y/∂log θ‖ / ‖y‖ — large S is stiff, near-zero S is sloppy; "slow" denotes a sloppy
+  parameter that governs a slowly accumulating state.</li>
+<li><strong>Recoverability hierarchy.</strong> <em>Plainly:</em> things become recoverable in a fixed order — structure
+  and stiff numbers first, slow numbers last or never. <em>Precisely:</em> the ordering that form and
+  stiff magnitudes recover from modest data while slow and sloppy magnitudes do not. It is the
+  theory's sharpest, most testable claim, and it corrects the cruder slogan "form recovers,
+  magnitudes do not."</li>
+<li><strong>Organizational drift.</strong> <em>Plainly:</em> the system's numbers slowly changing over time while it
+  stays the same system. <em>Precisely:</em> the ongoing change of a system's magnitudes while its
+  organizational identity persists — movement <em>within</em> a conjugacy class. A change that crosses a
+  bifurcation is not drift but a change of identity.</li>
+</ul>
+<h3>Methodological terms</h3>
+<ul>
+<li><strong>Ground-truth oracle.</strong> A system whose generating equations we wrote ourselves, so that
+  recovered structure can be scored against the true structure and identifiability computed
+  exactly. The biological digital twin is our oracle.</li>
+<li><strong>Stability matrix / concordance test.</strong> The matrix <strong>M</strong> with markers as rows and
+  transformations as columns, whose entries measure how stable each marker is under each
+  transformation; the <em>concordance test</em> asks whether <strong>M</strong> is low-rank (one shared identity
+  factor — the construct holds) or full-rank (no shared latent — the construct fails). Specified
+  in §3.8; executed as the first empirical paper.</li>
+<li><strong>Online (form) vs. offline (magnitude) engine.</strong> The two causal engines this paper uses: the
+  <em>online</em> streaming Granger-style engine recovers directed structure cheaply (form, §4.1); the
+  <em>offline</em> do-calculus engine (DoWhy / EconML) estimates effect magnitudes from the full dataset
+  given that structure (magnitude, §4.6).</li>
+</ul>
+<hr />
+<h2>2. Introduction</h2>
+<p>A digital twin of a chronic-disease patient, a federated macroeconomic forecaster, and a
+streaming sensor model share a structural predicament: they must learn from data that is
+scarce, noisy, and non-stationary, yet the most valuable decisions ride on quantities the
+data may not support. The naive response — fit the richest model the compute budget allows
+— is actively harmful here. Deeper, more parametric consumers extract spurious magnitudes
+from thin data and fail in proportion to their depth.</p>
+<p>This paper <strong>introduces</strong> a theory of <em>what is recoverable</em> from such systems —
+Organizational Identity Theory for Dynamic Data. Its thesis is that dynamic systems preserve
+a <strong>partially persistent organizational identity</strong>: the typed arrangement of dependencies,
+constraints, and interaction pathways is recoverable under drift and scarcity even when local
+predictive magnitudes are unstable. A cell persists through near-total turnover of its
+molecules; a patient persists through drift in every measurable magnitude; what persists, and
+is recoverable, is the organization. We state the theory formally (Section 3) and support it
+in three domains of evidence — macroeconomics, financial markets, and mechanistic biology
+(Section 5).</p>
+<p>We are careful about what we claim to observe. Organizational Identity Theory begins from the
+observation that dynamic systems exhibit persistent organizational characteristics that remain
+recoverable even when their quantitative details cannot be estimated. We do <strong>not</strong> claim to
+observe organizational identity directly. We hypothesize, rather, that the differential
+recoverability of organizational <em>markers</em> — dependency graphs, causal motifs, attractor
+fingerprints, the recoverability hierarchy itself — reflects an underlying organizational
+continuity that is more stable than the magnitudes through which it is expressed. Under this
+view a recovered graph is not the identity; it is one observable marker of it, and no single
+marker is the identity (Section 3.1). This is the same epistemic posture under which
+temperature was a measured construct before statistical mechanics defined it, and the gene a
+construct before its molecular basis was known: a latent inferred from convergent indicators,
+not a thing observed (the logic of construct validity; Cronbach &amp; Meehl, 1955). The present paper introduces that hypothesis and supplies its first
+empirical evidence — the recoverability hierarchy of Section 5 — while deferring the decisive
+test of whether the markers share one latent (their <em>concordance</em>, Section 3.8) to the
+programme's first dedicated empirical paper.</p>
+<p><strong>This is the foundational paper of the theory.</strong> Its purpose is to establish the framework:
+the definitions and lexicon (Section 3.2), the core and further hypotheses, the falsification
+criteria, and a first three domains of evidence chosen to be maximally complementary — two real
+(macroeconomics, broad and slow; financial markets, fast and adversarial, with money as the
+referee), one controlled with known ground truth (mechanistic biology). It
+is deliberately the <em>opening</em> of a research programme, not its closure. The same recovery /
+identifiability / shuffle-control battery is intended to be carried, in subsequent work, to
+further domains in which systems drift under scarcity — engineered and physical sensor
+systems, ecological and climate dynamics, and neural recordings among them — each a fresh test
+of the same identity claim and a step toward establishing (or falsifying) its generality.</p>
+<p>Two things are empirically separable. The <strong>form</strong> (or direction) of a relationship — which
+factors couple, with what sign, through which pathway — is low-dimensional and recoverable
+at low sample size. The <strong>magnitude</strong> — the conditional-expectation coefficient, the rate
+constant, the hazard — is higher-variance and, for many parameters, not recoverable at the
+sample sizes where recovery is most needed. The regime in which recovery is most valuable
+(few samples) is exactly the regime in which a magnitude-hungry consumer fails most
+catastrophically. We call this the <strong>scarcity paradox</strong>, and treat it not as a curiosity
+but as a governance constraint: a deep consumer that estimates magnitudes <em>freely</em> from one
+system's scarce data is forbidden; a deep consumer that <em>borrows</em> its magnitudes from a
+cohort or federation, and carries honest uncertainty, is permitted.</p>
+<p>The three domains of evidence play complementary roles. <strong>Macroeconomics</strong> (Section 5.1)
+supplies <em>real-world</em> evidence — federated national-accounts time series across seven
+economies — and the cleanest empirical instance of the scarcity paradox: as a consumer of
+the recovered structure is made deeper, its accuracy collapses monotonically. Its limitation
+is that real systems have no ground-truth generative graph, and causal identification from
+observational data is fundamentally constrained. <strong>Biology</strong> (Section 5.2) supplies what
+macroeconomics cannot: a <strong>mechanistic digital twin</strong> whose generative differential equations
+we wrote ourselves, making it a <em>ground-truth oracle</em>. There the recovered structure is scored
+against the true coupling graph, parameter identifiability is computed exactly by sensitivity
+analysis, and a known causal effect is recovered through do-calculus adjustment. <strong>Financial
+markets</strong> (Section 5.7) supply the third role neither of the others can: a <em>real, fast,
+adversarial</em> domain with a hard economic cost function, where the scarcity paradox stops being a
+statistical curiosity and becomes literal — recovered structure that cannot be turned into profit
+because the market has already priced it, so a magnitude-hungry consumer loses money while the
+disciplined engine abstains. Together, real-world breadth (macro), controlled ground truth
+(biology), and a priced adversarial test (markets) support the same theory from three sides.</p>
+<p>We are explicit about scope. Every biological result is on synthetic ground truth — evidence
+that the theory holds in mechanistic systems whose answer we know, not that any specific number
+is clinically valid. The macroeconomic results are on real data, with the honest caveat that
+the engine measures Granger-predictive recovery, not interventional identification. The
+distinction is load-bearing and we maintain it throughout.</p>
+<hr />
+<h2>3. Theory: Organizational Identity for Dynamic Data</h2>
+<h3>3.1 The organizational identity as a latent construct</h3>
+<p>Organizational identity is not something we observe. We treat it as a <strong>latent construct</strong> — a
+persistent organizational continuity that is never measured directly, only inferred from
+multiple <em>markers</em>. What we record from data — a dependency graph, a causal motif, an attractor
+fingerprint — is a marker of the identity, not the identity itself. This is a deliberate
+ontological commitment, and it is what keeps the theory honest: the recovered graph that
+Section 5 scores so highly is evidence <em>about</em> a system's identity, never identity itself.</p>
+<p>We hold a candidate organizational identity to five rules. An organizational identity:</p>
+<ol>
+<li><strong>exists independently of the observer</strong> — its markers are invariant to how, and how finely,
+   the system is measured;</li>
+<li><strong>survives a class of transformations</strong> — there is a group of changes (magnitude rescaling,
+   slow drift, smooth reparametrisation) under which it is invariant; that invariance group <em>is</em>
+   the identity, in the same sense that a geometry is defined by the transformations that leave
+   it unchanged (Klein's Erlangen program);</li>
+<li><strong>is expressible through multiple markers</strong> — at least two distinct, separately computable
+   descriptors track it;</li>
+<li><strong>is identical to no single marker</strong> — every marker is a lossy projection; none may be
+   substituted for the identity;</li>
+<li><strong>explains differential persistence</strong> — it accounts for <em>why some information survives
+   scarcity while other information does not</em>.</li>
+</ol>
+<p>Two further rules give the construct empirical teeth, and we state them explicitly because they
+are what make it falsifiable rather than decorative. An organizational identity must also be:</p>
+<ol>
+<li><strong>discriminant</strong> — distinct identities must be <em>distinguishable</em> by the markers; a marker set
+   that assigns everything one identity measures nothing;</li>
+<li><strong>concordant</strong> — the markers must <em>agree</em>: across transformations, what one marker reports as
+   preserved, the others must too. If every marker responds idiosyncratically there is no shared
+   latent behind them, only a pile of unrelated robustness facts, and the construct is empty.
+   Concordance is therefore the theory's central testable consequence; we introduce it here and
+   test it (Section 3.8) in the programme's first empirical paper, not this one.</li>
+</ol>
+<p>With identity fixed as the latent, the remainder of this section's apparatus consists of its
+<strong>markers</strong>.</p>
+<p>Why even the richest descriptor is only a marker is worth stating plainly, because it is the move
+on which the whole construct turns: <em>the engine can always be improved.</em> A finer instrument
+discovers more relationship types, resolves more attractors, finds subtler dependencies. If any
+one of these descriptors <em>were</em> the identity, a better instrument would assign a <em>different</em>
+identity to the same unchanged system — which violates rule 1. An identity cannot depend on how,
+or how well, it is measured. The map cannot be the territory. So each object below is a marker — a
+lossy, instrument-relative projection of the identity — never the identity itself.</p>
+<p><strong>The primary marker — the topological-conjugacy class.</strong> The richest marker of a flow's
+identity is the <strong>topological-conjugacy class</strong> of its vector field: the qualitative phase
+portrait — the number and type of attractors, the saddles between them, the basins, the
+bifurcation skeleton. It is invariant under exactly the transformations of rule 2 (smooth
+coordinate changes, rate rescalings): magnitudes move a system <em>within</em> its class, and a
+<strong>bifurcation moves it between classes</strong>. A bifurcation is therefore, precisely, a change of
+organizational identity.</p>
+<p><strong>Its recoverable projection — the typed dependency graph.</strong> The conjugacy class is not
+directly estimable from data; what an estimator recovers is the <em>typed dependency graph</em> —
+which factors couple, with what sign and type — a lossy projection that keeps the labelled
+skeleton and drops the metric detail. This is a second marker, and the one the recovery engine
+of Section 4.1 produces; "form recovery" is recovery of this marker.</p>
+<p><strong>A third marker — the attractor fingerprint.</strong> The attractor count and stability arrangement,
+computed by multi-start integration (Section 5.6), is a third, independently computed marker:
+discrete, observer-independent, and the one on which we demonstrate rules 1–6 concretely on the
+diabetes oracle.</p>
+<p>These markers also explain the form/magnitude split structurally. The conjugacy class and its
+projections are discrete/combinatorial objects (stable under drift, changing only at
+bifurcations), whereas magnitudes are continuous coordinates <em>within</em> a class (drifting
+constantly). Discrete structure is cheap to recover (a hypothesis test); continuous coordinates
+are expensive (estimation with variance scaling). The construct's payoff is rule 5: it predicts
+that the discrete markers persist under scarcity while the continuous magnitudes do not — which
+is the recoverability hierarchy this paper measures.</p>
+<h3>3.2 Hypotheses</h3>
+<p><strong>Core hypothesis (H1).</strong> Every dynamic system observed under drift and scarcity possesses a
+<em>partially persistent organizational identity</em> (Section 3.1), whose <strong>markers</strong> are recoverable
+from data even when the system's magnitudes are not. Precisely: the <em>form</em> (the support, sign,
+and relationship-type of the dependency graph that is identity's recoverable marker) is
+recoverable at low sample size; the <em>magnitudes</em> (the coordinates within the identity class) are
+not recoverable at the same sample size.</p>
+<p><strong>Further hypothesis (H2) — the scarcity paradox and the recoverability hierarchy.</strong> Recovery and
+magnitude-exploitation draw on one data budget <em>with opposite requirements</em> — discovery is a
+low-sample operation, exploitation a high-sample one — so a downstream consumer fails in
+proportion to the magnitude-depth it demands of per-system data, worst exactly where data is
+thinnest (the <em>scarcity paradox</em>; this is a structural data-requirement mismatch, not model
+overfitting). And recovery is <em>ordered</em>: univariate structure recovers first,
+pairwise-directional second, three-way interactions last — recoverable, but only at several
+times the sample size pairwise structure needs (Section 5.4); among magnitudes, stiff
+(high-information) parameters recover before sloppy (low-information) ones (the <em>recoverability
+hierarchy</em>).</p>
+<p><strong>Concordance hypothesis (H3) — the markers share one latent.</strong> The markers of Section 3.1 are
+not independent robustness facts but expressions of a single identity: their stability under
+transformation is governed by one dominant shared factor (the stability matrix of Section 3.8 is
+low-rank), and that factor reproduces the recoverability hierarchy of H2. H3 is the decisive test
+of the construct — its failure (a full-rank stability matrix, idiosyncratic markers) refutes the
+latent. This paper states H3 and establishes its prerequisite, that the markers are individually
+recoverable (Section 5); the programme's first empirical paper tests H3 directly.</p>
+<p><strong>Lexicon.</strong> Every term used here — organizational identity, organizational marker, marker
+concordance, organizational recovery, magnitude stability, organizational drift, and the
+scarcity regime and paradox — is defined once in the <strong>Definitions and Terminology</strong> section at
+the front of the paper, and is not redefined here.</p>
+<h3>3.3 Form and magnitude</h3>
+<p>Consider a system whose state evolves under a vector field with couplings (drift),
+stochastic forcing (diffusion), and regime-changing events (jumps). Each modelling object
+decomposes into a recoverable part and a not-recoverable-at-low-N part:</p>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Form / direction (recover per-system)</th>
+<th>Magnitude (borrow from cohort/prior)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Couplings (drift)</td>
+<td>which factors couple; sign of coupling; active pathways</td>
+<td>rate constants, coupling strengths</td>
+</tr>
+<tr>
+<td>Event intensity (jumps)</td>
+<td>whether a regime is on the table; what raises vs lowers it</td>
+<td>the hazard value itself</td>
+</tr>
+<tr>
+<td>Diffusion</td>
+<td>which channels are noisy</td>
+<td>the noise scale</td>
+</tr>
+<tr>
+<td>Competing risks</td>
+<td>which risks exist</td>
+<td>baseline rates</td>
+</tr>
+</tbody>
+</table>
+<p>The per-system learning target is the <strong>typed dependency graph</strong> — identity's recoverable
+marker — not the coefficient vector.</p>
+<h3>3.4 The scarcity paradox</h3>
+<p>The paradox is sharper than a statement about model size. Structure <em>discovery</em> and magnitude
+<em>exploitation</em> have <strong>opposite data requirements</strong>. Discovery is a low-sample operation:
+detecting that an edge exists is a hypothesis test, and a typed dependency graph is recoverable
+from tens of observations (Section 5). Exploitation — training a model that consumes that
+structure to forecast, or to estimate an effect — is a high-sample operation: each coefficient is
+an estimate whose variance scales as 1/N. Both draw on a single per-system data budget. Therefore
+<strong>the regime in which recovered structure is most valuable — scarcity — is exactly the regime in
+which a magnitude-hungry consumer of it fails worst.</strong> The engine earns its keep by discovering
+structure <em>from scarce data</em>; the moment one tries to exploit that structure quantitatively, one
+needs the abundance that scarcity, by definition, denies. Discovery needs low N; exploitation
+needs high N; one small budget cannot be both.</p>
+<p>This is <strong>not generic overfitting.</strong> The failure is not a property of model capacity alone but of
+a structural mismatch in data requirements, and the regimes are distinct: below a dozen or so
+observations a consumer correctly falls back to a structure-free baseline; through the low tens it
+overfits the sparse structure it does find; and even at the few dozen a real macroeconomic series
+affords (N≈34, Section 5.1) the sample is still too small to fit a deep model on the rich structure
+it now sees. Even a perfectly regularised consumer cannot estimate magnitudes the data does not
+contain — capacity control does not manufacture missing information.</p>
+<p>We observe the full curve directly in the macroeconomic domain (Section 5.1). Feeding the engine's
+recovered typed structure to a <em>shallow</em> consumer helps — type-aware edge features improve a
+gradient-boosted forecaster by 4–7% over raw lags. Feeding the <em>same</em> structure to progressively
+deeper, more magnitude-hungry consumers degrades them monotonically: a stacked foundation-model
+meta-learner worsens by ~9–13%, and a graph neural network trained on the discovered topology ends
+<strong>96% worse</strong> than a naive persistence baseline at the same ≈34-observation budget — and <em>no</em>
+structure-exploiting forecaster beats persistence at all. Depth is punished in exact proportion to
+the per-system magnitude it demands.</p>
+<p>The resolution is not to ban depth but to <strong>respect the split.</strong> The discovered structure is
+valuable precisely for the uses that consume <em>form</em> rather than per-system magnitude —
+causal-adjustment-set selection (Section 5.5), anomaly detection against the recovered graph,
+directional intervention rehearsal — all of which work at the low N where discovery itself works.
+Any consumer that needs magnitudes must source them from a meta-learned cross-system prior,
+adapted few-shot and transported across a federation, carrying uncertainty that widens
+automatically under scarcity — never estimated freely from one system's scarce data.</p>
+<h3>3.5 The recoverability hierarchy</h3>
+<p>The theory's sharpest and most testable claim is an <em>ordering</em>. Structure does not all
+recover at once. Univariate (autoregressive) structure recovers first; pairwise directional
+structure second; three-way interactions (mediation, moderation, synergy) last — recoverable,
+but only once the sample size reaches several times what pairwise structure needs, and
+undetectable below that (measured in Section 5.4). The biological consequence is immediate:
+drug–drug–patient interactions and immune-cross-talk terms are three-way terms, and are
+therefore cohort/federation quantities rather than per-patient ones — a consequence of the
+recoverability ordering we report, not a counsel of caution.</p>
+<p>A refinement, forced on us by the data in Section 5, concerns magnitudes. Magnitudes are
+not a single tier. <strong>Stiff</strong> parameters — those to which the observable is strongly
+sensitive — are recoverable from very little data; <strong>sloppy</strong> or <strong>slow</strong> parameters — to
+which the observable is weakly sensitive, often because they govern a slowly accumulating
+state — are not recoverable at clinically plausible horizons. Sloppiness in this sense is a
+well-studied property of multiparameter models (Sethna, Transtrum and colleagues); our
+contribution is to place it inside the scarcity narrative and to show that it, not a flat
+form-versus-magnitude split, is what the data supports.</p>
+<h3>3.6 Information-theoretic footing</h3>
+<p>The scarcity paradox (§3.4) and the magnitude tier of the hierarchy (§3.5) are stated above as
+mechanisms and confirmed empirically in Section 5. In the idealised case they also <em>follow</em> from a
+standard information inequality, which we record because it shows the split is a property of the
+estimand under a data budget, not an artefact of any particular estimator.</p>
+<p><strong>Lemma (detection is cheaper than estimation).</strong> <em>Let θ be a scalar coupling parameter in a
+regular parametric model with per-observation Fisher information i(θ); with N observations the
+total information is I_N(θ) = N·i(θ). Then, to leading order:</em></p>
+<ol>
+<li><em>(Detection — does the edge exist?) Testing H₀: θ = 0 against θ = θ* by the score/Wald test,
+   the statistic is non-central χ²₁ with non-centrality λ = N·θ*²·i(θ*). Achieving level α and
+   power 1−β requires λ ≥ λ_c(α, β), so</em> <strong>N_detect ≥ λ_c / (θ*²·i(θ*))</strong>.</li>
+<li><em>(Estimation — what is θ?) Estimating θ to relative precision ε (Var θ̂ ≤ (εθ*)²) requires,
+   by Cramér–Rao, Var θ̂ ≥ 1/I_N(θ*), so</em> <strong>N_est ≥ 1 / (ε²·θ*²·i(θ*))</strong>.</li>
+<li><em>(Cost ratio)</em> <strong>N_est / N_detect ≥ 1 / (ε²·λ_c)</strong> <em>— independent of θ: pinning a magnitude to
+   fixed relative precision always costs a fixed multiple more data than detecting the edge, and
+   the multiple grows without bound as ε → 0.</em></li>
+</ol>
+<p><em>Moreover, writing the normalised sensitivity of §3.5 as S(θ) = ‖∂y/∂log θ‖ / ‖y‖, a Gaussian
+observation model has information for log θ proportional to S(θ)², so</em> <strong>N_est ∝ 1 / (ε²·S(θ)²)</strong>.</p>
+<p><strong>Proof sketch.</strong> The score statistic for H₀: θ = 0 has, under the local alternative θ = θ*, a
+non-central χ²₁ law whose non-centrality is the squared standardised score, θ*²·I_N(θ*) to
+leading order; requiring fixed power fixes a lower bound on that quantity, giving (1). The
+Cramér–Rao bound Var θ̂ ≥ I_N(θ)⁻¹ for a regular unbiased estimator, set equal to the relative-
+precision target (εθ*)², gives (2); dividing gives (3). For the sensitivity form, in y = f(θ) +
+η with η ∼ N(0, σ²I) the information for φ = log θ is σ⁻²‖∂f/∂φ‖² = σ⁻²S(θ)²‖y‖², and relative
+precision on θ is absolute precision on log θ. ∎</p>
+<p>Two readings follow. First, this <em>is</em> the scarcity paradox (§3.4) in one line: detection is a
+low-N operation and exploitation a high-N one, on a shared budget, by a factor that widens as the
+precision demanded on the magnitude tightens. Second, the inequality <em>grades the magnitudes</em>
+(§3.5): a <strong>stiff</strong> parameter (S = O(1)) is estimable from moderate N, while a <strong>sloppy/slow</strong> one
+(S → 0) requires N → ∞ — below the Cramér–Rao floor at any horizon over which S stays near zero.
+Yet the edge it governs stays detectable whenever N·θ*²·i(θ*) clears λ_c: a relationship can be
+present, and recoverable as <em>form</em>, exactly where its <em>magnitude</em> is information-theoretically out
+of reach. The form/magnitude dissociation is derived, not assumed.</p>
+<p>Two caveats fix the scope. The bound is asymptotic — a regular model, an unbiased estimator, and θ
+off the boundary for the estimation half (the detection half is precisely the boundary case θ = 0,
+which the score test is built for); online forgetting and finite samples move the constants, not
+the scaling. And stream observations are dependent, so N enters as an effective sample size
+N_eff &lt; N, which shrinks both budgets but not their ratio. The full multi-parameter treatment —
+the Fisher matrix whose eigenspectrum <em>is</em> the sloppiness structure of Sethna and Transtrum, under
+dependent data and biased online estimators — is deferred; the scalar inequality already supplies
+the footing the empirical ordering (Section 5.4) rests on.</p>
+<h3>3.7 Falsification</h3>
+<p>The theory is falsified if, on a system with known ground truth: tasks consuming only
+form/direction fail under scarcity while magnitude-hungry tasks succeed (the asymmetry
+reverses); or all tasks fail equally regardless of consumption type (recovery does no
+work); or the recovered organization is a procedure artefact — i.e. data with the system's
+temporal structure destroyed yields equivalent recovery. The third is directly testable and
+is our principal control (Section 4.4).</p>
+<p>A fourth criterion falsifies the latent construct itself, and is decisive. If the markers of
+Section 3.1 do <strong>not</strong> concord — if the marker-by-transformation stability matrix (Section 3.8)
+is full-rank, so that no shared factor governs which markers survive which transformations —
+then there is no common latent and the construct is empty (the negation of rules 6–7). This
+test is only interpretable with two controls: a <strong>positive control</strong>, a system whose shared
+invariant is known to exist (the Topp diabetes oracle, whose attractor count <em>is</em> its conjugacy
+invariant) and which the procedure must detect as concordant; and a <strong>negative control</strong>,
+independent noise markers, which the procedure must <em>not</em> report as concordant. Without the
+positive control a null cannot be distinguished from an underpowered instrument; without the
+negative control a positive cannot be distinguished from a procedure that finds structure in
+anything. We specify this test here and execute it — controls included — as the programme's
+first empirical paper. The present paper is its prerequisite: it establishes that the markers
+are individually recoverable (Section 5), without which concordance cannot be posed.</p>
+<h3>3.8 Markers, transformations, and the concordance test</h3>
+<p>The latent construct of Section 3.1 turns the theory's central empirical question into one
+concrete object. We enumerate <strong>candidate markers</strong> of organizational identity and the
+<strong>transformations</strong> under which their stability can be probed, and ask: <em>which markers remain
+stable under which transformations?</em></p>
+<table>
+<thead>
+<tr>
+<th>Candidate marker</th>
+<th>Status in this paper</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>typed dependency graph (form)</td>
+<td>computed — Section 5.2</td>
+</tr>
+<tr>
+<td>causal motifs (directed structure)</td>
+<td>computed — Sections 5.2, 5.5</td>
+</tr>
+<tr>
+<td>attractor fingerprint</td>
+<td>computed — Section 5.6</td>
+</tr>
+<tr>
+<td>recoverability profile / hierarchy</td>
+<td>computed — Sections 5.2–5.4</td>
+</tr>
+<tr>
+<td>conservation constraints</td>
+<td>introduced, deferred</td>
+</tr>
+<tr>
+<td>symmetry properties</td>
+<td>introduced, deferred</td>
+</tr>
+</tbody>
+</table>
+<p>The candidate transformations are parameter variation, perturbation, sampling change, and
+measurement change (all exercised in this paper), together with node addition/removal and
+temporal/multi-scale evolution (introduced, deferred). Arrange them as a matrix <strong>M</strong> with
+markers as rows and transformations as columns; the entry M[i,j] is the stability of marker
+<em>i</em> under transformation <em>j</em> (1 = unchanged across the transformation's orbit, 0 = destroyed).</p>
+<p>The latent-construct hypothesis (H3) makes a sharp, falsifiable prediction about <strong>M</strong>: if a
+single organizational identity underlies the markers, <strong>M</strong> is <strong>low-rank</strong> — a dominant shared
+factor (an <em>identity-fidelity</em>) explains which markers survive which transformations, and that
+factor reproduces the recoverability hierarchy (rule 5). If instead <strong>M</strong> is full-rank — every
+marker idiosyncratic, no shared ordering — there is no common latent and the construct is
+refuted. This <strong>concordance test</strong>, run with the positive and negative controls of Section 3.7,
+is the decisive experiment of the programme. We specify it here as part of the foundation and
+run it as the <strong>first empirical paper</strong>; the present paper supplies the prerequisite — that the
+individual markers are recoverable at all (Section 5) — without which the concordance question
+cannot be posed.</p>
+<h3>3.9 Status of the claims</h3>
+<p>A foundational paper introduces more than any one work can prove. We therefore state explicitly,
+for each concept, what this paper <em>establishes</em> and what it <em>defers</em>, so that demonstrated
+results are never confused with the programme's promises. Everything marked <em>deferred</em> is a
+stated direction, not a claim of this paper.</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Status in this paper</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scarcity regime</td>
+<td><strong>defined and measured</strong> (the scarcity paradox, §5.1)</td>
+</tr>
+<tr>
+<td>Detection-vs-estimation footing</td>
+<td><strong>proved</strong> (idealised; the Cramér–Rao lemma, §3.6)</td>
+</tr>
+<tr>
+<td>Recoverability hierarchy (H2)</td>
+<td><strong>demonstrated</strong> — four heads + macro (§5.2–5.4)</td>
+</tr>
+<tr>
+<td>Form / magnitude dissociation</td>
+<td><strong>argued</strong> (§3.6) and <strong>demonstrated</strong> on the oracle (§5.2, §5.5)</td>
+</tr>
+<tr>
+<td>Organizational identity (latent construct)</td>
+<td><strong>introduced; initial evidence</strong> via one marker (§5.6)</td>
+</tr>
+<tr>
+<td>Organizational markers</td>
+<td><strong>defined; 4 of 6 instantiated</strong> (§3.8)</td>
+</tr>
+<tr>
+<td>Marker concordance (H3 — the latent is real)</td>
+<td><strong>introduced; deferred</strong> to the first empirical paper</td>
+</tr>
+<tr>
+<td>Conservation / symmetry markers</td>
+<td><strong>introduced; deferred</strong></td>
+</tr>
+<tr>
+<td>Multi-scale (vertical) persistence</td>
+<td><strong>named; deferred</strong></td>
+</tr>
+<tr>
+<td>Magnitude borrowing (cohort priors)</td>
+<td><strong>motivated; deferred</strong> to a methods paper</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Methods</h2>
+<h3>4.1 The recovery engine</h3>
+<p>Structure is recovered by a streaming relationship-discovery engine that maintains a
+population of typed relationship hypotheses (15 types spanning causal, correlational,
+functional, temporal, competitive, mediating, and others) and tests each against the data
+stream as an active constraint. Each candidate is calibrated against a type-appropriate
+permutation null (block permutation for lagged relationships, random shuffle for
+contemporaneous, phase randomisation for self-referential), with Benjamini–Hochberg control
+of the false-discovery rate. An edge is reported only after it clears this significance
+gate; calibration reduces the null false-positive rate to ≈0 on the synthetic benchmark
+(Section 5.1). For the directional (Granger-style) hypotheses the engine also reports an
+orientation and forward/backward test statistics, which we use to score directed edges. We
+run the engine in its exact (non-vectorised) mode, which carries the calibrated per-edge
+evidence used throughout.</p>
+<h3>4.2 The biological digital twin</h3>
+<p>The twin is a multi-scale mechanistic substrate (cells → tissues → organs → organ systems →
+organism) on which <strong>disease heads</strong> act as parameter perturbations. Each head is founded on
+a <em>published, validated</em> model so that its form and its literature parameters are not
+invented:</p>
+<ul>
+<li><strong>Diabetes</strong> — the Topp βIG model of glucose / insulin / β-cell-mass dynamics (Topp et
+  al., 2000), parameters from a curated BioModels entry. Disease is a regime of reduced
+  insulin sensitivity; the model is bistable (compensation vs glucotoxic collapse).</li>
+<li><strong>Oncology</strong> — the Lotka–Volterra sensitive/resistant clone competition model used in the
+  metastatic-prostate-cancer adaptive-therapy programme (Zhang et al., 2017; West et al.,
+  2022). Asymmetric competition plus a cost of resistance reproduce competitive release.</li>
+<li><strong>Fibromyalgia</strong> — the gate-control pain loop (Britton &amp; Skevington, 1989; a recent
+  Lotka–Volterra formalisation of ascending/descending pathways) extended with a slow
+  central-sensitization gain. Fibromyalgia is the regime of heightened central gain and
+  impaired descending inhibition, producing a bistable chronic-pain attractor with enhanced
+  temporal summation (wind-up), the documented clinical hallmark (Staud et al.). This head
+  replaces a generic protein-spreading CNS model, which is the wrong mechanism for a
+  central-sensitization disorder.</li>
+<li><strong>Autoimmune</strong> — the Vélez de Mendizábal et al. (2011) effector–regulatory T-cell
+  cross-regulation model; relapses are driven by stochastic infection triggers.</li>
+</ul>
+<p>Each head is implemented as a differentiable system, so the same trajectory used for
+structure recovery can be inverted for parameter sensitivity.</p>
+<h3>4.3 The dissociation harness</h3>
+<p>For each head we generate a patient trajectory under an excitation appropriate to the
+system (repeated meals for diabetes; adaptive therapy for oncology; a temporal-summation
+pulse train for fibromyalgia; stochastic flare triggers for autoimmune) so that the state
+variables genuinely co-vary — a system resting at a fixed point carries no recoverable
+structure. We then measure, on the <strong>same trajectory</strong>:</p>
+<ul>
+<li><strong>Form recovery</strong> — the engine's recovered typed edges, scored against the head's known
+  coupling graph as directed-edge F1 (precision/recall over orientations), or undirected F1
+  where the coupling is symmetric and the engine cannot resolve orientation. Indirect edges
+  (a correlation between two children of a common driver) count as false positives, honestly
+  lowering precision.</li>
+<li><strong>Magnitude identifiability</strong> — the normalised sensitivity of an observable to a
+  fractional change in a parameter, S(θ) = ‖∂y/∂log θ‖ / ‖y‖, computed by automatic
+  differentiation. Large S means stiff/identifiable; near-zero S means sloppy. For each head
+  we report a stiff parameter and a slow parameter, chosen <strong>empirically</strong> by a
+  sensitivity-versus-horizon scan (intuition mis-identified the stiff parameter for several
+  heads — see Section 5.4).</li>
+</ul>
+<h3>4.4 The shuffle control</h3>
+<p>The principal falsification check (Section 3.7) permutes each variable's time index
+<em>independently</em>, destroying all cross-variable lead/lag structure while preserving each
+marginal distribution. This is a stronger null than a joint row-permutation (which shuffles
+all variables with one shared permutation and so preserves contemporaneous cross-variable
+correlation while breaking only the time axis): the independent shuffle removes the
+cross-variable dependence the recovered edges encode. Form recovery on this null must
+collapse to ≈0; if it does not, the recovered structure is an artefact of the procedure
+rather than the system's organization.</p>
+<h3>4.5 The breakpoint analysis</h3>
+<p>To locate where form recovery itself breaks, we shrink the observation budget N on one head
+(oncology, the cleanest) and find the N at which directed-edge F1 collapses toward the
+shuffle null. We use a contiguous shorter observation window rather than subsampling a fixed
+trajectory, because subsampling a quasi-periodic signal aliases the oscillation and produces
+spurious non-monotonicity.</p>
+<h3>4.6 Two causal engines: online form, offline magnitude</h3>
+<p>The form/magnitude split is realised by two distinct causal engines, and the division of
+labour mirrors the theory exactly. The <strong>online</strong> engine is the streaming Granger
+discovery described in Section 4.1: it recovers the <em>directed dependency structure</em> — which
+factors couple, in which direction — cheaply and incrementally, and is what survives at low
+N. This is <em>predictive</em> (Granger-style) recovery, not interventional identification.</p>
+<p>The <strong>offline</strong> engine supplies the magnitude. Given the full dataset and the structure the
+online engine discovered, it performs proper <strong>do-calculus identification</strong> (DoWhy: backdoor
+adjustment for ATE/ATT/ATC, with placebo / random-common-cause / subset refutations) and
+<strong>heterogeneous-effect estimation</strong> (EconML double-machine-learning for conditional effects).
+The online structure supplies the adjustment set; the offline engine identifies and estimates
+the effect through it. Online form → offline magnitude, automatically.</p>
+<p>We validate this against the oracle with a <strong>confounded treatment cohort</strong> drawn from the
+validated Topp diabetes model. Each simulated patient is run both treated (an
+insulin-sensitiser) and untreated, so the true counterfactual average treatment effect is
+known. Disease severity confounds both treatment assignment (sicker patients are more likely
+treated) and the outcome (sicker patients have higher glucose), so the naive treated-minus-
+untreated association is biased; recovering the true effect requires adjusting for the
+confounder that the online engine discovers.</p>
+<hr />
+<h2>5. Results</h2>
+<h3>5.1 Domain I — macroeconomics (real-world federated time series)</h3>
+<p><strong>Setup.</strong> World Bank annual national-accounts indicators (19 series) for seven East African
+economies — Kenya, Tanzania, Uganda, Rwanda, Ethiopia, Mozambique, Zambia — each ≈34 annual
+observations (1990–2023), plus a labelled synthetic multivariate benchmark (N=3000, fifteen
+relationship types with a known generative graph) for ground-truth scoring. The nodes are
+genuinely heterogeneous: mean Jensen–Shannon divergence across country pairs is 0.295, with
+49% of indicator pairs maximally divergent — a non-IID setting where the per-system
+organizational identity, not a shared global model, is the right learning target. A streaming
+discovery engine maintains a population of typed relationship hypotheses (causal/Granger,
+correlational, functional, temporal, competitive, mediating, and others), each tested against
+the data stream and calibrated against a type-appropriate permutation null.</p>
+<p><strong>Form is recovered — but recovery is calibration-dependent, and we are explicit about it.</strong>
+On the synthetic benchmark with a known graph, the engine recovers typed structure at
+precision and recall 1.00 with a null false-positive rate of 0.00. On real data, however, the
+engine's <em>raw</em> internal confidence is not a significance test: on pure-noise data it admits
+false positives at a <strong>41% rate</strong>, and the true relationships are not ranked highly (first
+ground-truth match at rank <strong>123</strong> of ≈250). A post-hoc calibration — type-appropriate
+permutation p-values, Benjamini–Hochberg FDR control, and block-bootstrap stability selection
+— is mandatory and decisive, and it is what makes the engine competitive with, and then
+better than, strong sparse baselines on ranking the true structure first (Kenya, full-mode
+calibration):</p>
+<table>
+<thead>
+<tr>
+<th>method (calibrated)</th>
+<th style="text-align: right;">first-ground-truth rank</th>
+<th style="text-align: right;">null FPR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>streaming typed engine</td>
+<td style="text-align: right;"><strong>4</strong></td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr>
+<td>correlation + AR "economist" scan</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr>
+<td>Pearson + Bonferroni</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr>
+<td>graphical lasso</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr>
+<td><em>raw engine confidence (uncalibrated)</em></td>
+<td style="text-align: right;"><em>123</em></td>
+<td style="text-align: right;"><em>0.41</em></td>
+</tr>
+</tbody>
+</table>
+<p>Calibration drives the null FPR from 0.41 to 0.00 and the first-ground-truth rank from 123 to
+4. We report calibrated numbers throughout, and we report the honest comparator: at this
+sample size simple sparse methods are close, and the engine's edge is ranking the true
+relationship earliest (rank 4 vs 8–11), plus the breadth of its typed, streaming, federated
+discovery — not a blanket accuracy supremacy.</p>
+<p><strong>Shallow consumers of the recovered form benefit.</strong> Using the recovered typed structure as
+features for a shallow forecaster improves a gradient-boosted model by <strong>4–7%</strong> over raw-lag
+features; and graph-conditioned anomaly residuals reach F1 = <strong>0.80</strong> at large sample size
+(N≈3000) versus 0.65 for a blind univariate detector, catching structural decouplings the
+blind detector cannot see.</p>
+<p><strong>The scarcity paradox, measured.</strong> This is the domain's sharpest result. As a consumer of
+the recovered structure is made <em>deeper</em> — demanding more per-system magnitude from the same
+≈34-observation budget — its accuracy collapses monotonically (five-country mean MAE,
+one-step-ahead; naive persistence = 2.454):</p>
+<table>
+<thead>
+<tr>
+<th>consumer of the recovered structure</th>
+<th>depth</th>
+<th style="text-align: right;">mean MAE</th>
+<th style="text-align: right;">vs persistence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type-aware edge features → shallow tree</td>
+<td>shallow</td>
+<td style="text-align: right;">2.541</td>
+<td style="text-align: right;">(−4.4% vs raw-lag features)</td>
+</tr>
+<tr>
+<td>persistence + structure-informed delta</td>
+<td>+</td>
+<td style="text-align: right;">2.489</td>
+<td style="text-align: right;">+1.4%</td>
+</tr>
+<tr>
+<td>foundation-model stacked meta-learner</td>
+<td>++</td>
+<td style="text-align: right;">2.791</td>
+<td style="text-align: right;">+8.9%</td>
+</tr>
+<tr>
+<td>graph neural network on discovered topology</td>
+<td>+++</td>
+<td style="text-align: right;"><strong>4.812</strong></td>
+<td style="text-align: right;"><strong>+96%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>No deep hybrid beats persistence; the graph neural network, the deepest consumer, is the
+worst by far (+96%). The recovered structure <em>helps</em> a shallow consumer (type-aware features
+beat raw lags by 4–7%) and <em>destroys</em> a deep one — the theory's predicted failure curve,
+measured on real data.</p>
+<p><strong>Caveats we report rather than hide.</strong> Graph-conditioned forecasting and anomaly residuals
+help only above roughly 200 effective observations and <em>hurt</em> below (the break-even sits
+between ~100 and ~300 samples, where non-stationary trends inflate residuals). And the engine
+measures <strong>Granger-predictive recovery, not structural causal identification</strong>: observational
+equivalence is not resolved, and a deliberately non-causal shock propagates through the
+discovered graph as readily as a real one. These limitations stem from the absence of
+ground truth in real data — exactly what the biological domain supplies next.</p>
+<h3>5.2 Domain II — biology (mechanistic digital twin, controlled ground truth)</h3>
+<p>Where the macroeconomic domain has real data but no ground-truth graph, the biological domain
+has a <em>known</em> generative model. We build a mechanistic digital twin from four validated,
+published disease models — one per organ system — so the recovered structure can be scored
+against truth and identifiability computed exactly. The same streaming engine, pointed blind
+at simulated patient trajectories, recovers the known coupling graph of every head while the
+shuffle null collapses (mean over three patients):</p>
+<table>
+<thead>
+<tr>
+<th>Head</th>
+<th>System</th>
+<th style="text-align: right;">form F1</th>
+<th style="text-align: right;">shuffle null</th>
+<th>stiff mag.</th>
+<th style="text-align: right;">S(stiff)</th>
+<th>slow mag.</th>
+<th style="text-align: right;">S(slow)</th>
+<th style="text-align: right;">stiff/slow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diabetes</td>
+<td>metabolic</td>
+<td style="text-align: right;">0.4–0.5</td>
+<td style="text-align: right;">0.00</td>
+<td>insulin sensitivity</td>
+<td style="text-align: right;">~0.43</td>
+<td>β-turnover rate</td>
+<td style="text-align: right;">0.03–0.24</td>
+<td style="text-align: right;">15→2</td>
+</tr>
+<tr>
+<td>Oncology</td>
+<td>oncologic</td>
+<td style="text-align: right;"><strong>1.00</strong></td>
+<td style="text-align: right;">0.00</td>
+<td>sensitive growth rS</td>
+<td style="text-align: right;">0.05–0.20</td>
+<td>resistant growth rR</td>
+<td style="text-align: right;">~0.000</td>
+<td style="text-align: right;"><strong>~224</strong></td>
+</tr>
+<tr>
+<td>Fibromyalgia</td>
+<td>chronic pain</td>
+<td style="text-align: right;"><strong>0.80</strong></td>
+<td style="text-align: right;">0.00¹</td>
+<td>descending inhibition γ</td>
+<td style="text-align: right;">1.1–1.4</td>
+<td>sensitization rate εG</td>
+<td style="text-align: right;">0.13–0.35</td>
+<td style="text-align: right;">3.3–10.6</td>
+</tr>
+<tr>
+<td>Autoimmune</td>
+<td>autoimmune</td>
+<td style="text-align: right;"><strong>1.00</strong></td>
+<td style="text-align: right;">0.00</td>
+<td>regulatory prolif. αR</td>
+<td style="text-align: right;">0.7–2.4</td>
+<td>effector prolif. αE</td>
+<td style="text-align: right;">0.2–0.29</td>
+<td style="text-align: right;">2.5–10</td>
+</tr>
+</tbody>
+</table>
+<p>¹ one large-N shuffle leak (one horizon/seed); 0.00 at the other three horizons.</p>
+<p>Three predictions hold on all four heads. <strong>Form is recovered</strong> — perfectly for oncology and
+autoimmune (F1 = 1.00); for fibromyalgia at F1 = 0.80 (recall 1.00, precision lowered by an
+indirect edge between two children of pain); for diabetes at 0.4–0.5 (precision lowered by
+indirect edges and the always-missed insulin→glucose clearance arm, which is swamped because
+glucose is meal-dominated — a theory-consistent identifiability limit). <strong>The shuffle null
+collapses</strong> to ≈0 everywhere: destroying temporal structure annihilates recovery, so the
+recovered form is the system's organization, not an artefact. <strong>Magnitudes split into two
+tiers</strong>: each head has a stiff parameter, recoverable throughout, and a slow/sloppy parameter
+that is not, separated by 2.5× to 224× in normalised sensitivity. Each slow parameter is
+physiologically interpretable: one cannot estimate the resistant clone's growth rate while
+it is competitively contained (oncology); the β-cell damage rate needs months of observation
+(diabetes); the central-sensitization rate is weakly identified until wind-up has built
+(fibromyalgia).</p>
+<p><strong>Uncertainty (three seeds).</strong> All biological values are means over three independently seeded
+patients. The form-recovery result carries no seed noise: edge-recovery F1 is identical across
+seeds for every head (the recovered edge set, and hence recall and precision, is structurally
+determined), so the dissociation form F1 ≫ shuffle is exact, not averaged. For the magnitude
+tiers we report the across-seed 95% interval (Student-t, two degrees of freedom). The
+stiff-versus-slow sensitivity separation is significant — the two intervals are disjoint — at
+every horizon for oncology (at N=60, S(stiff) = 0.201 vs S(slow) = 0.001) and fibromyalgia (at
+N=500, 1.15 ± 0.10 vs 0.34 ± 0.05), and for autoimmune at N ≥ 400 (2.21 ± 0.70 vs 0.25 ± 0.23).
+The one exception is autoimmune at its smallest horizon (N=200), where the stiff interval
+(0.71 ± 0.68) overlaps the slow one (0.29 ± 0.29) and the separation is not yet significant at
+three seeds — reported here rather than hidden. The claim-bearing quantity throughout is the
+separation, and at three seeds it exceeds the across-seed interval everywhere except that single
+low-N autoimmune cell.</p>
+<h3>5.3 Where form breaks</h3>
+<p>Form recovery is not free. Shrinking the oncology observation window locates a sharp
+threshold: directed-edge F1 holds at 1.00 down to ≈36 observations, then collapses to ≈0 by
+32 — a cliff, consistent with the engine's permutation-significance gate (below ≈36 samples
+the edge cannot clear the null). The autoimmune head is more robust (≈30). Form recovery has
+a real, modest, and sharply-defined data requirement.</p>
+<h3>5.4 The hierarchy, corrected by the data</h3>
+<p>Two findings reshaped the framing and we report them as results, not footnotes. First, the
+stiff parameter was mis-identified by intuition for three of four heads — the parameter we
+expected to be hard was in fact the more identifiable one — and had to be chosen by the
+sensitivity scan. Second, and more importantly, <strong>a single stiff magnitude is recoverable
+from fewer observations than form</strong>: insulin sensitivity is recovered to ≈2% error from
+eight sparse, noisy samples, where form recovery needs ≈36. Declaring an edge must clear a
+permutation-significance bar, a higher evidence threshold than fitting a well-posed scalar.</p>
+<p>The clean slogan "form recovers, magnitudes do not" is therefore false. What the data
+supports is the <strong>recoverability hierarchy</strong>:</p>
+<blockquote>
+<p>Form and stiff magnitudes recover from modest data (tens of observations); slow and sloppy
+magnitudes do not recover at the horizons clinical data spans.</p>
+</blockquote>
+<p>The load-bearing, falsification-surviving claim is the bottom tier: the quantity one
+genuinely cannot get per-system is the slow/sloppy magnitude — which is exactly the quantity
+that must be borrowed from a cohort.</p>
+<p>Third, the <em>structural</em> ordering itself — univariate, then pairwise, then three-way — is now
+measured rather than asserted. Streaming diabetes-oracle trajectories of increasing length
+through the discovery engine, and scoring the three-way (mediation) hypotheses by the Sobel
+indirect-effect test, gives:</p>
+<table>
+<thead>
+<tr>
+<th>N (observations)</th>
+<th style="text-align: center;">univariate</th>
+<th style="text-align: center;">pairwise</th>
+<th style="text-align: center;">three-way (mediation)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>50</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td>100</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td>400</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td>600</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>800</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+</tbody>
+</table>
+<p>Univariate and pairwise structure recover together at ≈100 observations; three-way mediation
+first clears significance at ≈600 — roughly six times the data — and remains recoverable out
+to the full 3840-sample trajectory (Sobel p = 1.3×10⁻⁸). The predicted ordering holds. It is
+worth stating plainly how we know the instrument is trustworthy, because it bears on the
+theory's own falsification standard (Section 3.7): an earlier version of this measurement
+returned <em>mediation never recovers</em> — which would have read as strong support for the
+"or never" reading of the hierarchy. It was an artifact. Two defects in the online estimator
+(an unscaled Sobel standard error, and covariance windup over long streams) suppressed the
+signal entirely, and a redundant causal-steps total-effect gate rejected indirect-only
+mediation by construction. Repaired — the standard error scaled by residual variance, the
+covariance update put in Joseph form, and the total-effect gate dropped in favour of the
+indirect-effect criterion (Zhao, Lynch and Chen 2010) — three-way structure recovers as
+above, with a null false-positive rate of 0 on independent-noise and direct-effect-only
+controls. A spurious "never" became a measured "last," which is the stronger and the more
+honest result. (In a tightly coupled feedback system several variable triples exhibit genuine
+statistical mediation; the claim is that three-way structure becomes detectable at this
+scale, not that one canonical chain does.)</p>
+<h3>5.5 The magnitude arm: do-calculus effect recovery</h3>
+<p>The recoverable magnitudes of Section 5.2 are sensitivity-identifiable parameters; the
+clinically central magnitude is an <em>interventional effect</em>, which requires more than
+identifiability — it requires correct adjustment for confounding. Here the oracle pays off a
+second way. Because we simulate each cohort patient <strong>both treated and untreated</strong> (Section 4.6),
+the true counterfactual effect of the sensitiser is <em>known</em> — ATE = <strong>−34.8 mg/dl</strong> — so an
+estimator can be scored against ground truth directly, rather than against the indirect
+refutations (placebo, random-common-cause) that stand in for truth only when truth is
+unavailable. On this confounded cohort:</p>
+<table>
+<thead>
+<tr>
+<th>estimator</th>
+<th style="text-align: right;">ATE (mg/dl)</th>
+<th style="text-align: right;">error vs truth (−34.8)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>naive treated − untreated (no structure)</td>
+<td style="text-align: right;"><strong>−7.9</strong></td>
+<td style="text-align: right;">26.9 (4.4× attenuated)</td>
+</tr>
+<tr>
+<td>DoWhy backdoor, adjusting for severity (ATE / ATT / ATC)</td>
+<td style="text-align: right;"><strong>−34.2</strong></td>
+<td style="text-align: right;">0.6</td>
+</tr>
+<tr>
+<td>coupled: online-Granger adjustment set → DoWhy</td>
+<td style="text-align: right;"><strong>−34.2</strong></td>
+<td style="text-align: right;">0.6</td>
+</tr>
+<tr>
+<td>EconML double-ML (CATE, mean)</td>
+<td style="text-align: right;"><strong>−34.9</strong></td>
+<td style="text-align: right;">0.1</td>
+</tr>
+</tbody>
+</table>
+<p>Two things hold. First, <strong>the naive estimate is biased nearly five-fold</strong> by confounding, and the
+offline engine recovers the true effect to within 1 mg/dl — but only because it adjusts for the
+confounder, <em>and the confounder is supplied by the form</em>. Run blind, the online engine
+independently discovers the adjustment set ({severity}); handed that set, the offline engine
+identifies the effect automatically. This is the form/magnitude pipeline made operational:
+structure recovered cheaply online is exactly what licenses correct (do-calculus) magnitude
+estimation offline.</p>
+<p>Second — and this is the robustness argument — <strong>the validation here is concordance against a
+known answer, not an internal refutation suite.</strong> Two methodologically independent estimators,
+backdoor adjustment (a linear potential-outcomes fit) and double-machine-learning CATE (a
+forest-based estimator), together with the structure-coupled pipeline, all land within 1 mg/dl of
+the oracle's −34.8. (ATT and ATC are reported but are <em>not</em> independent votes: under a linear
+backdoor they coincide with the ATE; and the LATE and mediation estimands abstain on this
+single-confounder cohort, which contains no instrument or mediator chain — so of the offline
+engine's estimand suite, the genuinely independent estimators on this design are the backdoor
+family and the causal forest.) Agreement of independent estimators on the <em>true</em> value is a
+stronger check than placebo or random-common-cause refutation, which only probe an estimator's
+internal consistency. The refutation suite is in any case currently blocked by a version drift in
+the offline causal library; with oracle ground truth in hand it is not the load-bearing check.</p>
+<p>The honesty boundary is unchanged: the online arm is Granger-predictive, not interventional; the
+<em>interventional</em> claim rests on the offline identification and the adjustment set the form
+provides.</p>
+<h3>5.6 A marker of identity, measured: the attractor fingerprint</h3>
+<p>The latent construct of Section 3.1 predicts that a <em>marker</em> of identity — here the attractor
+fingerprint — should obey its rules. Each of three such predictions is measurable on the diabetes
+oracle (whose flow we know). We compute a system's identity fingerprint by multi-start
+integration — running the slow β-cell dynamics to their attractor from a grid of initial
+β-cell masses and counting the distinct steady states. The validated Topp system is
+saddle-node bistable: a <em>compensated</em> patient has two attractors (a normoglycaemic one and
+a hyperglycaemic one, separated by a saddle); a <em>decompensated</em> patient has one.</p>
+<ul>
+<li><strong>Same identity, different magnitudes.</strong> A cohort of twelve compensated patients with
+  insulin sensitivity and hepatic output varied widely shares a <em>single</em> identity (attractor
+  count = 2 for all), while the β-cell mass at the healthy attractor — a within-class
+  magnitude — spans 282 to 1165 mg (a ~4× range of compensatory hyperplasia). Identity is
+  invariant to the magnitudes.</li>
+<li><strong>A bifurcation is an identity change.</strong> Sweeping β-cell destruction (the type-1
+  mechanism), the fingerprint flips from two attractors to one at a death rate of
+  ≈0.014/day — exactly the analytic saddle-node, where the destruction rate first exceeds
+  the maximum net β-cell growth rate (0.0135/day) so that no β-mass can sustain the healthy
+  attractor. Disease progression <em>is</em> traversal of the bifurcation set; the patient's
+  organizational identity changes there.</li>
+<li><strong>The invariant is discrete, the magnitudes continuous.</strong> Across the compensated class the
+  attractor count is fixed at 2 while the healthy-attractor β-mass drifts continuously from
+  300 to 1000 mg as sensitivity falls. The identity is a discrete (combinatorial) object;
+  the magnitudes are continuous coordinates within it.</li>
+</ul>
+<p>This turns the construct from a stipulation into something with at least one concrete,
+well-behaved marker: the attractor fingerprint is observer-independent (rule 1), invariant
+under wide magnitude variation (rule 2), discrete and identity-distinguishing (rule 6), and it
+changes precisely at a bifurcation. It is one marker, not the identity itself (rule 4). Whether
+it <em>agrees</em> with the other markers — concordance, rule 7 / H3 — is exactly the question the
+programme's first empirical paper takes up; this paper establishes only that the marker is
+recoverable and well-behaved on its own.</p>
+<h3>5.7 Domain III — financial markets (real high-frequency microstructure)</h3>
+<p>The third domain is real data with a hard economic cost function, and it is the sharpest
+external test of the theory precisely because it <em>can</em> fail commercially. Where the biological
+twin is a controlled oracle and the macroeconomic series are real but slow, financial market
+microstructure is real, fast, adversarial, and priced: if recovered structure carried
+exploitable magnitude, the market would already have removed it. The domain therefore lets us
+ask the theory's question with money as the referee.</p>
+<p><strong>Setup.</strong> Six days of Bitcoin (BTC/USD) order-flow data at five-second resolution — 103,628
+bars derived from roughly six million signed trades (Binance aggregate-trade dumps, the
+buyer-maker flag signing the aggressor). From the signed trades we form a microstructure panel:
+returns, order-flow imbalance and signed flow, trade intensity (trade count per bar), realized
+volatility, and volume-weighted-price deviation. As in macroeconomics this is an <em>observational</em>
+domain — recovery is Granger-predictive and the offline effects are do-calculus on observational
+data, not interventions. Here "scarcity" is not few samples (we have many) but scarcity of the
+scarce thing that actually matters in a market: <em>exploitable</em> signal, with retail transaction
+cost as the exploitation budget.</p>
+<p><strong>Form is recovered — and typed — with no question posed.</strong> Pointed blind at the seven-variable
+panel, with no treatment, outcome, or adjustment set specified, the engine recovers a 29-edge
+typed graph spanning <strong>six</strong> of its relation types (correlational ×19, functional ×4,
+competitive ×2, logical ×2, probabilistic ×1, synergistic ×1). The decisive observation is not
+that it finds edges but that it <em>types</em> them correctly. The only relation it draws to the
+next-bar return is <strong>trade-intensity → next-return, typed functional</strong> — and that typing is
+right: trade intensity predicts the <em>magnitude</em> of the next return (correlation with the
+absolute next return +0.18) and not its <em>sign</em> (correlation with the signed next return −0.008).
+The directional order-flow-imbalance ↔ return coupling it types separately as correlational. The
+engine separated a volatility relation from a directional one on its own — a distinction a posed
+"does imbalance predict return?" query cannot see, and which later explains the regime structure
+of the directional effect. This is marker recovery in the wild: recovered structure that is not
+merely present but semantically resolved.</p>
+<p><strong>The online-form / offline-magnitude split reproduces (§4.6), now against an efficient market.</strong>
+The online Granger engine recovers the directed form, but its calibrated confidence never
+cleanly clears the shuffle null at any operating point — and more data does not rescue it. A
+multi-seed null-confirmation sweep on 20,000 bars makes the failure exact: at the only confidence
+threshold with a 0% null false-positive rate the engine <strong>abstains</strong> (reports no directional
+edge); the threshold low enough to <em>confirm</em> the real order-flow → return edge admits
+shuffled-null confirmations <strong>40–80%</strong> of the time. There is no threshold that certifies the true
+edge with a clean null. The offline do-calculus engine, given the full sample, nonetheless
+recovers the magnitude the online arm cannot certify: a significant backdoor-adjusted effect of
+order-flow imbalance on the next return (average treatment effect ≈ +8×10⁻⁶ per unit imbalance;
+placebo-permutation p &lt; 0.001 (0 of 1,000 permutations); the estimate agrees across every requested
+estimand — ATE = ATT = ATC, with EconML double-machine-learning CATE and ITE concurring, all run
+in one call). Online form, offline magnitude — the same division of labour validated on the
+diabetes oracle in §5.5, here holding on real adversarial data.</p>
+<p><strong>The scarcity paradox returns as literal unexploitability.</strong> The recovered magnitude is real and
+robust — and worthless to a magnitude-hungry consumer, exactly as the theory predicts. It fails
+on two independent axes. It is <em>transient</em>: a horizon sweep (non-overlapping, so the significance
+is honest and the scenario is a real hold-<em>H</em> trade) shows the effect significant only out to
+about one minute, then insignificant and sign-flipping — price-impact decay, not a persistent
+drift that could accumulate past costs. And it is <em>sub-cost everywhere</em>: against a round-trip cost
+of 0.06%, the per-decision effect reaches at most ~8% of the cost hurdle, even in the regime where
+it is strongest (the effect scales 14× with trade intensity and peaks in US trading hours, yet
+never crosses the line). The consequence is measured, not asserted: a directional strategy built
+on the signal loses to costs; a naive strategy that greedily trades the strongest lagged
+correlation loses <em>more than not trading at all</em>; and the disciplined engine — which reports only
+calibrated structure and declines to certify an edge that fails its null — "abstains," and by
+abstaining beats both. Structure recovery is cheap and succeeds; magnitude exploitation is
+expensive and fails; and here the failure is denominated in currency. This is the macroeconomic
+scarcity paradox (§5.1) reproduced in a second real-data domain, with the graph-neural-network's
+96%-worse collapse replaced by a trading strategy that bleeds to the cost of turning recovered
+form into acted-upon magnitude.</p>
+<p><strong>Following the form to the recoverable magnitude.</strong> The theory does not say magnitudes are never
+recoverable; it says <em>which</em> are, and the recovered form is the map. Here the engine's own typed
+discovery — trade-intensity → next-return as <strong>functional/volatility</strong>, not directional — pointed
+away from the unexploitable directional edge and toward a recoverable one. Modelling that relation
+yields a genuine next-horizon realized-volatility forecast: out-of-sample R² rises from 0.10 at
+five seconds to <strong>0.40 at ten minutes</strong>. Trade intensity is largely <em>redundant</em> with realized
+volatility for the level of the forecast (incremental R² ≈ 0) — but it survives adjustment for
+realized volatility (p &lt; 0.001) and sharpens the variance tails (QLIKE improved ~17% at the
+shortest horizon), the regime where volatility bursts live. The form told us which magnitude was
+recoverable; the directional magnitude was not, the volatility magnitude was, and the engine
+flagged the difference by <em>type</em> before any of it was tested.</p>
+<p><strong>What this domain does and does not show.</strong> It is real-data evidence that the recovery engine
+extracts and correctly types genuine structure from adversarial high-frequency data, that the
+form/magnitude split holds where the market itself is the adversary, and that the scarcity paradox
+survives translation into a hard cost function. It is <em>not</em> a claim that no exploitable
+microstructure edge exists for anyone: the exploitability failure confounds three things we cannot
+separate here — genuine market efficiency, retail-scale transaction costs, and a trade-derived
+feature set with no limit-order-book depth (no true microprice or queue imbalance) — and it rests
+on a single asset over a six-day window. As in macroeconomics the recovery is observational, not
+interventional. What travels is the pattern, now seen a third time and under the most hostile
+conditions available: form recovers and types itself; magnitude is real but not uniformly
+exploitable; and the recovered form is what tells you which magnitude to reach for.</p>
+<hr />
+<h2>6. Related work</h2>
+<p>This work sits beside three literatures and departs from each on two axes; stating the departures
+precisely is the cleanest way to say what the contribution is.</p>
+<p><strong>The discovery component is not a causal-discovery method.</strong> Causal-structure discovery — PC
+(Spirtes et al.), GES, FCI, NOTEARS (Zheng et al.), LiNGAM (Shimizu et al.) — searches for a
+<em>single</em> object, a causal graph, under a <em>single</em> semantics (conditional independence or
+structural equations). The engine here instead maintains a <em>population</em> of fifteen typed
+relationship hypotheses (causal/Granger, correlational, functional, temporal, competitive,
+mediating, and others) competing in a streaming survival contest, of which causal is <em>one</em> type.
+The depth of the causal-discovery literature reflects the difficulty of identifying direction and
+confounding from observational data — causal is the hardest cell of the typed space — not a
+privileged status that would make this engine "a causal-discovery method." We do not claim to
+out-recover the causal specialists at causal structure (at low N they are stronger, by design);
+the contribution is the typed breadth, the streaming calibrated discovery, and the use to which
+the recovered structure is put.</p>
+<p><strong>Sloppy-model identifiability</strong> (Transtrum, Sethna and colleagues) characterises the magnitude
+side — which parameters are stiff and which are sloppy. We adopt that machinery and place it
+inside the scarcity narrative; the novelty is its unification with structure recovery and the
+controlled cross-system replication, not the discovery that parameters can be sloppy.</p>
+<p><strong>Magnitude borrowing is meta-learning, not mixed-effects.</strong> When a per-system magnitude is
+unrecoverable, the framework sources it from a cross-system prior by warm-started, few-shot
+adaptation (in the lineage of MAML, Finn et al.; Reptile) transported across a federation
+(FedAvg, McMahan et al.) — not by fitting population fixed effects with individual random effects.
+The system shares <em>structure</em> and borrows <em>magnitudes</em>; it never pools them into a single
+hierarchical regression, so non-linear mixed-effects modelling is not the relevant neighbour
+despite the surface resemblance of "borrow from a cohort."</p>
+<p><strong>Two axes of departure.</strong> Against all of the above the work differs on two axes that, together,
+are the contribution:</p>
+<ol>
+<li><em>Typed population, not single semantics.</em> Existing discovery recovers one privileged
+   relationship type; we maintain a competing population of fifteen. Single-relationship
+   discovery — causal discovery being its most-developed instance, because causal is the hardest
+   — is the special case, not the parent.</li>
+<li><em>Marker, not target.</em> Every structure-learning method treats the recovered graph as the
+   <em>object of interest</em> — the thing one wanted. We treat it as a <em>marker</em> of a latent
+   organizational identity, a lossy indicator of an unobserved invariant, which no discovery
+   method does. This is the deeper departure, and it is what ties the method back to the theory:
+   the graph grows with more data and more variables, while the identity it marks does not.</li>
+</ol>
+<p>The epistemology is borrowed with acknowledgment. Treating identity as a latent inferred from
+convergent markers is the logic of construct validity (Cronbach &amp; Meehl); defining it by its
+invariance group follows Klein's Erlangen program; and the term <em>organizational identity</em> is taken
+from organization theory (Albert &amp; Whetten) and given a dynamical-systems meaning here.</p>
+<hr />
+<h2>7. Discussion</h2>
+<h3>7.1 The scarcity-paradox resolution, made concrete</h3>
+<p>The hierarchy gives the governance rule operational teeth. A per-patient twin may state form
+and direction confidently ("inflammation tends to drive this patient's fatigue"; "glucose
+harms this patient's β-cells") because those are recoverable. It must label every slow
+magnitude as cohort-derived ("how <em>fast</em>, we estimate from people like you, not yet from
+you"), because those are not. Magnitude supply is then a separate pipeline — a meta-learned
+warm-start prior, adapted few-shot and transported across a federation without raw data,
+reported with uncertainty that widens under scarcity — rather than a free per-patient
+estimate. The theory thus does not forbid mechanistic, decision-grade twins; it specifies
+the provenance every quantity must carry.</p>
+<h3>7.2 Why a controlled biological test matters</h3>
+<p>The macroeconomic results cannot, on their own, distinguish "form is recoverable" from "our
+estimator is lucky," because there is no ground-truth graph and no way to compute parameter
+identifiability exactly. The biological twin removes both ambiguities. Its generative
+equations are known, so recovery is scored against truth; it is differentiable, so
+identifiability is the exact sensitivity, not an estimator's variance. The cost is that the
+generator and the recovery target share a model — there is no model mismatch — so the result
+is a statement about <em>identifiability in principle</em>, the cleanest possible form of the claim,
+and explicitly not a statement about real patients.</p>
+<h3>7.3 Clinical reading</h3>
+<p>Each head's hierarchy maps onto a familiar clinical intuition. In adaptive cancer therapy,
+the contained resistant clone's growth rate is the decisive unknown and is precisely the
+parameter one cannot measure while the clone is suppressed — the dilemma the strategy is
+built around. In diabetes, the direction "hyperglycaemia damages β-cells" is available long
+before an individual's damage <em>rate</em>. In fibromyalgia, the gate-control couplings and the
+descending-inhibition strength are identifiable, but the central-sensitization rate — how
+fast wind-up builds — is the sloppy magnitude. In each case the theory predicts which
+clinical quantity is per-patient and which must be borrowed.</p>
+<hr />
+<h2>8. Limitations</h2>
+<p><em>Macroeconomic domain.</em></p>
+<ul>
+<li><strong>No ground-truth graph on real data.</strong> The macroeconomic recovery is scored against
+  <em>plausibility</em> and a synthetic benchmark, not a known real generative graph; the engine
+  measures Granger-predictive recovery, not interventional identification (a non-causal shock
+  propagates through the discovered graph as readily as a real one).</li>
+<li><strong>Calibration-dependent and baseline-competitive.</strong> Raw engine confidence is uncalibrated
+  (41% null FPR); only the post-hoc permutation/FDR/stability calibration is defensible, and
+  even then simple sparse baselines (graphical lasso, correlation+AR) are close — the engine's
+  edge is first-ground-truth rank and breadth, not blanket accuracy.</li>
+<li><strong>Annual frequency, small N.</strong> ≈34 observations per country; graph-conditioning helps only
+  above ~200 effective observations, and differences between methods are frequently inside
+  bootstrap confidence intervals.</li>
+</ul>
+<p><em>Biological domain.</em></p>
+<ul>
+<li><strong>Synthetic ground truth.</strong> All biological results are simulation-generated and labelled as
+  such. They are mechanistic-generalisation evidence, not clinical validity; no number here
+  should be used on a patient. A clinical test requires the same battery on real cohort data
+  and is gated on data access by design.</li>
+<li><strong>The generator fits itself.</strong> The magnitude forward is the exact generating model, so the
+  result bounds identifiability <em>in principle</em>; real data would add model mismatch.</li>
+<li><strong>Heterogeneous "slow" parameters.</strong> Diabetes' slow magnitude rises in identifiability with
+  horizon; the oncology and fibromyalgia slow magnitudes are closer to structurally swamped
+  (flat, near-zero sensitivity). Both are valid for the hierarchy claim, but they are
+  different phenomena and we do not conflate them.</li>
+<li><strong>Sloppiness is established.</strong> Stiff/sloppy parameter spectra are well known in systems
+  biology; our novelty is the unification with scarcity-limited structure recovery and the
+  controlled cross-system replication, not the discovery that parameters can be sloppy.</li>
+<li><strong>Form-recovery precision.</strong> Form F1 plateaus below 1.0 for the multi-variable heads
+  because the engine confirms indirect edges (correlations between children of a common
+  driver). The robust claim is form F1 ≫ shuffle F1 ≈ 0, not form F1 ≈ 1.</li>
+<li><strong>Shuffle leaks at large N.</strong> The per-variable shuffle null is ≈0 in almost all cells but
+  leaks to a moderate value in isolated large-N cases (fibromyalgia, the former CNS head),
+  where heavy-tailed marginals can yield spurious correlational edges.</li>
+<li><strong>No single validated fibromyalgia ODE.</strong> Unlike diabetes (Topp), fibromyalgia lacks a
+  gold-standard quantitative model; the central-sensitization block is a literature-grounded
+  extension of the published gate-control loop, documented as such, with time in model units.</li>
+<li><strong>Three seeds.</strong> Each head is summarised over three independently seeded patients; the
+  across-seed 95% interval is reported in Section 5.2. Form F1 carries zero seed variance, but the
+  magnitude intervals are wide at n=3 — the stiff/slow separation is significant at every horizon
+  except autoimmune's smallest (N=200), where the intervals overlap. Larger seed counts would
+  tighten these intervals.</li>
+</ul>
+<p><em>Financial-markets domain.</em></p>
+<ul>
+<li><strong>Observational, not interventional.</strong> As in macroeconomics, recovery is Granger-predictive
+  and the offline effects are do-calculus on observational data; there are no interventions, and
+  the do-calculus identification rests on the usual unconfoundedness assumptions given the
+  adjustment set.</li>
+<li><strong>The exploitability failure is confounded, deliberately.</strong> The finding that the recovered
+  effect cannot be traded profitably conflates three causes we cannot separate here: genuine
+  market efficiency, retail-scale transaction costs, and a trade-derived feature set with no
+  limit-order-book depth (no true microprice or queue imbalance). It is evidence that <em>this</em>
+  structure is unexploitable under <em>these</em> costs, not a claim that no microstructure edge exists
+  for any participant.</li>
+<li><strong>Single asset, short window.</strong> One instrument (BTC/USD) over six days of five-second bars.
+  Breadth across assets, venues, and regimes is future work; the domain establishes the pattern,
+  not its universality across markets.</li>
+<li><strong>Discovered orientation is less stable than discovered structure.</strong> The typed graph is stable
+  enough to read the relation <em>types</em> off reliably, but the discovered <em>parents</em> of a specific
+  target flicker between runs at the observation caps required to keep the non-vectorised engine
+  tractable (discovery is quadratic in panel width). The type-level claims are robust; the
+  node-level adjustment set at small caps is not, and we lean on the offline arm's own adjustment
+  where a specific effect is estimated.</li>
+</ul>
+<hr />
+<h2>9. Conclusion</h2>
+<p>We introduced <strong>Organizational Identity Theory for Dynamic Data</strong>: a framing of what is
+recoverable from scarce, drifting systems as a partially persistent organizational identity — a
+latent continuity inferred from <em>markers</em>, chief among them the topological-conjugacy class of a
+system's flow and its recoverable projection, the typed dependency graph — distinct from the
+magnitudes that drift within it. We supported the theory in three domains. In
+<strong>macroeconomics</strong>, on real federated time series across seven economies, the recovered
+structure helps shallow consumers (type-aware features +4–7%) while progressively deeper
+magnitude-hungry consumers fail monotonically (a graph neural network +96% over a naive
+baseline) — the scarcity paradox, measured. In <strong>biology</strong>, on a mechanistic twin that serves
+as its own ground truth, a streaming engine recovers the known coupling structure across four
+organ systems while a temporal-shuffle null collapses; identifiability separates into a stiff
+tier recoverable from a handful of observations and a slow/sloppy tier that is not; and an
+offline do-calculus engine recovers a known causal effect that naive estimation biases
+four-fold. In <strong>financial markets</strong>, on six days of real Bitcoin microstructure, the same
+engine — pointed blind at the order-flow panel — autonomously recovers and correctly <em>types</em>
+the relationship graph, the online-form/offline-magnitude split holds against an efficient
+market (no confidence threshold certifies the directional edge with a clean shuffle null, yet
+the offline engine recovers a robust order-flow → return effect, placebo p &lt; 0.001), and the
+scarcity paradox turns literal: the effect is transient and below transaction cost at every
+horizon, so a magnitude-hungry trading strategy loses while the disciplined engine abstains —
+and the engine's own typed discovery points to the one recoverable magnitude here, a
+realized-volatility forecast reaching out-of-sample R² 0.40. The honest form of the result is a recoverability hierarchy rather than a flat
+form-versus-magnitude split, with the non-recoverability of slow magnitudes as the
+load-bearing, cohort-borrowing-justifying claim. The same machinery that recovers structure
+should therefore <em>refuse</em> to estimate slow magnitudes per-system, and source them instead
+from a cohort, with uncertainty that widens under scarcity.</p>
+<p>We present this as the <strong>foundational paper</strong> of the theory, not its last word. The three
+domains here were chosen to be complementary — real-world breadth (macroeconomics), controlled
+ground truth (biology), and a priced adversarial test (financial markets) — and to establish
+the framework: definitions, the seven rules of identity, hypotheses,
+falsification criteria, and a reusable recovery / identifiability / shuffle-control battery.
+Throughout, we treated the recovered graphs, motifs, and fingerprints as <em>markers</em> of a latent
+organizational identity, never as the identity itself. The immediate next step — the programme's
+<strong>first empirical paper</strong> — is the decisive test of that latent: whether the markers <em>concord</em>
+(H3), run with the positive (the Topp oracle) and negative (independent noise) controls of
+Section 3.7. Beyond it the programme has two natural axes of extension. <em>Depth</em>: carry the
+biological battery to real patient cohorts — the
+clinical test the synthetic-honesty rule reserves. <em>Breadth</em>: carry the same battery to
+further domains in which systems drift under scarcity — engineered and physical sensor
+systems, ecological and climate dynamics, neural recordings — each a new opportunity to
+confirm the recoverability hierarchy or to falsify it. A theory of what is recoverable should
+be judged by how widely its single prediction — form and stiff magnitudes recover, slow and
+sloppy magnitudes do not — continues to hold; that adjudication is the work this paper begins.</p>
+<hr />
+<h2>References</h2>
+<ol>
+<li>Topp B., Promislow K., De Vries G., Miura R.M., Finegood D.T. (2000). A model of β-cell
+   mass, insulin, and glucose kinetics: pathways to diabetes. <em>J. Theor. Biol.</em> 206:605–619.</li>
+<li>Zhang J., Cunningham J.J., Brown J.S., Gatenby R.A. (2017). Integrating evolutionary
+   dynamics into treatment of metastatic castrate-resistant prostate cancer. <em>Nat. Commun.</em>
+   8:1816.</li>
+<li>West J. et al. (2022). Towards multidrug adaptive therapy. <em>eLife</em> 11:e76284.</li>
+<li>Melzack R., Wall P.D. (1965). Pain mechanisms: a new theory. <em>Science</em> 150:971–979.</li>
+<li>Britton N.F., Skevington S.M. (1989). A mathematical model of the gate control theory of
+   pain. <em>J. Theor. Biol.</em> 137:91–105.</li>
+<li>Staud R. et al. Slow temporal summation of pain for assessment of central pain
+   sensitivity and clinical pain of fibromyalgia patients. <em>PLoS One</em> (PMC3928405).</li>
+<li>Vélez de Mendizábal N. et al. (2011). Modeling the effector–regulatory T cell
+   cross-regulation reveals the intrinsic character of relapses in multiple sclerosis. <em>BMC
+   Syst. Biol.</em> 5:114.</li>
+<li>Raj A., Kuceyeski A., Weiner M. (2012). A network diffusion model of disease progression
+   in dementia. <em>Neuron</em> 73:1204–1215.</li>
+<li>Fornari S., Schäfer A., Jucker M., Goriely A., Kuhl E. (2019). Prion-like spreading of
+   Alzheimer's disease within the brain's connectome. <em>J. R. Soc. Interface</em> 16:20190356.</li>
+<li>Transtrum M.K., Machta B.B., Brown K.S., Daniels B.C., Myers C.R., Sethna J.P. (2015).
+    Perspective: Sloppiness and emergent theories in physics, biology, and beyond. <em>J. Chem.
+    Phys.</em> 143:010901.</li>
+<li>Benjamini Y., Hochberg Y. (1995). Controlling the false discovery rate. <em>J. R. Stat.
+    Soc. B</em> 57:289–300.</li>
+<li>Friedman J., Hastie T., Tibshirani R. (2008). Sparse inverse covariance estimation with
+    the graphical lasso. <em>Biostatistics</em> 9:432–441.</li>
+<li>Phipson B., Smyth G.K. (2010). Permutation P-values should never be zero. <em>Stat. Appl.
+    Genet. Mol. Biol.</em> 9:Article 39.</li>
+<li>Granger C.W.J. (1969). Investigating causal relations by econometric models and
+    cross-spectral methods. <em>Econometrica</em> 37:424–438.</li>
+<li>McMahan H.B. et al. (2017). Communication-efficient learning of deep networks from
+    decentralized data. <em>AISTATS</em> (FedAvg).</li>
+<li>Ansari A.F. et al. (2024). Chronos: learning the language of time series. <em>arXiv:2403.07815</em>.</li>
+<li>Albert S., Whetten D.A. (1985). Organizational identity. <em>Research in Organizational
+    Behavior</em> 7:263–295.</li>
+<li>Cronbach L.J., Meehl P.E. (1955). Construct validity in psychological tests. <em>Psychological
+    Bulletin</em> 52:281–302.</li>
+<li>Klein F. (1893). A comparative review of recent researches in geometry [the Erlangen
+    Program]. <em>Bull. New York Math. Soc.</em> 2:215–249.</li>
+<li>Zhao X., Lynch J.G., Chen Q. (2010). Reconsidering Baron and Kenny: myths and truths about
+    mediation analysis. <em>J. Consumer Research</em> 37:197–206.</li>
+</ol>
+<hr />
+<p><em>Reproducibility.</em> The biological results are produced by <code>biotwin/validation/</code> —
+<code>recovery_bridge.py</code> (online Granger bridge and sensitivity), <code>dissociation.py</code> (diabetes
+hierarchy), <code>heads.py</code> (oncology / fibromyalgia / autoimmune sweeps and the oncology
+breakpoint), <code>causal_offline.py</code> (the offline DoWhy/EconML magnitude arm and the
+confounded-cohort effect recovery, built on <code>scarcity.causal</code>), and <code>identity.py</code> (the
+attractor-fingerprint measurement of Section 5.6). Disease heads are in <code>biotwin/disease/</code>. Per-head result tables are written to <code>biotwin/validation/RESULTS.md</code>
+and the accompanying JSON files.</p>
+                </article>
+
+                <!-- Mobile Navigation (Bottom) -->
+                
+
+            </main>
+
+    </div>
+
+</div>
+
+    </main>
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA MAKENA</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2026 Omega Makena.<br>
+                        Engineering Intelligence.
+                    </div>
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // FlatPages/Pygments strips the `language-mermaid` class and injects spans.
+            // We search for all code blocks and check if the unformatted text indicates a diagram.
+            const allCodeBlocks = document.querySelectorAll(".codehilite code, pre code");
+            const blocksToProcess = [];
+            
+            allCodeBlocks.forEach(function(block) {
+                const text = block.textContent.trim();
+                if (text.startsWith("flowchart") || text.startsWith("sequenceDiagram") || text.startsWith("graph") || text.startsWith("stateDiagram")) {
+                    blocksToProcess.push({block: block, text: text});
+                }
+            });
+
+            blocksToProcess.forEach(function(item) {
+                const div = document.createElement('div');
+                div.className = 'mermaid flex justify-center w-full overflow-x-auto my-8'; 
+                div.textContent = item.text;
+                
+                const container = item.block.closest('.codehilite') || item.block.closest('pre');
+                if (container) {
+                    container.replaceWith(div);
+                }
+            });
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'neutral',
+                themeVariables: {
+                    'background': 'transparent',
+                    'primaryColor': '#18181B',
+                    'primaryTextColor': '#18181B',
+                    'lineColor': '#a3a3a3',
+                    'fontSize': '14px'
+                }
+            });
+            
+            if (blocksToProcess.length > 0) {
+                // Let the browser paint the divs before running mermaid
+                setTimeout(() => {
+                    mermaid.run({ querySelector: '.mermaid' });
+                }, 50);
+            }
+        });
+    </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+</body>
+
+</html>
