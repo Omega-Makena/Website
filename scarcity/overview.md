@@ -44,6 +44,6 @@ Scarcity is also the framework from which [**Organizational Identity Theory**](/
 
 ### Version Information
 
-*   **Version**: `1.0.0`
+*   **Version**: `0.4.0-beta`
 *   **Author**: Omega Makena
 *   **License**: Apache-2.0 (See LICENSE file)
