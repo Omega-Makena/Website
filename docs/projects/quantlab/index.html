@@ -439,6 +439,31 @@ Live Broker
 </blockquote>
                 </article>
 
+                <!-- Next / Previous Navigation -->
+                
+                <nav class="mt-16 pt-8 border-t border-gray-200/20 flex flex-col sm:flex-row justify-between gap-6" aria-label="Pagination">
+                    
+                    <a href="/projects/market-microstructure/" class="flex-1 group flex flex-col items-start p-4 border border-border-main rounded-lg hover:border-accent-main transition-colors">
+                        <span class="text-xs font-mono text-text-muted mb-1">Older</span>
+                        <span class="text-sm font-bold text-text-primary group-hover:text-accent-main transition-colors text-left flex items-center gap-2">
+                            <span>←</span>
+                            <span>High-Frequency Market Microstructure</span>
+                        </span>
+                    </a>
+                    
+
+                    
+                    <a href="/projects/organizational-identity-theory/" class="flex-1 group flex flex-col items-end p-4 border border-border-main rounded-lg hover:border-accent-main transition-colors text-right">
+                        <span class="text-xs font-mono text-text-muted mb-1">Newer</span>
+                        <span class="text-sm font-bold text-text-primary group-hover:text-accent-main transition-colors text-right flex items-center gap-2">
+                            <span>Organizational Identity Theory</span>
+                            <span>→</span>
+                        </span>
+                    </a>
+                    
+                </nav>
+                
+
                 <!-- Mobile Navigation (Bottom) -->
                 
 
@@ -447,6 +472,36 @@ Live Broker
     </div>
 
 </div>
+
+<!-- Scroll to Top Button -->
+<button id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-zinc-900 border border-zinc-700 text-white p-3 rounded-full shadow-lg opacity-0 pointer-events-none transition-all duration-300 hover:bg-zinc-800 hover:scale-110 z-50 flex items-center justify-center" aria-label="Scroll to top">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+</button>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                scrollToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                scrollToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+        });
+        
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
 
     </main>
 

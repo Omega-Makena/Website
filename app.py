@@ -194,7 +194,7 @@ def scarcity_page(subpath):
 
 
 def render_flatpage(path):
-    """Render a FlatPages entry with contextual sidebar"""
+    """Render a FlatPages entry with contextual sidebar and next/prev links"""
     page = flatpages.get(path)
     if not page:
         abort(404)
@@ -204,49 +204,77 @@ def render_flatpage(path):
     back_label = "Back to Home"
     back_url = "/"
     
+    prev_page = None
+    next_page = None
+    
     # context: Scarcity
     if path.startswith('scarcity/'):
         sidebar_title = "Framework Manual"
         back_label = "← Back to Project"
         back_url = "/scarcity/"
-        # Format for sidebar: (Title, URL)
-        for title, p_path in SCARCITY_SECTIONS:
+        
+        idx = -1
+        for i, (title, p_path) in enumerate(SCARCITY_SECTIONS):
             sidebar_items.append({
                 'title': title,
                 'url': page_url(p_path),
                 'active': p_path == path
             })
+            if p_path == path:
+                idx = i
+                
+        if idx > 0:
+            prev_page = {'title': SCARCITY_SECTIONS[idx-1][0], 'url': page_url(SCARCITY_SECTIONS[idx-1][1])}
+        if idx != -1 and idx < len(SCARCITY_SECTIONS) - 1:
+            next_page = {'title': SCARCITY_SECTIONS[idx+1][0], 'url': page_url(SCARCITY_SECTIONS[idx+1][1])}
             
-    # context: Research Log
-    elif path.startswith('research-log/'):
-        sidebar_title = "Recent Logs"
-        back_label = "← Back to Lab Notes"
-        back_url = "/lab-notes/"
-        # Get last 5 logs
-        logs = [p for p in flatpages if p.path.startswith('research-log/')]
-        logs.sort(key=get_page_date, reverse=True)
-        for p in logs[:5]:  # type: ignore
-            sidebar_items.append({
-                'title': p.meta.get('title', 'Untitled'),
-                'url': page_url(p.path),
-                'active': p.path == path
-            })
+    else:
+        prefix = path.split('/')[0] + '/'
+        if prefix == 'research-log/':
+            sidebar_title = "Recent Logs"
+            back_label = "← Back to Lab Notes"
+            back_url = "/lab-notes/"
+        elif prefix == 'writing/':
+            sidebar_title = "Recent Essays"
+            back_label = "← Back to Lab Notes"
+            back_url = "/lab-notes/"
+        elif prefix == 'library/':
+            sidebar_title = "Library"
+            back_label = "← Back to Library"
+            back_url = "/library/"
+        elif prefix == 'projects/':
+            sidebar_title = "Projects"
+            back_label = "← Back to Projects"
+            back_url = "/projects/"
 
-    # context: Writing
-    elif path.startswith('writing/'):
-        sidebar_title = "Recent Essays"
-        back_label = "← Back to Lab Notes"
-        back_url = "/lab-notes/"
-        essays = [p for p in flatpages if p.path.startswith('writing/')]
-        essays.sort(key=get_page_date, reverse=True)
-        for p in essays[:5]:  # type: ignore
-            sidebar_items.append({
-                'title': p.meta.get('title', 'Untitled'),
-                'url': page_url(p.path),
-                'active': p.path == path
-            })
+        # Group pages for next/prev
+        group_pages = [p for p in flatpages if p.path.startswith(prefix)]
+        group_pages.sort(key=get_page_date, reverse=True)
+        
+        try:
+            idx = group_pages.index(page)
+            # In descending date sort: idx - 1 is Newer, idx + 1 is Older
+            if idx > 0:
+                p_new = group_pages[idx-1]
+                next_page = {'title': p_new.meta.get('title', 'Untitled'), 'url': page_url(p_new.path), 'label': 'Newer'}
+            if idx < len(group_pages) - 1:
+                p_old = group_pages[idx+1]
+                prev_page = {'title': p_old.meta.get('title', 'Untitled'), 'url': page_url(p_old.path), 'label': 'Older'}
+        except ValueError:
+            pass
 
-    return render_template('page.html', page=page, sidebar_title=sidebar_title, sidebar_items=sidebar_items, back_label=back_label, back_url=back_url)
+        # Populate sidebar for specific contexts
+        if prefix in ('research-log/', 'writing/'):
+            for p in group_pages[:5]:
+                sidebar_items.append({
+                    'title': p.meta.get('title', 'Untitled'),
+                    'url': page_url(p.path),
+                    'active': p.path == path
+                })
+
+    return render_template('page.html', page=page, sidebar_title=sidebar_title, 
+                           sidebar_items=sidebar_items, back_label=back_label, 
+                           back_url=back_url, prev_page=prev_page, next_page=next_page)
 
 @app.route('/library/')
 def library_index():
