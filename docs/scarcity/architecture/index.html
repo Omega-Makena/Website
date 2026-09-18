@@ -166,6 +166,13 @@
             height: auto;
             filter: grayscale(100%) contrast(1.2);
         }
+
+        /* Mermaid mobile scrolling */
+        .mermaid, pre.mermaid {
+            overflow-x: auto;
+            max-width: 100%;
+            padding-bottom: 1rem;
+        }
     </style>
 </head>
 
@@ -389,7 +396,11 @@
                             prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
                             prose-ul:list-disc prose-ul:pl-6
                             prose-li:marker:text-accent-main prose-li:my-2">
-                    <h2>Table of Contents</h2>
+                    <h2>Executive Summary</h2>
+<p>The Scarcity core architecture is built for continuous, real-time discovery of structural relationships in highly constrained data environments. Rather than relying on massive historical datasets, it uses an <strong>Online Learning Engine (MPIE)</strong> to maintain competing hypotheses of the world, evaluated on the fly. </p>
+<p>To operate in production, it is governed by a <strong>Dynamic Resource Governor (DRG)</strong> that dynamically adjusts computational load, while the <strong>Meta-Learning Layer</strong> (powered by a REPTILE optimizer) continuously adapts learning rates and exploration strategies across domains. Finally, all learnings are synthesized and protected via a <strong>Federated Learning</strong> layer that ensures privacy and guards against adversarial poisoning.</p>
+<hr />
+<h2>Table of Contents</h2>
 <ol>
 <li><a href="#1-meta-learning-layer">Meta-Learning Layer</a></li>
 <li><a href="#2-online-learning-engine-mpie">Online Learning Engine (MPIE)</a></li>

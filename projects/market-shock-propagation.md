@@ -11,6 +11,9 @@ category: Professional Work
 
 I am currently working on a market-intelligence system for the Nairobi Securities Exchange, as the first market in a broader effort to develop models for understanding information, exposure, and shock propagation across financial markets.
 
+> [!NOTE] 
+> **Ecosystem Context:** NSE Insight leverages the causal mapping capabilities of the [Scarcity core engine](/scarcity/) to track how economic shocks and information propagate through securities. It runs parallel to [KShield's](/projects/kshield/) macroeconomic analysis, applying similar structural discovery principles to high-frequency financial markets.
+
 The work focuses on a question broader than short-term price prediction:
 
 > **When new information enters a market, which entities are exposed, how might its effects propagate, and what response can the available evidence support?**

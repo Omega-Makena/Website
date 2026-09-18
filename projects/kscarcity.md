@@ -10,6 +10,9 @@ KScarcity is a unified national-level platform that gives the government a real-
 
 It analyzes data across sectoral, institutional, and national layers, trains machine learning models in real time, explains the five W's and one H, simulates risks and policy responses, and allows collaboration for planning and preparing for future shocks. Essentially, it integrates monitoring, analysis, and simulation tailored to a country's needs.
 
+> [!NOTE] 
+> **Ecosystem Context:** KScarcity is the macroscopic orchestration platform that unites [KShield's](/projects/kshield/) agent-based modeling and [K-Pulse's](/projects/kpulse/) data ingestion into a single command-and-control layer, all underpinned by the [Scarcity core engine](/scarcity/).
+
 ---
 
 ## 1. Full System Data Flow

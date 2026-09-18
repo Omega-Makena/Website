@@ -8,6 +8,9 @@ description: Agent-based economic simulation system modeling Kenya's economy.
 
 KShield is an agent-based economic simulation system that models Kenya's economy by representing sectors and actors as adaptive decision-making agents. 
 
+> [!NOTE] 
+> **Ecosystem Context:** KShield is the primary applied policy simulation environment powered by the [Scarcity core engine](/scarcity/). While Scarcity discovers the causal relationships, KShield executes them in an agent-based environment to forecast macro-level shifts and social sentiment.
+
 ---
 
 ## 1. K-SHIELD — Module Architecture

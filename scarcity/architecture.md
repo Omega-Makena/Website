@@ -4,6 +4,14 @@ description: Scarcity core architecture, including Meta-Learning, MPIE, DRG, Sim
 date: 2026-09-18
 ---
 
+## Executive Summary
+
+The Scarcity core architecture is built for continuous, real-time discovery of structural relationships in highly constrained data environments. Rather than relying on massive historical datasets, it uses an **Online Learning Engine (MPIE)** to maintain competing hypotheses of the world, evaluated on the fly. 
+
+To operate in production, it is governed by a **Dynamic Resource Governor (DRG)** that dynamically adjusts computational load, while the **Meta-Learning Layer** (powered by a REPTILE optimizer) continuously adapts learning rates and exploration strategies across domains. Finally, all learnings are synthesized and protected via a **Federated Learning** layer that ensures privacy and guards against adversarial poisoning.
+
+---
+
 ## Table of Contents
 
 1. [Meta-Learning Layer](#1-meta-learning-layer)

@@ -166,6 +166,13 @@
             height: auto;
             filter: grayscale(100%) contrast(1.2);
         }
+
+        /* Mermaid mobile scrolling */
+        .mermaid, pre.mermaid {
+            overflow-x: auto;
+            max-width: 100%;
+            padding-bottom: 1rem;
+        }
     </style>
 </head>
 
@@ -273,6 +280,10 @@
                     <h1>KScarcity Unified Platform</h1>
 <p>KScarcity is a unified national-level platform that gives the government a real-time overview of policies, sectoral activities, and institutional operations. </p>
 <p>It analyzes data across sectoral, institutional, and national layers, trains machine learning models in real time, explains the five W's and one H, simulates risks and policy responses, and allows collaboration for planning and preparing for future shocks. Essentially, it integrates monitoring, analysis, and simulation tailored to a country's needs.</p>
+<blockquote>
+<p>[!NOTE] 
+<strong>Ecosystem Context:</strong> KScarcity is the macroscopic orchestration platform that unites <a href="/projects/kshield/">KShield's</a> agent-based modeling and <a href="/projects/kpulse/">K-Pulse's</a> data ingestion into a single command-and-control layer, all underpinned by the <a href="/scarcity/">Scarcity core engine</a>.</p>
+</blockquote>
 <hr />
 <h2>1. Full System Data Flow</h2>
 <div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>

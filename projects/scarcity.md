@@ -19,6 +19,9 @@ Instead of asking a model to learn the whole system from sparse observations, **
 
 That became Scarcity.
 
+> [!NOTE]
+> **Ecosystem Context:** Scarcity is the core computational engine and theoretical framework that powers several applied platforms. It provides the causal discovery layer for [KShield](/projects/kshield/), which models national economies; [KScarcity](/projects/kscarcity/), a macroscopic orchestration platform; and the [NSE Insight](/projects/nse-insight) market-intelligence system. You can explore the [internal architecture of the Scarcity engine here](/scarcity/architecture/).
+
 ---
 
 ## What Scarcity Does

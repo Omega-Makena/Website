@@ -166,6 +166,13 @@
             height: auto;
             filter: grayscale(100%) contrast(1.2);
         }
+
+        /* Mermaid mobile scrolling */
+        .mermaid, pre.mermaid {
+            overflow-x: auto;
+            max-width: 100%;
+            padding-bottom: 1rem;
+        }
     </style>
 </head>
 
@@ -272,6 +279,10 @@
                             prose-li:marker:text-accent-main prose-li:my-2">
                     <h1>KShield — Simulation &amp; Impact Architecture</h1>
 <p>KShield is an agent-based economic simulation system that models Kenya's economy by representing sectors and actors as adaptive decision-making agents. </p>
+<blockquote>
+<p>[!NOTE] 
+<strong>Ecosystem Context:</strong> KShield is the primary applied policy simulation environment powered by the <a href="/scarcity/">Scarcity core engine</a>. While Scarcity discovers the causal relationships, KShield executes them in an agent-based environment to forecast macro-level shifts and social sentiment.</p>
+</blockquote>
 <hr />
 <h2>1. K-SHIELD — Module Architecture</h2>
 <div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>

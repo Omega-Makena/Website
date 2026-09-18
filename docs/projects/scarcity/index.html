@@ -166,6 +166,13 @@
             height: auto;
             filter: grayscale(100%) contrast(1.2);
         }
+
+        /* Mermaid mobile scrolling */
+        .mermaid, pre.mermaid {
+            overflow-x: auto;
+            max-width: 100%;
+            padding-bottom: 1rem;
+        }
     </style>
 </head>
 
@@ -277,6 +284,10 @@
 <p>So I changed the question.</p>
 <p>Instead of asking a model to learn the whole system from sparse observations, <strong>what if we first recovered the structure of the system itself?</strong></p>
 <p>That became Scarcity.</p>
+<blockquote>
+<p>[!NOTE]
+<strong>Ecosystem Context:</strong> Scarcity is the core computational engine and theoretical framework that powers several applied platforms. It provides the causal discovery layer for <a href="/projects/kshield/">KShield</a>, which models national economies; <a href="/projects/kscarcity/">KScarcity</a>, a macroscopic orchestration platform; and the <a href="/projects/nse-insight">NSE Insight</a> market-intelligence system. You can explore the <a href="/scarcity/architecture/">internal architecture of the Scarcity engine here</a>.</p>
+</blockquote>
 <hr />
 <h2>What Scarcity Does</h2>
 <p>Scarcity processes data as a stream and builds a <strong>typed, evolving relationship graph</strong> of the system.</p>
