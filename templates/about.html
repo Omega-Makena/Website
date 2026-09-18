@@ -9,6 +9,7 @@
     {% if config.personal.bio %}
     <div class="max-w-3xl mb-16 md:mb-20">
         <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary mb-8">About {{ config.personal.name }}</h1>
+        <p class="font-mono text-sm text-accent-main mb-6 uppercase tracking-widest">Quantitative Researcher & Machine Learning Engineer</p>
         <div class="prose prose-lg max-w-none prose-p:text-text-secondary prose-p:leading-relaxed prose-strong:text-text-primary prose-a:text-accent-main prose-a:no-underline hover:prose-a:underline">
             {{ config.personal.bio|safe }}
         </div>
@@ -17,46 +18,24 @@
 
     <div class="grid gap-6 lg:grid-cols-3">
 
-        <!-- COLUMN 1: Identity & Core -->
-        <div class="space-y-6">
-
-            <!-- Who you are (Terminal) -->
-            <div class="bg-zinc-950 rounded-lg p-6 border border-zinc-800 shadow-xl overflow-hidden relative group">
-                <div class="font-mono text-sm text-accent-main mb-4">
-                    <span class="text-zinc-500">$</span> whoami
-                </div>
-
-                <h2 class="text-2xl font-bold text-white mb-2 font-serif tracking-wide">{{ config.personal.name }}</h2>
-                <div class="h-1 w-12 bg-accent-main mb-4"></div>
-
-                <p class="text-zinc-400 leading-relaxed font-sans text-sm">
-                    Quantitative Researcher & Machine Learning Engineer.
+        <!-- COLUMN 1: Research Position -->
+        <div class="space-y-6 lg:col-span-1">
+            <div class="omega-card bg-bg-card p-8 border border-border-main hover:border-accent-main transition-colors group h-full">
+                <h3 class="text-lg font-serif font-bold text-text-primary mb-4 group-hover:text-accent-main transition-colors">
+                    Research Position
+                </h3>
+                <blockquote class="text-text-muted italic border-l-2 border-accent-main/30 pl-4 py-1 text-sm leading-relaxed">
+                    "I am interested in understanding systems well enough to know what can be inferred from them, what cannot, and why.
                     <br><br>
-                    Operating at the intersection of software engineering and mathematics, discovering structural invariance in complex systems.
-                </p>
-            </div>
-
-            <!-- What you research -->
-            <div
-                class="omega-card bg-bg-card p-8 border border-border-main hover:border-accent-main transition-colors group">
-                <h3
-                    class="text-lg font-serif font-bold text-text-primary mb-4 group-hover:text-accent-main transition-colors">
-                    Research Philosophy</h3>
-                <blockquote
-                    class="text-text-muted italic border-l-2 border-accent-main/30 pl-4 py-1 text-sm leading-relaxed">
-                    "Efficiency is everything. If a process is manual or repetitive, my instinct is to automate it.
-                    <br><br>
-                    The best architectures are honest about what they don't know, and they learn structure when data is scarce."
+                    That distinction is often more useful than another model."
                 </blockquote>
             </div>
-
         </div>
 
-        <!-- COLUMN 2 & 3: The Narrative -->
+        <!-- COLUMN 2 & 3: Current Work -->
         <div class="lg:col-span-2 space-y-6">
 
-            <!-- Scarcity & Work -->
-            <div class="omega-card bg-white p-10 border border-border-main relative overflow-hidden">
+            <div class="omega-card bg-white p-10 border border-border-main relative overflow-hidden h-full">
                 <div class="absolute top-0 right-0 p-4 opacity-10">
                     <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -65,102 +44,49 @@
                 </div>
 
                 <div class="mb-8">
-                    <h2 class="text-3xl font-serif font-bold text-text-primary mb-2">RESEARCH & WORK</h2>
-                    <p class="font-mono text-sm text-accent-main tracking-widest uppercase">How I build systems that survive reality.</p>
+                    <h2 class="text-3xl font-serif font-bold text-text-primary mb-2">CURRENT WORK</h2>
+                    <p class="font-mono text-sm text-accent-main tracking-widest uppercase">Spanning three areas</p>
                 </div>
 
                 <div class="space-y-8 relative pl-2">
                     <!-- Vertical Line -->
                     <div class="absolute left-[7px] top-2 bottom-4 w-0.5 bg-gray-200"></div>
 
-                    <!-- Scarcity -->
-                    <div class="relative pl-8 group">
-                        <div
-                            class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-main bg-white group-hover:bg-accent-main transition-colors">
-                        </div>
-                        <h4 class="font-bold text-text-primary mb-1">Scarcity Framework</h4>
-                        <p class="text-sm text-text-muted leading-relaxed">
-                            My foundational research engine. An online framework that learns the organizational structure of data too thin and too noisy to model directly. It is the basis for Organizational Identity Theory.
-                            <br><span class="text-accent-main font-bold">→ <a href="/projects/scarcity/" class="hover:underline">Explore Scarcity</a></span>
-                        </p>
-                    </div>
-
-                    <!-- Independent Work -->
-                    <div class="relative pl-8 group">
-                        <div
-                            class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-blue bg-white group-hover:bg-accent-blue transition-colors">
-                        </div>
-                        <h4 class="font-bold text-text-primary mb-1">Independent Work & QuantLab</h4>
-                        <p class="text-sm text-text-muted leading-relaxed">
-                            A quantitative research workspace for backtesting, stress-testing, and validating mathematical and machine-learning models under data constraints.
-                            <br><span class="text-accent-blue font-bold">→ <a href="/projects/quantlab/" class="hover:underline">Explore QuantLab</a></span>
-                        </p>
-                    </div>
-
                     <!-- Professional Work -->
                     <div class="relative pl-8 group">
-                        <div
-                            class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-green bg-white group-hover:bg-accent-green transition-colors">
+                        <div class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-main bg-white group-hover:bg-accent-main transition-colors">
                         </div>
                         <h4 class="font-bold text-text-primary mb-1">Professional Work</h4>
                         <p class="text-sm text-text-muted leading-relaxed">
-                            Applying these frameworks to complex problems in industry, including Market Shock Propagation and scalable RAG architectures.
-                            <br><span class="text-accent-green font-bold">→ <a href="/projects/" class="hover:underline">View All Projects</a></span>
+                            Quantitative and machine-learning modelling, including financial and enterprise applications.
+                        </p>
+                    </div>
+
+                    <!-- Independent Research -->
+                    <div class="relative pl-8 group">
+                        <div class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-blue bg-white group-hover:bg-accent-blue transition-colors">
+                        </div>
+                        <h4 class="font-bold text-text-primary mb-1">Independent Research</h4>
+                        <p class="text-sm text-text-muted leading-relaxed">
+                            Scarcity and related work on structural discovery, dynamic systems, and learning under limited observations.
+                        </p>
+                    </div>
+
+                    <!-- Quantitative Research -->
+                    <div class="relative pl-8 group">
+                        <div class="absolute left-0 top-1.5 w-4 h-4 rounded-full border-2 border-accent-green bg-white group-hover:bg-accent-green transition-colors">
+                        </div>
+                        <h4 class="font-bold text-text-primary mb-1">Quantitative Research</h4>
+                        <p class="text-sm text-text-muted leading-relaxed">
+                            Independent experimentation in systematic trading, market microstructure, and financial modelling.
                         </p>
                     </div>
                 </div>
-            </div>
 
-            <div class="grid lg:grid-cols-2 gap-6">
-                <!-- Tech Twirls -->
-                <div
-                    class="bg-gradient-to-br from-indigo-900 to-indigo-950 p-8 rounded-lg text-white relative overflow-hidden flex flex-col justify-between">
-                    <div class="relative z-10">
-                        <h3 class="text-2xl font-serif font-bold mb-1">Tech Twirls</h3>
-                        <p class="text-indigo-300 font-mono text-xs uppercase tracking-widest mb-4">My Community Initiative</p>
-
-                        <p class="text-indigo-100 text-sm leading-relaxed mb-8">
-                            "Mentoring women in tech to build reliable engineering instincts. I am building a
-                            community that survives the hype cycle."
-                        </p>
-                    </div>
-
-                    <div class="relative z-10">
-                        <a href="https://techtwirls.co.ke" target="_blank"
-                            class="block w-full py-3 bg-white text-indigo-900 font-bold text-center text-sm hover:bg-indigo-50 transition-colors rounded-sm uppercase tracking-wide">
-                            Visit techtwirls.co.ke
-                        </a>
-                    </div>
-
-                    <!-- Decor -->
-                    <div class="absolute -bottom-8 -right-8 w-32 h-32 bg-indigo-500 rounded-full blur-3xl opacity-20">
-                    </div>
-                </div>
-
-                <!-- FAQs (Research focused) -->
-                <div class="space-y-3">
-                    <div class="omega-card bg-bg-card p-4 border border-border-main cursor-pointer hover:border-accent-main transition-all"
-                        onclick="this.classList.toggle('active')">
-                        <h4 class="font-bold text-sm text-text-primary flex justify-between items-center mb-1">
-                            Is Scarcity open source?
-                            <span class="text-accent-main text-xs font-mono">∨</span>
-                        </h4>
-                        <p class="text-xs text-text-muted leading-relaxed mt-2 hidden">
-                            Yes. It is designed for public transparency. My goal is to lower the barrier for
-                            high-privacy, low-resource machine learning globally.
-                        </p>
-                    </div>
-
-                    <div class="omega-card bg-bg-card p-4 border border-border-main cursor-pointer hover:border-accent-main transition-all"
-                        onclick="this.classList.toggle('active')">
-                        <h4 class="font-bold text-sm text-text-primary flex justify-between items-center mb-1">
-                            What is your research focus?
-                            <span class="text-accent-main text-xs font-mono">∨</span>
-                        </h4>
-                        <p class="text-xs text-text-muted leading-relaxed mt-2 hidden">
-                            I focus on structural invariance and organizational identity theory—understanding how complex systems behave when resources and data are constrained.
-                        </p>
-                    </div>
+                <div class="mt-10 pt-6 border-t border-border-main/50">
+                    <p class="text-sm text-text-secondary leading-relaxed">
+                        The work varies in maturity. Some projects are active research programmes, some are experimental research environments, and some are professional systems. I try to represent them accordingly rather than presenting everything as a finished product.
+                    </p>
                 </div>
             </div>
 
