@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <meta name="description" content="Quantitative research in Bitcoin order flow and market dynamics.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena Mwebia">
+
+    <title>High-Frequency Market Microstructure - Omega Makena Mwebia</title>
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
+                        },
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Makena Mwebia Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Makena</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/projects/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">RESEARCH NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/services/" class="nav-link">WORK WITH ME</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/projects/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">RESEARCH NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/services/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">WORK WITH ME</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-20">
+        
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid lg:grid-cols-12 gap-12">
+        
+            <!-- Main Content Centered (No Sidebar) -->
+            <main class="lg:col-span-8 lg:col-start-3">
+                
+
+                <!-- Header -->
+                <header class="mb-12 border-b border-gray-200 pb-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent-main">
+                            NOTE
+                        </span>
+                        
+                        <span class="text-xs font-mono text-text-muted">
+                            // June 10, 2026
+                        </span>
+                        
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
+                        High-Frequency Market Microstructure
+                    </h1>
+
+                    
+                    <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
+                        Quantitative research in Bitcoin order flow and market dynamics.
+                    </p>
+                    
+                </header>
+
+                <!-- Prose Content -->
+                <!-- Prose Content -->
+                <article class="prose prose-lg max-w-none 
+                            prose-headings:font-serif prose-headings:text-text-primary 
+                            prose-p:text-text-secondary prose-p:leading-relaxed 
+                            prose-a:text-accent-blue prose-a:no-underline hover:prose-a:underline 
+                            prose-strong:text-text-primary 
+                            prose-code:text-accent-main prose-code:bg-gray-50 prose-code:px-1 prose-code:rounded
+                            prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
+                            prose-ul:list-disc prose-ul:pl-6
+                            prose-li:marker:text-accent-main prose-li:my-2">
+                    <h1>High-Frequency Market Microstructure</h1>
+<h3>Quantitative Research in Bitcoin Order Flow and Market Dynamics</h3>
+<p>This project investigates <strong>high-frequency market microstructure</strong> using Bitcoin trade data, with a particular focus on how order flow relates to short-horizon returns and volatility.</p>
+<p>The study also serves as one of the real-data validation environments for <strong>Scarcity</strong>, testing its relationship-discovery machinery against a rapidly evolving financial system where dependencies can be short-lived, regime-dependent, and difficult to exploit after execution costs.</p>
+<p>Unlike the controlled synthetic and mechanistic experiments, the market structure here is not known in advance.</p>
+<p>The engine is pointed at the data and asked to determine what relationships exist, what form they take, and whether any discovered information survives out-of-sample and economic evaluation.</p>
+<hr />
+<h1>1. The Market Data</h1>
+<p>The experiment uses approximately <strong>six days of Bitcoin trade-level data</strong>.</p>
+<p>From roughly:</p>
+<ul>
+<li><strong>6 million signed trades</strong></li>
+<li>approximately <strong>100,000 five-second bars</strong></li>
+</ul>
+<p>the research constructs a high-frequency representation of market activity.</p>
+<p>The short aggregation interval preserves substantially more temporal structure than conventional daily financial data while keeping the problem computationally tractable for streaming analysis.</p>
+<p>The data contains information derived from trade direction, trade intensity, and subsequent market behavior.</p>
+<p>Importantly, the discovery stage was conducted <strong>without specifying a target or adjustment set in advance</strong>.</p>
+<p>The system was therefore not simply asked to confirm a predetermined trading hypothesis.</p>
+<hr />
+<h1>2. Streaming Market-Structure Discovery</h1>
+<p>The central experiment uses Scarcity's streaming relationship-discovery engine.</p>
+<p>The engine processes the market observations sequentially and maintains a living graph of candidate relationships.</p>
+<p>Rather than treating every dependency as correlation, the discovery layer evaluates multiple relationship classes.</p>
+<p>In this experiment it recovered a <strong>29-edge typed relationship graph</strong>.</p>
+<p>The important result was not simply the number of edges.</p>
+<p>It was that the engine distinguished relationships with materially different interpretations.</p>
+<p>For example, it separated:</p>
+<p><strong>Trade intensity → next-return magnitude</strong></p>
+<p>from</p>
+<p><strong>Order-flow imbalance ↔ return</strong></p>
+<p>and assigned them different relationship types.</p>
+<p>The former was identified as a <strong>functional relationship</strong>, while the latter was identified as <strong>correlational</strong>.</p>
+<p>That distinction matters because both variables can be statistically related while carrying very different information about how the market behaves.</p>
+<hr />
+<h1>3. Order Flow and Short-Horizon Returns</h1>
+<p>A central question was whether order flow contains information about subsequent price movement.</p>
+<p>The research found a measurable relationship between <strong>order-flow imbalance and subsequent returns</strong>.</p>
+<p>The relationship was then examined beyond the initial discovery stage.</p>
+<p>The offline causal arm recovered a robust <strong>order-flow → return effect</strong>, with a placebo test producing:</p>
+<p><strong>p &lt; 0.001</strong></p>
+<p>This establishes that the relationship was not simply discarded as an artefact of the initial discovery process.</p>
+<p>But the research did not stop at statistical significance.</p>
+<p>The next question was whether the relationship could actually support a high-frequency trading decision.</p>
+<hr />
+<h1>4. Statistical Relationship ≠ Trading Edge</h1>
+<p>This became one of the most important findings of the study.</p>
+<p>A relationship can be:</p>
+<ul>
+<li>statistically detectable,</li>
+<li>reproducible over some interval,</li>
+<li>and still economically unusable.</li>
+</ul>
+<p>The discovered directional relationship was <strong>transient</strong> and did not provide sufficient economic value after transaction costs under the tested trading setup.</p>
+<p>The resulting HFT strategy therefore <strong>abstained from trading the directional edge</strong>.</p>
+<p>That behavior is deliberate.</p>
+<p>The system does not convert every statistically significant relationship into a position.</p>
+<p>The decision pipeline was:</p>
+<p><strong>Trade Data</strong></p>
+<p>→ <strong>Order-Flow Construction</strong></p>
+<p>→ <strong>Streaming Relationship Discovery</strong></p>
+<p>→ <strong>Typed Market Graph</strong></p>
+<p>→ <strong>Signal Evaluation</strong></p>
+<p>→ <strong>Out-of-Sample Testing</strong></p>
+<p>→ <strong>Execution / Cost Analysis</strong></p>
+<p>→ <strong>Trading Decision</strong></p>
+<p>The final stage is allowed to produce <strong>no trade</strong>.</p>
+<p>That is an important distinction between relationship discovery and trading.</p>
+<hr />
+<h1>5. Volatility Contains Different Information</h1>
+<p>The directional result was not the only predictive structure found in the market.</p>
+<p>A separate relationship involving order flow and <strong>future return magnitude / volatility</strong> proved more persistent.</p>
+<p>The research used this structure to construct a realized-volatility forecasting model.</p>
+<p>The resulting forecast reached approximately:</p>
+<p><strong>Out-of-sample R² = 0.40</strong></p>
+<p>This provides an interesting contrast.</p>
+<p>The same market can contain information that is useful for forecasting <strong>how much the market will move</strong> without providing a sufficiently persistent signal for predicting <strong>which direction it will move</strong> after trading costs.</p>
+<p>The typed relationship graph makes this distinction explicit rather than treating both as generic predictive associations.</p>
+<hr />
+<h1>6. Why the Typing Matters</h1>
+<p>The financial experiment was particularly useful for testing whether relationship discovery could identify <strong>different forms of dependence in the same system</strong>.</p>
+<p>Consider two observations:</p>
+<h3>Directional relationship</h3>
+<p>Order-flow imbalance is associated with subsequent return.</p>
+<p>This is relevant to directional trading, but its usefulness depends heavily on persistence, latency, execution, and transaction costs.</p>
+<h3>Volatility relationship</h3>
+<p>Trade activity is associated with the magnitude of subsequent returns.</p>
+<p>This relationship can be useful for volatility forecasting even when the corresponding directional information is not economically exploitable.</p>
+<p>A system that reports only “order flow correlates with returns” loses this distinction.</p>
+<p>Scarcity instead represents the discovered relationship as a typed edge and carries that distinction into downstream analysis.</p>
+<hr />
+<h1>7. High-Frequency Trading as a Validation Environment</h1>
+<p>The HFT setting provides a particularly demanding environment for Scarcity.</p>
+<p>Financial markets exhibit several properties that make relationship discovery difficult:</p>
+<ul>
+<li>observations arrive rapidly;</li>
+<li>relationships can decay quickly;</li>
+<li>market regimes change;</li>
+<li>many variables interact simultaneously;</li>
+<li>apparent relationships can disappear once execution costs are considered;</li>
+<li>statistical significance does not imply economic profitability.</li>
+</ul>
+<p>This makes the market a useful test of the framework's central principle:</p>
+<blockquote>
+<p><strong>Recover structure, calibrate it, and refuse to invent an exploitable magnitude when the evidence does not support one.</strong></p>
+</blockquote>
+<p>The HFT experiment therefore was not added simply to demonstrate that Scarcity could process financial data.</p>
+<p>It tested whether the framework's distinction between <strong>discovering a relationship</strong> and <strong>acting on a relationship</strong> survives contact with a market where that distinction has immediate economic consequences.</p>
+<hr />
+<h1>8. Relationship to Scarcity</h1>
+<p>The financial-market study is part of the broader Scarcity validation programme.</p>
+<p>The framework was originally motivated by scarce macroeconomic data, where annual observations can number only in the dozens.</p>
+<p>Financial microstructure provides almost the opposite environment:</p>
+<p><strong>many observations, extremely short horizons, rapidly changing relationships, and strong economic pressure to distinguish signal from noise.</strong></p>
+<p>That contrast is useful.</p>
+<p>In macroeconomics, the central difficulty is often insufficient observations.</p>
+<p>In high-frequency markets, the problem is that abundant observations do not guarantee stable or economically exploitable relationships.</p>
+<p>Scarcity is therefore being tested against two different meanings of difficult data:</p>
+<blockquote>
+<p><strong>too little information</strong></p>
+</blockquote>
+<p>and</p>
+<blockquote>
+<p><strong>rapidly changing information whose useful lifetime may be extremely short.</strong></p>
+</blockquote>
+<hr />
+<h1>9. What the Experiment Shows</h1>
+<p>The study produces several distinct findings.</p>
+<h3>1. Market structure can be discovered without specifying the target first</h3>
+<p>The engine recovered a <strong>29-edge typed graph</strong> directly from the market stream without being given a predetermined target or adjustment set.</p>
+<h3>2. Different market relationships have different forms</h3>
+<p>The system distinguished functional volatility relationships from correlational directional relationships rather than treating them as one generic dependency.</p>
+<h3>3. Statistical significance does not imply economic profitability</h3>
+<p>The order-flow → return relationship was statistically supported, but the corresponding HFT strategy abstained because the edge was too transient relative to the tested transaction costs.</p>
+<h3>4. Predictive information can survive in magnitude even when direction does not</h3>
+<p>The realized-volatility model achieved approximately <strong>OOS R² = 0.40</strong>, showing useful information about future market movement magnitude.</p>
+<h3>5. Discovery and trading should remain separate decisions</h3>
+<p>The research pipeline deliberately allows:</p>
+<p><strong>relationship discovered → relationship statistically supported → relationship economically rejected → no trade</strong></p>
+<p>rather than forcing every discovered relationship into a trading strategy.</p>
+<hr />
+<h1>10. Limitations</h1>
+<p>The financial experiment has deliberately narrow scope.</p>
+<p><strong>Single asset.</strong>
+The study uses Bitcoin rather than a multi-asset or multi-venue universe.</p>
+<p><strong>Short observation period.</strong>
+The analysis covers approximately six days of market activity. It cannot establish that the discovered relationships persist across longer periods or different market regimes.</p>
+<p><strong>Limited market-depth information.</strong>
+The feature set does not incorporate the full depth of a limit-order book, which restricts what can be inferred about execution and microstructure.</p>
+<p><strong>Transaction-cost dependence.</strong>
+The strategy's abstention is conditional on the tested execution assumptions and costs. It does not establish that no profitable directional edge exists under other infrastructure, latency, fees, or execution conditions.</p>
+<p><strong>Predictive rather than universal causal interpretation.</strong>
+The offline causal result is still bounded by observational-data assumptions. It should not be interpreted as establishing an intervention-level law of Bitcoin price formation.</p>
+<p><strong>No claim of production HFT deployment.</strong>
+This is a substantial experimental quantitative research study, not a claim of operating a production market-making or HFT desk.</p>
+<hr />
+<h1>Status</h1>
+<p>This is an <strong>experimental quantitative research study in high-frequency market microstructure</strong> and one of the real-data validation environments for Scarcity.</p>
+<p>The research is sufficiently developed to evaluate:</p>
+<ul>
+<li>streaming relationship discovery,</li>
+<li>typed market structure,</li>
+<li>statistical calibration,</li>
+<li>predictive relationships,</li>
+<li>out-of-sample volatility forecasting,</li>
+<li>trading-strategy implications,</li>
+<li>and transaction-cost-aware decision making.</li>
+</ul>
+<p>Its conclusions remain bounded by the asset, period, feature set, and execution assumptions used in the study.</p>
+<p>The most useful result is not simply that an order-flow relationship was found.</p>
+<p>It is that the research followed the relationship all the way through:</p>
+<blockquote>
+<p><strong>discover → type → validate → forecast → test economically → abstain when the edge is not worth trading.</strong></p>
+</blockquote>
+<p>That distinction is central to the way I approach quantitative research.</p>
+                </article>
+
+                <!-- Mobile Navigation (Bottom) -->
+                
+
+            </main>
+
+    </div>
+
+</div>
+
+    </main>
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA MAKENA</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2026 Omega Makena Mwebia.<br>
+                        Engineering Intelligence.
+                    </div>
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // FlatPages/Pygments strips the `language-mermaid` class and injects spans.
+            // We search for all code blocks and check if the unformatted text indicates a diagram.
+            const allCodeBlocks = document.querySelectorAll(".codehilite code, pre code");
+            const blocksToProcess = [];
+            
+            allCodeBlocks.forEach(function(block) {
+                const text = block.textContent.trim();
+                if (text.startsWith("flowchart") || text.startsWith("sequenceDiagram") || text.startsWith("graph") || text.startsWith("stateDiagram")) {
+                    blocksToProcess.push({block: block, text: text});
+                }
+            });
+
+            blocksToProcess.forEach(function(item) {
+                const div = document.createElement('div');
+                div.className = 'mermaid flex justify-center w-full overflow-x-auto my-8'; 
+                div.textContent = item.text;
+                
+                const container = item.block.closest('.codehilite') || item.block.closest('pre');
+                if (container) {
+                    container.replaceWith(div);
+                }
+            });
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'neutral',
+                themeVariables: {
+                    'background': 'transparent',
+                    'primaryColor': '#18181B',
+                    'primaryTextColor': '#18181B',
+                    'lineColor': '#a3a3a3',
+                    'fontSize': '14px'
+                }
+            });
+            
+            if (blocksToProcess.length > 0) {
+                // Let the browser paint the divs before running mermaid
+                setTimeout(() => {
+                    mermaid.run({ querySelector: '.mermaid' });
+                }, 50);
+            }
+        });
+    </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+</body>
+
+</html>

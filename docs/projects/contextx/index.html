@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <meta name="description" content="AI Context Engineering &amp; RAG Platform">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena Mwebia">
+
+    <title>ContextX - Omega Makena Mwebia</title>
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
+                        },
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Makena Mwebia Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Makena</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/projects/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">RESEARCH NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/services/" class="nav-link">WORK WITH ME</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/projects/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">RESEARCH NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/services/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">WORK WITH ME</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-20">
+        
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid lg:grid-cols-12 gap-12">
+        
+            <!-- Main Content Centered (No Sidebar) -->
+            <main class="lg:col-span-8 lg:col-start-3">
+                
+
+                <!-- Header -->
+                <header class="mb-12 border-b border-gray-200 pb-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent-main">
+                            NOTE
+                        </span>
+                        
+                        <span class="text-xs font-mono text-text-muted">
+                            // August 24, 2026
+                        </span>
+                        
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
+                        ContextX
+                    </h1>
+
+                    
+                    <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
+                        AI Context Engineering &amp; RAG Platform
+                    </p>
+                    
+                </header>
+
+                <!-- Prose Content -->
+                <!-- Prose Content -->
+                <article class="prose prose-lg max-w-none 
+                            prose-headings:font-serif prose-headings:text-text-primary 
+                            prose-p:text-text-secondary prose-p:leading-relaxed 
+                            prose-a:text-accent-blue prose-a:no-underline hover:prose-a:underline 
+                            prose-strong:text-text-primary 
+                            prose-code:text-accent-main prose-code:bg-gray-50 prose-code:px-1 prose-code:rounded
+                            prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
+                            prose-ul:list-disc prose-ul:pl-6
+                            prose-li:marker:text-accent-main prose-li:my-2">
+                    <h1>ContextX</h1>
+<p>ContextX is a modular AI context-engineering platform that improves how LLMs retrieve, select, validate, and use information before generating an answer.</p>
+<h2>What it does</h2>
+<p>It takes a user query and combines it with relevant information from:</p>
+<ul>
+<li>Document collections</li>
+<li>Conversation context</li>
+<li>Stored user/project memory</li>
+<li>Metadata and source information</li>
+</ul>
+<p>It then determines which information is actually useful, removes unnecessary or duplicate content, applies security checks, manages the model's token budget, and builds a grounded prompt for the LLM.</p>
+<h2>How it works</h2>
+<p>The core architecture is a staged pipeline:</p>
+<p><code>Query → Retrieve → Rerank → Rank → Filter → Compress → Budget → Build → Validate → LLM</code></p>
+<ul>
+<li><strong>Retrieval</strong> — Uses semantic vector search and BM25 lexical search to find candidate information.</li>
+<li><strong>Reranking</strong> — Uses a cross-encoder to identify the most relevant candidates.</li>
+<li><strong>Ranking</strong> — Combines relevance, similarity, keyword matching, recency, importance, conversation context, and preferences.</li>
+<li><strong>Filtering</strong> — Removes duplicates, stale or contradictory information and applies tenant/ACL constraints.</li>
+<li><strong>Compression</strong> — Reduces large context items while preserving useful information.</li>
+<li><strong>Budgeting</strong> — Controls the amount of context sent to the LLM within a token budget.</li>
+<li><strong>Context building</strong> — Constructs a structured prompt with sources and trust boundaries.</li>
+<li><strong>Validation &amp; security</strong> — Performs citation/provenance checks, prompt-injection scanning, and optional PII redaction.</li>
+<li><strong>Generation</strong> — Sends the validated context to an interchangeable LLM backend such as Claude, OpenAI, Ollama, or a mock backend.</li>
+<li><strong>Observability &amp; memory</strong> — Tracks latency, retrieval statistics, cost estimates, sources, and updates long-term memory/cache where applicable.</li>
+</ul>
+<h2>Key technologies / capabilities</h2>
+<ul>
+<li>Hybrid RAG: semantic embeddings + BM25 + Reciprocal Rank Fusion</li>
+<li>Cross-encoder reranking</li>
+<li>FAISS / NumPy / Qdrant / pgvector vector backends</li>
+<li>SQLite source-of-truth storage</li>
+<li>Claude / OpenAI / Ollama LLM providers</li>
+<li>Caching and long-term memory</li>
+<li>Tenant and ACL-aware retrieval</li>
+<li>PII redaction and prompt-injection detection</li>
+<li>Token budgeting and context compression</li>
+<li>Evaluation using Recall@K, MRR, nDCG, precision and faithfulness</li>
+<li>CI retrieval regression gates</li>
+<li>Configurable domain presets, including finance</li>
+</ul>
+<hr />
+<h1>Architecture</h1>
+<p>How the code is organized and how data flows through it.</p>
+<h2>High-level shape</h2>
+<p><code>contextx</code> is a <strong>library</strong> (<code>contextx/</code>) with an optional <strong>service</strong> layer (<code>contextx/service.py</code>, FastAPI). The library is a staged pipeline orchestrated by <code>ContextEngine</code> (<code>contextx/pipeline.py</code>). The engine owns one instance of each stage component and threads a single <code>ContextItem</code> list + <code>Trace</code> through them.</p>
+<div class="codehilite"><pre><span></span><code>                          ┌──────────────────────────────────────────┐
+   HTTP (optional)        │              ContextEngine               │
+   service.py  ─────────▶ │  ingest() / run() / run_stream() / a*()  │
+   (auth, SSE)            └───┬───────────────────────────────────┬──┘
+                             │ ingest                             │ query
+                    ┌────────▼─────────┐              ┌───────────▼───────────┐
+                    │   VectorStore    │              │  Collect→Retrieve→... │
+                    │  (store.py)      │◀─────────────│  →Rerank→Rank→Filter→ │
+                    │  backend + FTS5  │   search     │  Compress→Budget→Build│
+                    │  + SQLite chunks │              │  →Validate→LLM        │
+                    └────────┬─────────┘              └───────────┬───────────┘
+                             │                                    │
+                    ┌────────▼─────────┐              ┌───────────▼───────────┐
+                    │  VectorBackend   │              │ Cache · Memory · Trace│
+                    │ faiss/numpy/pg   │              │  (cross-cutting)      │
+                    └──────────────────┘              └───────────────────────┘
+</code></pre></div>
+
+<h2>Module map</h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config.py</code></td>
+<td><code>Config</code> dataclass — every knob and threshold in one place</td>
+</tr>
+<tr>
+<td><code>types.py</code></td>
+<td><code>ContextItem</code>, <code>Document</code>, <code>Request</code>, <code>Source</code>, trust sets</td>
+</tr>
+<tr>
+<td><code>pipeline.py</code></td>
+<td><code>ContextEngine</code> — orchestrates all stages; <code>ingest/run/run_stream/arun/arun_stream</code></td>
+</tr>
+<tr>
+<td><code>collect.py</code></td>
+<td>Stage 1 — gather ephemeral context</td>
+</tr>
+<tr>
+<td><code>store.py</code></td>
+<td>Persistent store: SQLite chunks + FTS5 lexical + pluggable vector index; ingest, search, delete/update, rebuild, model-version stamping, tenant/ACL</td>
+</tr>
+<tr>
+<td><code>backends.py</code></td>
+<td><code>VectorBackend</code> interface + <code>FaissBackend</code>, <code>NumpyBackend</code>, <code>QdrantBackend</code>, <code>PgVectorBackend</code></td>
+</tr>
+<tr>
+<td><code>chunking.py</code></td>
+<td>Structure-aware chunking (headings, atomic code blocks, overlap)</td>
+</tr>
+<tr>
+<td><code>retrieve.py</code></td>
+<td>Stage 2 — hybrid recall (semantic + lexical + RRF), ephemeral scoring, BM25</td>
+</tr>
+<tr>
+<td><code>rerank.py</code></td>
+<td>Stage 2b — cross-encoder reranker (+ raw score for abstention)</td>
+</tr>
+<tr>
+<td><code>rank.py</code></td>
+<td>Stage 3 — weighted signal blend</td>
+</tr>
+<tr>
+<td><code>filter.py</code></td>
+<td>Stage 4 — dedup, stale removal, contradiction resolution</td>
+</tr>
+<tr>
+<td><code>memory.py</code></td>
+<td>Stage 5 — SQLite memory, scoped/bounded, lifecycle</td>
+</tr>
+<tr>
+<td><code>compress.py</code></td>
+<td>Stage 6 — extractive / abstractive compression</td>
+</tr>
+<tr>
+<td><code>budget.py</code></td>
+<td>Stage 7 — token counting + budget fitting</td>
+</tr>
+<tr>
+<td><code>build.py</code></td>
+<td>Stage 8 — prompt assembly, trust fencing, citations, cache markers</td>
+</tr>
+<tr>
+<td><code>validate.py</code></td>
+<td>Stage 9 — pre-flight checks + injection scan</td>
+</tr>
+<tr>
+<td><code>llm.py</code></td>
+<td>Stage 10 — pluggable LLM backends (Claude/OpenAI/Ollama/mock), retries, streaming, tool use</td>
+</tr>
+<tr>
+<td><code>observability.py</code></td>
+<td>Stage 11 — <code>Trace</code>, per-stage timing, cost estimation, structured logs</td>
+</tr>
+<tr>
+<td><code>cache.py</code></td>
+<td>Stage 12 — bounded LRU + TTL + semantic response cache</td>
+</tr>
+<tr>
+<td><code>security.py</code></td>
+<td>PII/financial redaction, append-only audit log</td>
+</tr>
+<tr>
+<td><code>auth.py</code></td>
+<td>API-key → tenant/principals (service auth)</td>
+</tr>
+<tr>
+<td><code>service.py</code></td>
+<td>FastAPI HTTP layer (ingest/query/stream/documents/health/stats)</td>
+</tr>
+<tr>
+<td><code>loaders.py</code></td>
+<td>Document loaders (txt/md/html/pdf)</td>
+</tr>
+<tr>
+<td><code>sync.py</code></td>
+<td>Incremental directory sync (content-hash diff → upsert/delete)</td>
+</tr>
+<tr>
+<td><code>tune.py</code></td>
+<td>Learned rank weights (nDCG search) + feedback store</td>
+</tr>
+<tr>
+<td><code>eval/</code></td>
+<td>Offline retrieval + faithfulness evaluation harness</td>
+</tr>
+<tr>
+<td><code>domains/</code></td>
+<td>Domain packs (currently <code>finance</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2>Two entry phases</h2>
+<h3>Ingest (<code>engine.ingest(documents)</code>)</h3>
+<ol>
+<li><code>store.add_documents</code> chunks each <code>Document</code> (<code>chunking.py</code>).</li>
+<li>Embeds all new chunks in a batch (<code>embeddings.py</code>).</li>
+<li>Persists: chunk text + metadata + tenant/ACL + the embedding blob into SQLite; the vector into the <code>VectorBackend</code>; the text into the FTS5 index.</li>
+<li>Stamps the embedding-model name (so a later mismatch is caught, not silently wrong).</li>
+</ol>
+<p>Also: <code>update(documents)</code> (delete-by-doc_id then re-add), <code>delete(doc_id)</code> (tenant-scoped), both invalidate the response cache.</p>
+<h3>Query (<code>engine.run(request)</code> / <code>run_stream</code> / <code>arun</code>)</h3>
+<p><code>_prepare()</code> runs stages 1–9 and returns a <code>_Prepared</code> (prompt, validation report, confidence, scope). Then:
+- <code>run()</code> calls the LLM (through the semantic cache), writes memory, <code>_finalize()</code> records metrics/cost/audit, returns a <code>PipelineResult</code>.
+- <code>run_stream()</code> returns a <code>StreamResult</code> whose <code>.stream</code> yields text chunks; memory is written when the stream is fully consumed. Sources and confidence are known up front.
+- <code>arun()</code> / <code>arun_stream()</code> are the async wrappers — they offload the sync CPU/GPU-bound pipeline to a worker thread so an async host's event loop is never blocked (the correct async model for CPU-bound work).
+- <code>arun_with_sources(request, fetchers)</code> awaits async source fetchers concurrently (<code>asyncio.gather</code>) — N remote fetches cost ~one round-trip — then runs the pipeline. Embedding is batched within a request (<code>embed_batch_size</code>); cross-request batching is a serving-layer concern, out of the library's scope.</p>
+<h2>Request lifecycle</h2>
+<p><code>run()</code> for one query:</p>
+<div class="codehilite"><pre><span></span><code>Request
+  → _prepare()                              # stages 1–9, in a worker thread under arun()
+      1  collect ephemeral context + read memory (scope tenant:user)
+      2  retrieve: vector ANN + FTS5 lexical → RRF, tenant/ACL filtered
+      2b rerank recall set (cross-encoder) → confidence / abstention flag
+      3  rank (weighted blend)   4 filter (dedup/stale/contradiction)
+      6  compress oversized      7 budget to the window
+      (redact PII if enabled)
+      8  build prompt (fenced untrusted + numbered citations + cache marker)
+      9  validate (ceiling, delimiters, injection scan)
+      → _Prepared(prompt, report, confidence, scope)
+  → 10 LLM (via semantic cache)             # blocked here if validation failed
+  → 5  write memory (extract facts)
+  → _finalize()                             # metrics, USD cost, audit, log
+  → PipelineResult(answer, sources, low_confidence, trace)
+</code></pre></div>
+
+<p><code>run_stream()</code> shares <code>_prepare()</code>, then streams stage 10 and writes memory when the stream is drained. <code>run_with_tools()</code> replaces stage 10 with an agentic tool loop.</p>
+<h2>Storage &amp; data model</h2>
+<p>State lives under <code>Config.index_dir</code> plus the memory DB. Nothing is global.</p>
+<table>
+<thead>
+<tr>
+<th>Store</th>
+<th>Location</th>
+<th>Holds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chunk store</td>
+<td><code>index_dir/chunks.db</code> (SQLite)</td>
+<td>one row per chunk: <code>row</code> id, <code>chunk_id</code>, <code>doc_id</code>, <code>source</code>, <code>text</code>, <code>metadata</code>, <code>tenant_id</code>, <code>acl</code>, <code>embedding</code> blob, <code>timestamp</code></td>
+</tr>
+<tr>
+<td>Lexical index</td>
+<td><code>chunks_fts</code> (SQLite FTS5, same DB)</td>
+<td>BM25 full-text over chunk text</td>
+</tr>
+<tr>
+<td>Meta</td>
+<td><code>meta</code> table (same DB)</td>
+<td>stamped embedding model + dim (mismatch guard)</td>
+</tr>
+<tr>
+<td>Vector index</td>
+<td>backend-specific (<code>index_dir/index.faiss</code>, <code>matrix.npy</code>, Qdrant, or Postgres)</td>
+<td>one vector per chunk, keyed by <code>row</code></td>
+</tr>
+<tr>
+<td>Memory</td>
+<td><code>Config.memory_db_path</code> (SQLite)</td>
+<td>per-<code>scope</code> facts: text, type, importance, ttl, <code>fact_key</code>/<code>value</code>, embedding</td>
+</tr>
+<tr>
+<td>Sync manifest</td>
+<td><code>index_dir/sync_manifest.json</code></td>
+<td>file content-hashes for incremental <code>DirectorySync</code></td>
+</tr>
+</tbody>
+</table>
+<p>The chunk store is the source of truth; the vector index is derived (a <code>rebuild()</code> reconstructs it from the stored embeddings and compacts tombstones).</p>
+<h2>Deployment</h2>
+<ul>
+<li><strong>Embedded (library):</strong> construct one <code>ContextEngine</code> and call it. State is on local disk; single process. Good for scripts, notebooks, one-box services.</li>
+<li><strong>Service:</strong> <code>contextx.service:create_app</code> (FastAPI). One engine per worker; API-key auth maps callers to tenants; writes serialized with an async lock; the sync engine runs in a threadpool. Ships with a <code>Dockerfile</code>.</li>
+<li><strong>Scaling:</strong> the CPU/GPU-bound work (embedding, reranking) scales with worker threads/processes; the vector index scales by swapping the <code>VectorBackend</code> (Qdrant or pgvector) off single-node FAISS. Chunk/memory SQLite is single-writer per process — move to Postgres/a shared store for multi-writer deployments.</li>
+</ul>
+<h2>The vector-store seam</h2>
+<p><code>VectorStore</code> owns everything <em>except</em> the raw ANN index: chunk text, metadata, tenant/ACL, the FTS5 lexical index, tombstoning, and rebuild/compaction. The ANN index — the part with the single-node RAM ceiling — lives behind the narrow <code>VectorBackend</code> interface (<code>add / search / count / reset / save / load</code>). Swap <code>Config.vector_backend</code> to change it:
+* <code>faiss</code> — HNSW ANN, in-process (default).
+* <code>numpy</code> — brute-force cosine fallback.
+* <code>qdrant</code> — Qdrant (<code>:memory:</code>, local path, or server URL).
+* <code>pgvector</code> — Postgres + pgvector (experimental; needs a DB; not CI-covered).</p>
+<p>Contract: the store assigns each vector a dense integer <code>row</code> id (rebuild renumbers 0..n-1), so FAISS/numpy can treat position == row; pgvector stores the ids explicitly.</p>
+<h2>Concurrency &amp; persistence model</h2>
+<ul>
+<li><strong>SQLite</strong> (chunks + memory) uses WAL mode; write paths are guarded by an in-process <code>RLock</code>. Safe for concurrent <em>readers</em> and single-writer within a process.</li>
+<li>The <strong>service</strong> serializes index writes with an <code>asyncio.Lock</code> and offloads the sync engine to a threadpool — the correct model because the heavy work (embedding, reranking) is CPU/GPU-bound.</li>
+<li>The <strong>response cache</strong>, semantic-cache vectors, and memory are all bounded, so a long-running process does not leak.</li>
+</ul>
+<h2>Failure &amp; degradation</h2>
+<p>Every external dependency is optional with a fallback, chosen at construction and reported in the trace footer (<code>embed_backend</code>, <code>index_backend</code>, <code>rerank_backend</code>, <code>llm_backend</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Missing</th>
+<th>Falls back to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sentence-transformers</code></td>
+<td>deterministic hash embedder</td>
+</tr>
+<tr>
+<td><code>faiss</code></td>
+<td>numpy brute-force index</td>
+</tr>
+<tr>
+<td>cross-encoder</td>
+<td>identity reranker (keep bi-encoder order)</td>
+</tr>
+<tr>
+<td><code>tiktoken</code></td>
+<td>~4-chars/token heuristic</td>
+</tr>
+<tr>
+<td>LLM key/server</td>
+<td>extractive mock</td>
+</tr>
+<tr>
+<td>SQLite FTS5</td>
+<td>vector-only retrieval</td>
+</tr>
+</tbody>
+</table>
+                </article>
+
+                <!-- Mobile Navigation (Bottom) -->
+                
+
+            </main>
+
+    </div>
+
+</div>
+
+    </main>
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA MAKENA</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2026 Omega Makena Mwebia.<br>
+                        Engineering Intelligence.
+                    </div>
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // FlatPages/Pygments strips the `language-mermaid` class and injects spans.
+            // We search for all code blocks and check if the unformatted text indicates a diagram.
+            const allCodeBlocks = document.querySelectorAll(".codehilite code, pre code");
+            const blocksToProcess = [];
+            
+            allCodeBlocks.forEach(function(block) {
+                const text = block.textContent.trim();
+                if (text.startsWith("flowchart") || text.startsWith("sequenceDiagram") || text.startsWith("graph") || text.startsWith("stateDiagram")) {
+                    blocksToProcess.push({block: block, text: text});
+                }
+            });
+
+            blocksToProcess.forEach(function(item) {
+                const div = document.createElement('div');
+                div.className = 'mermaid flex justify-center w-full overflow-x-auto my-8'; 
+                div.textContent = item.text;
+                
+                const container = item.block.closest('.codehilite') || item.block.closest('pre');
+                if (container) {
+                    container.replaceWith(div);
+                }
+            });
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'neutral',
+                themeVariables: {
+                    'background': 'transparent',
+                    'primaryColor': '#18181B',
+                    'primaryTextColor': '#18181B',
+                    'lineColor': '#a3a3a3',
+                    'fontSize': '14px'
+                }
+            });
+            
+            if (blocksToProcess.length > 0) {
+                // Let the browser paint the divs before running mermaid
+                setTimeout(() => {
+                    mermaid.run({ querySelector: '.mermaid' });
+                }, 50);
+            }
+        });
+    </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+</body>
+
+</html>

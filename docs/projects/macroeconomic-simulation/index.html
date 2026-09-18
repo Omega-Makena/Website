@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <meta name="description" content="Testing structural relationship discovery under genuine data scarcity.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena Mwebia">
+
+    <title>Macroeconomic Systems - Omega Makena Mwebia</title>
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
+                        },
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Makena Mwebia Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Makena</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/projects/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">RESEARCH NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/services/" class="nav-link">WORK WITH ME</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/projects/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">RESEARCH NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/services/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">WORK WITH ME</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-20">
+        
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid lg:grid-cols-12 gap-12">
+        
+            <!-- Main Content Centered (No Sidebar) -->
+            <main class="lg:col-span-8 lg:col-start-3">
+                
+
+                <!-- Header -->
+                <header class="mb-12 border-b border-gray-200 pb-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent-main">
+                            NOTE
+                        </span>
+                        
+                        <span class="text-xs font-mono text-text-muted">
+                            // August 15, 2026
+                        </span>
+                        
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
+                        Macroeconomic Systems
+                    </h1>
+
+                    
+                    <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
+                        Testing structural relationship discovery under genuine data scarcity.
+                    </p>
+                    
+                </header>
+
+                <!-- Prose Content -->
+                <!-- Prose Content -->
+                <article class="prose prose-lg max-w-none 
+                            prose-headings:font-serif prose-headings:text-text-primary 
+                            prose-p:text-text-secondary prose-p:leading-relaxed 
+                            prose-a:text-accent-blue prose-a:no-underline hover:prose-a:underline 
+                            prose-strong:text-text-primary 
+                            prose-code:text-accent-main prose-code:bg-gray-50 prose-code:px-1 prose-code:rounded
+                            prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
+                            prose-ul:list-disc prose-ul:pl-6
+                            prose-li:marker:text-accent-main prose-li:my-2">
+                    <h1>Macroeconomic Systems</h1>
+<h3>Testing Structural Relationship Discovery Under Genuine Data Scarcity</h3>
+<p>Macroeconomics is where Scarcity began.</p>
+<p>In <strong>April 2025</strong>, I was working on macroeconomic simulation and encountered a practical constraint: annual macroeconomic datasets can contain only a few dozen observations per variable. That creates a difficult regime for methods that need enough observations to estimate a large number of relationships, especially when the underlying data-generating process can change over time.</p>
+<p>This became the original research problem behind <strong>Scarcity</strong>:</p>
+<blockquote>
+<p><strong>What structure can be recovered from a multivariate system when there are simply not enough observations to estimate everything reliably?</strong></p>
+</blockquote>
+<p>The macroeconomic work became both the motivating application and one of the framework's main real-data evaluations.</p>
+<hr />
+<h2>The Dataset</h2>
+<p>The real-data evaluation uses <strong>World Bank annual indicators for seven East African economies</strong>, covering approximately <strong>1990–2023</strong>.</p>
+<p>At the individual-country level, this provides roughly:</p>
+<p><strong>N ≈ 34 observations per variable.</strong></p>
+<p>That is genuine scarcity rather than an artificially downsampled large dataset.</p>
+<p>The variables describe interacting aspects of national economic systems, and the objective was not to construct a single forecasting model. Instead, the experiment asks whether Scarcity can recover useful relationships between variables and whether those relationships remain useful when passed into downstream models.</p>
+<p>This distinction matters because relationship discovery and prediction are not the same problem.</p>
+<hr />
+<h1>1. Discovering Structure</h1>
+<p>Scarcity processes observations sequentially and maintains a living graph of typed relationships.</p>
+<p>For the macroeconomic experiment, the engine was not restricted to correlation or a single notion of causality. It considers <strong>fifteen relationship types</strong>:</p>
+<ul>
+<li>causal</li>
+<li>correlational</li>
+<li>temporal</li>
+<li>functional</li>
+<li>equilibrium</li>
+<li>compositional</li>
+<li>competitive</li>
+<li>synergistic</li>
+<li>probabilistic</li>
+<li>structural</li>
+<li>mediating</li>
+<li>moderating</li>
+<li>graph</li>
+<li>similarity</li>
+<li>logical</li>
+</ul>
+<p>The purpose is to distinguish different forms of dependence rather than collapse every observed association into one statistic.</p>
+<p>For example, a long-run equilibrium relationship and a contemporaneous correlation are treated as different hypotheses and evaluated using different statistical machinery.</p>
+<p>The engine is also streaming: observations are incorporated one row at a time rather than requiring the complete dataset to be available before relationship discovery begins.</p>
+<hr />
+<h1>2. Calibration Changes the Result</h1>
+<p>One of the clearest macroeconomic findings is that <strong>raw relationship confidence cannot be trusted as evidence</strong>.</p>
+<p>On the real macroeconomic data, the uncalibrated engine produced a <strong>41% false-positive rate</strong> and ranked the first true relationship at <strong>123rd</strong>.</p>
+<p>Applying the calibration gate changes the result substantially.</p>
+<p>The calibrated system uses:</p>
+<ol>
+<li>type-appropriate permutation nulls,</li>
+<li>false-discovery-rate control,</li>
+<li>stability selection.</li>
+</ol>
+<p>After calibration:</p>
+<ul>
+<li>null false-positive rate: <strong>0.00</strong></li>
+<li>rank of the first true relationship: <strong>4</strong></li>
+</ul>
+<p>For comparison, the first true relationship ranked:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align: right;">Rank</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scarcity, calibrated</strong></td>
+<td style="text-align: right;"><strong>4</strong></td>
+</tr>
+<tr>
+<td>Correlation + AR scan</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr>
+<td>Graphical lasso</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr>
+<td>Scarcity, raw confidence</td>
+<td style="text-align: right;">123</td>
+</tr>
+</tbody>
+</table>
+<p>The important result is not simply that Scarcity produces a graph.</p>
+<p>It is that <strong>calibration materially changes which relationships are considered credible</strong>.</p>
+<p>Raw confidence is a ranking mechanism. It is not a significance test.</p>
+<hr />
+<h1>3. What Happens When the Graph Is Used?</h1>
+<p>Recovering structure is only useful if the recovered structure helps with something downstream.</p>
+<p>The next experiment therefore fed the discovered macroeconomic graph into downstream learning systems.</p>
+<p>This produced an important negative result.</p>
+<p>At approximately <strong>N ≈ 34</strong>, a shallow consumer using type-aware structural features improved over raw lag features by roughly <strong>4–7%</strong>.</p>
+<p>But increasing model depth did not continue that improvement.</p>
+<p>Performance degraded as the downstream consumers became more complex, with a graph neural network ending approximately <strong>96% worse than persistence</strong>.</p>
+<p>More importantly:</p>
+<blockquote>
+<p><strong>No per-system downstream consumer beat the persistence baseline at N ≈ 34.</strong></p>
+</blockquote>
+<p>This is a useful boundary for the framework.</p>
+<p>The existence of a recoverable relationship does not imply that a complex predictive model can exploit it under severe sample scarcity.</p>
+<hr />
+<h1>4. Graph-Conditioned Anomaly Detection</h1>
+<p>The same question was tested using anomaly detection.</p>
+<p>Instead of detecting unusual observations independently for each variable, the graph-conditioned approach asks whether a variable is unusual <strong>relative to its discovered parents</strong>.</p>
+<p>This works well in controlled synthetic data, where the generating structure is known and enough observations are available.</p>
+<p>The real macroeconomic data produced the opposite result at genuine scarcity.</p>
+<p>At <strong>N ≈ 34</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Detector</th>
+<th style="text-align: right;">F1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Blind Z-score</td>
+<td style="text-align: right;"><strong>0.44</strong></td>
+</tr>
+<tr>
+<td>Graph-conditioned detection</td>
+<td style="text-align: right;"><strong>0.19</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The graph therefore made the real-data anomaly detector worse at this sample size.</p>
+<p>A subsequent sample-size sweep showed that the situation changes with more observations. The approximate break-even region where graph conditioning begins to become useful lies between <strong>N ≈ 100 and N ≈ 300</strong> effective observations.</p>
+<p>This became one of the more important conclusions of the research:</p>
+<blockquote>
+<p><strong>Recovering structure and having enough data to exploit that structure are separate problems.</strong></p>
+</blockquote>
+<p>Scarcity can recover useful organizational information before the downstream model has enough statistical power to benefit from it.</p>
+<hr />
+<h1>5. Federation Across Countries</h1>
+<p>The macroeconomic setting also provided a natural test of the framework's federation mechanism.</p>
+<p>A single country's annual series contains only about 34 observations. Rather than pretending that those observations are sufficient for every relationship type, Scarcity can allow multiple nodes to contribute statistical information without sharing their raw data.</p>
+<p>The experiment pooled information from <strong>three countries</strong>, increasing the effective sample from approximately:</p>
+<p><strong>N ≈ 34 → N ≈ 102</strong></p>
+<p>The additional statistical power unlocked relationship types that were weak or effectively inaccessible at the single-country level.</p>
+<p>Examples include:</p>
+<table>
+<thead>
+<tr>
+<th>Relationship type</th>
+<th style="text-align: right;">Single node</th>
+<th style="text-align: right;">Federated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Equilibrium</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;"><strong>0.58</strong></td>
+</tr>
+<tr>
+<td>Moderating</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;"><strong>0.44</strong></td>
+</tr>
+<tr>
+<td>Logical</td>
+<td style="text-align: right;">0.18</td>
+<td style="text-align: right;"><strong>0.53</strong></td>
+</tr>
+<tr>
+<td>Causal</td>
+<td style="text-align: right;">0.62</td>
+<td style="text-align: right;"><strong>0.96</strong></td>
+</tr>
+</tbody>
+</table>
+<p>This is one of the places where the framework's central distinction becomes operational:</p>
+<blockquote>
+<p><strong>Scarcity does not assume that every node should estimate everything locally.</strong></p>
+</blockquote>
+<p>The local system can recover structural information while federation supplies additional statistical power.</p>
+<p>But the result is not universally positive.</p>
+<p>Federation was <strong>target-specific</strong>: some targets benefited while others did not. A coherence signal predicted the direction of federation benefit for <strong>8 of 10 targets</strong>, with <strong>Spearman ρ ≈ 0.50</strong>.</p>
+<p>The appropriate conclusion is therefore not that federation always improves learning.</p>
+<p>It is that <strong>cross-node information can compensate for some forms of local sample scarcity, but the benefit has to be determined rather than assumed.</strong></p>
+<hr />
+<h1>6. From Economic Structure to Shock Propagation</h1>
+<p>The macroeconomic work also motivated a second direction: using discovered relationships as the structural substrate for economic simulation.</p>
+<p>This became the basis for the later <strong>K-Shield / K-Scarcity</strong> work.</p>
+<p>The general pipeline is:</p>
+<p><strong>economic observations</strong></p>
+<p>→ <strong>relationship discovery</strong></p>
+<p>→ <strong>typed structural graph</strong></p>
+<p>→ <strong>economic simulation</strong></p>
+<p>→ <strong>shock propagation</strong></p>
+<p>→ <strong>scenario analysis</strong></p>
+<p>The important distinction is between discovering the organization of an economic system and estimating the magnitude of every possible intervention.</p>
+<p>Scarcity's architecture deliberately separates those tasks.</p>
+<p>The discovery engine asks:</p>
+<blockquote>
+<p><strong>What relationships appear to exist, and of what type?</strong></p>
+</blockquote>
+<p>The offline causal arm asks a narrower question:</p>
+<blockquote>
+<p><strong>For a specified treatment, outcome, and adjustment set, what magnitude can be estimated under the stated assumptions?</strong></p>
+</blockquote>
+<p>The online engine's causal relationship type is <strong>Granger-predictive</strong>, not structural or interventional. Structural causal identification is delegated to the offline do-calculus pipeline.</p>
+<hr />
+<h1>7. What the Macroeconomic Experiment Actually Shows</h1>
+<p>The macroeconomic results are deliberately mixed.</p>
+<p>They show that Scarcity can recover and calibrate structural relationships from extremely short real-world time series.</p>
+<p>They also show that this does <strong>not</strong> automatically translate into better prediction or anomaly detection.</p>
+<p>The measured results can be summarized as:</p>
+<h3>Structure</h3>
+<p>Calibrated discovery substantially suppresses false positives and improves the ranking of plausible relationships.</p>
+<h3>Prediction</h3>
+<p>Structural information can help shallow consumers, but deeper consumers can overfit the recovered structure under severe scarcity.</p>
+<h3>Anomaly Detection</h3>
+<p>Graph conditioning is harmful at approximately 34 observations and only begins to become useful at substantially larger effective sample sizes.</p>
+<h3>Federation</h3>
+<p>Additional nodes can increase statistical power and unlock relationship types that are underpowered locally, but the benefit varies by target.</p>
+<h3>Causal Interpretation</h3>
+<p>The online discovery layer identifies predictive temporal structure; it does not establish intervention-level causality.</p>
+<hr />
+<h1>8. Why This Became Scarcity</h1>
+<p>The macroeconomic experiment produced the central asymmetry behind the framework.</p>
+<p>There are two different things a system might want to recover:</p>
+<p><strong>form</strong> — which variables are related, how they relate, and what kind of relationship is present;</p>
+<p><strong>magnitude</strong> — how large the relationship is for a particular system.</p>
+<p>With roughly 34 annual observations, trying to estimate every magnitude independently is often poorly supported.</p>
+<p>The research therefore developed a different strategy:</p>
+<blockquote>
+<p><strong>Recover structure locally. Borrow magnitude where local data cannot support it.</strong></p>
+</blockquote>
+<p>That principle eventually became part of the general Scarcity architecture and was subsequently tested outside economics.</p>
+<hr />
+<h1>Limitations</h1>
+<p>The macroeconomic results have several important limitations.</p>
+<p><strong>No ground truth.</strong>
+Unlike the synthetic and mechanistic experiments, the true causal structure of the real economies is not known. A discovered edge cannot therefore be treated as ground-truth recovery.</p>
+<p><strong>Small samples.</strong>
+Approximately 34 observations per country is a fundamental limitation. Some relationship types simply do not have enough information to be reliably distinguished.</p>
+<p><strong>Downstream degradation.</strong>
+The real-data experiments demonstrate that successful structure discovery does not guarantee useful downstream prediction.</p>
+<p><strong>Federation is not universally beneficial.</strong>
+Pooling can increase statistical power while also introducing cross-node differences and bias. Its usefulness is target-dependent.</p>
+<p><strong>Granger is not intervention.</strong>
+The online causal relationship type measures predictive temporal dependence. It does not establish that changing one economic variable would cause another to change.</p>
+<p><strong>Limited geographic scope.</strong>
+The evaluation uses seven East African economies and therefore should not be interpreted as a universal test of macroeconomic systems.</p>
+<hr />
+<h1>Status</h1>
+<p>This is an <strong>independent research programme and real-data validation of Scarcity</strong>, not a production macroeconomic forecasting system.</p>
+<p>The value of the experiment is less in claiming that Scarcity can predict an economy from a few dozen observations and more in establishing the boundary conditions under which structural discovery is useful.</p>
+<p>The central result is therefore not:</p>
+<blockquote>
+<p><em>more structure always produces better models.</em></p>
+</blockquote>
+<p>It is closer to:</p>
+<blockquote>
+<p><strong>Structure can be recovered under scarcity, but exploiting that structure still requires sufficient information.</strong></p>
+</blockquote>
+<p>That distinction is what led from the original macroeconomic simulation work to the broader Scarcity framework.</p>
+                </article>
+
+                <!-- Mobile Navigation (Bottom) -->
+                
+
+            </main>
+
+    </div>
+
+</div>
+
+    </main>
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA MAKENA</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2026 Omega Makena Mwebia.<br>
+                        Engineering Intelligence.
+                    </div>
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // FlatPages/Pygments strips the `language-mermaid` class and injects spans.
+            // We search for all code blocks and check if the unformatted text indicates a diagram.
+            const allCodeBlocks = document.querySelectorAll(".codehilite code, pre code");
+            const blocksToProcess = [];
+            
+            allCodeBlocks.forEach(function(block) {
+                const text = block.textContent.trim();
+                if (text.startsWith("flowchart") || text.startsWith("sequenceDiagram") || text.startsWith("graph") || text.startsWith("stateDiagram")) {
+                    blocksToProcess.push({block: block, text: text});
+                }
+            });
+
+            blocksToProcess.forEach(function(item) {
+                const div = document.createElement('div');
+                div.className = 'mermaid flex justify-center w-full overflow-x-auto my-8'; 
+                div.textContent = item.text;
+                
+                const container = item.block.closest('.codehilite') || item.block.closest('pre');
+                if (container) {
+                    container.replaceWith(div);
+                }
+            });
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'neutral',
+                themeVariables: {
+                    'background': 'transparent',
+                    'primaryColor': '#18181B',
+                    'primaryTextColor': '#18181B',
+                    'lineColor': '#a3a3a3',
+                    'fontSize': '14px'
+                }
+            });
+            
+            if (blocksToProcess.length > 0) {
+                // Let the browser paint the divs before running mermaid
+                setTimeout(() => {
+                    mermaid.run({ querySelector: '.mermaid' });
+                }, 50);
+            }
+        });
+    </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+</body>
+
+</html>

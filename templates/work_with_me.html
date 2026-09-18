@@ -1,139 +1,60 @@
 {% extends "base.html" %}
 
-{% block title %}Services - {{ config.site.title }}{% endblock %}
+{% block title %}Work With Me - {{ config.site.title }}{% endblock %}
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
 
     <div class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary mb-4">{{ config.personal.name }} Services</h1>
+        <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary mb-4">Work With Me</h1>
         <p class="text-xl text-text-muted font-light max-w-2xl">
-            Commercial AI solutions operating at the intersection of applied AI research, federated logic, and high-assurance productization.
+            I partner with select organizations to build models and frameworks for complex, resource-constrained environments.
         </p>
     </div>
 
-    <!-- The 4 Core Business Units -->
+    <!-- The Collaboration Avenues -->
     <div class="grid gap-8 lg:grid-cols-2">
 
-        <!-- Business Unit A: SaaS -->
-        <div class="omega-card bg-bg-card p-8 border border-border-main group hover:border-accent-main transition-colors shadow-sm">
-            <div class="flex items-center justify-between mb-6">
-                <div class="p-3 bg-accent-main/10 rounded-md text-accent-main border border-accent-main/20">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
-                        </path>
-                    </svg>
-                </div>
-                <span class="text-xs font-mono font-bold tracking-widest text-text-muted uppercase">Unit 01</span>
-            </div>
-            <h3 class="text-2xl font-serif font-bold text-text-primary mb-3">Software as a Service (SaaS)</h3>
-            <p class="text-sm text-text-muted leading-relaxed mb-6 h-16">
-                Pre-built, high-assurance AI platforms ready for deployment. Accessible via enterprise subscription or usage-based pricing models.
-            </p>
-            <div class="bg-bg-subtle p-4 rounded border border-gray-100 font-mono text-xs text-text-primary mb-6">
-                <span class="font-bold block mb-1">Target Client:</span> Companies and government agencies requiring immediate, off-the-shelf federated solutions.
-            </div>
-            <div class="border-t border-gray-100 pt-4">
-                <strong class="text-xs uppercase tracking-widest text-text-muted block mb-2">Flagship Deliverables</strong>
-                <ul class="space-y-1">
-                    <li class="flex items-center text-sm"><span class="text-accent-main mr-2">→</span> KScarcity National Intelligence Network</li>
-                    <li class="flex items-center text-sm"><span class="text-accent-main mr-2">→</span> The Scarcity Architecture Toolchain</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Business Unit B: Customized Research -->
+        <!-- Avenue 1: Applied Research -->
         <div class="omega-card bg-bg-card p-8 border border-border-main group hover:border-accent-blue transition-colors shadow-sm">
-            <div class="flex items-center justify-between mb-6">
-                <div class="p-3 bg-blue-50 rounded-md text-accent-blue border border-blue-100">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z">
-                        </path>
-                    </svg>
-                </div>
-                <span class="text-xs font-mono font-bold tracking-widest text-text-muted uppercase">Unit 02</span>
-            </div>
-            <h3 class="text-2xl font-serif font-bold text-text-primary mb-3">Customized Research</h3>
-            <p class="text-sm text-text-muted leading-relaxed mb-6 h-16">
-                Full-service, bespoke AI research and modeling tailored exactly to your proprietary data loops and operational constraints.
+            <h3 class="text-2xl font-serif font-bold text-text-primary mb-3">Applied Research & Development</h3>
+            <p class="text-sm text-text-muted leading-relaxed mb-6">
+                Bespoke quantitative and machine learning research tailored to proprietary datasets and operational constraints. I build custom mathematical architectures designed to learn invariant relationships when data is noisy or scarce.
             </p>
             <div class="bg-blue-50/50 p-4 rounded border border-blue-50 font-mono text-xs text-text-primary mb-6">
-                <span class="font-bold block mb-1">Target Client:</span> B2B/B2G seeking proprietary IP advantage via custom model development.
-            </div>
-            <div class="border-t border-gray-100 pt-4">
-                <strong class="text-xs uppercase tracking-widest text-text-muted block mb-2">Flagship Deliverables</strong>
-                <ul class="space-y-1">
-                    <li class="flex items-center text-sm"><span class="text-accent-blue mr-2">→</span> Ground-up Custom Model Architecture</li>
-                    <li class="flex items-center text-sm"><span class="text-accent-blue mr-2">→</span> Domain-Specific Fine Tuning</li>
-                </ul>
+                <span class="font-bold block mb-1">Focus Areas:</span> Shock propagation, non-stationary market dynamics, and federated intelligence.
             </div>
         </div>
 
-        <!-- Business Unit C: Consultancy & MLOps -->
+        <!-- Avenue 2: Architecture & Consulting -->
         <div class="omega-card bg-bg-card p-8 border border-border-main group hover:border-accent-green transition-colors shadow-sm">
-            <div class="flex items-center justify-between mb-6">
-                <div class="p-3 bg-green-50 rounded-md text-accent-green border border-green-100">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z">
-                        </path>
-                    </svg>
-                </div>
-                <span class="text-xs font-mono font-bold tracking-widest text-text-muted uppercase">Unit 03</span>
-            </div>
-            <h3 class="text-2xl font-serif font-bold text-text-primary mb-3">Consultancy</h3>
-            <p class="text-sm text-text-muted leading-relaxed mb-6 h-16">
-                Expert architectural guidance on AI adoption, evaluating LLM viability versus traditional ML logic, and strategic platform integration.
+            <h3 class="text-2xl font-serif font-bold text-text-primary mb-3">Architecture & Consulting</h3>
+            <p class="text-sm text-text-muted leading-relaxed mb-6">
+                Technical strategy and architectural guidance for organizations navigating AI adoption. I evaluate the viability of complex ML and RAG systems, ensuring systems are bounded, secure, and fail gracefully.
             </p>
             <div class="bg-green-50/50 p-4 rounded border border-green-50 font-mono text-xs text-text-primary mb-6">
-                <span class="font-bold block mb-1">Target Client:</span> Enterprises needing technical diligence before heavy AI R&D investment.
-            </div>
-            <div class="border-t border-gray-100 pt-4">
-                <strong class="text-xs uppercase tracking-widest text-text-muted block mb-2">Flagship Deliverables</strong>
-                <ul class="space-y-1">
-                    <li class="flex items-center text-sm"><span class="text-accent-green mr-2">→</span> AI/MLOps Pipeline Strategy</li>
-                    <li class="flex items-center text-sm"><span class="text-accent-green mr-2">→</span> Executive AI Adoption Masterplans</li>
-                </ul>
+                <span class="font-bold block mb-1">Deliverables:</span> System design, MLOps pipeline strategy, and technical diligence.
             </div>
         </div>
 
-        <!-- Business Unit D: Core Research Mode -->
-        <div class="omega-card flex flex-col justify-between bg-zinc-950 p-8 border border-zinc-800 group transition-colors shadow-xl overflow-hidden relative">
-            <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(#18181B 1px, transparent 1px), linear-gradient(90deg, #18181B 1px, transparent 1px); background-size: 20px 20px;"></div>
-            
-            <div class="relative z-10">
-                <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center space-x-2">
-                        <span class="relative flex h-3 w-3">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
-                        </span>
-                        <span class="text-xs font-mono text-zinc-400">Internal Foundry</span>
-                    </div>
-                    <span class="text-xs font-mono font-bold tracking-widest text-zinc-500 uppercase">Unit 04</span>
-                </div>
-                
-                <h3 class="text-2xl font-serif font-bold text-white mb-3">Core Research Mode</h3>
-                <p class="text-sm text-zinc-400 leading-relaxed mb-6">
-                    My internal initiative pushing the boundaries of bounded-resource AI. I actively commercialize this research via licensing, strategic partnerships, and IP sales.
-                </p>
-            </div>
-            
-            <div class="relative z-10 border-t border-zinc-800 pt-4 mt-auto">
-                <span class="text-xs font-mono text-zinc-500 block mb-2">Licensing Opportunities Available</span>
-                <a href="/lab-notes/" class="inline-flex py-1 text-sm font-bold text-yellow-500 hover:text-yellow-400">Review my Open Publications →</a>
+        <!-- Avenue 3: IP Licensing -->
+        <div class="omega-card bg-bg-card p-8 border border-border-main group hover:border-accent-yellow transition-colors shadow-sm">
+            <h3 class="text-2xl font-serif font-bold text-text-primary mb-3">Scarcity & IP Licensing</h3>
+            <p class="text-sm text-text-muted leading-relaxed mb-6">
+                I license my foundational research frameworks, including components of the Scarcity engine, for commercial enterprise adoption. 
+            </p>
+            <div class="bg-yellow-50/50 p-4 rounded border border-yellow-50 font-mono text-xs text-text-primary mb-6">
+                <span class="font-bold block mb-1">Target:</span> Organizations requiring immediate access to bounded-resource AI tooling.
             </div>
         </div>
-
+        
     </div>
 
     <!-- Direct Contact Route -->
     <div class="mt-12 p-8 bg-bg-card rounded border border-border-main text-center">
         <h3 class="font-serif font-bold text-lg mb-2">Initiate an Engagement</h3>
-        <p class="text-text-muted text-sm mb-6 max-w-lg mx-auto">Whether exploring a retainer contract, project-based R&D, or an enterprise SaaS subscription, direct inquiries to me.</p>
-        <a href="mailto:omega@scarcity.ai" class="inline-flex items-center bg-text-primary text-white font-bold py-3 px-8 rounded shadow hover:bg-black transition-colors hover:-translate-y-1">
+        <p class="text-text-muted text-sm mb-6 max-w-lg mx-auto">To discuss a research partnership, consulting engagement, or licensing inquiry, please reach out directly.</p>
+        <a href="mailto:{{ config.personal.email }}" class="inline-flex items-center bg-text-primary text-white font-bold py-3 px-8 rounded shadow hover:bg-black transition-colors hover:-translate-y-1">
             Contact Me
         </a>
     </div>

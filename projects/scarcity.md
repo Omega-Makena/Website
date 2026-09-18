@@ -1,17 +1,17 @@
 ---
 title: Scarcity Framework
 date: 2026-04-05
-description: Machine learning framework designed for data and compute scarce environments.
+description: A research framework for discovering structural relationships under data scarcity.
 ---
 
-# Scarcity Framework Architecture
+# Scarcity
 
-**Scarcity** is an online-first framework for scarcity-aware deep learning. It provides a complete runtime for adaptive, resource-efficient machine learning with real-time performance feedback and dynamic optimization.
+**Scarcity** is a research framework for discovering structural relationships under data scarcity. It provides a complete engine for analyzing, forecasting, and understanding dynamic systems when data is too thin, noisy, or scarce to model directly.
 
-The core library implements a sophisticated multi-layered architecture designed for:
-1. **Federated Learning**: Training across distributed, private nodes.
+The core library implements machinery designed for:
+1. **Structural Discovery**: Finding invariant relationships across non-stationary regimes.
 2. **Online Inference**: Learning from streaming data in real-time.
-3. **Adaptive Resource Management**: Scaling compute based on device health.
+3. **Adaptive Resource Management**: Dynamically adapting models based on system constraints.
 
 ---
 
