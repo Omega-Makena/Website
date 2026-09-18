@@ -1,89 +1,146 @@
 ---
-title: Scarcity Framework
+title: Scarcity
 date: 2026-04-05
 description: A research framework for discovering structural relationships under data scarcity.
+category: Independent Research
 ---
 
 # Scarcity
 
-**Scarcity** is a research framework for discovering structural relationships under data scarcity. It provides a complete engine for analyzing, forecasting, and understanding dynamic systems when data is too thin, noisy, or scarce to model directly.
+### Structure Before Scale
 
-The core library implements machinery designed for:
-1. **Structural Discovery**: Finding invariant relationships across non-stationary regimes.
-2. **Online Inference**: Learning from streaming data in real-time.
-3. **Adaptive Resource Management**: Dynamically adapting models based on system constraints.
+**Scarcity** is a research framework for discovering structural relationships in dynamic multivariate data when observations are limited.
+
+It started with a practical problem in macroeconomic modelling: some of the datasets I was working with had only a few dozen observations per variable. There was not enough data to reliably estimate everything I wanted the model to know.
+
+So I changed the question.
+
+Instead of asking a model to learn the whole system from sparse observations, **what if we first recovered the structure of the system itself?**
+
+That became Scarcity.
 
 ---
 
-## 1. System Block Diagram
+## What Scarcity Does
 
-The Scarcity core library follows a layered architecture with strict separation of concerns.
+Scarcity processes data as a stream and builds a **typed, evolving relationship graph** of the system.
 
-```mermaid
-flowchart TD
-    App[Application Layer] --> FMI[FMI Service]
-    App --> Sim[Simulation]
-    App --> Meta[Meta-Learning]
-    
-    subgraph Core["Core Runtime"]
-        FMI --> Fed[Federation Layer]
-        Fed --> Eng[Engine Layer - MPIE]
-        Eng --> Stream[Stream Processing]
-        
-        Note[Runtime Bus & Telemetry] -.-> Eng
-        Note -.-> Fed
-        
-        DRG[Dynamic Resource Governor] -.-> Eng
-        DRG -.-> FMI
-    end
-    
-    Stream --> Ops[Core Operators]
+It does not assume that every dependency is a correlation. It can represent different kinds of relationships between variables and track whether those relationships become stronger, weaker, or disappear as new observations arrive.
+
+The discovered structure can then be used as a prior or representation for other models.
+
+The basic loop is:
+
+**observe → discover structure → evaluate → maintain → reuse**
+
+The aim is not to replace statistical or machine-learning models.
+
+It is to give them information about **how the system is organized** before asking them to learn everything from the observations themselves.
+
+---
+
+## Why It Exists
+
+Most machine-learning workflows treat limited data as a reason to use a simpler model, stronger regularization, or more prior information.
+
+Scarcity explores a different possibility:
+
+> **Some of the information we need may be in the organization of the system rather than in the number of observations.**
+
+That idea is especially interesting in systems where observations are expensive, irregular, noisy, or constantly changing.
+
+---
+
+## The Research
+
+The research began with macroeconomic data and expanded into several substantially different environments.
+
+### Macroeconomics
+
+The original test case used annual indicators for East African economies, with roughly 34 observations per variable.
+
+Scarcity's calibrated discovery process substantially improved the ranking and false-positive behavior of recovered relationships under this constraint.
+
+The downstream results were mixed—which is important. Some shallow structure-aware consumers improved over raw lag features, while deeper consumers degraded and simple persistence remained difficult to beat.
+
+### Financial Markets
+
+Scarcity was subsequently tested on high-frequency Bitcoin trade and order-flow data.
+
+The streaming engine recovered a typed market graph and was used to distinguish different forms of order-flow and volatility relationships. The study also tested whether discovered relationships translated into economically useful trading signals.
+
+They did not all do so.
+
+A statistically detectable relationship was not automatically treated as a tradable edge.
+
+### Biological Systems
+
+Scarcity's structural discovery machinery is also used inside **BioTwin**, an experimental continuous-time biological modelling environment.
+
+Controlled mechanistic experiments test whether known biological structure can be recovered from sparse, heterogeneous observations across multiple biological scales.
+
+These experiments are validation environments for the framework. They are not claims of clinical validation.
+
+---
+
+## The Paper
+
+The research is documented in:
+
+### *Scarcity: A Streaming Relationship-Discovery and Federated-Learning Framework for Multivariate Time Series Under Data Scarcity*
+
+The paper describes the framework, its statistical calibration, relationship model, federated setting, benchmarks, and domain experiments.
+
+**[Read the Paper]**
+
+This is a research manuscript / preprint. The results are empirical and bounded by the experiments reported in the work.
+
+---
+
+## The Software
+
+Scarcity is also implemented as a Python package.
+
+### Install
+
+```bash
+pip install scarcity
 ```
 
-### Component Interaction Flow:
+The package contains the framework itself rather than a simplified demonstration of the idea.
 
-1. **Data Ingestion**: Stream sources feed data windows to the engine via the stream processing loop.
-2. **Path Exploration**: **MPIE** proposes and evaluates candidate paths using bandit algorithms (UCB/Thompson).
-3. **Federation**: Successful paths are packaged into `PathPacks` and shared across domains via the Federation Coordinator.
-4. **Meta-Learning**: Cross-domain patterns are learned and applied to the global model prior.
-5. **Resource Management**: **DRG** monitors system resources (CPU, RAM) and throttles the Engine adaptation gracefully.
-6. **Simulation**: Agent-based models provide what-if analysis capabilities to predict system behavior offline.
+The research and software evolve together: experiments inform the framework, while the framework provides the environment in which those experiments can be reproduced and extended.
+
+**[View the Repository]**
 
 ---
 
-## 2. Multi-Path Inference Engine (MPIE)
+## What I Am Actually Testing
 
-The **Multi-Path Inference Engine (MPIE)** is the core component responsible for online learning and adaptive inference. It discovers optimal computation paths dynamically, and naturally adapts to available CPU/RAM in real-time.
+The central claim under investigation is narrower than “Scarcity solves data scarcity.”
 
-### Processing Pipeline
+It is:
 
-1. **Proposal Phase**: The Controller analyzes the current context and proposes candidate inference pathways.
-2. **Evaluation Phase**: Evaluates candidates on the incoming data window, scores their performance (Accuracy vs Latency), and computes confidence bands.
-3. **Selection Phase**: Selects the best path based on Reward and Cost, avoiding local optima via diversity penalties.
-4. **Update Phase**: The system updates the Bandit routing tables based on the result.
+> **When observations are scarce, some useful information about a system may survive in its structure even when its magnitudes are difficult to estimate reliably.**
 
-```mermaid
-flowchart LR
-    A[Data Stream] --> B[Controller\nProposal Phase]
-    B --> C{Evaluator\nPerformance scoring}
-    C -- High Yield --> D[Adopt Path & Exploit]
-    C -- Unknown --> E[Explore Safely]
-    C -- Poor Yield --> F[Discard & Penalize]
-    D & E & F --> G[Bandit Updates]
-```
+The research is therefore testing three separate questions:
+
+**Can structure be discovered?**
+
+**Can it be distinguished from noise?**
+
+**Does using that structure actually improve another task?**
+
+Scarcity has produced evidence for some of these questions and negative or inconclusive results for others.
+
+That distinction is part of the work.
 
 ---
 
-## 3. Bandit Routing Algorithm
+## Current Status
 
-The core controller uses an **Upper Confidence Bound (UCB)** formula infused with inference diversity bonuses. It simultaneously seeks accuracy while strictly penalizing heavy latency.
+Scarcity is an **active independent research programme with an implemented software framework and accompanying research paper**.
 
-`UCB(arm) = μ(arm) + τ · √(2ln(T) / n(arm)) + γ · D(arm) - η · C(arm)`
+The main research phase is now focused less on adding capability and more on consolidating the evidence, documenting failure modes, preserving benchmarks, and establishing where the underlying idea holds—and where it does not.
 
-**Execution Drivers**:
-* **μ(arm)**: Mean reward observed so far for this algorithm path.
-* **τ**: Temperature parameter to dynamically adjust exploration boldness.
-* **D(arm)**: Diversity score to encourage testing unexplored inference branches.
-* **C(arm)**: Execution latency cost to discard slow paths dynamically.
-
-If a device reaches thermal throttling, the **Dynamic Resource Governor (DRG)** directly scales up the negative weight `η`, forcing the Bandit Router to immediately discard mathematically dense neural network pathways and default to simpler, lighter heuristic trees.
+**Structure survives when magnitudes do not.**

@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <meta name="description" content="Preprint outlining the Scarcity framework, its methodology, and its measured behaviour.">
+    <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
+    <meta name="author" content="Omega Makena Mwebia">
+
+    <title>Scarcity: A Streaming Relationship-Discovery and Federated-Learning Framework for Multivariate Time Series Under Data Scarcity - Omega Makena Mwebia</title>
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/syntax.css">
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'mono': ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        bg: {
+                            core: '#FAFAF9',    // Stone 50 (Warm Paper)
+                            card: '#FFFFFF',    // Pure White
+                            subtle: '#F5F5F4',  // Stone 100 (Slightly darker for panels)
+                        },
+                        text: {
+                            primary: '#18181B', // Zinc 950 (Ink)
+                            muted: '#52525B',   // Zinc 600 (Darker Graphite for legibility)
+                        },
+                        accent: {
+                            main: '#C1272D',    // Swiss Red (Primary Actions)
+                            blue: '#0044CC',    // International Blue (Links/Info)
+                            green: '#107A48',   // Forest Green (Success/Nature)
+                            yellow: '#D97706',  // Ochre (Warning/Highlight)
+                        },
+                        border: {
+                            DEFAULT: '#E7E5E4', // Stone 200
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-core: #FAFAF9;
+            --bg-card: #FFFFFF;
+            --bg-subtle: #F5F5F4;
+            --text-primary: #18181B;
+            --text-muted: #52525B;
+            --accent-main: #C1272D;
+            --accent-blue: #0044CC;
+            --accent-green: #107A48;
+            --accent-yellow: #D97706;
+            --border-main: #E7E5E4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-primary);
+        }
+
+        /* Typography Overrides */
+        h1,
+        h2,
+        h3,
+        .card-title,
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* The "Analog" Rule */
+        .accent-text,
+        a:hover {
+            color: var(--accent-main);
+            transition: color 0.3s ease;
+        }
+
+        /* The "Manuscript" Card (Glass Version) */
+        .omega-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Semi-transparent */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .omega-card:hover {
+            border-color: var(--accent-main);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation specifics */
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-main);
+        }
+
+        /* Engineering Grid Texture */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, #E7E5E4 1px, transparent 1px),
+                linear-gradient(to bottom, #E7E5E4 1px, transparent 1px);
+            opacity: 0.4;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Giant Watermark (Image) */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.05;
+            /* Subtle print effect */
+            mix-blend-mode: multiply;
+        }
+
+        .watermark img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-accent-main selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 bg-grid z-[-2] pointer-events-none"></div>
+    <div class="watermark">
+        <img src="/static/img/omega-labs.jpg" alt="Omega Watermark">
+    </div>
+
+    <nav class="fixed w-full top-0 z-50 bg-[#FAFAF9]/90 backdrop-blur-[10px] border-b border-[#E7E5E4]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="/static/img/omega-labs.jpg" alt="Omega Makena Mwebia Logo"
+                        class="h-10 w-auto rounded-full border border-gray-200">
+                    <span
+                        class="font-serif font-bold text-lg tracking-[1px] text-text-primary uppercase group-hover:text-accent-main transition-colors">Omega
+                        Makena</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="/projects/" class="nav-link">PROJECTS</a>
+                    <a href="/lab-notes/" class="nav-link">RESEARCH NOTES</a>
+                    <a href="/about/" class="nav-link">ABOUT</a>
+                    <a href="/services/" class="nav-link">WORK WITH ME</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button"
+                        class="p-2 text-text-primary hover:text-accent-main focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-bg-card border-b border-[#E7E5E4]" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/projects/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">PROJECTS</a>
+                <a href="/lab-notes/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">RESEARCH NOTES</a>
+                <a href="/about/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">ABOUT</a>
+                <a href="/services/"
+                    class="block px-3 py-2 text-base font-medium text-text-primary hover:text-accent-main">WORK WITH ME</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-20">
+        
+<div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
+
+    <div class="grid lg:grid-cols-12 gap-12">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="lg:col-span-3 hidden lg:block">
+            <div class="sticky top-32">
+                
+                <h3
+                    class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-6 pl-4 border-l-2 border-transparent">
+                    Recent Essays
+                </h3>
+                
+
+                <nav class="space-y-1">
+                    
+                    <a href="/writing/my-papers/scarcity/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-accent-main text-accent-main font-bold
+                              ">
+                        Scarcity: A Streaming Relationship-Discovery and Federated-Learning Framework for Multivariate Time Series Under Data Scarcity
+                    </a>
+                    
+                    <a href="/writing/essays/role-playing-mirroring/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Why Role-Playing is Still Mirroring, Just Narrowed
+                    </a>
+                    
+                    <a href="/writing/reflections/self-actualization-growing/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Self-Actualization - Growing to Be Your Best Self
+                    </a>
+                    
+                    <a href="/writing/reflections/intellectual-loneliness/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Intellectual Loneliness
+                    </a>
+                    
+                    <a href="/writing/poetry/fragments-of-thought/" class="block py-2 pl-4 border-l-2 transition-all text-sm
+                              
+                              border-gray-100 text-text-muted hover:border-accent-main/50 hover:text-text-primary
+                              ">
+                        Fragments of Thought
+                    </a>
+                    
+
+                    <a href="/lab-notes/"
+                        class="block mt-8 py-2 pl-4 text-xs font-mono text-gray-400 hover:text-text-primary transition-colors border-l-2 border-transparent hover:border-text-primary">
+                        ← Back to Lab Notes
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content with Sidebar -->
+        <main class="lg:col-span-9">
+            
+
+                <!-- Header -->
+                <header class="mb-12 border-b border-gray-200 pb-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent-main">
+                            Writing
+                        </span>
+                        
+                        <span class="text-xs font-mono text-text-muted">
+                            // September 18, 2026
+                        </span>
+                        
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
+                        Scarcity: A Streaming Relationship-Discovery and Federated-Learning Framework for Multivariate Time Series Under Data Scarcity
+                    </h1>
+
+                    
+                    <p class="text-xl text-text-muted font-sans leading-relaxed max-w-3xl">
+                        Preprint outlining the Scarcity framework, its methodology, and its measured behaviour.
+                    </p>
+                    
+                </header>
+
+                <!-- Prose Content -->
+                <!-- Prose Content -->
+                <article class="prose prose-lg max-w-none 
+                            prose-headings:font-serif prose-headings:text-text-primary 
+                            prose-p:text-text-secondary prose-p:leading-relaxed 
+                            prose-a:text-accent-blue prose-a:no-underline hover:prose-a:underline 
+                            prose-strong:text-text-primary 
+                            prose-code:text-accent-main prose-code:bg-gray-50 prose-code:px-1 prose-code:rounded
+                            prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-gray-800
+                            prose-ul:list-disc prose-ul:pl-6
+                            prose-li:marker:text-accent-main prose-li:my-2">
+                    <p><strong>Author:</strong> Omega Makena M. <em>(corresponding: mwebiamakenaa@gmail.com)</em>
+<strong>Affiliation:</strong> Innova Limited
+<strong>Preprint — draft, September 2026. Not peer reviewed.</strong></p>
+<hr />
+<h2>Abstract</h2>
+<p>Many real multivariate time series arrive under scarcity: few samples per variable, high noise,
+and a data-generating process that drifts. We present <strong>Scarcity</strong>, a framework that learns and
+maintains a living knowledge graph of <em>typed</em> relationships from such streams, one row at a time.
+Its discovery core reasons over <strong>fifteen relationship types</strong> — causal, correlational, temporal,
+functional, equilibrium, compositional, competitive, synergistic, probabilistic, structural,
+mediating, moderating, graph, similarity, and logical — of which causal dependence is one class
+among many, not the headline. Each candidate relationship is a <strong>hypothesis with a lifecycle</strong>:
+born tentative, promoted to active as evidence accumulates, decayed and pruned when evidence turns
+against it or a regime break is detected. Two design commitments organize the framework. First,
+<strong>calibration before trust</strong>: the engine's raw per-edge confidence is not a significance test, and
+edges are gated against a type-appropriate permutation null with false-discovery-rate control and
+stability selection before they are believed. This gate is the engine's <strong>default</strong>, runs online with
+an autocorrelation-robust effective-sample-size correction, and returns each surviving edge with a
+p-value and a partial-R² effect size; an explicit <strong>epistemic ladder</strong> then carries an edge only as
+far as the evidence allows — from discovered, through calibrated and predictive, to identified,
+estimated, and robust — refusing to silently upgrade a claim past what has been shown. On a controlled
+synthetic benchmark with known ground truth this yields exact structure recovery (strict edge
+F1 = 1.00; per-type recall = 1.00 across all fifteen types) at a measured null false-positive rate of
+0.00, and against a panel of five classical detectors across six canonical failure modes it is the
+only method that reaches the correct answer in every one. Second, a deliberate <strong>refusal</strong>: the
+framework recovers and trusts <em>structure</em> cheaply but declines to estimate per-system <em>magnitudes</em>
+freely, borrowing them instead from a <strong>federation</strong> of peers that never share raw data — pooling
+three countries of macroeconomic data (effective sample ≈34→102) raised the maximum confidence of
+otherwise-underpowered relationship types (equilibrium 0.12→0.58, moderating 0.00→0.44, logical
+0.18→0.53) and unlocked all fifteen. Around this sit meta-learning (episodic memory and an online
+Reptile optimizer that carry priors across domains), a dynamic resource governor (keeping every
+component within a compute budget), and privacy machinery (local differential privacy and secure
+aggregation). The framework has been run across three domains — macroeconomics, a mechanistic
+biological twin (four disease models where it recovers the known coupling graph, form F1 up to 1.00
+against a zero shuffle null), and live Bitcoin microstructure (where it recovers and correctly
+<em>types</em> a 29-edge order-flow graph) — and it is the discovery layer of a national
+economic-intelligence platform and a high-frequency trading system, not only a benchmark artefact.
+We are candid about limits. On real macroeconomic data at genuine scarcity (N≈34),
+graph-conditioned anomaly detection <em>loses</em> to a blind Z-score baseline, and the break-even where
+discovered structure begins to help lies at roughly 200–300 effective observations; forecasting
+shows no dominant method with bootstrap confidence intervals too wide (±1.0–1.5 MAE at 24 test
+points) to certify most differences; and federation helps some targets and hurts others. The
+framework's discovery is Granger-predictive, not interventional: structural causal identification is
+explicitly out of scope for the online engine and delegated to a separate offline do-calculus
+pipeline. Scarcity is domain-agnostic — no module carries domain logic — and is released as an
+installable Python package. This paper introduces the framework, its methodology, and its measured
+behaviour, honest results and honest failures alike.</p>
+<hr />
+<h2>1. Introduction</h2>
+<p>The word <em>scarcity</em> carries two senses here, and the framework is named for both.</p>
+<p><em>Scarcity, the regime</em> is a data condition: few samples per variable, high measurement noise, and a
+data-generating process that will not sit still. It is the ordinary situation for a great deal of
+real-world data — an annual macroeconomic series has a few dozen points, a new sensor deployment has
+days of history, a cold-start domain has almost nothing — and it is exactly the regime in which
+standard batch methods, which assume enough data to estimate everything at once, are least at home.</p>
+<p><em>Scarcity, the framework</em> is the system this paper introduces: a streaming engine that ingests such
+data one row at a time and maintains a living knowledge graph of typed relationships between
+variables. Its organizing question is not "what is the best model of this dataset?" but "as evidence
+trickles in, which relationships can I actually justify believing, of what kind, and how confident
+should I be — and which magnitudes should I decline to estimate and borrow from elsewhere instead?"</p>
+<p>The framework rests on one conviction and one discipline. The conviction is that <strong>relationships are
+active constraints that must survive new evidence</strong> — not results computed once, but hypotheses that
+live or die as data arrives. The discipline is that <strong>structure and magnitude are recovered on
+different terms</strong>: the form of a relationship (its existence, type, and direction) is treated as
+cheap to recover and worth trusting once calibrated; its magnitude (the effect size, the rate
+constant) is treated as expensive and often not identifiable from one scarce stream, and is borrowed
+from a federation of peers rather than invented locally. Everything else in the framework —
+calibration, federation, meta-learning, resource governance — follows from those two commitments.</p>
+<p>This paper describes the framework's design (§2–§3), its discovery methodology and the fifteen
+relationship types (§4), the calibration procedure that turns raw scores into trustworthy edges
+(§5), the federation and meta-learning that supply borrowed magnitudes and cross-domain priors (§6),
+and the measured behaviour on both controlled and real data — including where it fails (§7–§8). A
+companion theoretical paper interprets these behaviours; here we stay with the engineering and the
+evidence.</p>
+<hr />
+<h2>2. Design Principles</h2>
+<p>Five principles run through every module.</p>
+<p><strong>Hypothesis survival.</strong> A relationship is not a finding but a standing constraint. Every candidate
+enters a lifecycle — <em>tentative</em> on proposal, <em>active</em> once confidence and stability cross
+thresholds, <em>decaying</em> when evidence weakens or a structural break is detected, <em>dead</em> when
+confidence collapses — so the knowledge graph is adaptive rather than a one-shot snapshot.</p>
+<p><strong>Calibration before trust.</strong> The engine's per-edge confidence is a ranking signal, not a p-value.
+No edge is trusted until it has passed a type-appropriate permutation null with false-discovery-rate
+control and stability selection (§5). This is the single most important methodological guardrail in
+the framework: without it, raw confidence produces confident nonsense.</p>
+<p><strong>The refusal — recover structure, borrow magnitude.</strong> The framework recovers form cheaply and
+trusts it once calibrated, but it does not freely estimate per-system magnitudes that a scarce
+stream cannot support. Those are borrowed from the federation. This is a deliberate asymmetry, not a
+missing feature.</p>
+<p><strong>Domain agnosticism.</strong> No module contains domain-specific logic. Variable names are strings,
+relationship types are general statistical patterns, groupings are configurable. The same engine
+runs on any multivariate time series; the framework was explicitly decoupled from its original
+economics domain so that nothing domain-specific remains.</p>
+<p><strong>Decoupling through an event bus, privacy by default, and adaptive resource control.</strong> Modules
+communicate through a shared asynchronous EventBus and do not call each other directly, so any
+component can be replaced or disabled without breaking the others; the federation layer applies
+differential privacy before any update leaves a node and uses secure aggregation so the server never
+sees a raw update; and a single resource governor is the only component permitted to reach into
+others and adjust their runtime parameters, keeping the whole system within a compute budget.</p>
+<hr />
+<h2>3. Architecture</h2>
+<p>Scarcity is layered. Reading from the foundation upward:</p>
+<ul>
+<li><strong><code>runtime/</code> — foundation.</strong> An asynchronous pub/sub EventBus plus telemetry: latency tracking,
+  data- and concept-drift monitors. Every module depends on this; nothing else is depended on so
+  universally.</li>
+<li><strong><code>stream/</code> — ingestion.</strong> Reads any source, segments it into sliding or tumbling windows, tracks
+  schema evolution, shards by variable group, and supports deterministic replay for reproducibility.
+  A PI-controller regulates ingestion rate under backpressure.</li>
+<li><strong><code>engine/</code> — the discovery core (§4).</strong> Maintains a pool of competing relationship hypotheses,
+  promotes the strongest into the knowledge graph, and continuously revises it. The largest module.</li>
+<li><strong><code>causal/</code> — offline inference.</strong> A batch do-calculus pipeline (DoWhy identification + EconML
+  heterogeneous effects) that quantifies effect <em>magnitudes</em> for a specific query. Complementary to
+  the engine: the engine finds <em>what</em> to investigate, this estimates <em>how much</em>, with two validity
+  layers — refutation tests (placebo, random common cause, subset) for robustness to perturbation,
+  and a Cinelli–Hazlett omitted-variable-bias <strong>sensitivity analysis</strong> for robustness to a
+  confounder that was never measured (the robustness value: how strong such a confounder would have
+  to be to explain the effect away).</li>
+<li><strong><code>federation/</code> — federated learning (§6).</strong> Multiple nodes learn a shared graph without moving
+  raw data; two-layer aggregation, gossip, secure aggregation, a differential-privacy guard, trust
+  scoring, and conflict reconciliation.</li>
+<li><strong><code>fmi/</code> — federation–meta interface.</strong> Translates aggregated federation updates into priors and
+  adaptation signals the meta-learner can consume, and back.</li>
+<li><strong><code>meta/</code> — meta-learning (§6).</strong> Episodic memory keyed by context embedding, plus an online
+  Reptile optimizer that accumulates a good initialization across domains and warm-starts new ones.</li>
+<li><strong><code>governor/</code> — dynamic resource governor.</strong> A tight control loop (default 0.5 s) that senses CPU,
+  memory, and latency, forecasts usage, and throttles or expands each subsystem against per-subsystem
+  policies.</li>
+<li><strong><code>synthetic/</code> and <code>dashboard/</code>.</strong> Ground-truth data generation and benchmarking; a thin read-only
+  FastAPI window onto the live engine.</li>
+</ul>
+<p>The one-way dependency on the EventBus is the structural backbone: <code>stream → engine → exporter → bus</code>
+is the only direct path; every other interaction is a published event that any module may subscribe
+to or ignore.</p>
+<hr />
+<h2>4. The Discovery Core</h2>
+<h3>4.1 The hypothesis lifecycle</h3>
+<p>Every potential relationship between two variables begins as a hypothesis and is carried through a
+four-state lifecycle by three cooperating components. The <strong>HypothesisPool</strong> is the registry of all
+living hypotheses; it enforces a capacity limit and includes a regime tracker that uses a cumulative-sum
+(CUSUM) test to detect structural breaks — shifts in the data-generating process that should trigger
+re-evaluation of every active hypothesis. The <strong>MetaController</strong> drives the state transitions
+(tentative→active→decaying→dead) against evidence, stability, and confidence thresholds. The
+<strong>BanditRouter</strong> decides which candidate relationships to explore next, maintaining a Beta posterior
+per relationship-type arm (Thompson sampling by default) so exploration of rare types is balanced
+against exploitation of productive ones, updated by the <strong>Evaluator</strong>, which scores candidates by
+predictive gain, bootstrap confidence, and stability, with a latency penalty and a diversity bonus.</p>
+<p>An <strong>AdaptiveGrouper</strong> maintains a dynamic clustering of variables — groups split when variables are
+better explained apart and merge when they behave as a unit — to prioritize which pairs the pool
+examines, and a <strong>HypothesisArbiter</strong> resolves contradictory claims about the same pair using a fixed
+type hierarchy (logical &gt; functional &gt; causal &gt; compositional &gt; temporal &gt; competitive/synergistic &gt;
+structural &gt; correlational/probabilistic/equilibrium), breaking ties by confidence.</p>
+<h3>4.2 The fifteen relationship types</h3>
+<p>Relationships are not interchangeable; each type is tested on its own statistical footing.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>What it captures</th>
+<th>Statistical basis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Causal</td>
+<td>A drives B with a lag</td>
+<td>Granger causality</td>
+</tr>
+<tr>
+<td>Correlational</td>
+<td>A and B move together</td>
+<td>Pearson correlation</td>
+</tr>
+<tr>
+<td>Temporal</td>
+<td>Auto-regressive structure</td>
+<td>AR/VAR via recursive least squares</td>
+</tr>
+<tr>
+<td>Functional</td>
+<td>A is a smooth function of B</td>
+<td>Local polynomial / Nadaraya–Watson</td>
+</tr>
+<tr>
+<td>Equilibrium</td>
+<td>A and B revert to a long-run balance</td>
+<td>Engle–Granger cointegration + Dickey–Fuller</td>
+</tr>
+<tr>
+<td>Compositional</td>
+<td>B is a linear combination of several variables</td>
+<td>Multivariate regression</td>
+</tr>
+<tr>
+<td>Competitive</td>
+<td>A gains as B loses</td>
+<td>Variance-difference F-test</td>
+</tr>
+<tr>
+<td>Synergistic</td>
+<td>A and B jointly exceed their parts</td>
+<td>Partial F-test on interaction</td>
+</tr>
+<tr>
+<td>Probabilistic</td>
+<td>A and B share a distribution family</td>
+<td>KS two-sample + Jensen–Shannon</td>
+</tr>
+<tr>
+<td>Structural</td>
+<td>A partitions B into distinct groups</td>
+<td>Intraclass correlation (ANOVA-based)</td>
+</tr>
+<tr>
+<td>Mediating</td>
+<td>C carries the A→B path</td>
+<td>Sobel test on the indirect effect</td>
+</tr>
+<tr>
+<td>Moderating</td>
+<td>C changes the strength of A→B</td>
+<td>Partial F-test on the interaction</td>
+</tr>
+<tr>
+<td>Graph</td>
+<td>Non-linear coupling a linear test misses</td>
+<td>Mutual information vs Pearson excess</td>
+</tr>
+<tr>
+<td>Similarity</td>
+<td>Variables fall into shared clusters</td>
+<td>k-means++ with online silhouette</td>
+</tr>
+<tr>
+<td>Logical</td>
+<td>A and B satisfy a Boolean rule</td>
+<td>Rule-based test</td>
+</tr>
+</tbody>
+</table>
+<p>Causal dependence is one row of fifteen — the hardest to establish and, in this framework, the least
+privileged: the online engine measures Granger-style predictive structure, and any claim stronger
+than that is delegated to the offline <code>causal/</code> pipeline (§3) and hedged accordingly (§8).</p>
+<h3>4.3 Estimators, hardening, and the two backends</h3>
+<p>Every model update is guarded against the pathologies of continuous noisy streams: a <strong>Winsorizer</strong>
+clips values to the 1st–99th percentile so outlier spikes cannot corrupt the recursive-least-squares
+covariance, an <strong>online median-absolute-deviation</strong> estimator supplies a robust spread, and a <strong>Huber
+gradient</strong> degrades gracefully under outliers.</p>
+<p>Each of the fifteen types carries a <strong>standard, literature-grounded estimator</strong> rather than an ad-hoc
+score: Granger F-tests with transfer entropy for causality, Miller–Madow-corrected mutual information
+for non-linear coupling, an augmented Dickey–Fuller test for equilibrium, a Sobel test on the
+indirect path for mediation, one-way ANOVA for structural grouping, and interaction F-tests for
+synergy and moderation, with a Wilson–Hilferty χ² approximation as a scipy-free fallback. A recurring
+discipline underlies them: because a bare significance test is uniform under the null and therefore
+false-fires, the specialized estimators gate on <strong>effect size</strong> — near zero under the null regardless
+of sample size — not on raw significance.</p>
+<p>The engine runs on <strong>two interchangeable backends behind one interface.</strong> The <strong>batched (tensor)</strong>
+path (<code>vectorized=True</code>, <code>GPUDiscoveryEngine</code>) is the <strong>default whenever <code>torch</code> is present</strong>: it
+processes all hypotheses per row as a single tensor operation — a batched recursive-least-squares
+kernel over the whole pool, with hypotheses regrouped by their functional form so each estimator runs
+once across its whole cohort rather than in a Python loop — and implements the same fifteen type
+estimators in batched form (interaction-coefficient significance for synergy and moderation, a Sobel
+test from the stored series for mediation, batched ANOVA for structure, an AR(1) unit-root test for
+equilibrium, and effect-size-gated tests for the conditional and logical types). Regrouping the
+hypotheses by functional form so each estimator runs once per cohort — rather than once per hypothesis
+inside a Python loop — is what makes the tensor path fast: on GPU it collapses the per-row work to a
+handful of batched operations over the whole pool, an order-of-magnitude speedup on a wide pool that
+returns the same typed graph (the shipped <code>scaling.py</code> benchmark reports per-row throughput for both
+backends across pool sizes). The <strong>pure-Python</strong> path (<code>vectorized=False</code>)
+remains the authoritative reference for reproducibility — it streams the hypothesis objects one row at
+a time, needs no GPU, and is the backend behind this paper's synthetic and real-data tables; the
+batched path falls back to it cleanly when torch is absent (<code>vectorized=None</code> selects automatically).
+Both backends emit the identical <code>get_knowledge_graph()</code> and the GPU path is validated both by
+construction — each estimator fires on data that contains its relationship and stays quiet on data
+that does not — and against the pure-Python path directly.</p>
+<p>The recursive-least-squares core is hardened for long streams. Because the RLS covariance can wind up
+and diverge to non-finite values after several thousand steps, each update symmetrizes the covariance
+and caps its trace, so the batched kernel stays numerically stable at the hundred-thousand-row scale
+of the microstructure study (§7.2) rather than emitting <code>NaN</code> confidences.</p>
+<hr />
+<h2>5. Calibration: Turning Scores Into Trustworthy Edges</h2>
+<p>This is the methodological heart of the framework, and the reason its recovery numbers are worth
+anything. The engine emits, per candidate edge, a raw confidence and a fit statistic. Neither is a
+significance test. An edge is trusted only after passing a three-stage gate:</p>
+<ol>
+<li><strong>Type-appropriate permutation null.</strong> The null is matched to the relationship's structure:
+   <em>block permutation</em> for lagged directional relationships (preserving short-range autocorrelation),
+   <em>random shuffle</em> for contemporaneous relationships, and <em>phase randomization</em> for self-referential
+   types (temporal, equilibrium, structural) that must preserve a variable's own spectrum. A single
+   generic shuffle would be wrong for most of the fifteen types.</li>
+<li><strong>False-discovery-rate control.</strong> A dual statistic — the minimum of the confidence and fit
+   p-values — is passed through a Benjamini–Hochberg step-up procedure at q = 0.05, so the reported
+   edge set controls the expected proportion of false edges rather than any single test.</li>
+<li><strong>Stability selection.</strong> Edges must recur across resampled windows to survive, suppressing
+   edges that appear once by chance.</li>
+</ol>
+<p>On a controlled synthetic benchmark whose ground-truth structure is known by construction (a formal
+<code>VariableProcess</code> design that guarantees dependence without leakage), this gate produces <strong>exact
+recovery</strong> — strict, family, and edge F1 all 1.00 (17 true positives, 0 false positives, 0 false
+negatives), with per-type recall of 1.00 across all fifteen types — at a measured <strong>null
+false-positive rate of 0.00</strong> on held-out null pairs. The calibration detail bears out the mechanism:
+genuine edges (e.g. a structural edge at confidence 0.98, a causal edge at 0.81) clear their nulls,
+while planted null pairs return p = 1.00 and are correctly rejected.</p>
+<p>The lesson the framework encodes is blunt: <strong>raw confidence without this gate is not evidence.</strong> The
+same engine run without calibration would report a dense, confident, and largely spurious graph.</p>
+<p><strong>Calibration is the default, and it runs online.</strong> In earlier releases the gate lived only in the
+offline benchmark harness; it is now built into the engine itself. <code>get_knowledge_graph(calibrated=True)</code>
+is the default on both backends, so an uncalibrated graph is something a caller must now ask for
+explicitly rather than the other way round; on the default tensor backend each surviving edge is
+returned with a <code>p_value</code> and a partial-R² effect size, not just a confidence (the pure-Python
+reference applies a softer internal deflation). Two refinements make the gate sound in the streaming
+setting,
+where the i.i.d. permutation assumption is weakest. First, the online significance test is
+<strong>autocorrelation-robust</strong>: the per-predictor t-statistic from the recursive-least-squares fit is
+shrunk by an effective sample size, <code>n_eff = n·(1 − r₁ᵃr₁ʸ)/(1 + r₁ᵃr₁ʸ)</code> (the Bayley–Hammersley
+correction from the lag-1 autocorrelations of predictor and target), so a serially correlated stream
+is not mistaken for a longer independent one. Second, a <code>min_partial_r2</code> floor lets a caller demand a
+minimum effect size, not merely significance — the guard that keeps large-<code>n</code> streams from promoting
+vanishing effects. For the genuinely sequential case, where hypotheses are tested in arrival order and
+the horizon is open-ended, the package also ships a standalone LORD++ online-FDR controller
+(<code>scarcity.engine.online_fdr.LordOnlineFDR</code>) that spends an error-budget "wealth" across an unbounded
+test stream while controlling the false-discovery rate — the online counterpart to the batch
+Benjamini–Hochberg step used over a fixed edge set.</p>
+<h3>5.1 From discovery to identification: the epistemic ladder</h3>
+<p>Calibration decides which edges to <em>believe</em>; it does not by itself decide how much to <em>claim</em> about
+them. The framework separates those with an explicit <strong>epistemic ladder</strong> — a six-rung scale that an
+edge climbs only as far as the evidence carries it: <code>DISCOVERED</code> (the engine proposed it) →
+<code>HYPOTHESIZED</code> (it survives the calibration gate) → <code>PREDICTIVE</code> (it improves genuinely held-out
+prediction) → <code>IDENTIFIED</code> (a valid adjustment set exists for it) → <code>ESTIMATED</code> (its magnitude is
+estimated on the adjusted regression) → <code>ROBUST</code> (the estimate withstands a placebo test and an
+omitted-variable-bias sensitivity analysis). The <code>EpistemicPipeline</code> (<code>scarcity.pipeline</code>) drives an
+edge up this ladder using real analyses at each step — a held-out R² for <code>PREDICTIVE</code>, a
+Frisch–Waugh–Lovell adjusted t-statistic and the Cinelli–Hazlett robustness value for <code>IDENTIFIED</code>
+through <code>ROBUST</code> — and records where each edge stopped and why. Symmetric relationship types (a
+correlation has no direction to identify) are capped at <code>HYPOTHESIZED</code> by design. The ladder is the
+framework's honesty made procedural: an edge labelled <code>HYPOTHESIZED</code> is precisely one that is real but
+not yet shown to be predictive or identifiable, and the API refuses to silently upgrade it. When an
+edge <em>is</em> used to predict, <code>scarcity.causal.uncertainty.predict_with_uncertainty</code> propagates both the
+parameter covariance and each parent's inclusion confidence into the prediction interval, so a
+forecast built on a merely-hypothesized parent inherits a wider band than one built on a robust
+one — the discovery confidence is carried through to the output rather than discarded at the boundary.</p>
+<hr />
+<h2>6. Borrowing Magnitude: Federation and Meta-Learning</h2>
+<p>The framework's refusal to estimate scarce magnitudes locally is made good by two layers.</p>
+<p><strong>Federation.</strong> Multiple Scarcity nodes — on different machines, institutions, or data silos — learn
+a shared knowledge graph while each keeps its raw data private; only model updates cross the wire.
+Aggregation is two-layer (device-level then server-level), with a differential-privacy guard adding
+calibrated noise before any update leaves a node, secure aggregation so the coordinator sees only the
+sum, a privacy-budget accountant that halts updates when the budget is spent, and trust scoring plus
+conflict reconciliation for disagreeing peers. The point of federation here is statistical power:
+pooling raises the effective sample per relationship. On East African macro data, pooling three
+countries lifted the effective sample from ≈34 to ≈102 and <strong>unlocked relationship types that lack
+power at a single country</strong> — equilibrium confidence rose 0.12→0.58, moderating 0.00→0.44, logical
+0.18→0.53, causal 0.62→0.96 — surfacing plausible macro drivers that annual single-country data
+cannot reliably identify.</p>
+<p>Federation is not universally beneficial, and the framework does not pretend otherwise (§7).</p>
+<p><strong>Meta-learning.</strong> Rather than discard knowledge when moving to a new domain, the meta layer
+accumulates it. An episodic memory stores, per past context, the embedding, the parameters applied,
+and the observed performance deltas, retrieved by cosine similarity to the current context; an online
+Reptile optimizer takes a step toward each task's solution so the meta-initialization drifts toward
+one good for all tasks; and a warm-start profile lets a node joining mid-stream begin from borrowed
+priors rather than from scratch. The Federation–Meta Interface (<code>fmi/</code>) is the translation layer that
+turns aggregated federation updates into these priors and carries meta-beliefs back.</p>
+<hr />
+<h2>7. Evaluation</h2>
+<p>The framework has been run across a deliberate spread of settings, chosen to span the <em>ground-truth</em>
+axis: a synthetic benchmark where the structure is known by construction; a mechanistic biological
+twin where the structure is known because we wrote the generating equations; and two real-world
+domains — macroeconomics and financial-market microstructure — where the structure is unknown and
+the scarcity is genuine. We report each honestly, and the contrast between them is the framework's
+actual message: structure is recoverable and useful <em>when the sample supports it</em>, and the correct
+posture when it does not is calibrated abstention plus borrowed magnitude.</p>
+<h3>7.1 Controlled recovery (synthetic ground truth)</h3>
+<p>On a synthetic benchmark whose dependency structure is known by construction (a <code>VariableProcess</code>
+design that guarantees dependence without leakage), the discovery core plus the calibration gate
+achieve <strong>exact recovery</strong> — precision, recall, and F1 all 1.00 (17 true positives, 0 false
+positives, 0 false negatives), with per-type recall 1.00 across all fifteen relationship types — at
+a <strong>null false-positive rate of 0.00</strong> on held-out null pairs. Given the recovered graph,
+graph-conditioned anomaly detection — flagging large residuals against a variable's discovered
+parents — reaches <strong>F1 = 0.80 with zero false positives</strong> at N = 3000, a +22.5% improvement over a
+blind Z-score baseline, and specifically catches <em>structural</em> anomalies (a relationship quietly
+breaking) that a univariate detector cannot see. These establish that when the ground truth exists
+and the sample is adequate, the framework recovers it without inventing edges. They are necessary
+checks, not claims about scarce real data.</p>
+<h3>7.2 Three domains</h3>
+<p><strong>Macroeconomics — real, scarce, no ground truth.</strong> On World Bank annual indicators for seven East
+African economies (≈34 observations each, 1990–2023), the framework behaves exactly as its name
+predicts, and we report it plainly. <em>Calibration is decisive and mandatory:</em> raw engine confidence
+admits false positives at 41% and ranks the first true relationship 123rd; the
+permutation/FDR/stability gate drives the null FPR to 0.00 and the first true relationship to rank 4
+— ahead of graphical lasso (11) and a correlation+AR scan (8). <em>The scarcity paradox is measured:</em>
+feeding the recovered structure to a shallow consumer helps (type-aware features beat raw lags by
+4–7%), while feeding the same structure to progressively deeper consumers degrades them
+monotonically, a graph neural network ending 96% worse than persistence — and no per-system consumer
+beats persistence at N≈34. <em>Graph-conditioned anomaly inverts under scarcity:</em> at N≈34 a blind
+Z-score wins (F1 0.44 vs 0.19), the break-even where discovered structure begins to help lying
+between ≈100 and ≈300 observations. <em>Federation is target-specific but real:</em> pooling three countries
+lifts the effective sample ≈34→≈102 and unlocks types that lack power singly (equilibrium confidence
+0.12→0.58, moderating 0.00→0.44, logical 0.18→0.53, causal 0.62→0.96); a coherence signal predicts
+the direction of federation benefit for 8 of 10 targets (Spearman ρ ≈ 0.50).</p>
+<p><strong>Biology — a mechanistic oracle, ground truth by construction.</strong> Pointed at a digital twin built
+from four validated, published disease models — diabetes, oncology, fibromyalgia, autoimmune, one
+per organ system — where the generating ODEs, and therefore the true coupling graph, are known, the
+same engine recovers the known structure of every head while the temporal-shuffle null collapses to
+zero: form F1 = 1.00 for oncology and autoimmune, 0.80 for fibromyalgia, and 0.4–0.5 for diabetes
+(lowered by indirect edges and a meal-dominated variable), against a shuffle null of 0.00 throughout;
+identifiability splits into a stiff tier recoverable from a handful of samples and a slow tier that
+is not, separated by 2.5× to 224× in sensitivity. This is a second, independent ground-truth check —
+on <em>mechanistic</em> rather than synthetic structure, on data the engine was not tuned for — and it
+holds across four organ systems. (Synthetic ground truth: mechanistic-generalization evidence, not
+clinical validation.)</p>
+<p><strong>Financial markets — real, fast, adversarial.</strong> Pointed blind at six days of Bitcoin order-flow
+microstructure (≈100,000 five-second bars derived from ~6 million signed trades), with no target or
+adjustment set specified, the engine recovers a 29-edge typed graph and — the decisive observation —
+<em>types it correctly</em>, separating a volatility relation (trade intensity → next-return magnitude,
+typed functional) from a directional one (order-flow imbalance ↔ return, typed correlational), a
+distinction a posed query cannot make. The offline arm recovers a robust order-flow → return effect
+(placebo p &lt; 0.001). The framework was then used to build a high-frequency trading strategy on this
+structure; consistent with its calibrated-abstention design, the strategy declines to trade the
+directional edge — real but transient and below transaction cost — while the engine's own typing
+points to the recoverable magnitude, a realized-volatility forecast reaching out-of-sample R² 0.40.
+Real adversarial data; single asset, short window (§8).</p>
+<h3>7.3 Where classical detectors break</h3>
+<p>A recovery method is only as interesting as the mistakes it avoids, so we ran the calibrated engine
+against five standard relationship detectors — Pearson correlation, Spearman correlation, mutual
+information, Granger causality, and the PC constraint-based structure learner — across six canonical
+failure modes with known correct answers: <em>no relationship</em>, <em>confounding</em>, <em>collider</em>, <em>reverse
+causality</em>, <em>feedback</em>, and <em>weak signal</em> (three seeds, majority verdict). No classical method clears
+all six: correlation-family detectors are misled by reverse causality and feedback, mutual information
+partially so; Granger and PC miss the <em>contemporaneous</em> confounded association because their lagged
+tests have nothing to fire on. The calibrated Scarcity engine is the only method that reaches the
+correct answer in every scenario — passing where each baseline individually fails — because it tests
+several relationship types per pair rather than committing to one detector's blind spot. This is a
+targeted claim, not a leaderboard: the scenarios are chosen precisely as the places a single-statistic
+detector fails, and Scarcity's advantage is coverage of relationship <em>type</em>, not a better estimate of
+any one of them.</p>
+<p><strong>Reproducibility.</strong> A seeded run is bit-reproducible: <code>set_seeds()</code> fixes the NumPy and Torch
+generators and enables deterministic kernels (<code>torch.use_deterministic_algorithms</code>, deterministic
+cuBLAS), so the calibrated graph is identical run to run on the same seed, on CPU or GPU. The whole
+hardening suite — scaling, drift, dirty-data robustness, the online-FDR characterization, ablations,
+threshold sensitivity, the discovery baselines, and the failure-mode matrix above — regenerates from a
+single command, <code>python benchmark/scripts/run_all.py</code>, which writes a provenance-stamped
+<code>benchmark/RESULTS.md</code> recording the git commit, timestamp, and Python/Torch versions that produced
+each table.</p>
+<h3>7.4 The framework in use</h3>
+<p>Scarcity is not a benchmark artefact; it is the discovery layer of working systems. The same engine
+underlies a national economic- and threat-intelligence platform (K-Shield / K-Scarcity), where it
+learns relationships from institutional data feeds and hands the typed graph to a stock-flow-
+consistent macro simulator; it powers the high-frequency trading system of §7.2; and it is the
+recovery substrate of the biological digital-twin programme from which the four-head results come.
+The evaluation suite of this paper is itself built on the framework's calibration and reporting
+machinery. The design goal is the same across all of them: recover form cheaply, refuse to invent
+magnitude, and re-discover under drift.</p>
+<h2>8. Limitations and Scientific Honesty</h2>
+<ul>
+<li><strong>Granger, not structural, causality.</strong> The online engine's <code>causal</code> type measures Granger-style
+  predictive structure from observational data. It does <strong>not</strong> perform structural causal
+  identification; intervention validity and identifiability are explicitly unsupported by the engine
+  and are delegated to the offline <code>causal/</code> do-calculus pipeline, which is itself bounded by the
+  usual observational assumptions.</li>
+<li><strong>Adaptive inference weakens permutation guarantees.</strong> Because the engine is online and stateful,
+  classical permutation-null assumptions hold only approximately. The online gate mitigates the most
+  common violation — serial dependence — by shrinking its test statistic to an effective sample size
+  (§5), and offers a LORD++ online-FDR controller for the sequential setting; but Benjamini–Hochberg
+  over the edge set still assumes weak dependence, and strong dependence may call for a more
+  conservative (Benjamini–Yekutieli) correction. The effective-sample correction reduces this error,
+  it does not eliminate it.</li>
+<li><strong>Observational equivalence.</strong> Under high noise or short samples, some structures are statistically
+  indistinguishable, and the framework cannot resolve them.</li>
+<li><strong>Benchmark scope.</strong> The exact-recovery result uses generator-native assumptions; adversarial and
+  fully out-of-distribution benchmarks remain future work. The real-data results are the honest
+  counterweight.</li>
+<li><strong>Federation is not free.</strong> It raises statistical power but can inject cross-node bias; its benefit
+  is target-specific and must be routed, not assumed.</li>
+<li><strong>Biological ground truth is synthetic.</strong> The digital-twin results (§7.2) are
+  mechanistic-generalization evidence, not clinical validation: the generating models are validated
+  from the literature but the trajectories are our own, so the results bound identifiability <em>in
+  principle</em>; real cohort data would add model mismatch.</li>
+<li><strong>Financial-markets scope.</strong> The microstructure result (§7.2) is a single asset (BTC/USD) over six
+  days; breadth across assets, venues, and regimes is future work, and the strategy's abstention
+  conflates genuine market efficiency with retail-scale transaction costs and a feature set lacking
+  limit-order-book depth — it shows <em>this</em> edge is unexploitable under <em>these</em> costs, not that none
+  exists.</li>
+</ul>
+<p>We state these because the framework's value is precisely in being calibrated about its own
+confidence; a version that overclaimed would defeat its purpose.</p>
+<h2>9. Availability</h2>
+<p>Scarcity is an installable, domain-agnostic Python package.</p>
+<div class="codehilite"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>scarcity<span class="w">            </span><span class="c1"># core: numpy, pandas, scipy</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;scarcity[causal]&quot;</span><span class="w">  </span><span class="c1"># + DoWhy / EconML for the offline arm (§9.1, step 4)</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;scarcity[all]&quot;</span><span class="w">     </span><span class="c1"># + gpu, stream, dashboard extras</span>
+</code></pre></div>
+
+<p>The core install covers the discovery engine, the simple federation hub/node, meta-learning, the
+resource governor, streaming, and synthetic data. Heavier subsystems are optional extras (<code>[gpu]</code>
+for the torch/vectorized backend, <code>[stream]</code> for WebSocket transports and sharding, <code>[dashboard]</code>
+for the FastAPI server); importing a subpackage without its extra raises <code>ImportError</code>. Each
+subpackage of <code>scarcity</code> maps to a layer of §3: <code>engine</code>, <code>causal</code>, <code>federation</code>, <code>fmi</code>, <code>meta</code>,
+<code>governor</code>, <code>stream</code>, <code>runtime</code>, <code>synthetic</code>, <code>dashboard</code>.</p>
+<h3>9.1 A guided tour of the library</h3>
+<p>This section walks through the installed package end to end, using only its public API — no
+repository checkout and no proprietary data. Everything in steps 1–4 runs from a bare
+<code>pip install "scarcity[causal]"</code>.</p>
+<p><strong>Step 1 — a stream with a relationship planted in it.</strong> We build a three-variable stream in which
+<code>x</code> drives <code>y</code> with a true coefficient of 0.8, while <code>z</code> is independent noise, so we know the ground
+truth and can check what the engine recovers.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">6000</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>                     <span class="c1"># independent noise</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>     <span class="c1"># x drives y; true coefficient 0.8</span>
+
+<span class="n">stream</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">t</span><span class="p">]),</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">t</span><span class="p">]),</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">t</span><span class="p">])}</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+</code></pre></div>
+
+<p><strong>Step 2 — discover typed relationships online.</strong> The engine ingests one row at a time and maintains
+the hypothesis pool of §4. Left to itself the engine picks the <strong>tensor backend</strong> whenever <code>torch</code> is
+present (§4.3), which is what a production caller wants; this tour pins <code>vectorized=False</code> so the
+snippet runs identically without a GPU and stays the reproducible reference. We also pass
+<code>calibrated=False</code> to look at the <em>raw</em> ranking first, then turn the gate on in Step 3b.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scarcity.engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">OnlineDiscoveryEngine</span><span class="p">,</span> <span class="n">RelationshipType</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">discover</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">calibrated</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">eng</span> <span class="o">=</span> <span class="n">OnlineDiscoveryEngine</span><span class="p">(</span><span class="n">vectorized</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>   <span class="c1"># omit vectorized=... to auto-select the GPU path</span>
+    <span class="n">eng</span><span class="o">.</span><span class="n">initialize</span><span class="p">({</span><span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;x&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;y&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;z&quot;</span><span class="p">}]})</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+        <span class="n">eng</span><span class="o">.</span><span class="n">process_row</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>                     <span class="c1"># per-row update; state lives in the engine</span>
+    <span class="k">return</span> <span class="n">eng</span><span class="o">.</span><span class="n">get_knowledge_graph</span><span class="p">(</span><span class="n">calibrated</span><span class="o">=</span><span class="n">calibrated</span><span class="p">)</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">discover</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>                         <span class="c1"># raw view; calibrated=True is the engine default</span>
+</code></pre></div>
+
+<p><strong>Step 3 — read and interpret the typed knowledge graph.</strong> <code>get_knowledge_graph()</code> serializes the
+strongest surviving hypotheses. Each edge carries its <code>type</code> (one of the fifteen
+<code>RelationshipType</code>s), its <code>variables</code>, and a <code>metrics</code> block with the raw confidence, fit, and
+accumulated evidence.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="o">-</span><span class="n">e</span><span class="p">[</span><span class="s2">&quot;metrics&quot;</span><span class="p">][</span><span class="s2">&quot;confidence&quot;</span><span class="p">]):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">edge</span><span class="p">[</span><span class="s2">&quot;metrics&quot;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span> <span class="n">edge</span><span class="p">[</span><span class="s2">&quot;variables&quot;</span><span class="p">],</span> <span class="nb">round</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">&quot;confidence&quot;</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">&quot;ev=&quot;</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;evidence&quot;</span><span class="p">))</span>
+<span class="c1"># top edge: correlational [&#39;x&#39;, &#39;y&#39;] conf 1.0 ev 6000   (the planted relation)</span>
+<span class="c1"># z stays negligible; untested triples sit at the neutral 0.5 prior with evidence 0</span>
+</code></pre></div>
+
+<p>The <code>evidence</code> field matters as much as <code>confidence</code>: the neutral-prior triples print <code>conf 0.5,
+ev 0</code> — hypotheses the engine seeded but never tested — and must not be mistaken for findings.</p>
+<p><strong>Step 3b — calibrate before trusting (the §5 gate).</strong> These raw confidences are a <strong>ranking signal,
+not a significance test</strong>, so no edge should be trusted until it passes the §5 gate — and that gate is
+now the <strong>engine default</strong>. <code>get_knowledge_graph(calibrated=True)</code> (the default on both backends) runs
+it inline: on the tensor backend it applies the type-appropriate permutation nulls with BH-FDR at
+<code>q = 0.05</code> and returns each surviving edge with a permutation <code>p_value</code> and a partial-R² effect size,
+dropping the rest. On this stream it keeps the <code>x–y</code> relation — typed correlational, functional,
+probabilistic, and structural, all at <code>p ≈ 0</code> — and cuts the noise variable <code>z</code> entirely; passing
+<code>min_partial_r2=…</code> adds an effect-size floor on top of significance. You can also reproduce the
+<em>principle</em> over the public API on either backend — re-discover on column-shuffled copies that destroy
+real structure, and keep only edges that beat every null run and clear a floor:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">confmap</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{(</span><span class="n">e</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="s2">&quot;variables&quot;</span><span class="p">])):</span> <span class="n">e</span><span class="p">[</span><span class="s2">&quot;metrics&quot;</span><span class="p">][</span><span class="s2">&quot;confidence&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">g</span><span class="p">}</span>
+
+<span class="n">real</span><span class="p">,</span> <span class="n">null</span> <span class="o">=</span> <span class="n">confmap</span><span class="p">(</span><span class="n">graph</span><span class="p">),</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">100</span> <span class="o">+</span> <span class="n">seed</span><span class="p">)</span>
+    <span class="n">shuffled</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">c</span><span class="p">)}</span>
+                <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">r</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">r</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">z</span><span class="p">))]</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">confmap</span><span class="p">(</span><span class="n">discover</span><span class="p">(</span><span class="n">shuffled</span><span class="p">))</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">null</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+<span class="n">trusted</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">real</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="nb">max</span><span class="p">(</span><span class="n">null</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]))</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">&gt;=</span> <span class="mf">0.10</span><span class="p">]</span>
+<span class="c1"># -&gt; [(&#39;correlational&#39;, (&#39;x&#39;, &#39;y&#39;))]   real conf 1.00 vs null max 0.00; every other edge is cut</span>
+</code></pre></div>
+
+<p><strong>Step 4 — quantify a magnitude with the offline causal arm.</strong> The engine finds <em>what</em> to
+investigate; <code>scarcity.causal</code> estimates <em>how much</em>, via DoWhy identification plus EconML
+heterogeneous effects. It takes a pandas <code>DataFrame</code> and an <code>EstimandSpec</code>.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scarcity.causal</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_causal</span><span class="p">,</span> <span class="n">EstimandSpec</span><span class="p">,</span> <span class="n">EstimandType</span><span class="p">,</span> <span class="n">RuntimeSpec</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+<span class="n">spec</span> <span class="o">=</span> <span class="n">EstimandSpec</span><span class="p">(</span><span class="n">treatment</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">outcome</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">confounders</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;z&quot;</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="n">EstimandType</span><span class="o">.</span><span class="n">ATE</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">run_causal</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">spec</span><span class="p">,</span> <span class="n">RuntimeSpec</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">art</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">results</span><span class="p">:</span>               <span class="c1"># one EffectArtifact per spec</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">art</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">treatment</span><span class="p">,</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">art</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">outcome</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">art</span><span class="o">.</span><span class="n">estimate</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  95% CI:&quot;</span><span class="p">,</span> <span class="n">art</span><span class="o">.</span><span class="n">confidence_intervals</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  refuters:&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s2">&quot;passed&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">art</span><span class="o">.</span><span class="n">refuter_results</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+    <span class="c1"># -&gt; x -&gt; y 0.796</span>
+    <span class="c1">#    95% CI: (0.791, 0.801)</span>
+    <span class="c1">#    refuters: {&#39;random_common_cause&#39;: True, &#39;placebo_treatment&#39;: True, &#39;data_subset&#39;: True}</span>
+</code></pre></div>
+
+<p>Each <code>EffectArtifact</code> carries the point <code>estimate</code>, its <code>confidence_intervals</code>, and
+<code>refuter_results</code> — the placebo, random-common-cause, and data-subset refutations, each
+re-estimating the effect under a perturbation: the two stability refuters leave it near 0.80, while
+the placebo (a fake treatment) collapses it to 0. <code>refuter_results</code> also carries a <code>sensitivity</code>
+entry: the refuters test robustness to <em>perturbation</em>, but not to a confounder that was never
+measured, so the arm adds a Cinelli–Hazlett omitted-variable-bias analysis — the <strong>robustness
+value</strong> (the minimum strength, as a partial R² with both treatment and outcome, an unmeasured
+confounder would need to nullify the effect) and the treatment's own partial R² as a benchmark,
+computed from the adjusted-regression t-statistic and verified against the canonical sensemakr
+Darfur values.</p>
+<p><strong>Step 5 — borrow structure across nodes (federation).</strong> The same engine wires into a federation so
+several nodes learn a shared graph without moving raw data (§6). Nodes are organized around
+<em>baskets</em> (named variable groups with a schema); a <code>FederationHub</code> registers <code>FederationNode</code>s,
+streams observations to each, and reconciles their directed findings.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scarcity.engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">FederationNode</span><span class="p">,</span> <span class="n">FederationHub</span>
+
+<span class="n">hub</span> <span class="o">=</span> <span class="n">FederationHub</span><span class="p">()</span>
+<span class="n">hub</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">FederationNode</span><span class="p">(</span><span class="s2">&quot;node_a&quot;</span><span class="p">))</span>
+<span class="n">hub</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">FederationNode</span><span class="p">(</span><span class="s2">&quot;node_b&quot;</span><span class="p">))</span>
+<span class="n">hub</span><span class="o">.</span><span class="n">observe_all</span><span class="p">(</span><span class="n">basket_rows</span><span class="p">)</span>             <span class="c1"># each node updates locally on its own rows</span>
+<span class="n">hub</span><span class="o">.</span><span class="n">sync_directions</span><span class="p">()</span>                    <span class="c1"># reconcile edge directions across peers</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>                     <span class="c1"># per-basket findings, trust, pooled structure</span>
+</code></pre></div>
+
+<p>Federation raises statistical power — recall (§6) that pooling three countries unlocked
+relationship types that lack power singly — but it is target-specific and must be routed, not assumed
+(§7.2).</p>
+<p><em>Verified.</em> Steps 1–4 were run against <code>scarcity</code> 0.1.0 on CPython 3.11: the engine recovers
+<code>correlational (x, y)</code> at confidence 1.00 on 6000 observations of evidence, the shuffle-null gate of
+step 3b leaves exactly that one edge (real 1.00 vs null 0.00) and cuts every other, and the offline
+arm returns an average treatment effect of 0.80 with a 95% interval of (0.791, 0.801) — the planted
+coefficient — its placebo refutation collapsing the effect to 0 and both stability refutations
+holding near 0.80.</p>
+<h3>9.2 Reproducing the paper's numbers</h3>
+<p>Steps 1–5 exercise the library; the <em>benchmark tables</em> in §5–§7 are reproduced from the public
+repository (the benchmark harness — labelled <code>VariableProcess</code> generators, the World Bank loaders,
+and the baseline models — ships in the repo tree, not inside the pip package). Environment:
+<code>pip install "scarcity[all]"</code> plus the baselines the benchmarks compare against
+(<code>pip install prophet statsmodels torch scikit-learn</code>), Python ≥ 3.9. The real-data results use
+public World Bank national-accounts indicators for the East African economies; no private data is
+involved. One command runs the suite —</p>
+<div class="codehilite"><pre><span></span><code>python<span class="w"> </span>benchmark/scripts/benchmark_full_system.py<span class="w"> </span>--phase<span class="w"> </span>all
+</code></pre></div>
+
+<p>— writing reports to <code>benchmark/reports/outputs/</code>, including the claim-integrity matrix that grades
+each result as supported, partially supported, or unsupported. Single results:</p>
+<table>
+<thead>
+<tr>
+<th>Result in this paper</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>§5 / §7.1 exact recovery — per-type recall 1.00, null FPR 0.00</td>
+<td><code>benchmark_full_system.py --phase synthetic</code></td>
+</tr>
+<tr>
+<td>§7.1 graph-conditioned anomaly (F1 0.80, N=3000)</td>
+<td><code>benchmark/scripts/benchmark_anomaly.py</code></td>
+</tr>
+<tr>
+<td>§7.2 real anomaly at N≈34 (Z-score 0.44 vs graph 0.19)</td>
+<td><code>benchmark/scripts/benchmark_anomaly_real.py</code></td>
+</tr>
+<tr>
+<td>§7.2 forecasting (10 targets × 4 horizons, bootstrap CIs)</td>
+<td><code>benchmark/scripts/benchmark_forecasting_horizons.py</code></td>
+</tr>
+<tr>
+<td>§7.2 / §6 federation routing (8/10, Spearman ρ ≈ 0.50)</td>
+<td><code>benchmark/scripts/benchmark_federation_diagnostic.py</code></td>
+</tr>
+<tr>
+<td>break-even N-sweep (when graph-conditioning helps)</td>
+<td><code>benchmark/scripts/benchmark_n_sweep.py</code></td>
+</tr>
+<tr>
+<td>§7.3 baselines × failure modes (Scarcity clears all six)</td>
+<td><code>benchmark/scripts/baselines_failure_modes.py</code></td>
+</tr>
+</tbody>
+</table>
+<p>The hardening benchmarks introduced in §7.3 — scaling, drift, dirty-data robustness, online-FDR
+characterization, ablations, threshold sensitivity, the discovery baselines, and the failure-mode
+matrix — are additionally wrapped by a single orchestrator that runs the suite and writes one
+provenance-stamped report:</p>
+<div class="codehilite"><pre><span></span><code>python<span class="w"> </span>benchmark/scripts/run_all.py<span class="w">            </span><span class="c1"># full configs -&gt; benchmark/RESULTS.md</span>
+python<span class="w"> </span>benchmark/scripts/run_all.py<span class="w"> </span>--quick<span class="w">     </span><span class="c1"># fast smoke (small n / few seeds)</span>
+</code></pre></div>
+
+<p><code>RESULTS.md</code> records the git commit, timestamp, and Python/Torch versions alongside each table, so a
+reviewer can see exactly which revision produced the numbers.</p>
+<p>The exact-recovery claim is the one most worth re-running yourself: it is the check that the discovery
+core plus the calibration gate return zero false positives when the ground truth exists, on a
+generator whose structure is known by construction.</p>
+<h2>10. Conclusion</h2>
+<p>Scarcity treats structure and magnitude as different kinds of thing. It recovers the form of
+relationships — across fifteen types, with a calibration gate strict enough to return zero false
+positives on controlled ground truth — and it refuses to invent the magnitudes a scarce stream cannot
+support, borrowing them from a federation of peers instead. The controlled results show the discovery
+core works when the sample supports it; the real-data results show, just as clearly, where it does
+not, and the framework's response to that boundary — calibrated abstention, borrowed magnitude,
+adaptive re-discovery under drift — is its actual contribution. It is released as a domain-agnostic
+package, and this paper is its introduction: the design, the methodology, and the measured behaviour,
+successes and failures reported on the same page.</p>
+<hr />
+<h2>References</h2>
+<ol>
+<li>Granger, C. W. J. (1969). Investigating Causal Relations by Econometric Models and Cross-Spectral Methods. <em>Econometrica</em>, 37(3), 424–438.</li>
+<li>Engle, R. F., &amp; Granger, C. W. J. (1987). Co-integration and Error Correction. <em>Econometrica</em>, 55(2), 251–276.</li>
+<li>Benjamini, Y., &amp; Hochberg, Y. (1995). Controlling the False Discovery Rate. <em>JRSS B</em>, 57(1), 289–300.</li>
+<li>Benjamini, Y., &amp; Yekutieli, D. (2001). The Control of the False Discovery Rate Under Dependency. <em>Annals of Statistics</em>, 29(4), 1165–1188.</li>
+<li>Meinshausen, N., &amp; Bühlmann, P. (2010). Stability Selection. <em>JRSS B</em>, 72(4), 417–473.</li>
+<li>Page, E. S. (1954). Continuous Inspection Schemes. <em>Biometrika</em>, 41(1/2), 100–115.</li>
+<li>Thompson, W. R. (1933). On the Likelihood That One Unknown Probability Exceeds Another. <em>Biometrika</em>, 25(3/4), 285–294.</li>
+<li>Nichol, A., Achiam, J., &amp; Schulman, J. (2018). On First-Order Meta-Learning Algorithms. <em>arXiv:1803.02999</em>.</li>
+<li>McMahan, B., et al. (2017). Communication-Efficient Learning of Deep Networks from Decentralized Data (FedAvg). <em>AISTATS</em>.</li>
+<li>Bonawitz, K., et al. (2017). Practical Secure Aggregation for Privacy-Preserving Machine Learning. <em>ACM CCS</em>.</li>
+<li>Dwork, C., &amp; Roth, A. (2014). The Algorithmic Foundations of Differential Privacy. <em>Found. Trends Theor. Comput. Sci.</em>, 9(3–4).</li>
+<li>Sharma, A., &amp; Kiciman, E. (2020). DoWhy: An End-to-End Library for Causal Inference. <em>arXiv:2011.04216</em>.</li>
+<li>Chernozhukov, V., et al. (2018). Double/Debiased Machine Learning (EconML). <em>Econometrics Journal</em>, 21(1).</li>
+</ol>
+                </article>
+
+                <!-- Mobile Navigation (Bottom) -->
+                
+                <div class="lg:hidden mt-16 border-t border-gray-200 pt-8">
+                    <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-4">Read Next
+                    </h3>
+                    <div class="flex flex-col gap-2">
+                        
+                        
+                        
+                        
+                        <a href="/writing/essays/role-playing-mirroring/" class="text-sm py-2 text-accent-blue hover:underline">Why Role-Playing is Still Mirroring, Just Narrowed</a>
+                        
+                        
+                        
+                        <a href="/writing/reflections/self-actualization-growing/" class="text-sm py-2 text-accent-blue hover:underline">Self-Actualization - Growing to Be Your Best Self</a>
+                        
+                        
+                        
+                        <a href="/writing/reflections/intellectual-loneliness/" class="text-sm py-2 text-accent-blue hover:underline">Intellectual Loneliness</a>
+                        
+                        
+                        
+                        <a href="/writing/poetry/fragments-of-thought/" class="text-sm py-2 text-accent-blue hover:underline">Fragments of Thought</a>
+                        
+                        
+                    </div>
+                </div>
+                
+
+            </main>
+
+    </div>
+
+</div>
+
+    </main>
+
+    <footer class="bg-zinc-900 mt-24 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-white">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wider mb-2 text-white">OMEGA MAKENA</span>
+                    <div class="text-zinc-400 text-sm font-sans">
+                        © 2026 Omega Makena Mwebia.<br>
+                        Engineering Intelligence.
+                    </div>
+                </div>
+                <div class="flex space-x-8">
+                    
+                    <a href="https://github.com/Omega-Makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">GitHub</a>
+                    
+                    
+                    <a href="https://www.linkedin.com/in/omega-makena" target="_blank"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">LinkedIn</a>
+                    
+                    <a href="mailto:mwebiamakenaa@gmail.com"
+                        class="text-zinc-400 hover:text-white hover:underline transition-colors text-sm font-bold font-mono uppercase tracking-widest">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // FlatPages/Pygments strips the `language-mermaid` class and injects spans.
+            // We search for all code blocks and check if the unformatted text indicates a diagram.
+            const allCodeBlocks = document.querySelectorAll(".codehilite code, pre code");
+            const blocksToProcess = [];
+            
+            allCodeBlocks.forEach(function(block) {
+                const text = block.textContent.trim();
+                if (text.startsWith("flowchart") || text.startsWith("sequenceDiagram") || text.startsWith("graph") || text.startsWith("stateDiagram")) {
+                    blocksToProcess.push({block: block, text: text});
+                }
+            });
+
+            blocksToProcess.forEach(function(item) {
+                const div = document.createElement('div');
+                div.className = 'mermaid flex justify-center w-full overflow-x-auto my-8'; 
+                div.textContent = item.text;
+                
+                const container = item.block.closest('.codehilite') || item.block.closest('pre');
+                if (container) {
+                    container.replaceWith(div);
+                }
+            });
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'neutral',
+                themeVariables: {
+                    'background': 'transparent',
+                    'primaryColor': '#18181B',
+                    'primaryTextColor': '#18181B',
+                    'lineColor': '#a3a3a3',
+                    'fontSize': '14px'
+                }
+            });
+            
+            if (blocksToProcess.length > 0) {
+                // Let the browser paint the divs before running mermaid
+                setTimeout(() => {
+                    mermaid.run({ querySelector: '.mermaid' });
+                }, 50);
+            }
+        });
+    </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+</body>
+
+</html>

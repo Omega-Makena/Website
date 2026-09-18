@@ -10,7 +10,7 @@
     <meta name="keywords" content="AI, Machine Learning, Research, Education, Technology, Ethics">
     <meta name="author" content="Omega Makena Mwebia">
 
-    <title>Scarcity Framework - Omega Makena Mwebia</title>
+    <title>Scarcity - Omega Makena Mwebia</title>
 
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -240,7 +240,7 @@
                     </div>
 
                     <h1 class="text-4xl md:text-5xl font-serif font-bold text-text-primary leading-tight mb-6">
-                        Scarcity Framework
+                        Scarcity
                     </h1>
 
                     
@@ -262,72 +262,80 @@
                             prose-ul:list-disc prose-ul:pl-6
                             prose-li:marker:text-accent-main prose-li:my-2">
                     <h1>Scarcity</h1>
-<p><strong>Scarcity</strong> is a research framework for discovering structural relationships under data scarcity. It provides a complete engine for analyzing, forecasting, and understanding dynamic systems when data is too thin, noisy, or scarce to model directly.</p>
-<p>The core library implements machinery designed for:
-1. <strong>Structural Discovery</strong>: Finding invariant relationships across non-stationary regimes.
-2. <strong>Online Inference</strong>: Learning from streaming data in real-time.
-3. <strong>Adaptive Resource Management</strong>: Dynamically adapting models based on system constraints.</p>
+<h3>Structure Before Scale</h3>
+<p><strong>Scarcity</strong> is a research framework for discovering structural relationships in dynamic multivariate data when observations are limited.</p>
+<p>It started with a practical problem in macroeconomic modelling: some of the datasets I was working with had only a few dozen observations per variable. There was not enough data to reliably estimate everything I wanted the model to know.</p>
+<p>So I changed the question.</p>
+<p>Instead of asking a model to learn the whole system from sparse observations, <strong>what if we first recovered the structure of the system itself?</strong></p>
+<p>That became Scarcity.</p>
 <hr />
-<h2>1. System Block Diagram</h2>
-<p>The Scarcity core library follows a layered architecture with strict separation of concerns.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
-<span class="w">    </span><span class="n">App</span><span class="p">[</span><span class="n">Application</span><span class="w"> </span><span class="n">Layer</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FMI</span><span class="p">[</span><span class="n">FMI</span><span class="w"> </span><span class="n">Service</span><span class="p">]</span>
-<span class="w">    </span><span class="n">App</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Sim</span><span class="p">[</span><span class="n">Simulation</span><span class="p">]</span>
-<span class="w">    </span><span class="n">App</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Meta</span><span class="p">[</span><span class="n">Meta</span><span class="o">-</span><span class="n">Learning</span><span class="p">]</span>
-
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Core</span><span class="p">[</span><span class="s">&quot;Core Runtime&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">FMI</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Fed</span><span class="p">[</span><span class="n">Federation</span><span class="w"> </span><span class="n">Layer</span><span class="p">]</span>
-<span class="w">        </span><span class="n">Fed</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Eng</span><span class="p">[</span><span class="n">Engine</span><span class="w"> </span><span class="n">Layer</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">MPIE</span><span class="p">]</span>
-<span class="w">        </span><span class="n">Eng</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Stream</span><span class="p">[</span><span class="n">Stream</span><span class="w"> </span><span class="n">Processing</span><span class="p">]</span>
-
-<span class="w">        </span><span class="n">Note</span><span class="p">[</span><span class="n">Runtime</span><span class="w"> </span><span class="n">Bus</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Telemetry</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Eng</span>
-<span class="w">        </span><span class="n">Note</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Fed</span>
-
-<span class="w">        </span><span class="n">DRG</span><span class="p">[</span><span class="n">Dynamic</span><span class="w"> </span><span class="n">Resource</span><span class="w"> </span><span class="n">Governor</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Eng</span>
-<span class="w">        </span><span class="n">DRG</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">FMI</span>
-<span class="w">    </span><span class="n">end</span>
-
-<span class="w">    </span><span class="n">Stream</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Ops</span><span class="p">[</span><span class="n">Core</span><span class="w"> </span><span class="n">Operators</span><span class="p">]</span>
+<h2>What Scarcity Does</h2>
+<p>Scarcity processes data as a stream and builds a <strong>typed, evolving relationship graph</strong> of the system.</p>
+<p>It does not assume that every dependency is a correlation. It can represent different kinds of relationships between variables and track whether those relationships become stronger, weaker, or disappear as new observations arrive.</p>
+<p>The discovered structure can then be used as a prior or representation for other models.</p>
+<p>The basic loop is:</p>
+<p><strong>observe → discover structure → evaluate → maintain → reuse</strong></p>
+<p>The aim is not to replace statistical or machine-learning models.</p>
+<p>It is to give them information about <strong>how the system is organized</strong> before asking them to learn everything from the observations themselves.</p>
+<hr />
+<h2>Why It Exists</h2>
+<p>Most machine-learning workflows treat limited data as a reason to use a simpler model, stronger regularization, or more prior information.</p>
+<p>Scarcity explores a different possibility:</p>
+<blockquote>
+<p><strong>Some of the information we need may be in the organization of the system rather than in the number of observations.</strong></p>
+</blockquote>
+<p>That idea is especially interesting in systems where observations are expensive, irregular, noisy, or constantly changing.</p>
+<hr />
+<h2>The Research</h2>
+<p>The research began with macroeconomic data and expanded into several substantially different environments.</p>
+<h3>Macroeconomics</h3>
+<p>The original test case used annual indicators for East African economies, with roughly 34 observations per variable.</p>
+<p>Scarcity's calibrated discovery process substantially improved the ranking and false-positive behavior of recovered relationships under this constraint.</p>
+<p>The downstream results were mixed—which is important. Some shallow structure-aware consumers improved over raw lag features, while deeper consumers degraded and simple persistence remained difficult to beat.</p>
+<h3>Financial Markets</h3>
+<p>Scarcity was subsequently tested on high-frequency Bitcoin trade and order-flow data.</p>
+<p>The streaming engine recovered a typed market graph and was used to distinguish different forms of order-flow and volatility relationships. The study also tested whether discovered relationships translated into economically useful trading signals.</p>
+<p>They did not all do so.</p>
+<p>A statistically detectable relationship was not automatically treated as a tradable edge.</p>
+<h3>Biological Systems</h3>
+<p>Scarcity's structural discovery machinery is also used inside <strong>BioTwin</strong>, an experimental continuous-time biological modelling environment.</p>
+<p>Controlled mechanistic experiments test whether known biological structure can be recovered from sparse, heterogeneous observations across multiple biological scales.</p>
+<p>These experiments are validation environments for the framework. They are not claims of clinical validation.</p>
+<hr />
+<h2>The Paper</h2>
+<p>The research is documented in:</p>
+<h3><em>Scarcity: A Streaming Relationship-Discovery and Federated-Learning Framework for Multivariate Time Series Under Data Scarcity</em></h3>
+<p>The paper describes the framework, its statistical calibration, relationship model, federated setting, benchmarks, and domain experiments.</p>
+<p><strong>[Read the Paper]</strong></p>
+<p>This is a research manuscript / preprint. The results are empirical and bounded by the experiments reported in the work.</p>
+<hr />
+<h2>The Software</h2>
+<p>Scarcity is also implemented as a Python package.</p>
+<h3>Install</h3>
+<div class="codehilite"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>scarcity
 </code></pre></div>
 
-<h3>Component Interaction Flow:</h3>
-<ol>
-<li><strong>Data Ingestion</strong>: Stream sources feed data windows to the engine via the stream processing loop.</li>
-<li><strong>Path Exploration</strong>: <strong>MPIE</strong> proposes and evaluates candidate paths using bandit algorithms (UCB/Thompson).</li>
-<li><strong>Federation</strong>: Successful paths are packaged into <code>PathPacks</code> and shared across domains via the Federation Coordinator.</li>
-<li><strong>Meta-Learning</strong>: Cross-domain patterns are learned and applied to the global model prior.</li>
-<li><strong>Resource Management</strong>: <strong>DRG</strong> monitors system resources (CPU, RAM) and throttles the Engine adaptation gracefully.</li>
-<li><strong>Simulation</strong>: Agent-based models provide what-if analysis capabilities to predict system behavior offline.</li>
-</ol>
+<p>The package contains the framework itself rather than a simplified demonstration of the idea.</p>
+<p>The research and software evolve together: experiments inform the framework, while the framework provides the environment in which those experiments can be reproduced and extended.</p>
+<p><strong>[View the Repository]</strong></p>
 <hr />
-<h2>2. Multi-Path Inference Engine (MPIE)</h2>
-<p>The <strong>Multi-Path Inference Engine (MPIE)</strong> is the core component responsible for online learning and adaptive inference. It discovers optimal computation paths dynamically, and naturally adapts to available CPU/RAM in real-time.</p>
-<h3>Processing Pipeline</h3>
-<ol>
-<li><strong>Proposal Phase</strong>: The Controller analyzes the current context and proposes candidate inference pathways.</li>
-<li><strong>Evaluation Phase</strong>: Evaluates candidates on the incoming data window, scores their performance (Accuracy vs Latency), and computes confidence bands.</li>
-<li><strong>Selection Phase</strong>: Selects the best path based on Reward and Cost, avoiding local optima via diversity penalties.</li>
-<li><strong>Update Phase</strong>: The system updates the Bandit routing tables based on the result.</li>
-</ol>
-<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>
-<span class="w">    </span><span class="n">A</span><span class="p">[</span><span class="n">Data</span><span class="w"> </span><span class="n">Stream</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">Controller</span><span class="err">\</span><span class="n">nProposal</span><span class="w"> </span><span class="n">Phase</span><span class="p">]</span>
-<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C</span><span class="p">{</span><span class="n">Evaluator</span><span class="err">\</span><span class="n">nPerformance</span><span class="w"> </span><span class="n">scoring</span><span class="p">}</span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">High</span><span class="w"> </span><span class="n">Yield</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D</span><span class="p">[</span><span class="n">Adopt</span><span class="w"> </span><span class="n">Path</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Exploit</span><span class="p">]</span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Unknown</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span><span class="p">[</span><span class="n">Explore</span><span class="w"> </span><span class="n">Safely</span><span class="p">]</span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">Poor</span><span class="w"> </span><span class="n">Yield</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span><span class="p">[</span><span class="n">Discard</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Penalize</span><span class="p">]</span>
-<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">G</span><span class="p">[</span><span class="n">Bandit</span><span class="w"> </span><span class="n">Updates</span><span class="p">]</span>
-</code></pre></div>
-
+<h2>What I Am Actually Testing</h2>
+<p>The central claim under investigation is narrower than “Scarcity solves data scarcity.”</p>
+<p>It is:</p>
+<blockquote>
+<p><strong>When observations are scarce, some useful information about a system may survive in its structure even when its magnitudes are difficult to estimate reliably.</strong></p>
+</blockquote>
+<p>The research is therefore testing three separate questions:</p>
+<p><strong>Can structure be discovered?</strong></p>
+<p><strong>Can it be distinguished from noise?</strong></p>
+<p><strong>Does using that structure actually improve another task?</strong></p>
+<p>Scarcity has produced evidence for some of these questions and negative or inconclusive results for others.</p>
+<p>That distinction is part of the work.</p>
 <hr />
-<h2>3. Bandit Routing Algorithm</h2>
-<p>The core controller uses an <strong>Upper Confidence Bound (UCB)</strong> formula infused with inference diversity bonuses. It simultaneously seeks accuracy while strictly penalizing heavy latency.</p>
-<p><code>UCB(arm) = μ(arm) + τ · √(2ln(T) / n(arm)) + γ · D(arm) - η · C(arm)</code></p>
-<p><strong>Execution Drivers</strong>:
-* <strong>μ(arm)</strong>: Mean reward observed so far for this algorithm path.
-* <strong>τ</strong>: Temperature parameter to dynamically adjust exploration boldness.
-* <strong>D(arm)</strong>: Diversity score to encourage testing unexplored inference branches.
-* <strong>C(arm)</strong>: Execution latency cost to discard slow paths dynamically.</p>
-<p>If a device reaches thermal throttling, the <strong>Dynamic Resource Governor (DRG)</strong> directly scales up the negative weight <code>η</code>, forcing the Bandit Router to immediately discard mathematically dense neural network pathways and default to simpler, lighter heuristic trees.</p>
+<h2>Current Status</h2>
+<p>Scarcity is an <strong>active independent research programme with an implemented software framework and accompanying research paper</strong>.</p>
+<p>The main research phase is now focused less on adding capability and more on consolidating the evidence, documenting failure modes, preserving benchmarks, and establishing where the underlying idea holds—and where it does not.</p>
+<p><strong>Structure survives when magnitudes do not.</strong></p>
                 </article>
 
                 <!-- Mobile Navigation (Bottom) -->
