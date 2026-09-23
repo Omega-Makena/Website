@@ -2,6 +2,11 @@
 
 {% block title %}{{ page.meta.title }} - {{ config.site.title }}{% endblock %}
 {% block meta_description %}{{ page.meta.description or config.site.description }}{% endblock %}
+{% block og_title %}{{ page.meta.title }}{% endblock %}
+{% block og_description %}{{ page.meta.description or config.site.description }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block tw_title %}{{ page.meta.title }}{% endblock %}
+{% block tw_description %}{{ page.meta.description or config.site.description }}{% endblock %}
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-20">
